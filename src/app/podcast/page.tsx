@@ -179,7 +179,7 @@ export default function PodcastPage() {
                 {/* Player Info */}
                 <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
                   <span className="text-brandOrange text-[10px] font-bold tracking-[0.2em] uppercase mb-4 block">
-                    {podcast.latestEpisode}
+                    EPISODIO 01 • {podcast.latestEpisode}
                   </span>
                   <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 leading-tight">
                     {featuredEpisode?.title}
