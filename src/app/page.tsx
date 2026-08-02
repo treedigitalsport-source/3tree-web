@@ -1012,6 +1012,7 @@ function MainContent() {
               if (index === 0) href = "/privacy";
               if (index === 1) href = "/terms";
               if (index === 2) href = "/cookies";
+              if (index === 3) href = "/about";
               return (
                 <Link key={item} href={href} className="hoverable text-white text-[10px] font-mono tracking-[0.2em] font-medium hover:text-brandOrange transition-colors duration-500">{item}</Link>
               );
