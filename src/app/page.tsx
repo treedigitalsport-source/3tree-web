@@ -483,25 +483,17 @@ function MainContent() {
 
         <div className="flex items-center gap-4">
           
-          {/* Animated Translator Icon */}
+          {/* Tech Translator Button */}
           <button 
             onClick={toggleLang}
-            className="relative flex items-center justify-center w-8 h-8 hoverable group" 
-            title="Change Language"
+            className="hoverable relative flex items-center gap-2.5 text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-white/80 hover:text-white transition-all duration-300 border border-white/10 hover:border-brandOrange/40 rounded-full pl-4 pr-3 py-2 bg-white/[0.03] backdrop-blur-md group shadow-xl"
+            title={lang === 'es' ? "Switch to English" : "Cambiar a Español"}
           >
-            <motion.div 
-              animate={{ rotate: 360 }} 
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 rounded-full border border-dashed border-white/20 group-hover:border-brandOrange/50 transition-colors duration-500"
-            />
-            <Globe className="w-4 h-4 text-white/50 group-hover:text-brandOrange transition-colors duration-500" />
-          </button>
-
-          <button 
-            onClick={toggleLang}
-            className="hoverable text-[10px] font-bold uppercase tracking-[0.15em] text-white/60 hover:text-white transition-colors border border-white/10 hover:border-white/30 rounded-full px-4 py-2 bg-white/5 backdrop-blur-md"
-          >
-            {lang === 'en' ? 'ESP' : 'ENG'}
+            <span>{lang === 'en' ? 'ESP' : 'ENG'}</span>
+            <div className="relative flex items-center justify-center w-5 h-5 rounded-full bg-white/5 group-hover:bg-brandOrange/20 transition-colors">
+              <Globe className="w-3 h-3 text-white/60 group-hover:text-brandOrange group-hover:rotate-45 transition-all duration-500" />
+              <div className="absolute inset-0 rounded-full border border-dashed border-white/20 animate-[spin_10s_linear_infinite] group-hover:border-brandOrange/40 transition-colors"></div>
+            </div>
           </button>
           
           <MagneticButton href="/contact" className="hoverable group relative px-7 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] overflow-hidden text-white border border-white/10 hover:border-brandOrange/50 transition-all duration-700">
