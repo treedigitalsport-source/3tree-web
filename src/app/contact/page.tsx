@@ -85,7 +85,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-widest text-brandOrange font-bold mb-1">Ubicación</p>
-                <p className="font-medium text-lg">Miami, FL — Operaciones Globales</p>
+                <p className="font-medium text-lg">Lutz, Florida — Operaciones Globales</p>
               </div>
             </div>
           </div>
