@@ -395,6 +395,7 @@ function InThePlaySection() {
 
 function MainContent() {
   const { t, lang, toggleLang } = useLang();
+  const isEs = lang === "es";
   const [isDiarioOpen, setIsDiarioOpen] = useState(false);
   const horizontalRef = useRef<HTMLDivElement>(null);
 
@@ -463,6 +464,7 @@ function MainContent() {
             const sectionIds = ["services", "projects", "podcast", "journal", "impact", "in-the-play", "contact"];
             
             let targetUrl = `#${sectionIds[i]}`;
+            if (sectionIds[i] === "projects") targetUrl = "/projects/kinebase";
             if (sectionIds[i] === "podcast") targetUrl = "/podcast";
             if (sectionIds[i] === "journal") targetUrl = "/journal";
             if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
@@ -773,7 +775,7 @@ function MainContent() {
           {/* Background Images - Fixed in center and cross-fading based on scroll progress */}
           <div className="absolute inset-0 z-0 pointer-events-none">
             
-            {/* Image 1 - Gridiron AI */}
+            {/* Image 1 - Biomechanics */}
             <motion.div 
               className="absolute inset-0"
               style={{
@@ -783,10 +785,10 @@ function MainContent() {
                 scale: scale1
               }}
             >
-              <Image src="/gridiron_ai_1785627944344.jpg" alt="Gridiron AI" fill quality={100} className="object-cover object-center opacity-60 mix-blend-screen" />
+              <Image src="/baseball_biomechanics_1785628048219.jpg" alt="Kinebase Pro" fill quality={100} className="object-cover object-center opacity-60 mix-blend-screen" />
             </motion.div>
 
-            {/* Image 2 - System Data */}
+            {/* Image 2 - Computer Vision */}
             <motion.div 
               className="absolute inset-0"
               style={{
@@ -796,11 +798,11 @@ function MainContent() {
                 scale: scale2
               }}
             >
-              <Image src="/baseball_biomechanics_1785628048219.jpg" alt="System Data" fill quality={100} className="object-cover object-center opacity-60 mix-blend-screen" />
+              <Image src="/hero-baseball.jpg" alt="Markerless Tracking" fill quality={100} className="object-cover object-center opacity-60 mix-blend-screen" />
             </motion.div>
 
 
-            {/* Image 3 - Ice Analytics */}
+            {/* Image 3 - Data Science */}
             <motion.div 
               className="absolute inset-0"
               style={{
@@ -810,76 +812,92 @@ function MainContent() {
                 scale: scale3
               }}
             >
-              <Image src="/ice_analytics_1785627967807.jpg" alt="Ice Analytics" fill quality={100} className="object-cover object-center opacity-60 mix-blend-screen" />
+              <Image src="/system_data_1785627955822.jpg" alt="Scouting Dashboard" fill quality={100} className="object-cover object-center opacity-60 mix-blend-screen" />
             </motion.div>
 
           </div>
 
           <motion.div style={{ x }} className="flex w-[500vw] z-10 relative">
 
-            {/* Panel 1 */}
+            {/* Panel 1 - Introduction */}
             <div className="w-screen h-screen flex flex-col justify-center items-center text-center px-6 md:px-20 shrink-0">
               <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="text-brandOrange font-mono text-[11px] tracking-[0.4em] uppercase font-bold mb-8 inline-flex items-center gap-3">
-                <span className="w-8 h-[1px] bg-brandOrange"></span> {t.caseStudy}
+                <span className="w-8 h-[1px] bg-brandOrange"></span> {isEs ? "PROYECTO DESTACADO" : "FEATURED PROJECT"}
               </motion.span>
-              <h2 className="font-display text-6xl md:text-[10rem] font-black uppercase text-white leading-none mb-6 orange-blur-text" data-text={t.scoutAi}>{t.scoutAi}</h2>
-              <h3 className="font-display text-3xl md:text-5xl font-bold uppercase text-white/30 mb-8">{t.pro}</h3>
-              <p className="text-white/30 max-w-md text-base font-medium">{t.exploreScroll}</p>
+              <h2 className="font-display text-6xl md:text-[10rem] font-black uppercase text-white leading-none mb-6 orange-blur-text" data-text="KINEBASE">KINEBASE</h2>
+              <h3 className="font-display text-3xl md:text-5xl font-bold uppercase text-white/30 mb-8">{isEs ? "PRO" : "PRO"}</h3>
+              <p className="text-white/30 max-w-md text-base font-medium">{isEs ? "Una revolución en análisis biomecánico 3D y prevención de lesiones." : "A revolution in 3D biomechanical analysis and injury prevention."}</p>
             </div>
 
-            {/* Panel 2 - Ventana Uno (Gridiron) */}
+            {/* Panel 2 - Phase 1 */}
             <div className="w-screen h-screen flex flex-col md:flex-row justify-center items-center shrink-0 relative px-10 md:px-24 group gap-10">
-
                {/* Text Column */}
                <div className="w-full md:w-1/2 flex flex-col justify-center items-start md:pl-10 relative z-10 md:mr-auto">
                   <span className="text-brandOrange font-mono tracking-[0.3em] uppercase text-[10px] font-bold mb-4 flex items-center gap-2">
-                     <span className="w-4 h-[1px] bg-brandOrange"></span> {t.phase1}
+                     <span className="w-4 h-[1px] bg-brandOrange"></span> {isEs ? "Fase 01" : "Phase 01"}
                   </span>
-                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">{t.project1Title[0]} <br/> {t.project1Title[1]}</h3>
-                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">{t.phase1Desc}</p>
+                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">
+                    {isEs ? "RASTREO SIN" : "MARKERLESS"}<br/>{isEs ? "MARCADORES" : "TRACKING"}
+                  </h3>
+                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">
+                    {isEs 
+                      ? "Reconstrucción esquelética 3D en tiempo real directo desde cámaras normales sin trajes ni sensores." 
+                      : "Real-time 3D skeletal reconstruction directly from standard high-speed cameras with no sensors."}
+                  </p>
                </div>
             </div>
 
-            {/* Panel 3 - Ventana Dos (System Data) */}
+            {/* Panel 3 - Phase 2 */}
             <div className="w-screen h-screen flex flex-col md:flex-row justify-center items-center shrink-0 relative px-10 md:px-24 group gap-10">
-
                {/* Text Column */}
                <div className="w-full md:w-1/2 flex flex-col justify-center items-end text-right md:pr-10 relative z-10 md:ml-auto">
                   <span className="text-brandOrange font-mono tracking-[0.3em] uppercase text-[10px] font-bold mb-4 flex items-center gap-2">
-                     {t.phase2} <span className="w-4 h-[1px] bg-brandOrange"></span>
+                     {isEs ? "Fase 02" : "Phase 02"} <span className="w-4 h-[1px] bg-brandOrange"></span>
                   </span>
-                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">{t.project2Title[0]} <br/> {t.project2Title[1]}</h3>
-                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">{t.phase2Desc}</p>
+                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">
+                    {isEs ? "ÁNGULOS Y" : "JOINT ANGLES"}<br/>{isEs ? "MÉTRICAS" : "& FORCES"}
+                  </h3>
+                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">
+                    {isEs 
+                      ? "Análisis preciso de velocidad angular, flexión de articulaciones y fuerzas rotacionales." 
+                      : "Precise analysis of angular velocity, joint flexion, and rotational forces during movement."}
+                  </p>
                </div>
             </div>
 
-            {/* Panel 4 - Ventana Tres (Ice Analytics) */}
+            {/* Panel 4 - Phase 3 */}
             <div className="w-screen h-screen flex flex-col md:flex-row justify-center items-center shrink-0 relative px-10 md:px-24 group gap-10">
-
                {/* Text Column */}
                <div className="w-full md:w-1/2 flex flex-col justify-center items-start md:pl-10 relative z-10 md:mr-auto">
-                  <span className="text-brandBlue font-mono tracking-[0.3em] uppercase text-[10px] font-bold mb-4 flex items-center gap-2">
-                     <span className="w-4 h-[1px] bg-brandBlue"></span> {t.phase3}
+                  <span className="text-brandOrange font-mono tracking-[0.3em] uppercase text-[10px] font-bold mb-4 flex items-center gap-2">
+                     <span className="w-4 h-[1px] bg-brandOrange"></span> {isEs ? "Fase 03" : "Phase 03"}
                   </span>
-                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">{t.project3Title[0]} <br/> {t.project3Title[1]}</h3>
-                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">{t.phase3Desc}</p>
+                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">
+                    {isEs ? "PREVENCIÓN Y" : "SCOUTING"}<br/>{isEs ? "SCOUTING" : "& PREVENTION"}
+                  </h3>
+                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">
+                    {isEs 
+                      ? "Identificación de asimetrías musculares y fatiga para mitigar lesiones y optimizar el perfil atlético." 
+                      : "Identification of muscular asymmetries and fatigue to prevent injuries and optimize athletic profile."}
+                  </p>
                </div>
             </div>
 
-            {/* Panel 5 - CTA (Movido a sub-menu) 
+            {/* Panel 5 - Link to Submenu */}
             <div className="w-screen h-screen flex justify-center items-center shrink-0">
               <motion.div
                 className="flex flex-col items-center justify-center rounded-[3rem] p-16 md:p-24 max-w-3xl"
                 style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(30px)", border: "1px solid rgba(255,255,255,0.05)" }}
                 whileHover={{ scale: 1.02 }}
               >
-                <h2 className="font-display text-5xl md:text-7xl font-black uppercase text-white text-center leading-none mb-10">{t.haveProject1} <br /> {t.haveProject2}<br /> {t.haveProject3}</h2>
-                <MagneticButton href="#contact" className="hoverable bg-brandOrange text-white px-10 py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:shadow-2xl hover:shadow-brandOrange/30 transition-all duration-500">
-                  {t.letsTalk}
-                </MagneticButton>
+                <h2 className="font-display text-5xl md:text-7xl font-black uppercase text-white text-center leading-none mb-10">
+                  {isEs ? "VER KINEBASE PRO" : "VIEW KINEBASE PRO"}<br/>{isEs ? "COMPLETO" : "DETAILS"}
+                </h2>
+                <Link href="/projects/kinebase" className="hoverable bg-brandOrange text-white px-10 py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:shadow-2xl hover:shadow-brandOrange/30 transition-all duration-500 cursor-pointer">
+                  {isEs ? "EXPLORAR SUBMENÚ" : "EXPLORE SUBMENU"}
+                </Link>
               </motion.div>
             </div>
-            */}
 
           </motion.div>
         </div>
