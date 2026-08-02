@@ -1022,8 +1022,6 @@ function MainContent() {
 
 export default function Home() {
   return (
-    <LangProvider>
-      <MainContent />
-    </LangProvider>
+    <MainContent />
   );
 }

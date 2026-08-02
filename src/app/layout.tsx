@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import LoadingScreen from "@/components/ui/LoadingScreen";
+import { LangProvider } from "./i18n";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,10 +25,12 @@ export default function RootLayout({
       className={`${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-black text-white font-sans overflow-x-hidden">
-        <LoadingScreen />
-        <main className="flex-1 w-full">
-          {children}
-        </main>
+        <LangProvider>
+          <LoadingScreen />
+          <main className="flex-1 w-full">
+            {children}
+          </main>
+        </LangProvider>
       </body>
     </html>
   );
