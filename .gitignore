@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Firebase credentials
+firebase-service-account.json
+
+# Scratch files
+*.log
+*.js
+*.txt
+*.html
+*.tsx.backup
+temp_page_backup.tsx
+recover.py
+ide_config.json

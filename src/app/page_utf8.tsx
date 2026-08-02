@@ -1,11 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { LangProvider, useLang } from "./i18n";
-import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, ChevronDown, BookOpen, X, Send, UploadCloud, Play, Globe } from "lucide-react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { ArrowRight, ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, ChevronDown } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import Lenis from "lenis";
 
@@ -197,52 +195,121 @@ function MagneticButton({ children, className = "", href = "#" }: { children: Re
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 /*  JOURNAL SECTION (2026 Editorial Hover)                    */
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-function JournalSection({ onOpenJournal }: { onOpenJournal: () => void }) {
-  const { t } = useLang();
+function JournalSection() {
+  const [hoveredArticle, setHoveredArticle] = useState<number | null>(null);
   
-  return (
-    <section id="journal" className="py-32 relative">
-      <div className="container mx-auto px-6 text-center">
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-brandOrange font-mono text-[11px] tracking-[0.4em] uppercase font-bold inline-flex items-center gap-3 justify-center mb-8"
-        >
-          <span className="w-12 h-[1px] bg-brandOrange"></span>
-          {t.ourJournal}
-          <span className="w-12 h-[1px] bg-brandOrange"></span>
-        </motion.span>
-        
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-display text-7xl md:text-[120px] font-black uppercase leading-[0.85] tracking-tight text-white mb-16"
-        >
-          {t.theEdge[0]} <br/>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandOrange to-brandBlue">
-            {t.theEdge[1]}
-          </span>
-        </motion.h2>
+  // Mouse position for the floating image
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 150, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 150, damping: 20 });
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-        >
-          <button 
-            onClick={onOpenJournal}
-            className="group relative px-12 py-6 bg-white/5 border border-white/10 rounded-full overflow-hidden hover:border-brandOrange transition-colors duration-500 hoverable mx-auto block"
+  const handleMouseMove = (e: React.MouseEvent) => {
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
+  };
+
+  const articles = [
+    {
+      id: 0,
+      title: "How AI is Reshaping Athlete Biomechanics in 2026",
+      category: "AI Integration",
+      date: "Oct 12, 2026",
+      image: "/journal-1.jpg"
+    },
+    {
+      id: 1,
+      title: "The New Standard for Fan Engagement",
+      category: "UI/UX",
+      date: "Sep 28, 2026",
+      image: "/journal-2.jpg"
+    },
+    {
+      id: 2,
+      title: "Real-time Data: Winning Before the Whistle",
+      category: "Sport Analytics",
+      date: "Sep 15, 2026",
+      image: "/journal-3.jpg"
+    }
+  ];
+
+  return (
+    <section id="journal" className="py-32 relative cursor-default" onMouseMove={handleMouseMove}>
+      <div className="container mx-auto px-6">
+        {/* Header */}
+        <div className="flex flex-col items-start mb-24 gap-5">
+          <motion.span
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="text-brandOrange font-mono text-[11px] tracking-[0.4em] uppercase font-bold inline-flex items-center gap-3"
           >
-            <div className="absolute inset-0 bg-brandOrange translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-            <span className="relative z-10 font-mono text-sm tracking-widest uppercase font-bold group-hover:text-black transition-colors duration-500 flex items-center justify-center gap-4">
-              {t.exploreJournal}
-              <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform duration-500" />
-            </span>
-          </button>
-        </motion.div>
+            <span className="w-12 h-[1px] bg-brandOrange"></span>
+            Our Journal
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-display text-5xl md:text-8xl font-black uppercase text-white leading-[0.85]"
+          >
+            The <span className="text-brandOrange">Edge</span>
+          </motion.h2>
+        </div>
+
+        {/* Article List */}
+        <div className="flex flex-col border-t border-white/[0.05]">
+          {articles.map((article) => (
+            <div 
+              key={article.id}
+              className="group relative border-b border-white/[0.05] py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-6 hoverable"
+              onMouseEnter={() => setHoveredArticle(article.id)}
+              onMouseLeave={() => setHoveredArticle(null)}
+            >
+              {/* Category & Date */}
+              <div className="flex flex-col gap-3 md:w-1/4">
+                <span className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase font-bold">{article.category}</span>
+                <span className="font-mono text-[10px] text-white/30 tracking-[0.2em] uppercase">{article.date}</span>
+              </div>
+              
+              {/* Mobile Image (Hidden on Desktop) */}
+              <div className="relative w-full h-48 rounded-xl overflow-hidden md:hidden my-4">
+                <Image src={article.image} alt={article.title} fill className="object-cover" />
+              </div>
+              
+              {/* Title */}
+              <div className="md:w-3/4">
+                <h3 className={`font-display text-3xl md:text-5xl font-black uppercase leading-[1.1] transition-all duration-500 ${hoveredArticle !== null && hoveredArticle !== article.id ? 'text-white/10' : 'text-white group-hover:text-brandOrange md:group-hover:translate-x-4'}`}>
+                  {article.title}
+                </h3>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* Floating Image Reveal (Desktop Only) */}
+      <motion.div 
+        className="fixed top-0 left-0 w-[400px] h-[250px] pointer-events-none z-50 overflow-hidden rounded-2xl shadow-2xl hidden md:block"
+        style={{
+          x: springX,
+          y: springY,
+          translateX: "-50%",
+          translateY: "-50%",
+          opacity: hoveredArticle !== null ? 1 : 0,
+          scale: hoveredArticle !== null ? 1 : 0.8,
+        }}
+        transition={{ opacity: { duration: 0.3 }, scale: { duration: 0.3, type: "spring", stiffness: 200 } }}
+      >
+        {articles.map((article) => (
+          <div 
+            key={article.id} 
+            className={`absolute inset-0 transition-opacity duration-500 ${hoveredArticle === article.id ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <Image src={article.image} alt={article.title} fill className="object-cover" />
+          </div>
+        ))}
+      </motion.div>
     </section>
   );
 }
@@ -250,152 +317,7 @@ function JournalSection({ onOpenJournal }: { onOpenJournal: () => void }) {
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 /*  MAIN PAGE                                                 */
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-function DiarioFullPage({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const { t } = useLang();
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div 
-          initial={{ opacity: 0, y: "100%" }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: "100%" }}
-          transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl overflow-y-auto"
-        >
-          <div className="min-h-screen p-6 md:p-12">
-            <div className="flex justify-between items-center mb-16">
-              <span className="text-brandOrange font-mono text-[11px] tracking-[0.4em] uppercase font-bold inline-flex items-center gap-3">
-                <BookOpen className="w-4 h-4" /> {t.diarioTitle}
-              </span>
-              <button onClick={onClose} className="p-4 bg-white/5 rounded-full hover:bg-brandOrange transition-colors group hoverable">
-                <X className="w-6 h-6 text-white group-hover:text-black transition-colors" />
-              </button>
-            </div>
-            
-            <div className="max-w-4xl mx-auto space-y-12">
-              <h2 className="font-display text-5xl md:text-7xl font-black uppercase leading-none text-white">
-                {t.diarioSubtitle1} <br/><span className="text-brandOrange">{t.diarioSubtitle2}</span>
-              </h2>
-              
-              <div className="bg-white/5 rounded-[2rem] p-8 md:p-12 border border-white/10">
-                <h3 className="font-mono text-sm tracking-widest uppercase text-brandOrange mb-6">{t.newEntry}</h3>
-                <input type="text" placeholder={t.entryTitle} className="w-full bg-transparent border-b border-white/10 pb-4 text-2xl md:text-4xl font-display text-white placeholder-white/20 focus:outline-none focus:border-brandOrange transition-colors mb-8 hoverable" />
-                <textarea placeholder={t.entryBody} rows={6} className="w-full bg-transparent border border-white/10 rounded-xl p-6 text-white/70 placeholder-white/20 focus:outline-none focus:border-brandOrange transition-colors resize-none hoverable font-sans text-lg leading-relaxed mb-8"></textarea>
-                <button className="bg-brandOrange text-white px-8 py-4 rounded-full font-mono text-[11px] tracking-widest uppercase font-bold hover:shadow-lg hover:shadow-brandOrange/20 transition-all hoverable flex items-center gap-2">
-                  <Send className="w-4 h-4" /> {t.saveEntry}
-                </button>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════════════ */
-/*  IN THE PLAY (FLOATING HUB PLATFORM)                                       */
-/* ══════════════════════════════════════════════════════════════════════════ */
-function InThePlaySection() {
-  const { t } = useLang();
-  
-  return (
-    <section id="in-the-play" className="min-h-screen relative flex items-center justify-center overflow-hidden bg-[#020617] border-y border-white/[0.04] py-20">
-      
-      {/* Background Cinematic Video */}
-      <div className="absolute inset-0 z-0">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          className="w-full h-full object-cover opacity-30 blur-[6px] scale-110"
-        >
-          <source src="/hero-video-cropped.mp4" type="video/mp4" />
-        </video>
-        {/* Dark Vignette overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(2,6,23,0.85)_100%)] pointer-events-none"></div>
-      </div>
-
-      {/* Orbiting Community Videos (Decorative) */}
-      <div className="absolute inset-0 z-10 pointer-events-none hidden md:block">
-         <motion.div 
-           animate={{ y: [0, -20, 0], rotate: [0, 2, 0] }} 
-           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-           className="absolute top-[15%] left-[8%] w-48 h-28 rounded-2xl border border-white/10 overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.8)] opacity-60 backdrop-blur-md"
-         >
-            <div className="absolute inset-0 bg-white/5"></div>
-            <div className="absolute bottom-2 left-3 text-[8px] font-mono text-white/50">@alex_pro</div>
-         </motion.div>
-         
-         <motion.div 
-           animate={{ y: [0, 15, 0], rotate: [0, -3, 0] }} 
-           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-           className="absolute bottom-[20%] left-[15%] w-40 h-56 rounded-2xl border border-white/10 overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.8)] opacity-40 backdrop-blur-md"
-         >
-            <div className="absolute inset-0 bg-brandOrange/5"></div>
-            <div className="absolute bottom-2 left-3 text-[8px] font-mono text-white/50">@miguel_88</div>
-         </motion.div>
-
-         <motion.div 
-           animate={{ y: [0, -15, 0], rotate: [0, -2, 0] }} 
-           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-           className="absolute top-[25%] right-[10%] w-56 h-32 rounded-2xl border border-white/10 overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.8)] opacity-50 backdrop-blur-md"
-         >
-            <div className="absolute inset-0 bg-brandBlue/10"></div>
-            <div className="absolute bottom-2 right-3 text-[8px] font-mono text-white/50">@sarah_fit</div>
-         </motion.div>
-      </div>
-
-      {/* Floating Hub (Center) */}
-      <div className="relative z-20 w-full max-w-2xl mx-4 group">
-        
-        {/* Glow behind the hub */}
-        <div className="absolute -inset-10 bg-brandOrange/20 blur-[100px] rounded-full opacity-40 group-hover:opacity-70 transition-opacity duration-1000"></div>
-
-        <div className="relative bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-10 md:p-16 shadow-2xl flex flex-col items-center text-center overflow-hidden hoverable">
-          
-          {/* Top Live Badge */}
-          <div className="absolute top-8 left-8">
-             <span className="text-white/80 text-[9px] font-mono uppercase tracking-[0.3em] font-bold bg-white/5 px-4 py-2 rounded-full border border-white/10 flex items-center gap-2 shadow-lg">
-               <span className="w-1.5 h-1.5 rounded-full bg-brandOrange animate-pulse"></span>
-               {t.liveFeed}
-             </span>
-          </div>
-
-          <h3 className="font-display text-4xl md:text-5xl font-black uppercase text-white mb-4 mt-8 md:mt-2 leading-none">
-             {t.inThePlayTitle}
-          </h3>
-          <p className="text-white/50 mb-10 text-sm leading-relaxed max-w-sm">
-             {t.uploadDesc}
-          </p>
-
-          {/* Drag & Drop Area */}
-          <div className="w-full border-2 border-dashed border-white/10 hover:border-brandOrange/50 rounded-[2rem] p-10 md:p-12 flex flex-col items-center justify-center transition-colors duration-500 bg-black/30 hover:bg-brandOrange/[0.03] cursor-pointer mb-8 group/drop relative overflow-hidden">
-             
-             {/* Subtle inner gradient */}
-             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"></div>
-
-             <div className="relative z-10 w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover/drop:scale-110 transition-transform duration-500 border border-white/10 group-hover/drop:border-brandOrange/30 shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover/drop:shadow-[0_0_40px_rgba(242,101,34,0.2)]">
-                <UploadCloud className="w-8 h-8 text-white/40 group-hover/drop:text-brandOrange transition-colors" />
-             </div>
-             <p className="relative z-10 text-white/60 font-mono text-[10px] uppercase tracking-[0.2em] font-bold">MP4, MOV (Max 50MB)</p>
-          </div>
-
-          <button className="w-full bg-brandOrange text-white py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_30px_rgba(242,101,34,0.4)] hover:bg-white hover:text-brandOrange transition-all duration-500 flex items-center justify-center gap-3 relative z-10">
-             <UploadCloud className="w-4 h-4" /> {t.uploadButton}
-          </button>
-          
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MainContent() {
-  const { t, lang, toggleLang } = useLang();
-  const [isDiarioOpen, setIsDiarioOpen] = useState(false);
+export default function Home() {
   const horizontalRef = useRef<HTMLDivElement>(null);
 
   /* Lenis smooth scroll */
@@ -458,57 +380,21 @@ function MainContent() {
           </div>
         </div>
 
-        <nav className="hidden lg:flex gap-6 text-xs font-bold tracking-[0.2em] uppercase text-white/40 items-center">
-          {t.nav.map((item, i) => {
-            const sectionIds = ["services", "projects", "podcast", "journal", "impact", "in-the-play", "contact"];
-            
-            let targetUrl = `#${sectionIds[i]}`;
-            if (sectionIds[i] === "podcast") targetUrl = "/podcast";
-            if (sectionIds[i] === "journal") targetUrl = "/journal";
-            if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
-            if (sectionIds[i] === "contact") targetUrl = "/contact";
-
-            return (
-              <div key={item} className="relative group/nav">
-                <Link href={targetUrl} className="hoverable hover:text-white transition-colors duration-500 flex items-center gap-1 group/link">
-                  {item}
-                </Link>
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandOrange group-hover/nav:w-full transition-all duration-500"></span>
-              </div>
-            );
-          })}
+        <nav className="hidden lg:flex gap-8 text-xs font-bold tracking-[0.2em] uppercase text-white/40">
+          {["Services", "Projects", "Journal", "Impact", "Contact"].map((item) => (
+            <a key={item} href={`#${item.toLowerCase()}`} className="hoverable hover:text-white transition-colors duration-500 relative group">
+              {item}
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandOrange group-hover:w-full transition-all duration-500"></span>
+            </a>
+          ))}
         </nav>
 
-        <div className="flex items-center gap-4">
-          
-          {/* Animated Translator Icon */}
-          <button 
-            onClick={toggleLang}
-            className="relative flex items-center justify-center w-8 h-8 hoverable group" 
-            title="Change Language"
-          >
-            <motion.div 
-              animate={{ rotate: 360 }} 
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 rounded-full border border-dashed border-white/20 group-hover:border-brandOrange/50 transition-colors duration-500"
-            />
-            <Globe className="w-4 h-4 text-white/50 group-hover:text-brandOrange transition-colors duration-500" />
-          </button>
-
-          <button 
-            onClick={toggleLang}
-            className="hoverable text-[10px] font-bold uppercase tracking-[0.15em] text-white/60 hover:text-white transition-colors border border-white/10 hover:border-white/30 rounded-full px-4 py-2 bg-white/5 backdrop-blur-md"
-          >
-            {lang === 'en' ? 'ESP' : 'ENG'}
-          </button>
-          
-          <MagneticButton href="/contact" className="hoverable group relative px-7 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] overflow-hidden text-white border border-white/10 hover:border-brandOrange/50 transition-all duration-700">
-            <span className="absolute inset-0 bg-brandOrange scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></span>
-            <span className="relative z-10 flex items-center gap-2">
-              {t.cta} <ArrowUpRight className="w-3 h-3 group-hover:rotate-45 transition-transform duration-300" />
-            </span>
-          </MagneticButton>
-        </div>
+        <MagneticButton href="#contact" className="hoverable group relative px-7 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] overflow-hidden text-white border border-white/10 hover:border-brandOrange/50 transition-all duration-700">
+          <span className="absolute inset-0 bg-brandOrange scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out"></span>
+          <span className="relative z-10 flex items-center gap-2">
+            Start Project <ArrowUpRight className="w-3 h-3 group-hover:rotate-45 transition-transform duration-300" />
+          </span>
+        </MagneticButton>
       </motion.header>
 
       {/* â•â•â• HERO SECTION â•â•â• */}
@@ -530,10 +416,10 @@ function MainContent() {
               loop 
               muted 
               playsInline
-              className="w-full h-full object-cover opacity-70 mix-blend-screen scale-[1.35] translate-y-[15%]"
+              className="w-full h-full object-cover opacity-90 mix-blend-screen scale-[1.35] translate-y-[15%]"
               style={{ objectPosition: 'center 100%' }}
             >
-              <source src="/hero-video.mp4" type="video/mp4" />
+              <source src="/hero-video-cropped.mp4" type="video/mp4" />
             </video>
           </motion.div>
 
@@ -552,22 +438,30 @@ function MainContent() {
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-10 ml-[60px]"
+              className="mb-10"
             >
-              <span className="inline-flex items-center text-brandOrange font-mono text-sm md:text-base tracking-[0.4em] uppercase font-bold">
-                --{t.tagline}--
+              <span className="inline-flex items-center gap-3 text-brandOrange font-mono text-[11px] tracking-[0.4em] uppercase font-bold">
+                <motion.span
+                  className="inline-block w-12 h-[1px] bg-brandOrange"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 0.8 }}
+                  style={{ transformOrigin: "left" }}
+                />
+                Sport Tech Agency
               </span>
             </motion.div>
 
             {/* Main Title â€” massive with stagger */}
             <h1 className="font-display font-black text-[clamp(2.5rem,7vw,8rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-4xl relative z-20 pointer-events-none mix-blend-difference ml-[60px]">
-              {[t.heroLine1, t.heroLine2, t.heroLine3].map((line, i) => (
+              {["We Design", "The Future", "Of Sports."].map((line, i) => (
                 <div key={i} className="overflow-hidden">
                   <motion.span
-                    initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
-                    animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.6, delay: 0.2 + i * 0.18, ease: [0.16, 1, 0.3, 1] }}
-                    className={`block drop-shadow-2xl ${i === 1 ? "font-serif italic font-normal tracking-normal text-[#f26522]" : "text-white"}`}
+                    initial={{ y: "130%", rotateX: 40 }}
+                    animate={{ y: 0, rotateX: 0 }}
+                    transition={{ duration: 1.4, delay: 0.2 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                    className={`block ${i === 1 ? "orange-blur-text" : ""} ${i === 2 ? "text-white/30" : ""}`}
+                    {...(i === 1 ? { "data-text": line } : {})}
                   >
                     {line}
                   </motion.span>
@@ -582,7 +476,8 @@ function MainContent() {
               transition={{ duration: 1.2, delay: 1 }}
               className="mt-12 text-white/45 text-base md:text-lg font-light leading-[1.8] max-w-lg tracking-wide"
             >
-              {t.heroDesc}
+              We fuse high-performance design, data analytics, and cutting-edge
+              development for the sports industry.
             </motion.p>
 
             {/* CTA Row */}
@@ -593,11 +488,11 @@ function MainContent() {
               className="mt-10 flex flex-wrap gap-4 items-center"
             >
               <MagneticButton href="#work" className="hoverable group inline-flex items-center gap-3 bg-brandOrange px-8 py-4 rounded-full text-white text-[11px] font-bold uppercase tracking-[0.15em] hover:shadow-2xl hover:shadow-brandOrange/30 transition-all duration-500">
-                {t.viewWork}
+                View Our Work
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
               </MagneticButton>
               <MagneticButton href="#contact" className="hoverable group inline-flex items-center gap-3 px-8 py-4 rounded-full text-white/60 text-[11px] font-bold uppercase tracking-[0.15em] border border-white/10 hover:border-white/30 hover:text-white transition-all duration-500 backdrop-blur-sm">
-                {t.getInTouch}
+                Get In Touch
               </MagneticButton>
             </motion.div>
           </div>
@@ -609,7 +504,7 @@ function MainContent() {
             animate={{ opacity: 1 }}
             transition={{ delay: 2 }}
           >
-            <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-white/20">{t.scroll}</span>
+            <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-white/20">Scroll</span>
             <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
               <ChevronDown className="w-4 h-4 text-white/20" />
             </motion.div>
@@ -617,12 +512,10 @@ function MainContent() {
         </div>
       </section>
 
-      {/* Cinematic Showcase moved below Services */}
-
-      {/* ——— MARQUEE STRIP ——— */}
+      {/* â•â•â• MARQUEE STRIP â•â•â• */}
       <div className="py-6 border-y border-white/[0.04] overflow-hidden">
         <Marquee speed={40}>
-          {t.marquee1.map((item, i) => (
+          {["UI/UX Design", "Sport Analytics", "Brand Identity", "Web Development", "Data Visualization", "Mobile Apps", "AI Integration", "Performance Tech"].map((item, i) => (
             <span key={i} className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/10 mx-8 flex items-center gap-4">
               {item}
               <span className="w-1.5 h-1.5 rounded-full bg-brandOrange/30"></span>
@@ -631,11 +524,16 @@ function MainContent() {
         </Marquee>
       </div>
 
-      {/* ——— STATS ——— */}
+      {/* â•â•â• STATS â•â•â• */}
       <section id="impact" className="py-24 relative z-10">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            {t.stats.map((stat, i) => (
+            {[
+              { value: 150, suffix: "+", label: "Projects Delivered" },
+              { value: 40, suffix: "+", label: "Elite Athletes" },
+              { value: 98, suffix: "%", label: "Client Retention" },
+              { value: 12, suffix: "", label: "Industry Awards" },
+            ].map((stat, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 50 }}
@@ -654,116 +552,76 @@ function MainContent() {
         </div>
       </section>
 
-      {/* ═════ SERVICES (THE 3 PILLARS) ═════ */}
-      <section id="services" className="py-32 relative min-h-screen flex items-center overflow-hidden bg-[#020617]">
-        
-        {/* Ambient Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brandOrange/5 blur-[120px] rounded-full pointer-events-none"></div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          
-          <div className="flex flex-col items-center text-center mb-20 gap-4">
+      {/* â•â•â• SERVICES â•â•â• */}
+      <section id="services" className="py-32 relative">
+        <div className="container mx-auto px-6">
+          {/* Section Header */}
+          <div className="flex flex-col items-start mb-24 gap-5">
             <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="text-brandOrange font-mono text-[11px] tracking-[0.4em] uppercase font-bold inline-flex items-center gap-3"
             >
               <span className="w-12 h-[1px] bg-brandOrange"></span>
-              OUR EXPERTISE
-              <span className="w-12 h-[1px] bg-brandOrange"></span>
+              What We Do
             </motion.span>
             <motion.h2
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               className="font-display text-5xl md:text-8xl font-black uppercase text-white leading-[0.85]"
             >
-              Dominating <span className="text-brandOrange">The Digital Space</span>
+              Our <span className="text-brandOrange">Expertise</span>
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Pillar 1: UI/UX Design */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.7 }}
-              className="relative p-10 rounded-3xl flex flex-col justify-start overflow-hidden border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-500 hoverable group shadow-2xl"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-[#0054a6]/10 text-[#0054a6] flex items-center justify-center mb-8 border border-[#0054a6]/20 group-hover:bg-[#0054a6]/20 transition-colors">
-                <LayoutTemplate className="w-8 h-8" />
-              </div>
-              <h3 className="text-3xl font-display font-black uppercase mb-4 text-white">UI/UX Design</h3>
-              <p className="text-white/50 text-base leading-relaxed font-medium">
-                Intuitive interfaces for scouting applications and performance dashboards. We design experiences that give teams a competitive edge.
-              </p>
-            </motion.div>
+          {/* Service Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { icon: <LayoutTemplate className="w-10 h-10" strokeWidth={1.5} />, num: "01", title: "UI/UX Design", desc: "Intuitive interfaces for scouting applications and performance dashboards. We design experiences that give teams a competitive edge.", accent: "#0054a6" },
+              { icon: <Cpu className="w-10 h-10" strokeWidth={1.5} />, num: "02", title: "Sport Tech Dev", desc: "Custom software development and sports data API integration. From real-time analytics to machine learning pipelines.", accent: "#f26522" },
+              { icon: <Fingerprint className="w-10 h-10" strokeWidth={1.5} />, num: "03", title: "Brand Identity", desc: "Building modern sports brands and art direction. Visual systems that command respect and inspire loyalty.", accent: "#8b5cf6" },
+            ].map((s, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 70 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ delay: i * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="hoverable group service-card relative p-10 rounded-3xl flex flex-col justify-between min-h-[440px] overflow-hidden border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.02] transition-colors duration-700"
+              >
+                {/* Hover glow */}
+                <div className="absolute -top-20 -right-20 w-[250px] h-[250px] rounded-full blur-[100px] opacity-0 group-hover:opacity-30 transition-opacity duration-1000 pointer-events-none" style={{ background: s.accent }}></div>
 
-            {/* Pillar 2: Sport Tech Dev */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.7 }}
-              className="relative p-10 rounded-3xl flex flex-col justify-start overflow-hidden border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-500 hoverable group shadow-2xl"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-brandOrange/10 text-brandOrange flex items-center justify-center mb-8 border border-brandOrange/20 group-hover:bg-brandOrange/20 transition-colors">
-                <Cpu className="w-8 h-8" />
-              </div>
-              <h3 className="text-3xl font-display font-black uppercase mb-4 text-white">Sport Tech Dev</h3>
-              <p className="text-white/50 text-base leading-relaxed font-medium">
-                Custom software development and sports data API integration. From real-time analytics to machine learning pipelines.
-              </p>
-            </motion.div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-12">
+                    <div className="relative w-24 h-24 rounded-[2rem] flex items-center justify-center border border-white/10 group-hover:border-white/30 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-700 overflow-hidden shadow-2xl" style={{ color: s.accent, background: `linear-gradient(135deg, ${s.accent}15, transparent)` }}>
+                      {/* Glossy highlight */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                      {/* Inner shadow/glow */}
+                      <div className="absolute inset-0" style={{ boxShadow: `inset 0 0 20px ${s.accent}20` }} />
+                      {/* The Icon */}
+                      <div className="relative z-10 filter drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-700">
+                        {s.icon}
+                      </div>
+                    </div>
+                    <span className="text-white/[0.04] font-display text-6xl font-black select-none">{s.num}</span>
+                  </div>
+                  <h3 className="text-2xl font-display font-bold uppercase mb-5 text-white">{s.title}</h3>
+                  <p className="text-white/35 text-sm leading-[1.9] font-medium">{s.desc}</p>
+                </div>
 
-            {/* Pillar 3: Brand Identity */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-              className="relative p-10 rounded-3xl flex flex-col justify-start overflow-hidden border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-500 hoverable group shadow-2xl"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-[#8b5cf6]/10 text-[#8b5cf6] flex items-center justify-center mb-8 border border-[#8b5cf6]/20 group-hover:bg-[#8b5cf6]/20 transition-colors">
-                <Fingerprint className="w-8 h-8" />
-              </div>
-              <h3 className="text-3xl font-display font-black uppercase mb-4 text-white">Brand Identity</h3>
-              <p className="text-white/50 text-base leading-relaxed font-medium">
-                Building modern sports brands and art direction. Visual systems that command respect and inspire loyalty.
-              </p>
-            </motion.div>
+                {/* Progress bar on hover */}
+                <div className="mt-10 relative z-10">
+                  <div className="h-[1px] bg-white/[0.04] rounded-full overflow-hidden">
+                    <div className="h-full w-0 group-hover:w-full transition-all duration-1000 ease-out rounded-full" style={{ background: s.accent }}></div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </section>
-
-      {/* ═════ CINEMATIC DRONE SHOWCASE ═════ */}
-      <section className="bg-gradient-to-b from-[#020617] to-black relative w-full pt-10 pb-20">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.5 }}
-          className="w-full h-[60vh] md:h-[80vh] relative group hoverable"
-          style={{
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-          }}
-        >
-          {/* Subtle Mask Overlay for darkness */}
-          <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
-          
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-[2000ms] group-hover:scale-105"
-          >
-            <source src="/Drone_dive_into_baseball_stadium_202607151954.mp4" type="video/mp4" />
-          </video>
-        </motion.div>
-
-        {/* Bulletproof Bottom Fade: Guarantee no hard line between this section and the next */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none"></div>
       </section>
 
       {/* â•â•â• HORIZONTAL SCROLL PROJECTS â•â•â• */}
@@ -783,7 +641,7 @@ function MainContent() {
                 scale: scale1
               }}
             >
-              <Image src="/gridiron_ai_1785627944344.jpg" alt="Gridiron AI" fill quality={100} className="object-cover object-center opacity-60 mix-blend-screen" />
+              <Image src="/football.jpg" alt="Biomechanics" fill quality={100} className="object-cover object-top opacity-60 mix-blend-screen" />
             </motion.div>
 
             {/* Image 2 - System Data */}
@@ -796,9 +654,8 @@ function MainContent() {
                 scale: scale2
               }}
             >
-              <Image src="/baseball_biomechanics_1785628048219.jpg" alt="System Data" fill quality={100} className="object-cover object-center opacity-60 mix-blend-screen" />
+              <Image src="/hero-new-2.png" alt="System Data" fill quality={100} className="object-cover object-top opacity-60 mix-blend-screen" />
             </motion.div>
-
 
             {/* Image 3 - Ice Analytics */}
             <motion.div 
@@ -810,7 +667,7 @@ function MainContent() {
                 scale: scale3
               }}
             >
-              <Image src="/ice_analytics_1785627967807.jpg" alt="Ice Analytics" fill quality={100} className="object-cover object-center opacity-60 mix-blend-screen" />
+              <Image src="/hockey.jpg" alt="Ice Analytics" fill quality={100} className="object-cover object-top opacity-60 mix-blend-screen" />
             </motion.div>
 
           </div>
@@ -820,11 +677,11 @@ function MainContent() {
             {/* Panel 1 */}
             <div className="w-screen h-screen flex flex-col justify-center items-center text-center px-6 md:px-20 shrink-0">
               <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="text-brandOrange font-mono text-[11px] tracking-[0.4em] uppercase font-bold mb-8 inline-flex items-center gap-3">
-                <span className="w-8 h-[1px] bg-brandOrange"></span> {t.caseStudy}
+                <span className="w-8 h-[1px] bg-brandOrange"></span> Case Study 01
               </motion.span>
-              <h2 className="font-display text-6xl md:text-[10rem] font-black uppercase text-white leading-none mb-6 orange-blur-text" data-text={t.scoutAi}>{t.scoutAi}</h2>
-              <h3 className="font-display text-3xl md:text-5xl font-bold uppercase text-white/30 mb-8">{t.pro}</h3>
-              <p className="text-white/30 max-w-md text-base font-medium">{t.exploreScroll}</p>
+              <h2 className="font-display text-6xl md:text-[10rem] font-black uppercase text-white leading-none mb-6 orange-blur-text" data-text="ScoutAI">ScoutAI</h2>
+              <h3 className="font-display text-3xl md:text-5xl font-bold uppercase text-white/30 mb-8">Pro</h3>
+              <p className="text-white/30 max-w-md text-base font-medium">A revolution in baseball analytics. Scroll to explore.</p>
             </div>
 
             {/* Panel 2 - Ventana Uno (Gridiron) */}
@@ -833,10 +690,10 @@ function MainContent() {
                {/* Text Column */}
                <div className="w-full md:w-1/2 flex flex-col justify-center items-start md:pl-10 relative z-10 md:mr-auto">
                   <span className="text-brandOrange font-mono tracking-[0.3em] uppercase text-[10px] font-bold mb-4 flex items-center gap-2">
-                     <span className="w-4 h-[1px] bg-brandOrange"></span> {t.phase1}
+                     <span className="w-4 h-[1px] bg-brandOrange"></span> Phase 01
                   </span>
-                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">{t.project1Title[0]} <br/> {t.project1Title[1]}</h3>
-                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">{t.phase1Desc}</p>
+                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">Gridiron <br/> AI</h3>
+                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">Advanced Mechanics Tracking. Precision analysis of every movement.</p>
                </div>
             </div>
 
@@ -846,10 +703,10 @@ function MainContent() {
                {/* Text Column */}
                <div className="w-full md:w-1/2 flex flex-col justify-center items-end text-right md:pr-10 relative z-10 md:ml-auto">
                   <span className="text-brandOrange font-mono tracking-[0.3em] uppercase text-[10px] font-bold mb-4 flex items-center gap-2">
-                     {t.phase2} <span className="w-4 h-[1px] bg-brandOrange"></span>
+                     Phase 02 <span className="w-4 h-[1px] bg-brandOrange"></span>
                   </span>
-                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">{t.project2Title[0]} <br/> {t.project2Title[1]}</h3>
-                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">{t.phase2Desc}</p>
+                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">System <br/> Data</h3>
+                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">Real-time heatmap analysis and biomechanics tracking. Empowering elite teams.</p>
                </div>
             </div>
 
@@ -859,27 +716,26 @@ function MainContent() {
                {/* Text Column */}
                <div className="w-full md:w-1/2 flex flex-col justify-center items-start md:pl-10 relative z-10 md:mr-auto">
                   <span className="text-brandBlue font-mono tracking-[0.3em] uppercase text-[10px] font-bold mb-4 flex items-center gap-2">
-                     <span className="w-4 h-[1px] bg-brandBlue"></span> {t.phase3}
+                     <span className="w-4 h-[1px] bg-brandBlue"></span> Phase 03
                   </span>
-                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">{t.project3Title[0]} <br/> {t.project3Title[1]}</h3>
-                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">{t.phase3Desc}</p>
+                  <h3 className="text-5xl md:text-7xl font-display font-black text-white uppercase mb-6 leading-none drop-shadow-2xl">Ice <br/> Analytics</h3>
+                  <p className="text-white/40 text-lg max-w-md drop-shadow-lg">Precision tracking on the ice. Velocity and impact metrics.</p>
                </div>
             </div>
 
-            {/* Panel 5 - CTA (Movido a sub-menu) 
+            {/* Panel 5 - CTA */}
             <div className="w-screen h-screen flex justify-center items-center shrink-0">
               <motion.div
                 className="flex flex-col items-center justify-center rounded-[3rem] p-16 md:p-24 max-w-3xl"
                 style={{ background: "rgba(15, 23, 42, 0.4)", backdropFilter: "blur(30px)", border: "1px solid rgba(255,255,255,0.05)" }}
                 whileHover={{ scale: 1.02 }}
               >
-                <h2 className="font-display text-5xl md:text-7xl font-black uppercase text-white text-center leading-none mb-10">{t.haveProject1} <br /> {t.haveProject2}<br /> {t.haveProject3}</h2>
+                <h2 className="font-display text-5xl md:text-7xl font-black uppercase text-white text-center leading-none mb-10">Have a <br /> project<br /> in mind?</h2>
                 <MagneticButton href="#contact" className="hoverable bg-brandOrange text-white px-10 py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:shadow-2xl hover:shadow-brandOrange/30 transition-all duration-500">
-                  {t.letsTalk}
+                  Let&apos;s Talk
                 </MagneticButton>
               </motion.div>
             </div>
-            */}
 
           </motion.div>
         </div>
@@ -888,7 +744,7 @@ function MainContent() {
       {/* â•â•â• ANOTHER MARQUEE â•â•â• */}
       <div className="py-6 border-y border-white/[0.04] overflow-hidden">
         <Marquee speed={35}>
-          {t.marquee2.map((item, i) => (
+          {["Baseball", "Basketball", "Football", "Soccer", "Tennis", "Golf", "eSports", "MMA", "Swimming", "Track & Field"].map((item, i) => (
             <span key={i} className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/8 mx-8 flex items-center gap-4 select-none">
               {item}
               <span className="w-1 h-1 rounded-full bg-white/10"></span>
@@ -897,16 +753,10 @@ function MainContent() {
         </Marquee>
       </div>
 
-      {/* ——— JOURNAL (Movido a sub-menu) ——— */}
-      {/* 
-      <JournalSection onOpenJournal={() => setIsDiarioOpen(true)} />
-      <DiarioFullPage isOpen={isDiarioOpen} onClose={() => setIsDiarioOpen(false)} />
-      */}
+      {/* â•â•â• JOURNAL â•â•â• */}
+      <JournalSection />
 
-      {/* ——— IN THE PLAY (Movido a sub-menu) ——— */}
-      {/* <InThePlaySection /> */}
-
-      {/* ——— CONTACT ——— */}
+      {/* â•â•â• CONTACT â•â•â• */}
       <section id="contact" className="py-32 relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
           <div className="contact-glass rounded-[3rem] p-10 md:p-20 max-w-5xl mx-auto">
@@ -914,23 +764,23 @@ function MainContent() {
             <div className="text-center mb-16">
               <span className="text-brandOrange font-mono text-[11px] tracking-[0.4em] uppercase font-bold inline-flex items-center gap-3 mx-auto mb-8">
                 <span className="w-8 h-[1px] bg-brandOrange"></span>
-                {t.startProject}
+                Start A Project
                 <span className="w-8 h-[1px] bg-brandOrange"></span>
               </span>
               <h2 className="font-display text-5xl md:text-7xl font-black uppercase text-white leading-[0.85] mb-6">
-                {t.letsBuild} <br />
-                <span className="orange-blur-text" data-text={t.theFuture}>{t.theFuture}</span>
+                Let&apos;s Build <br />
+                <span className="orange-blur-text" data-text="The Future.">The Future.</span>
               </h2>
               <p className="text-white/30 text-base max-w-lg mx-auto font-medium leading-relaxed">
-                {t.contactDesc}
+                Have an idea for a sports app, a data platform, or a new brand? Tell us about your project.
               </p>
             </div>
 
             <div className="p-8 md:p-12 rounded-3xl max-w-3xl mx-auto" style={{ background: "rgba(15, 23, 42, 0.3)", border: "1px solid rgba(255,255,255,0.04)" }}>
               <form className="space-y-10">
                 {[
-                  { label: t.formName, type: "text", placeholder: t.placeholderName },
-                  { label: t.formEmail, type: "email", placeholder: t.placeholderEmail },
+                  { label: "Your Name", type: "text", placeholder: "e.g. John Doe" },
+                  { label: "Email Address", type: "email", placeholder: "e.g. john@company.com" },
                 ].map((field, i) => (
                   <div key={i} className="group">
                     <label className="block text-[9px] uppercase tracking-[0.3em] text-white/20 mb-3 group-focus-within:text-brandOrange transition-colors duration-300 font-bold">{field.label}</label>
@@ -938,42 +788,34 @@ function MainContent() {
                   </div>
                 ))}
                 <div className="group">
-                  <label className="block text-[9px] uppercase tracking-[0.3em] text-white/20 mb-3 group-focus-within:text-brandOrange transition-colors duration-300 font-bold">{t.formIdea}</label>
-                  <textarea rows={3} className="form-input hoverable resize-none" placeholder={t.placeholderIdea}></textarea>
+                  <label className="block text-[9px] uppercase tracking-[0.3em] text-white/20 mb-3 group-focus-within:text-brandOrange transition-colors duration-300 font-bold">Tell us your idea</label>
+                  <textarea rows={3} className="form-input hoverable resize-none" placeholder="e.g. We want a scouting app..."></textarea>
                 </div>
 
                 <MagneticButton href="#" className="hoverable group w-full bg-brandOrange text-white py-5 rounded-xl text-[11px] font-bold uppercase tracking-[0.15em] hover:shadow-2xl hover:shadow-brandOrange/30 transition-all duration-500 flex items-center justify-center gap-2">
-                  {t.sendMessage} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  Send Message <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </MagneticButton>
               </form>
             </div>
 
             <div className="mt-16 text-center">
-              <p className="font-mono text-[10px] font-bold text-brandOrange uppercase tracking-[0.5em] drop-shadow-md">{t.whoDaresWins}</p>
+              <p className="font-mono text-[10px] font-bold text-brandOrange uppercase tracking-[0.5em] drop-shadow-md">Who Dares Wins *saas*</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ——— FOOTER ——— */}
+      {/* â•â•â• FOOTER â•â•â• */}
       <footer className="py-8 border-t border-white/[0.04]">
         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/15 text-[10px] font-mono tracking-[0.2em]">{t.footerText}</p>
+          <p className="text-white/15 text-[10px] font-mono tracking-[0.2em]">Â© 2026 3Tree Digital Sport Tech. All rights reserved.</p>
           <div className="flex gap-8">
-            {t.footerLinks.map((item) => (
+            {["Privacy", "Terms", "Cookies"].map((item) => (
               <a key={item} href="#" className="hoverable text-white/15 text-[10px] font-mono tracking-[0.2em] hover:text-brandOrange transition-colors duration-500">{item}</a>
             ))}
           </div>
         </div>
       </footer>
     </main>
-  );
-}
-
-export default function Home() {
-  return (
-    <LangProvider>
-      <MainContent />
-    </LangProvider>
   );
 }
