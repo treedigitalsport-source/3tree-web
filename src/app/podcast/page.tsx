@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, PlayCircle, Headphones, Clock, Calendar, BarChart3, Radio, Loader2, Newspaper } from "lucide-react";
 import { useLang } from "../i18n";
 import { useEffect, useState } from "react";
-import { getPodcastEpisodes } from "@/app/actions/podcast";
+import { getPodcastEpisodes, getPodcastNews } from "@/app/actions/podcast";
 
 const staticEpisodes = [
   { id: "1", title: "The Future of Baseball Analytics", date: "Aug 01, 2026", duration: "45 min" },
@@ -21,7 +21,8 @@ const staticNews = [
     title: "Kinebase v2.0 con rastreo biomecánico 3D en tiempo real",
     desc: "Nuestra suite insignia recibe una actualización mayor, permitiendo a los entrenadores analizar ángulos de lanzamiento en béisbol con menos de 2ms de latencia en la nube.",
     date: "Hoy",
-    time: "Hace 2 horas"
+    time: "Hace 2 horas",
+    createdAt: new Date().toISOString()
   },
   {
     id: "2",
@@ -29,7 +30,8 @@ const staticNews = [
     title: "3Tree Digital firma acuerdo de analíticas avanzadas con academia de béisbol de élite en República Dominicana",
     desc: "Colaboraremos en el desarrollo de software a medida para el scouting de jóvenes prospectos utilizando analíticas de datos de radares avanzados de Trackman.",
     date: "Ayer",
-    time: "Hace 1 día"
+    time: "Hace 1 día",
+    createdAt: new Date(Date.now() - 86400000).toISOString()
   },
   {
     id: "3",
@@ -37,7 +39,8 @@ const staticNews = [
     title: "El impacto de la inteligencia artificial generativa en las transmisiones deportivas",
     desc: "Publicamos nuestro reporte anual detallando cómo los gráficos interactivos personalizados aumentan la retención del fanático joven en un 42% en transmisiones en vivo.",
     date: "Jul 24, 2026",
-    time: "Hace 1 semana"
+    time: "Hace 1 semana",
+    createdAt: new Date(Date.now() - 86400000 * 7).toISOString()
   }
 ];
 
@@ -55,20 +58,28 @@ export default function PodcastPage() {
   };
 
   const [episodes, setEpisodes] = useState<any[]>([]);
+  const [newsList, setNewsList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchEpisodes() {
-      const result = await getPodcastEpisodes();
-      if (result.success && result.episodes && result.episodes.length > 0) {
-        setEpisodes(result.episodes);
+    async function fetchData() {
+      const epResult = await getPodcastEpisodes();
+      if (epResult.success && epResult.episodes && epResult.episodes.length > 0) {
+        setEpisodes(epResult.episodes);
       } else {
         // Fallback to static data if no DB data yet
         setEpisodes(staticEpisodes);
       }
+
+      const newsResult = await getPodcastNews();
+      if (newsResult.success && newsResult.news && newsResult.news.length > 0) {
+        setNewsList(newsResult.news);
+      } else {
+        setNewsList(staticNews);
+      }
       setLoading(false);
     }
-    fetchEpisodes();
+    fetchData();
   }, []);
 
   const featuredEpisode = episodes[0];
@@ -250,37 +261,46 @@ export default function PodcastPage() {
             </div>
 
             <div className="space-y-6">
-              {staticNews.map((news, i) => (
-                <motion.div
-                  key={news.id}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="relative p-8 md:p-10 rounded-[2rem] bg-white/[0.02] border border-white/10 hover:border-brandOrange/30 transition-all group overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-brandOrange/5 blur-[50px] group-hover:bg-brandOrange/10 transition-colors pointer-events-none"></div>
-                  
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                    <span className="px-4 py-1.5 rounded-full bg-brandOrange/10 border border-brandOrange/20 text-brandOrange font-mono text-[9px] font-bold uppercase tracking-wider w-fit">
-                      {news.category}
-                    </span>
-                    <div className="flex items-center gap-2 text-white/40 text-xs font-mono">
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>{news.date}</span>
-                      <span className="text-white/20">•</span>
-                      <span>{news.time}</span>
+              {newsList.map((news, i) => {
+                const formattedDate = news.createdAt 
+                  ? new Date(news.createdAt).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { day: '2-digit', month: 'short', year: 'numeric' })
+                  : (news.date || "");
+                return (
+                  <motion.div
+                    key={news.id}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                    className="relative p-8 md:p-10 rounded-[2rem] bg-white/[0.02] border border-white/10 hover:border-brandOrange/30 transition-all group overflow-hidden"
+                  >
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-brandOrange/5 blur-[50px] group-hover:bg-brandOrange/10 transition-colors pointer-events-none"></div>
+                    
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                      <span className="px-4 py-1.5 rounded-full bg-brandOrange/10 border border-brandOrange/20 text-brandOrange font-mono text-[9px] font-bold uppercase tracking-wider w-fit">
+                        {news.category}
+                      </span>
+                      <div className="flex items-center gap-2 text-white/40 text-xs font-mono">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span>{formattedDate}</span>
+                        {news.time && (
+                          <>
+                            <span className="text-white/20">•</span>
+                            <span>{news.time}</span>
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  
-                  <h4 className="text-2xl font-bold text-white mb-4 group-hover:text-brandOrange transition-colors">
-                    {news.title}
-                  </h4>
-                  
-                  <p className="text-white/60 leading-relaxed text-sm md:text-base font-light">
-                    {news.desc}
-                  </p>
-                </motion.div>
-              ))}
+                    
+                    <h4 className="text-2xl font-bold text-white mb-4 group-hover:text-brandOrange transition-colors">
+                      {news.title}
+                    </h4>
+                    
+                    <p className="text-white/60 leading-relaxed text-sm md:text-base font-light">
+                      {news.desc}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         )}

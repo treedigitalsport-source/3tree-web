@@ -75,3 +75,41 @@ export async function getPodcastEpisodes() {
     return { success: false, episodes: [] };
   }
 }
+
+export async function createPodcastNews(formData: FormData) {
+  try {
+    const title = formData.get("title") as string;
+    const category = formData.get("category") as string;
+    const desc = formData.get("desc") as string;
+
+    if (!title || !category || !desc) {
+      return { success: false, error: "Missing required fields" };
+    }
+
+    const docRef = await db.collection("podcastNews").add({
+      title,
+      category,
+      desc,
+      createdAt: new Date().toISOString(),
+    });
+
+    return { success: true, id: docRef.id };
+  } catch (error) {
+    console.error("Error creating podcast news:", error);
+    return { success: false, error: "Failed to create podcast news" };
+  }
+}
+
+export async function getPodcastNews() {
+  try {
+    const snapshot = await db.collection("podcastNews").orderBy("createdAt", "desc").get();
+    const news = snapshot.docs.map((doc: QueryDocumentSnapshot) => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    return { success: true, news };
+  } catch (error) {
+    console.error("Error fetching podcast news:", error);
+    return { success: false, news: [] };
+  }
+}

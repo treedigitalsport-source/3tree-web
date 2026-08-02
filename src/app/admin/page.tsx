@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { createPodcastEpisode } from "@/app/actions/podcast";
+import { createPodcastEpisode, createPodcastNews } from "@/app/actions/podcast";
 import { createJournalArticle } from "@/app/actions/journal";
-import { UploadCloud, CheckCircle2, Loader2, ArrowLeft, PenTool, Mic } from "lucide-react";
+import { UploadCloud, CheckCircle2, Loader2, ArrowLeft, PenTool, Mic, Newspaper } from "lucide-react";
 import Link from "next/link";
 
 export default function AdminPage() {
@@ -14,8 +14,12 @@ export default function AdminPage() {
   const [journalLoading, setJournalLoading] = useState(false);
   const [journalSuccess, setJournalSuccess] = useState(false);
   const [journalError, setJournalError] = useState("");
+
+  const [newsLoading, setNewsLoading] = useState(false);
+  const [newsSuccess, setNewsSuccess] = useState(false);
+  const [newsError, setNewsError] = useState("");
   
-  const [activeTab, setActiveTab] = useState<"podcast" | "journal">("podcast");
+  const [activeTab, setActiveTab] = useState<"podcast" | "journal" | "news">("podcast");
 
   async function handlePodcastSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -53,6 +57,24 @@ export default function AdminPage() {
     setJournalLoading(false);
   }
 
+  async function handleNewsSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setNewsLoading(true);
+    setNewsSuccess(false);
+    setNewsError("");
+
+    const formData = new FormData(e.currentTarget);
+    const result = await createPodcastNews(formData);
+
+    if (result.success) {
+      setNewsSuccess(true);
+      (e.target as HTMLFormElement).reset();
+    } else {
+      setNewsError(result.error || "Ocurrió un error.");
+    }
+    setNewsLoading(false);
+  }
+
   return (
     <div className="min-h-screen bg-[#020617] text-white p-8 md:p-20 font-sans">
       <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white mb-12">
@@ -69,6 +91,9 @@ export default function AdminPage() {
           </button>
           <button onClick={() => setActiveTab("journal")} className={`px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 transition-colors ${activeTab === "journal" ? "bg-brandOrange text-white" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
             <PenTool className="w-4 h-4" /> Journal (Neil)
+          </button>
+          <button onClick={() => setActiveTab("news")} className={`px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 transition-colors ${activeTab === "news" ? "bg-brandOrange text-white" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
+            <Newspaper className="w-4 h-4" /> Podcast Noticias
           </button>
         </div>
 
@@ -151,6 +176,35 @@ export default function AdminPage() {
 
               {journalSuccess && <span className="text-green-400 flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> ¡Artículo Publicado!</span>}
               {journalError && <span className="text-red-400 text-sm">{journalError}</span>}
+            </div>
+
+          </form>
+        )}
+        {activeTab === "news" && (
+          <form onSubmit={handleNewsSubmit} className="bg-white/5 border border-white/10 rounded-[2rem] p-8 md:p-12 space-y-8 backdrop-blur-xl">
+            
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-brandOrange">Título de la Noticia</label>
+              <input name="title" required type="text" className="w-full bg-transparent border-b border-white/20 pb-2 text-2xl focus:outline-none focus:border-brandOrange transition-colors" placeholder="Ej. 3Tree lanza nueva integración..." />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-brandOrange">Categoría</label>
+              <input name="category" required type="text" className="w-full bg-transparent border-b border-white/20 pb-2 focus:outline-none focus:border-brandOrange transition-colors" placeholder="Ej. Lanzamiento, Alianza, Reporte..." />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-brandOrange">Descripción de la Noticia</label>
+              <textarea name="desc" required rows={6} className="w-full bg-black/20 border border-white/20 rounded-xl p-4 focus:outline-none focus:border-brandOrange transition-colors resize-none mt-2" placeholder="Escribe la descripción corta aquí..."></textarea>
+            </div>
+
+            <div className="pt-8 flex items-center gap-6">
+              <button disabled={newsLoading} type="submit" className="bg-brandOrange text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:shadow-[0_0_30px_rgba(242,101,34,0.4)] transition-all flex items-center gap-2 disabled:opacity-50">
+                {newsLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Publicando...</> : "Publicar Noticia"}
+              </button>
+
+              {newsSuccess && <span className="text-green-400 flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> ¡Noticia Publicada!</span>}
+              {newsError && <span className="text-red-400 text-sm">{newsError}</span>}
             </div>
 
           </form>
