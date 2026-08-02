@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Users, Target, ShieldAlert, CheckCircle2, XCircle, Award, Scale } from "lucide-react";
+import { ArrowLeft, Users, Target, ShieldAlert, CheckCircle2, XCircle, Award, Scale, Lightbulb } from "lucide-react";
 import { useLang } from "@/app/i18n";
 
 export default function AboutPage() {
@@ -86,6 +86,34 @@ export default function AboutPage() {
                 {isEs
                   ? "Concebida originalmente para cerrar la brecha entre los jugadores con talento excepcional y los cazatalentos profesionales, la empresa ha evolucionado para implementar herramientas avanzadas de automatización de video basadas en Inteligencia Artificial."
                   : "Originally conceived to bridge the gap between exceptionally talented players and professional scouts, the company has evolved to deploy state-of-the-art video automation tools powered by Artificial Intelligence."}
+              </p>
+            </div>
+          </motion.section>
+
+          {/* Section: Cómo Nació la Idea */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="bg-white/[0.01] border border-white/5 p-8 md:p-12 rounded-[2.5rem] backdrop-blur-md relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brandOrange/5 blur-[80px] rounded-full pointer-events-none" />
+            
+            <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wider text-white flex items-center gap-3 mb-6">
+              <Lightbulb className="w-6 h-6 text-brandOrange" />
+              {isEs ? "Cómo Nació la Idea" : "How the Idea Was Born"}
+            </h2>
+            
+            <div className="space-y-4 text-white/70 leading-relaxed text-sm md:text-base font-light">
+              <p>
+                {isEs 
+                  ? "La idea de 3Tree Digital e In the Play nació en los campos de juego locales. Observamos cómo decenas de jóvenes atletas con talento extraordinario se quedaban fuera del radar de los cazatalentos profesionales simplemente por no tener los recursos para pagar miles de dólares a agencias de video tradicionales."
+                  : "The idea for 3Tree Digital and In the Play was born on local sports fields. We watched dozens of extraordinarily talented young athletes miss out on professional scouting opportunities simply because they couldn't afford to pay traditional video production agencies thousands of dollars."}
+              </p>
+              <p>
+                {isEs
+                  ? "Ver a padres de familia sosteniendo teléfonos móviles intentando grabar y estabilizar con las manos temblorosas las jugadas clave de sus hijos nos inspiró: ¿Qué pasaría si usáramos Inteligencia Artificial para tomar esos videos caseros, estabilizarlos, recortar las mejores jugadas y darles calidad de televisión profesional al instante y al costo de una suscripción de $2 dólares al mes? Así nació nuestra misión."
+                  : "Seeing parents holding cell phones trying to capture and stabilize their children's key plays with shaking hands inspired us: What if we used Artificial Intelligence to take those home videos, stabilize them, crop the best plays, and instantly give them TV-broadcast quality for the price of a $2 dollar subscription? Thus, our mission was born."}
               </p>
             </div>
           </motion.section>
