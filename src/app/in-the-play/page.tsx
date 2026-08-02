@@ -90,8 +90,8 @@ export default function InThePlayPage() {
             </h1>
             <p className="text-sm md:text-base text-white/50 max-w-2xl mx-auto font-light">
               {isEs 
-                ? "Regístrate, realiza tu pago de suscripción y sube tu video. Nuestra IA lo estabilizará y editará automáticamente."
-                : "Register, complete your subscription payment, and upload your video. Our AI will automatically edit and stabilize it."}
+                ? "Regístrate, realiza tu pago de suscripción y sube tu video. Nuestra IA lo estabilizará, editará automáticamente y además lo publicaremos en nuestro canal oficial de YouTube y el feed global de scouting."
+                : "Register, complete your subscription payment, and upload your video. Our AI will automatically edit and stabilize it, and we will also publish it to our official YouTube channel and the global scouting feed."}
             </p>
 
             {/* Step Indicators */}
@@ -158,8 +158,10 @@ export default function InThePlayPage() {
                     onChange={(e) => setRegEmail(e.target.value)}
                     className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white placeholder:text-white/20 font-mono"
                   />
-                  <p className="text-[10px] text-brandOrange/70 font-mono mt-1">
-                    {isEs ? "⚠ Aquí recibirás tu video final editado." : "⚠ Your final edited video will be sent here."}
+                  <p className="text-[10px] text-brandOrange/80 font-mono mt-1 leading-relaxed">
+                    {isEs 
+                      ? "⚠ El video final se enviará a este correo y se publicará en nuestro canal de YouTube." 
+                      : "⚠ The final video will be sent to this email and published to our YouTube channel."}
                   </p>
                 </div>
 
@@ -419,8 +421,8 @@ export default function InThePlayPage() {
 
                     <div className="bg-brandOrange/5 border border-brandOrange/15 rounded-xl p-4 text-xs text-white/70 leading-relaxed font-mono">
                       {isEs 
-                        ? `ℹ El video final editado se enviará automáticamente a: ${regEmail}.` 
-                        : `ℹ The final edited highlight video will be automatically sent to: ${regEmail}.`}
+                        ? `ℹ El video final editado se enviará a ${regEmail} y se publicará en nuestro canal de YouTube.` 
+                        : `ℹ The final edited highlight video will be sent to ${regEmail} and published to our YouTube channel.`}
                     </div>
 
                     <div className="flex justify-end">
@@ -449,8 +451,8 @@ export default function InThePlayPage() {
                     <h3 className="text-2xl font-bold uppercase tracking-wider mb-4">{isEs ? "¡Video en procesamiento!" : "Video Processing!"}</h3>
                     <p className="text-white/50 max-w-md mx-auto mb-8 text-sm leading-relaxed">
                       {isEs 
-                        ? `Estamos procesando, estabilizando y adaptando tu video. Recibirás el corte cinematográfico final en tu correo: ${regEmail} en pocos minutos.`
-                        : `We are processing, stabilizing, and editing your video. You will receive the final cinematic cut at your email: ${regEmail} in a few minutes.`}
+                        ? `Estamos procesando, estabilizando y adaptando tu video. Recibirás el corte cinematográfico final en tu correo: ${regEmail} en pocos minutos, y se publicará de inmediato en nuestro canal de YouTube.`
+                        : `We are processing, stabilizing, and editing your video. You will receive the final cinematic cut at your email: ${regEmail} in a few minutes, and it will be immediately published to our YouTube channel.`}
                     </p>
                     <button 
                       onClick={() => setUploadSuccess(false)}
