@@ -27,9 +27,9 @@ const staticNews = [
   },
   {
     id: "2",
-    category: "NBA / TECNOLOGÍA",
-    title: "La NBA aprueba sensores textiles de fatiga en uniformes de entrenamiento",
-    desc: "A partir de la próxima semana, las franquicias podrán recopilar métricas de aceleración, carga muscular y balance biomecánico directo en sus tablets de scouting durante las prácticas.",
+    category: "FÚTBOL / LALIGA",
+    title: "LaLiga implementa tracking óptico avanzado para el análisis de fatiga térmica",
+    desc: "El sistema de cámaras computarizadas de los estadios registrará la aceleración muscular y la carga física de los jugadores en tiempo real para prevenir deshidratación y lesiones.",
     date: "Ayer",
     time: "Hace 1 día",
     videoUrl: "/Drone_dive_into_baseball_stadium_202607151954.mp4",
