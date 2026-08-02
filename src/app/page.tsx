@@ -964,7 +964,7 @@ function MainContent() {
             </div>
 
             <div className="mt-16 text-center">
-              <p className="font-mono text-[10px] font-bold text-brandOrange uppercase tracking-[0.5em] drop-shadow-md">{t.whoDaresWins}</p>
+              <p className="font-mono text-xs md:text-sm font-bold text-brandOrange uppercase tracking-[0.5em] drop-shadow-md">{t.whoDaresWins}</p>
             </div>
           </div>
         </div>
