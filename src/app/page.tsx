@@ -461,13 +461,14 @@ function MainContent() {
 
         <nav className="hidden lg:flex gap-6 text-xs font-bold tracking-[0.2em] uppercase text-white/40 items-center">
           {t.nav.map((item, i) => {
-            const sectionIds = ["services", "projects", "podcast", "journal", "impact", "in-the-play", "contact"];
+            const sectionIds = ["services", "projects", "podcast", "journal", "impact", "in-the-play", "about", "contact"];
             
             let targetUrl = `#${sectionIds[i]}`;
             if (sectionIds[i] === "projects") targetUrl = "/projects/kinebase";
             if (sectionIds[i] === "podcast") targetUrl = "/podcast";
             if (sectionIds[i] === "journal") targetUrl = "/journal";
             if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
+            if (sectionIds[i] === "about") targetUrl = "/about";
             if (sectionIds[i] === "contact") targetUrl = "/contact";
 
             return (
@@ -1010,6 +1011,7 @@ function MainContent() {
               let href = "#";
               if (index === 0) href = "/privacy";
               if (index === 1) href = "/terms";
+              if (index === 2) href = "/cookies";
               return (
                 <Link key={item} href={href} className="hoverable text-white text-[10px] font-mono tracking-[0.2em] font-medium hover:text-brandOrange transition-colors duration-500">{item}</Link>
               );
