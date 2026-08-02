@@ -1006,9 +1006,13 @@ function MainContent() {
           </div>
 
           <div className="flex gap-8">
-            {t.footerLinks.map((item) => (
-              <a key={item} href="#" className="hoverable text-white text-[10px] font-mono tracking-[0.2em] font-medium hover:text-brandOrange transition-colors duration-500">{item}</a>
-            ))}
+            {t.footerLinks.map((item, index) => {
+              let href = "#";
+              if (index === 0) href = "/privacy";
+              return (
+                <Link key={item} href={href} className="hoverable text-white text-[10px] font-mono tracking-[0.2em] font-medium hover:text-brandOrange transition-colors duration-500">{item}</Link>
+              );
+            })}
           </div>
         </div>
       </footer>
