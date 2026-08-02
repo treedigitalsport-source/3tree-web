@@ -94,13 +94,13 @@ export default function PrivacyPage() {
             </p>
             <ul className="list-disc pl-6 space-y-2 text-white/50 text-sm font-light">
               <li>
-                <strong>{isEs ? "Datos de Cuenta:" : "Account Data:"}</strong> {isEs ? "Nombre completo, dirección de correo electrónico e información de perfil deportivo." : "Full name, email address, and athletic profile details."}
+                <strong>{isEs ? "Datos de Contacto:" : "Contact Information:"}</strong> {isEs ? "Nombre completo y dirección de correo electrónico provistos para la facturación o la subida del video." : "Full name and email address provided for billing or video upload identification."}
               </li>
               <li>
-                <strong>{isEs ? "Archivos de Video:" : "Video Files:"}</strong> {isEs ? "Videos crudos de jugadas deportivas que subes a In the Play para procesamiento de Inteligencia Artificial." : "Raw sports play videos you upload to In the Play for Artificial Intelligence processing."}
+                <strong>{isEs ? "Archivos de Video:" : "Video Files:"}</strong> {isEs ? "Videos crudos de jugadas deportivas que subes a In the Play para su edición y procesamiento automatizado." : "Raw sports play videos you upload to In the Play for automated editing and processing."}
               </li>
               <li>
-                <strong>{isEs ? "Datos del Dispositivo:" : "Device Data:"}</strong> {isEs ? "Dirección IP, tipo de navegador e información técnica de interacción con el sitio web." : "IP address, browser type, and technical interaction logs with the website."}
+                <strong>{isEs ? "Datos del Dispositivo:" : "Device Data:"}</strong> {isEs ? "Dirección IP, tipo de navegador y datos de navegación para asegurar el funcionamiento óptimo de la web." : "IP address, browser type, and browsing metrics to ensure optimal website performance."}
               </li>
             </ul>
           </section>
