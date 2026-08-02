@@ -109,15 +109,14 @@ export default function PrivacyPage() {
           <section className="space-y-4">
             <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wider text-white flex items-center gap-3">
               <span className="w-6 h-[1px] bg-brandOrange inline-block"></span>
-              {isEs ? "3. Procesamiento Biomecánico y de Video" : "3. Biomechanical & Video Processing"}
+              {isEs ? "3. Procesamiento de Video" : "3. Video Processing"}
             </h2>
             <p className="text-white/60 leading-relaxed text-sm md:text-base font-light">
               {isEs
-                ? "Los videos subidos a Kinebase Pro e In the Play se procesan para:"
-                : "Videos uploaded to Kinebase Pro and In the Play are processed in order to:"}
+                ? "Los videos subidos a la plataforma de In the Play se procesan para:"
+                : "Videos uploaded to the In the Play platform are processed in order to:"}
             </p>
             <ul className="list-disc pl-6 space-y-2 text-white/50 text-sm font-light">
-              <li>{isEs ? "Ejecutar algoritmos de reconstrucción esquelética y biomecánica 3D." : "Run skeletal reconstruction and 3D biomechanical algorithms."}</li>
               <li>{isEs ? "Estabilizar la imagen, realizar cortes dinámicos y aplicar filtros de calidad cinematográfica." : "Stabilize the image, perform dynamic cuts, and apply cinematic-quality filters."}</li>
               <li>{isEs ? "Publicar el material resultante en el feed global para visibilidad de scouts y entrenadores." : "Publish the resulting highlights in the global feed for discoverability by scouts and coaches."}</li>
             </ul>
