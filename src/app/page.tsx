@@ -1009,6 +1009,7 @@ function MainContent() {
             {t.footerLinks.map((item, index) => {
               let href = "#";
               if (index === 0) href = "/privacy";
+              if (index === 1) href = "/terms";
               return (
                 <Link key={item} href={href} className="hoverable text-white text-[10px] font-mono tracking-[0.2em] font-medium hover:text-brandOrange transition-colors duration-500">{item}</Link>
               );
