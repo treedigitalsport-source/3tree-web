@@ -22,6 +22,7 @@ const staticNews = [
     desc: "El cuerpo técnico del equipo de Los Ángeles oficializa la implementación de análisis biomecánico 3D en tiempo real de 3Tree Digital para predecir fatiga y mitigar lesiones en el bullpen.",
     date: "Hoy",
     time: "Hace 2 horas",
+    videoUrl: "/scouts beisbol.mp4",
     createdAt: new Date().toISOString()
   },
   {
@@ -31,6 +32,7 @@ const staticNews = [
     desc: "A partir de la próxima semana, las franquicias podrán recopilar métricas de aceleración, carga muscular y balance biomecánico directo en sus tablets de scouting durante las prácticas.",
     date: "Ayer",
     time: "Hace 1 día",
+    videoUrl: "/Drone_dive_into_baseball_stadium_202607151954.mp4",
     createdAt: new Date(Date.now() - 86400000).toISOString()
   },
   {
@@ -40,6 +42,7 @@ const staticNews = [
     desc: "Reportes del túnel de viento virtual confirman que el nuevo modelo de simulación por redes neuronales predice turbulencias en rectas a más de 320 km/h con absoluta precisión.",
     date: "Jul 24, 2026",
     time: "Hace 1 semana",
+    videoUrl: "/hero-video.mp4",
     createdAt: new Date(Date.now() - 86400000 * 7).toISOString()
   }
 ];
@@ -271,33 +274,58 @@ export default function PodcastPage() {
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: i * 0.1 }}
-                    className="relative p-8 md:p-10 rounded-[2rem] bg-white/[0.02] border border-white/10 hover:border-brandOrange/30 transition-all group overflow-hidden"
+                    className="relative p-6 md:p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/10 hover:border-brandOrange/30 transition-all group overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 w-32 h-32 bg-brandOrange/5 blur-[50px] group-hover:bg-brandOrange/10 transition-colors pointer-events-none"></div>
                     
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                      <span className="px-4 py-1.5 rounded-full bg-brandOrange/10 border border-brandOrange/20 text-brandOrange font-mono text-[9px] font-bold uppercase tracking-wider w-fit">
-                        {news.category}
-                      </span>
-                      <div className="flex items-center gap-2 text-white/40 text-xs font-mono">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>{formattedDate}</span>
-                        {news.time && (
-                          <>
-                            <span className="text-white/20">•</span>
-                            <span>{news.time}</span>
-                          </>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                      
+                      {/* Video Player Column */}
+                      <div className="col-span-1 lg:col-span-5 relative w-full rounded-2xl overflow-hidden shadow-2xl aspect-video bg-black/60 border border-white/10">
+                        {news.videoUrl ? (
+                          <video 
+                            src={news.videoUrl} 
+                            controls 
+                            playsInline 
+                            preload="metadata"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex flex-col items-center justify-center text-white/20 bg-white/[0.01]">
+                            <PlayCircle className="w-12 h-12 mb-2" />
+                            <span className="text-xs font-mono tracking-wider">VIDEO NO DISPONIBLE</span>
+                          </div>
                         )}
                       </div>
+
+                      {/* Content Column */}
+                      <div className="col-span-1 lg:col-span-7 flex flex-col justify-center">
+                        <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+                          <span className="px-4 py-1.5 rounded-full bg-brandOrange/10 border border-brandOrange/20 text-brandOrange font-mono text-[9px] font-bold uppercase tracking-wider w-fit">
+                            {news.category}
+                          </span>
+                          <div className="flex items-center gap-2 text-white/40 text-xs font-mono">
+                            <Calendar className="w-3.5 h-3.5" />
+                            <span>{formattedDate}</span>
+                            {news.time && (
+                              <>
+                                <span className="text-white/20">•</span>
+                                <span>{news.time}</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <h4 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-brandOrange transition-colors leading-snug">
+                          {news.title}
+                        </h4>
+                        
+                        <p className="text-white/60 leading-relaxed text-sm font-light">
+                          {news.desc}
+                        </p>
+                      </div>
+
                     </div>
-                    
-                    <h4 className="text-2xl font-bold text-white mb-4 group-hover:text-brandOrange transition-colors">
-                      {news.title}
-                    </h4>
-                    
-                    <p className="text-white/60 leading-relaxed text-sm md:text-base font-light">
-                      {news.desc}
-                    </p>
                   </motion.div>
                 );
               })}

@@ -81,15 +81,34 @@ export async function createPodcastNews(formData: FormData) {
     const title = formData.get("title") as string;
     const category = formData.get("category") as string;
     const desc = formData.get("desc") as string;
+    const videoFile = formData.get("videoFile") as File | null;
 
     if (!title || !category || !desc) {
       return { success: false, error: "Missing required fields" };
+    }
+
+    let videoUrl = "";
+
+    if (videoFile && videoFile.size > 0) {
+      const bucket = storage.bucket();
+      const arrayBuffer = await videoFile.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const fileName = `news_videos/${Date.now()}_${videoFile.name.replace(/\s/g, '_')}`;
+      const fileUpload = bucket.file(fileName);
+      
+      await fileUpload.save(buffer, {
+        metadata: { contentType: videoFile.type }
+      });
+      
+      await fileUpload.makePublic();
+      videoUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
     }
 
     const docRef = await db.collection("podcastNews").add({
       title,
       category,
       desc,
+      videoUrl,
       createdAt: new Date().toISOString(),
     });
 

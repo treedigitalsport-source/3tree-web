@@ -198,6 +198,14 @@ export default function AdminPage() {
               <textarea name="desc" required rows={6} className="w-full bg-black/20 border border-white/20 rounded-xl p-4 focus:outline-none focus:border-brandOrange transition-colors resize-none mt-2" placeholder="Escribe la descripción corta aquí..."></textarea>
             </div>
 
+            <div className="space-y-4 pt-4">
+              <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-brandOrange block">Archivo de Video del Noticiero (Opcional)</label>
+              <div className="border-2 border-dashed border-white/20 rounded-xl p-8 text-center hover:border-brandOrange/50 transition-colors bg-black/20">
+                <UploadCloud className="w-8 h-8 mx-auto mb-4 text-white/40" />
+                <input name="videoFile" type="file" accept="video/mp4,video/quicktime" className="block w-full text-sm text-white/50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brandOrange file:text-white hover:file:bg-brandOrange/80 cursor-pointer" />
+              </div>
+            </div>
+
             <div className="pt-8 flex items-center gap-6">
               <button disabled={newsLoading} type="submit" className="bg-brandOrange text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:shadow-[0_0_30px_rgba(242,101,34,0.4)] transition-all flex items-center gap-2 disabled:opacity-50">
                 {newsLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Publicando...</> : "Publicar Noticia"}
