@@ -417,15 +417,19 @@ function MainContent() {
     target: horizontalRef,
     offset: ["start start", "end end"]
   });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  
+  // Smooth out scroll progression using a spring for buttery-smooth horizontal motion
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 20, mass: 0.2 });
+  
+  const x = useTransform(smoothProgress, [0, 1], ["0%", "-80%"]);
 
-  const opacity1 = useTransform(scrollYProgress, [0.10, 0.25, 0.35, 0.50], [0, 0.6, 0.6, 0]);
-  const opacity2 = useTransform(scrollYProgress, [0.30, 0.45, 0.55, 0.70], [0, 0.6, 0.6, 0]);
-  const opacity3 = useTransform(scrollYProgress, [0.50, 0.65, 0.75, 0.90], [0, 0.6, 0.6, 0]);
+  const opacity1 = useTransform(smoothProgress, [0.10, 0.25, 0.35, 0.50], [0, 0.6, 0.6, 0]);
+  const opacity2 = useTransform(smoothProgress, [0.30, 0.45, 0.55, 0.70], [0, 0.6, 0.6, 0]);
+  const opacity3 = useTransform(smoothProgress, [0.50, 0.65, 0.75, 0.90], [0, 0.6, 0.6, 0]);
 
-  const scale1 = useTransform(scrollYProgress, [0.10, 0.50], [1.08, 1.18]);
-  const scale2 = useTransform(scrollYProgress, [0.30, 0.70], [1.08, 1.18]);
-  const scale3 = useTransform(scrollYProgress, [0.50, 0.90], [1.08, 1.18]);
+  const scale1 = useTransform(smoothProgress, [0.10, 0.50], [1.08, 1.18]);
+  const scale2 = useTransform(smoothProgress, [0.30, 0.70], [1.08, 1.18]);
+  const scale3 = useTransform(smoothProgress, [0.50, 0.90], [1.08, 1.18]);
 
   /* Parallax values for hero */
   const { scrollYProgress: heroScroll } = useScroll();
