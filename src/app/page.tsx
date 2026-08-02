@@ -895,7 +895,7 @@ function MainContent() {
         </div>
       </section>
 
-      {/* â•â•â• ANOTHER MARQUEE â•â•â• */}
+      {/* ═════ ANOTHER MARQUEE ═════ */}
       <div className="py-6 border-y border-white/[0.04] overflow-hidden">
         <Marquee speed={35}>
           {t.marquee2.map((item, i) => (
@@ -966,12 +966,48 @@ function MainContent() {
       </section>
 
       {/* ——— FOOTER ——— */}
-      <footer className="py-8 border-t border-white/[0.04]">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/15 text-[10px] font-mono tracking-[0.2em]">{t.footerText}</p>
+      <footer className="py-12 border-t border-white/[0.04] bg-black/40">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-white text-[10px] font-mono tracking-[0.2em] font-medium">{t.footerText}</p>
+          
+          {/* Social Icons */}
+          <div className="flex gap-5 items-center">
+            <a href="#" className="hoverable text-white/50 hover:text-brandOrange transition-all duration-300" title="X (Twitter)">
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="#" className="hoverable text-white/50 hover:text-brandOrange transition-all duration-300" title="YouTube">
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.53 3.545 12 3.545 12 3.545s-7.53 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.017 0 12 0 12s0 3.983.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.858.508 9.388.508 9.388.508s7.53 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.983 24 12 24 12s0-3.983-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+            <a href="#" className="hoverable text-white/50 hover:text-brandOrange transition-all duration-300" title="Instagram">
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+              </svg>
+            </a>
+            <a href="#" className="hoverable text-white/50 hover:text-brandOrange transition-all duration-300" title="Truth Social">
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <rect width="22" height="22" x="1" y="1" rx="5" className="fill-none stroke-current stroke-[1.5]" />
+                <path d="M7 7h10v2.5h-3.5v7.5h-3V9.5H7V7z" />
+              </svg>
+            </a>
+            <a href="#" className="hoverable text-white/50 hover:text-brandOrange transition-all duration-300" title="Pinterest">
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.966 1.406-5.966s-.359-.72-.359-1.781c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.164 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.62 0 11.988-5.367 11.988-11.987C24.005 5.367 18.636 0 12.017 0z"/>
+              </svg>
+            </a>
+            <a href="#" className="hoverable text-white/50 hover:text-brandOrange transition-all duration-300" title="TikTok">
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.99-1.72-.08-.07-.17-.17-.25-.25v6.07c-.1 4.1-3.3 7.82-7.44 8.24-4.85.59-9.35-2.81-9.74-7.67-.48-5.06 3.19-9.75 8.25-10.02.93-.05 1.86.08 2.76.38V5.07c-2.1-.22-4.14.73-5.26 2.51-1.31 2.05-1.25 4.88.16 6.86 1.34 1.89 3.73 2.89 6.02 2.5 2.11-.36 3.79-2.12 4.1-4.24.06-.41.08-.83.08-1.25V.02z"/>
+              </svg>
+            </a>
+          </div>
+
           <div className="flex gap-8">
             {t.footerLinks.map((item) => (
-              <a key={item} href="#" className="hoverable text-white/15 text-[10px] font-mono tracking-[0.2em] hover:text-brandOrange transition-colors duration-500">{item}</a>
+              <a key={item} href="#" className="hoverable text-white text-[10px] font-mono tracking-[0.2em] font-medium hover:text-brandOrange transition-colors duration-500">{item}</a>
             ))}
           </div>
         </div>
