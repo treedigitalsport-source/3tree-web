@@ -17,27 +17,27 @@ const staticEpisodes = [
 const staticNews = [
   {
     id: "1",
-    category: "Lanzamiento",
-    title: "Kinebase v2.0 con rastreo biomecánico 3D en tiempo real",
-    desc: "Nuestra suite insignia recibe una actualización mayor, permitiendo a los entrenadores analizar ángulos de lanzamiento en béisbol con menos de 2ms de latencia en la nube.",
+    category: "MLB / BÉISBOL",
+    title: "Los Dodgers integran Kinebase Pro para optimizar la rotación de lanzadores abridores",
+    desc: "El cuerpo técnico del equipo de Los Ángeles oficializa la implementación de análisis biomecánico 3D en tiempo real de 3Tree Digital para predecir fatiga y mitigar lesiones en el bullpen.",
     date: "Hoy",
     time: "Hace 2 horas",
     createdAt: new Date().toISOString()
   },
   {
     id: "2",
-    category: "Alianza",
-    title: "3Tree Digital firma acuerdo de analíticas avanzadas con academia de béisbol de élite en República Dominicana",
-    desc: "Colaboraremos en el desarrollo de software a medida para el scouting de jóvenes prospectos utilizando analíticas de datos de radares avanzados de Trackman.",
+    category: "NBA / TECNOLOGÍA",
+    title: "La NBA aprueba sensores textiles de fatiga en uniformes de entrenamiento",
+    desc: "A partir de la próxima semana, las franquicias podrán recopilar métricas de aceleración, carga muscular y balance biomecánico directo en sus tablets de scouting durante las prácticas.",
     date: "Ayer",
     time: "Hace 1 día",
     createdAt: new Date(Date.now() - 86400000).toISOString()
   },
   {
     id: "3",
-    category: "Reporte de Mercado",
-    title: "El impacto de la inteligencia artificial generativa en las transmisiones deportivas",
-    desc: "Publicamos nuestro reporte anual detallando cómo los gráficos interactivos personalizados aumentan la retención del fanático joven en un 42% en transmisiones en vivo.",
+    category: "FÓRMULA 1",
+    title: "La Inteligencia Artificial reduce en un 3.5% la fricción aerodinámica de los monoplazas",
+    desc: "Reportes del túnel de viento virtual confirman que el nuevo modelo de simulación por redes neuronales predice turbulencias en rectas a más de 320 km/h con absoluta precisión.",
     date: "Jul 24, 2026",
     time: "Hace 1 semana",
     createdAt: new Date(Date.now() - 86400000 * 7).toISOString()
