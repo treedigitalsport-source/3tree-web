@@ -371,22 +371,9 @@ function InThePlaySection() {
              {t.uploadDesc}
           </p>
 
-          {/* Drag & Drop Area */}
-          <div className="w-full border-2 border-dashed border-white/10 hover:border-brandOrange/50 rounded-[2rem] p-10 md:p-12 flex flex-col items-center justify-center transition-colors duration-500 bg-black/30 hover:bg-brandOrange/[0.03] cursor-pointer mb-8 group/drop relative overflow-hidden">
-             
-             {/* Subtle inner gradient */}
-             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"></div>
-
-             <div className="relative z-10 w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover/drop:scale-110 transition-transform duration-500 border border-white/10 group-hover/drop:border-brandOrange/30 shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover/drop:shadow-[0_0_40px_rgba(242,101,34,0.2)]">
-                <UploadCloud className="w-8 h-8 text-white/40 group-hover/drop:text-brandOrange transition-colors" />
-             </div>
-             <p className="relative z-10 text-white/60 font-mono text-[10px] uppercase tracking-[0.2em] font-bold">MP4, MOV (Max 50MB)</p>
-          </div>
-
-          <button className="w-full bg-brandOrange text-white py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_30px_rgba(242,101,34,0.4)] hover:bg-white hover:text-brandOrange transition-all duration-500 flex items-center justify-center gap-3 relative z-10">
-             <UploadCloud className="w-4 h-4" /> {t.uploadButton}
-          </button>
-          
+           <Link href="/in-the-play" className="w-full bg-brandOrange text-white py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_30px_rgba(242,101,34,0.4)] hover:bg-white hover:text-brandOrange transition-all duration-500 flex items-center justify-center gap-3 relative z-10">
+              <Play className="w-4 h-4" /> {t.watchVideos}
+           </Link>
         </div>
       </div>
     </section>

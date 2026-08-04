@@ -62,7 +62,7 @@ const dict = {
     placeholderName: "e.g. John Doe",
     placeholderEmail: "e.g. john@company.com",
     placeholderIdea: "e.g. We want a scouting app...",
-    whoDaresWins: "Who Dares Wins *saas*",
+    whoDaresWins: "Who Dares Wins *sas*",
     scoutAi: "Kinebase",
     
     // Diario translations
@@ -153,7 +153,7 @@ const dict = {
     placeholderName: "ej. Juan Pérez",
     placeholderEmail: "ej. juan@empresa.com",
     placeholderIdea: "ej. Queremos una app de scouting...",
-    whoDaresWins: "Quien Arriesga Gana *saas*",
+    whoDaresWins: "Quien Arriesga Gana *sas*",
     scoutAi: "Kinebase",
     
     // Diario translations
