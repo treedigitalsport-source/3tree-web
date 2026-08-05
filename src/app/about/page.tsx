@@ -36,9 +36,11 @@ export default function AboutPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-16 h-16 rounded-2xl bg-brandOrange/10 border border-brandOrange/20 flex items-center justify-center mx-auto mb-6 text-brandOrange"
+            whileHover={{ scale: 1.1, rotate: 5, boxShadow: "0 0 30px rgba(242,101,34,0.4)" }}
+            whileTap={{ scale: 0.95 }}
+            className="w-16 h-16 rounded-2xl bg-brandOrange/10 border border-brandOrange/20 flex items-center justify-center mx-auto mb-6 text-brandOrange cursor-pointer transition-colors hover:bg-brandOrange/20"
           >
-            <Users className="w-8 h-8" />
+            <Users className="w-8 h-8 drop-shadow-[0_0_10px_rgba(242,101,34,0.6)]" />
           </motion.div>
           
           <motion.h1
@@ -72,21 +74,44 @@ export default function AboutPage() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-brandOrange/5 blur-[80px] rounded-full pointer-events-none" />
             
             <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wider text-white flex items-center gap-3 mb-6">
-              <Award className="w-6 h-6 text-brandOrange" />
+              <motion.div whileHover={{ scale: 1.2, rotate: 15 }} whileTap={{ scale: 0.9 }} className="cursor-pointer">
+                <Award className="w-6 h-6 text-brandOrange drop-shadow-[0_0_8px_rgba(242,101,34,0.8)]" />
+              </motion.div>
               {isEs ? "Nuestra Fundación" : "Our Founders"}
             </h2>
             
-            <div className="space-y-4 text-white/70 leading-relaxed text-sm md:text-base font-light">
-              <p>
-                {isEs 
-                  ? "3Tree Digital fue fundada en Lutz, Florida, por un equipo de apasionados de la tecnología, analistas deportivos y ex-atletas dedicados a revolucionar la visibilidad de los deportistas a nivel mundial."
-                  : "3Tree Digital was founded in Lutz, Florida, by a team of technology experts, sports analysts, and former athletes dedicated to revolutionizing athletic visibility worldwide."}
-              </p>
-              <p>
-                {isEs
-                  ? "Concebida originalmente para cerrar la brecha entre los jugadores con talento excepcional y los cazatalentos profesionales, la empresa ha evolucionado para implementar herramientas avanzadas de automatización de video basadas en Inteligencia Artificial."
-                  : "Originally conceived to bridge the gap between exceptionally talented players and professional scouts, the company has evolved to deploy state-of-the-art video automation tools powered by Artificial Intelligence."}
-              </p>
+            <div className="space-y-6 text-white/70 leading-relaxed text-sm md:text-base font-light">
+              <div>
+                <h3 className="text-lg font-bold text-white mb-2">{isEs ? "El Origen" : "The Origins"}</h3>
+                <p>
+                  {isEs 
+                    ? "Operando desde Lutz, Florida, USA — Operaciones Globales, fundé 3tree Digital con un propósito claro: cerrar la brecha entre el talento de élite y los reclutadores profesionales. Como único dueño y arquitecto de este proyecto, he evolucionado esta agencia para convertirla en una plataforma impulsada por Inteligencia Artificial, desplegando herramientas autónomas que llevan la visibilidad atlética al siguiente nivel."
+                    : "Operating out of Lutz, Florida, USA — Global Operations, I founded 3tree Digital with a clear purpose: to bridge the gap between elite talent and professional scouts. As the sole owner and architect of this project, I have evolved this agency into an AI-powered platform, deploying autonomous tools that take athletic visibility to the next level."}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-white mb-2">{isEs ? "La Ventaja Injusta (El Factor del Fundador)" : "The Unfair Advantage (The Founder Factor)"}</h3>
+                <p className="mb-4">
+                  {isEs
+                    ? "Mi visión no nació en una sala de juntas corporativa. Es el resultado directo de mi trayectoria como Único Fundador: la fusión de 26 años de experiencia en Entrenamiento Personal de Élite con ingeniería avanzada en IA y Big Data. Esta combinación es mi principal ventaja técnica y estratégica."
+                    : "My vision was not born in a corporate boardroom. It is the direct result of my trajectory as a Solo Founder: the fusion of 26 years of elite Personal Training experience with advanced engineering in AI and Big Data. This combination is my main technical and strategic advantage."}
+                </p>
+                <ul className="space-y-4">
+                  <li>
+                    <strong className="text-brandOrange block mb-1">👁️ {isEs ? "Visión de Campo (Domain Expertise)" : "Field Vision (Domain Expertise)"}</strong>
+                    {isEs 
+                      ? "No uso simples algoritmos genéricos de detección de movimiento. Dos décadas y media en la trinchera me permiten identificar exactamente qué jugadas, métricas y detalles biomecánicos son los que un scout profesional necesita ver." 
+                      : "I don't use simple generic motion detection algorithms. Two and a half decades in the trenches allow me to identify exactly what plays, metrics, and biomechanical details a professional scout needs to see."}
+                  </li>
+                  <li>
+                    <strong className="text-brandOrange block mb-1">🧠 {isEs ? "Arquitectura de Datos (Data Vision)" : "Data Architecture (Data Vision)"}</strong>
+                    {isEs 
+                      ? "La plataforma hace mucho más que editar videos. Uso la Inteligencia Artificial para cuantificar el rendimiento deportivo a escala, transformando el talento bruto de un atleta en estadísticas innegables." 
+                      : "The platform does much more than edit videos. I use Artificial Intelligence to quantify athletic performance at scale, transforming an athlete's raw talent into undeniable statistics."}
+                  </li>
+                </ul>
+              </div>
             </div>
           </motion.section>
 
@@ -100,20 +125,22 @@ export default function AboutPage() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-brandOrange/5 blur-[80px] rounded-full pointer-events-none" />
             
             <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wider text-white flex items-center gap-3 mb-6">
-              <Lightbulb className="w-6 h-6 text-brandOrange" />
+              <motion.div whileHover={{ scale: 1.2, rotate: -15 }} whileTap={{ scale: 0.9 }} className="cursor-pointer">
+                <Lightbulb className="w-6 h-6 text-brandOrange drop-shadow-[0_0_8px_rgba(242,101,34,0.8)]" />
+              </motion.div>
               {isEs ? "Cómo Nació la Idea" : "How the Idea Was Born"}
             </h2>
             
             <div className="space-y-4 text-white/70 leading-relaxed text-sm md:text-base font-light">
               <p>
                 {isEs 
-                  ? "La idea de 3Tree Digital e In the Play nació en los campos de juego locales. Observamos cómo decenas de jóvenes atletas con talento extraordinario se quedaban fuera del radar de los cazatalentos profesionales simplemente por no tener los recursos para pagar miles de dólares a agencias de video tradicionales."
-                  : "The idea for 3Tree Digital and In the Play was born on local sports fields. We watched dozens of extraordinarily talented young athletes miss out on professional scouting opportunities simply because they couldn't afford to pay traditional video production agencies thousands of dollars."}
+                  ? "La idea de 3tree Digital e In the Play nació en los campos de juego locales. Observé cómo decenas de jóvenes atletas con talento extraordinario se quedaban fuera del radar de los cazatalentos profesionales simplemente por no tener los recursos para pagar miles de dólares a agencias de video tradicionales."
+                  : "The idea for 3tree Digital and In the Play was born on local sports fields. I watched dozens of extraordinarily talented young athletes miss out on professional scouting opportunities simply because they couldn't afford to pay traditional video production agencies thousands of dollars."}
               </p>
               <p>
                 {isEs
-                  ? "Ver a padres de familia sosteniendo teléfonos móviles intentando grabar y estabilizar con las manos temblorosas las jugadas clave de sus hijos nos inspiró: ¿Qué pasaría si usáramos Inteligencia Artificial para tomar esos videos caseros, estabilizarlos, recortar las mejores jugadas y darles calidad de televisión profesional al instante y al costo de una suscripción de $2 dólares al mes? Así nació nuestra misión."
-                  : "Seeing parents holding cell phones trying to capture and stabilize their children's key plays with shaking hands inspired us: What if we used Artificial Intelligence to take those home videos, stabilize them, crop the best plays, and instantly give them TV-broadcast quality for the price of a $2 dollar subscription? Thus, our mission was born."}
+                  ? "Ver a padres de familia sosteniendo teléfonos móviles intentando grabar y estabilizar con las manos temblorosas las jugadas clave de sus hijos me inspiró: ¿Qué pasaría si usara Inteligencia Artificial para tomar esos videos caseros, estabilizarlos, recortar las mejores jugadas y darles calidad de televisión profesional al instante y al costo de una suscripción de $2 dólares al mes? Así nació mi misión."
+                  : "Seeing parents holding cell phones trying to capture and stabilize their children's key plays with shaking hands inspired me: What if I used Artificial Intelligence to take those home videos, stabilize them, crop the best plays, and instantly give them TV-broadcast quality for the price of a $2 dollar subscription? Thus, my mission was born."}
               </p>
             </div>
           </motion.section>
@@ -126,76 +153,26 @@ export default function AboutPage() {
             className="bg-white/[0.01] border border-white/5 p-8 md:p-12 rounded-[2.5rem] backdrop-blur-md relative overflow-hidden"
           >
             <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wider text-white flex items-center gap-3 mb-6">
-              <Target className="w-6 h-6 text-brandOrange" />
-              {isEs ? "Nuestra Propuesta de Valor" : "Our Value Proposal"}
+              <motion.div whileHover={{ scale: 1.2, rotate: 15 }} whileTap={{ scale: 0.9 }} className="cursor-pointer">
+                <Target className="w-6 h-6 text-brandOrange drop-shadow-[0_0_8px_rgba(242,101,34,0.8)]" />
+              </motion.div>
+              {isEs ? "Mi Propuesta de Valor" : "My Value Proposal"}
             </h2>
             
             <div className="space-y-4 text-white/70 leading-relaxed text-sm md:text-base font-light">
               <p>
                 {isEs
-                  ? "Nuestra propuesta consiste en democratizar las oportunidades en el deporte. A través de In the Play, proporcionamos un estudio de edición de video instantáneo que estabiliza jugadas crudas, realiza recortes cinematográficos precisos y aplica filtros avanzados por solo $2 dólares al mes."
-                  : "Our proposal is to democratize sports recruiting opportunities. Through In the Play, we provide an instant video editing studio that stabilizes raw footage, performs precise cinematic cuts, and applies advanced filters for only $2 dollars a month."}
+                  ? "Mi propuesta consiste en democratizar las oportunidades en el deporte. A través de mi plataforma In the Play, proporciono un estudio de edición de video instantáneo que estabiliza jugadas crudas, realiza recortes cinematográficos precisos y aplica filtros avanzados por solo $2 dólares al mes."
+                  : "My proposal is to democratize sports recruiting opportunities. Through my platform In the Play, I provide an instant video editing studio that stabilizes raw footage, performs precise cinematic cuts, and applies advanced filters for only $2 dollars a month."}
               </p>
               <p>
                 {isEs
-                  ? "Los atletas ya no necesitan contratar agencias costosas ni editores de video manuales. Suben su clip crudo y, en minutos, tienen un highlight listo para nuestro feed de visibilidad internacional y publicado directamente en nuestro canal de YouTube."
-                  : "Athletes no longer need to hire expensive agencies or manual video editors. They upload their raw clip and, in minutes, have a highlight ready for our international visibility feed and published directly to our YouTube channel."}
+                  ? "Los atletas ya no necesitan contratar agencias costosas ni editores de video manuales. Suben su clip crudo y, en minutos, tienen un highlight listo para el feed de visibilidad internacional y publicado directamente en el canal oficial de YouTube."
+                  : "Athletes no longer need to hire expensive agencies or manual video editors. They upload their raw clip and, in minutes, have a highlight ready for the international visibility feed and published directly to the official YouTube channel."}
               </p>
             </div>
           </motion.section>
 
-          {/* Section 3: Qué nos diferencia (Tabla comparativa) */}
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-white/[0.01] border border-white/5 p-8 md:p-12 rounded-[2.5rem] backdrop-blur-md relative"
-          >
-            <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wider text-white flex items-center gap-3 mb-8">
-              <Scale className="w-6 h-6 text-brandOrange" />
-              {isEs ? "La Diferencia 3Tree Digital" : "The 3Tree Digital Difference"}
-            </h2>
-
-            {/* Comparison Grid */}
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse text-xs md:text-sm font-light">
-                <thead>
-                  <tr className="border-b border-white/10 text-white/40 uppercase tracking-wider font-mono">
-                    <th className="py-4 pr-4">{isEs ? "Característica" : "Feature"}</th>
-                    <th className="py-4 px-4 text-brandOrange font-bold">3Tree Digital (In the Play)</th>
-                    <th className="py-4 pl-4">{isEs ? "Agencias Tradicionales" : "Traditional Agencies"}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/[0.05] text-white/70">
-                  <tr>
-                    <td className="py-4 pr-4 font-bold text-white">{isEs ? "Costo del Servicio" : "Cost of Service"}</td>
-                    <td className="py-4 px-4 text-green-400 font-mono font-bold">$2.00 USD / mes</td>
-                    <td className="py-4 pl-4 font-mono">$1,000 - $3,000 USD</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 pr-4 font-bold text-white">{isEs ? "Tiempo de Entrega" : "Delivery Time"}</td>
-                    <td className="py-4 px-4 text-green-400 font-bold">{isEs ? "Minutos (Edición IA)" : "Minutes (AI Edited)"}</td>
-                    <td className="py-4 pl-4">{isEs ? "Semanas o Meses" : "Weeks or Months"}</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 pr-4 font-bold text-white">{isEs ? "Edición y Estabilización" : "Editing & Stabilization"}</td>
-                    <td className="py-4 px-4 text-green-400"><CheckCircle2 className="w-4 h-4 inline mr-2 text-green-400" /> {isEs ? "Automatizada por IA" : "AI Automated"}</td>
-                    <td className="py-4 pl-4 text-red-400"><XCircle className="w-4 h-4 inline mr-2 text-red-400" /> {isEs ? "Manual o inexistente" : "Manual / None"}</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 pr-4 font-bold text-white">{isEs ? "Publicación en YouTube" : "YouTube Syndication"}</td>
-                    <td className="py-4 px-4 text-green-400"><CheckCircle2 className="w-4 h-4 inline mr-2 text-green-400" /> {isEs ? "Automática" : "Automatic"}</td>
-                    <td className="py-4 pl-4 text-red-400"><XCircle className="w-4 h-4 inline mr-2 text-red-400" /> {isEs ? "No incluida" : "Not included"}</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 pr-4 font-bold text-white">{isEs ? "Acceso a Scouts" : "Scout Visibility"}</td>
-                    <td className="py-4 px-4 text-green-400"><CheckCircle2 className="w-4 h-4 inline mr-2 text-green-400" /> {isEs ? "Red Global Abierta" : "Open Global Feed"}</td>
-                    <td className="py-4 pl-4 text-red-400"><XCircle className="w-4 h-4 inline mr-2 text-red-400" /> {isEs ? "Solo contactos cerrados" : "Closed contacts only"}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </motion.section>
 
         </div>
 

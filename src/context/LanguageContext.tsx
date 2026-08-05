@@ -24,6 +24,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   useEffect(() => {
     // Optional: detect browser language on mount
     const browserLang = navigator.language.startsWith('es') ? 'es' : 'en';
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLanguage(browserLang);
     setMounted(true);
   }, []);

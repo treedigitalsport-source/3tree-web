@@ -1,473 +1,195 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Lock, UploadCloud, Video, Sparkles, CheckCircle2, CreditCard, Loader2, UserPlus, FileText, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, Newspaper, Clock, Calendar } from "lucide-react";
 import { useLang } from "@/app/i18n";
+import { useEffect, useState } from "react";
+import { getPodcastNews } from "@/app/actions/podcast";
+import CustomCursor from "@/components/CustomCursor";
 
-export default function InThePlayPage() {
-  const { lang } = useLang();
+const staticNewsEs = [
+  {
+    id: "1",
+    category: "MLB / BÉISBOL",
+    title: "Los Dodgers integran Kinebase Pro para optimizar la rotación de lanzadores abridores",
+    desc: "El cuerpo técnico del equipo oficializa la implementación de análisis biomecánico 3D en tiempo real.",
+    date: "Hoy",
+    time: "Hace 2 horas",
+    videoUrl: "/Player_speaks_with_journalists_1080p_202608051858.mp4",
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: "2",
+    category: "NFL / FÚTBOL AMERICANO",
+    title: "Equipos de la NFL adoptan tracking óptico en tiempo real para análisis de aceleración de corredores",
+    desc: "El sistema de cámaras computarizadas analiza el impacto y la aceleración muscular de los corredores para optimizar el rendimiento.",
+    date: "Ayer",
+    time: "Hace 1 día",
+    videoUrl: "/Corredor_de_fútbol_americano_en_202608051848.mp4",
+    createdAt: new Date(Date.now() - 86400000).toISOString()
+  },
+  {
+    id: "3",
+    category: "MOBILE TECH / SCOUTING",
+    title: "Nueva App de Scouting actualiza datos de rendimiento de jugadores en tiempo real",
+    desc: "Plataforma móvil sincroniza al instante métricas biomecánicas y estadísticas de carrera directamente en la pantalla de los cazatalentos.",
+    date: "Hace 2 días",
+    time: "Hace 3 días",
+    videoUrl: "/smartphone_screen.mp4",
+    createdAt: new Date(Date.now() - 172800000).toISOString()
+  }
+];
+
+const staticNewsEn = [
+  {
+    id: "1",
+    category: "MLB / BASEBALL",
+    title: "Dodgers integrate Kinebase Pro to optimize starting pitcher rotation",
+    desc: "The team's coaching staff officializes the implementation of real-time 3D biomechanical analysis.",
+    date: "Today",
+    time: "2 hours ago",
+    videoUrl: "/Player_speaks_with_journalists_1080p_202608051858.mp4",
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: "2",
+    category: "NFL / FOOTBALL",
+    title: "NFL teams adopt real-time optical tracking for runner acceleration analytics",
+    desc: "The computerized camera system tracks muscle acceleration and collision impact in real-time to optimize performance.",
+    date: "Yesterday",
+    time: "1 day ago",
+    videoUrl: "/Corredor_de_fútbol_americano_en_202608051848.mp4",
+    createdAt: new Date(Date.now() - 86400000).toISOString()
+  },
+  {
+    id: "3",
+    category: "MOBILE TECH / SCOUTING",
+    title: "New Scouting App updates player performance data in real-time",
+    desc: "Mobile platform instantly syncs biomechanical metrics and game stats directly to scouts' screens.",
+    date: "2 days ago",
+    time: "3 days ago",
+    videoUrl: "/smartphone_screen.mp4",
+    createdAt: new Date(Date.now() - 172800000).toISOString()
+  }
+];
+
+export default function SportsNewsPage() {
+  const { t, lang } = useLang();
   const isEs = lang === "es";
 
-  // Wizard Steps: 1 = Registro, 2 = Pago/Stripe, 3 = Estudio (Subir Video)
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [newsList, setNewsList] = useState<any[]>([]);
 
-  // Step 1: Registro States
-  const [regName, setRegName] = useState("");
-  const [regEmail, setRegEmail] = useState("");
-  const [regPhone, setRegPhone] = useState("");
-  const [regSport, setRegSport] = useState("Béisbol");
-  const [regCategory, setRegCategory] = useState("Amateur");
-
-  // Step 2: Pago States
-  const [cardType, setCardType] = useState<"credit" | "debit">("credit");
-  const [cardName, setCardName] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [cardExpiry, setCardExpiry] = useState("");
-  const [cardCvv, setCardCvv] = useState("");
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-
-  // Step 3: Estudio States
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadSuccess, setUploadSuccess] = useState(false);
-
-  // Handlers
-  const handleRegisterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!regName || !regEmail || !regPhone) {
-      alert(isEs ? "Por favor completa todos los datos obligatorios." : "Please fill all required fields.");
-      return;
+  useEffect(() => {
+    async function fetchData() {
+      const newsResult = await getPodcastNews();
+      if (newsResult.success && newsResult.news && newsResult.news.length > 0) {
+        setNewsList(newsResult.news);
+      } else {
+        setNewsList(isEs ? staticNewsEs : staticNewsEn);
+      }
     }
-    // Set cardholder name default value to registration name
-    setCardName(regName);
-    setStep(2);
-  };
-
-  const handlePaymentSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
-      alert(isEs ? "Por favor completa los datos de tu tarjeta." : "Please fill your card details.");
-      return;
-    }
-    setIsProcessingPayment(true);
-    setTimeout(() => {
-      setIsProcessingPayment(false);
-      setStep(3);
-    }, 2500);
-  };
-
-  const handleUpload = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsUploading(true);
-    setTimeout(() => {
-      setIsUploading(false);
-      setUploadSuccess(true);
-    }, 2000);
-  };
+    fetchData();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white selection:bg-brandOrange selection:text-white font-sans overflow-x-hidden relative">
-      
-      {/* Background gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-brandOrange/10 blur-[150px] rounded-full pointer-events-none" />
-      
-      <div className="container mx-auto px-6 py-12 relative z-10">
-        <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white mb-12 transition-colors">
-          <ArrowLeft className="w-4 h-4" /> {isEs ? "Volver a la web" : "Back to Home"}
-        </Link>
+    <main className="min-h-screen bg-[#020617] text-white selection:bg-brandOrange selection:text-white relative overflow-x-hidden font-sans">
+      <CustomCursor />
 
-        {/* Header Section (Shared for Steps 1 & 2) */}
-        {step < 3 && (
-          <div className="text-center mb-10">
-            <div className="inline-block bg-brandOrange/10 border border-brandOrange/20 rounded-full px-6 py-2 mb-6">
-              <span className="text-brandOrange font-bold tracking-widest text-xs uppercase flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5" /> {isEs ? "Inteligencia Artificial Deportiva" : "Sport Artificial Intelligence"}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-display font-black uppercase mb-4 leading-tight">
-              {isEs ? "IN THE PLAY HIGHLIGHT" : "IN THE PLAY HIGHLIGHT"}
-            </h1>
-            <p className="text-sm md:text-base text-white/50 max-w-2xl mx-auto font-light">
-              {isEs 
-                ? "Regístrate, realiza tu pago de suscripción y sube tu video. Nuestra IA lo estabilizará, editará automáticamente y además lo publicaremos en nuestro canal oficial de YouTube y el feed global de scouting."
-                : "Register, complete your subscription payment, and upload your video. Our AI will automatically edit and stabilize it, and we will also publish it to our official YouTube channel and the global scouting feed."}
-            </p>
-
-            {/* Step Indicators */}
-            <div className="flex justify-center items-center gap-4 mt-8">
-              <div className="flex items-center gap-2">
-                <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold ${step >= 1 ? "bg-brandOrange text-white" : "bg-white/10 text-white/40"}`}>1</span>
-                <span className={`text-[10px] font-mono uppercase tracking-wider ${step === 1 ? "text-brandOrange font-bold" : "text-white/40"}`}>{isEs ? "Registro" : "Register"}</span>
-              </div>
-              <div className="w-8 h-[1px] bg-white/10" />
-              <div className="flex items-center gap-2">
-                <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold ${step >= 2 ? "bg-brandOrange text-white" : "bg-white/10 text-white/40"}`}>2</span>
-                <span className={`text-[10px] font-mono uppercase tracking-wider ${step === 2 ? "text-brandOrange font-bold" : "text-white/40"}`}>{isEs ? "Pago" : "Payment"}</span>
-              </div>
-              <div className="w-8 h-[1px] bg-white/10" />
-              <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold bg-white/10 text-white/40">3</span>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-white/40">{isEs ? "Estudio" : "Studio"}</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <AnimatePresence mode="wait">
-          
-          {/* STEP 1: REGISTRO */}
-          {step === 1 && (
-            <motion.div
-              key="step1"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              className="max-w-xl mx-auto bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl relative overflow-hidden"
-            >
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-brandOrange/10 blur-[50px] rounded-full pointer-events-none" />
-              
-              <form onSubmit={handleRegisterSubmit} className="space-y-5 relative z-10">
-                <h3 className="text-lg font-bold tracking-wider uppercase text-white/85 border-b border-white/10 pb-3 mb-2 flex items-center gap-2">
-                  <UserPlus className="w-5 h-5 text-brandOrange" /> {isEs ? "Formulario de Registro" : "Registration Details"}
-                </h3>
-
-                {/* Full Name */}
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold block">{isEs ? "Nombre Completo" : "Full Name"}</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder={isEs ? "EJ. MATEO ALVARADO" : "E.G. MATEO ALVARADO"}
-                    value={regName}
-                    onChange={(e) => setRegName(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white placeholder:text-white/20"
-                  />
-                </div>
-
-                {/* Email Address */}
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold block">
-                    {isEs ? "Correo Electrónico" : "Email Address"}
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="email@example.com"
-                    value={regEmail}
-                    onChange={(e) => setRegEmail(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white placeholder:text-white/20 font-mono"
-                  />
-                  <p className="text-[10px] text-brandOrange/80 font-mono mt-1 leading-relaxed">
-                    {isEs 
-                      ? "⚠ El video final se enviará a este correo y se publicará en nuestro canal de YouTube." 
-                      : "⚠ The final video will be sent to this email and published to our YouTube channel."}
-                  </p>
-                </div>
-
-                {/* Phone Number */}
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold block">{isEs ? "Teléfono / WhatsApp" : "Phone / WhatsApp"}</label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+1 (555) 000-0000"
-                    value={regPhone}
-                    onChange={(e) => setRegPhone(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white placeholder:text-white/20 font-mono"
-                  />
-                </div>
-
-                {/* Sport Selector */}
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold block">{isEs ? "Deporte" : "Sport"}</label>
-                  <select
-                    value={regSport}
-                    onChange={(e) => setRegSport(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white appearance-none cursor-pointer"
-                    style={{ backgroundImage: "url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27white%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpolyline points=%276 9 12 15 18 9%27/%3E%3C/svg%3E')", backgroundPosition: "right 1rem center", backgroundSize: "1em", backgroundRepeat: "no-repeat" }}
-                  >
-                    <option value="Béisbol" className="bg-[#020617]">{isEs ? "Béisbol" : "Baseball"}</option>
-                    <option value="Fútbol" className="bg-[#020617]">{isEs ? "Fútbol" : "Soccer"}</option>
-                    <option value="Hockey" className="bg-[#020617]">{isEs ? "Hockey" : "Hockey"}</option>
-                    <option value="Fútbol Americano" className="bg-[#020617]">{isEs ? "Fútbol Americano" : "Football"}</option>
-                    <option value="Sóftbol" className="bg-[#020617]">{isEs ? "Sóftbol" : "Softball"}</option>
-                  </select>
-                </div>
-
-                {/* Category Selector */}
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold block">{isEs ? "Categoría de Juego" : "Game Category"}</label>
-                  <select
-                    value={regCategory}
-                    onChange={(e) => setRegCategory(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white appearance-none cursor-pointer"
-                    style={{ backgroundImage: "url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27white%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpolyline points=%276 9 12 15 18 9%27/%3E%3C/svg%3E')", backgroundPosition: "right 1rem center", backgroundSize: "1em", backgroundRepeat: "no-repeat" }}
-                  >
-                    <option value="Juvenil" className="bg-[#020617]">{isEs ? "Juvenil" : "Youth"}</option>
-                    <option value="Amateur" className="bg-[#020617]">{isEs ? "Amateur" : "Amateur"}</option>
-                    <option value="Universitario" className="bg-[#020617]">{isEs ? "Universitario / College" : "College"}</option>
-                    <option value="Profesional" className="bg-[#020617]">{isEs ? "Profesional" : "Professional"}</option>
-                  </select>
-                </div>
-
-                <div className="w-full h-[1px] bg-white/10 my-4" />
-
-                <button
-                  type="submit"
-                  className="group relative w-full bg-brandOrange text-white px-8 py-4 rounded-full font-bold text-xs uppercase tracking-widest overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(242,101,34,0.3)] flex items-center justify-center gap-2"
-                >
-                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                  <span className="relative z-10 flex items-center justify-center gap-1.5">
-                    {isEs ? "Proceder al Pago ($2/mes)" : "Proceed to Payment ($2/mo)"} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </button>
-              </form>
-            </motion.div>
-          )}
-
-          {/* STEP 2: PAGO (STRIPE COBRO SIMULADO) */}
-          {step === 2 && (
-            <motion.div
-              key="step2"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              className="max-w-xl mx-auto bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl relative overflow-hidden"
-            >
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-brandOrange/10 blur-[50px] rounded-full pointer-events-none" />
-              
-              <form onSubmit={handlePaymentSubmit} className="space-y-4 relative z-10">
-                <h3 className="text-lg font-bold tracking-wider uppercase text-white/85 border-b border-white/10 pb-3 mb-2 flex items-center gap-2">
-                  <CreditCard className="w-5 h-5 text-brandOrange" /> {isEs ? "Información de Facturación" : "Billing Details"}
-                </h3>
-
-                {/* Submitter Summary Badge */}
-                <div className="bg-black/35 border border-white/5 rounded-xl p-4 text-xs font-mono space-y-1">
-                  <div className="text-white/40">{isEs ? "INFORMACIÓN DEL CLIENTE:" : "CLIENT INFORMATION:"}</div>
-                  <div className="text-white"><span className="text-brandOrange">{isEs ? "Nombre:" : "Name:"}</span> {regName}</div>
-                  <div className="text-white"><span className="text-brandOrange">{isEs ? "Correo:" : "Email:"}</span> {regEmail}</div>
-                  <div className="text-white"><span className="text-brandOrange">{isEs ? "Plan:" : "Plan:"}</span> In The Play Premium ($2.00 USD / {isEs ? "mes" : "mo"})</div>
-                </div>
-
-                {/* Card Type Selector */}
-                <div className="flex gap-2 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setCardType("credit")}
-                    className={`flex-1 py-2.5 rounded-xl border text-[10px] font-mono font-bold uppercase tracking-wider transition-all ${
-                      cardType === "credit"
-                        ? "bg-brandOrange/15 border-brandOrange text-brandOrange"
-                        : "bg-white/5 border-white/10 text-white/40 hover:text-white"
-                    }`}
-                  >
-                    {isEs ? "Tarjeta Crédito" : "Credit Card"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setCardType("debit")}
-                    className={`flex-1 py-2.5 rounded-xl border text-[10px] font-mono font-bold uppercase tracking-wider transition-all ${
-                      cardType === "debit"
-                        ? "bg-brandOrange/15 border-brandOrange text-brandOrange"
-                        : "bg-white/5 border-white/10 text-white/40 hover:text-white"
-                    }`}
-                  >
-                    {isEs ? "Tarjeta Débito" : "Debit Card"}
-                  </button>
-                </div>
-
-                {/* Cardholder Name */}
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold block">{isEs ? "Nombre en la Tarjeta" : "Cardholder Name"}</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="EJ. JUAN PÉREZ"
-                    value={cardName}
-                    onChange={(e) => setCardName(e.target.value.toUpperCase())}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white font-mono placeholder:text-white/20"
-                  />
-                </div>
-
-                {/* Card Number */}
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold block">{isEs ? "Número de Tarjeta" : "Card Number"}</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      required
-                      maxLength={19}
-                      placeholder="4242 4242 4242 4242"
-                      value={cardNumber}
-                      onChange={(e) => {
-                        const val = e.target.value.replace(/\D/g, "");
-                        const formatted = val.match(/.{1,4}/g)?.join(" ") || val;
-                        setCardNumber(formatted);
-                      }}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white font-mono placeholder:text-white/20"
-                    />
-                    <CreditCard className="w-4 h-4 text-white/30 absolute left-4 top-1/2 -translate-y-1/2" />
-                  </div>
-                </div>
-
-                {/* Expiry and CVV Row */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold block">{isEs ? "Vencimiento (MM/AA)" : "Expiry (MM/YY)"}</label>
-                    <input
-                      type="text"
-                      required
-                      maxLength={5}
-                      placeholder="MM/AA"
-                      value={cardExpiry}
-                      onChange={(e) => {
-                        const val = e.target.value.replace(/\D/g, "");
-                        const formatted = val.length > 2 ? `${val.slice(0, 2)}/${val.slice(2, 4)}` : val;
-                        setCardExpiry(formatted);
-                      }}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white font-mono placeholder:text-white/20"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-bold block">CVV</label>
-                    <input
-                      type="password"
-                      required
-                      maxLength={4}
-                      placeholder="•••"
-                      value={cardCvv}
-                      onChange={(e) => setCardCvv(e.target.value.replace(/\D/g, ""))}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brandOrange text-white font-mono placeholder:text-white/20"
-                    />
-                  </div>
-                </div>
-
-                <div className="w-full h-[1px] bg-white/10 my-4" />
-
-                <div className="flex gap-4">
-                  {/* Back Button */}
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    className="flex-shrink-0 px-6 py-4 rounded-full border border-white/10 text-white/60 hover:text-white hover:bg-white/5 transition-all text-xs font-bold uppercase tracking-wider"
-                  >
-                    {isEs ? "Atrás" : "Back"}
-                  </button>
-
-                  {/* Submit Button */}
-                  <button 
-                    type="submit"
-                    disabled={isProcessingPayment}
-                    className="flex-1 group relative bg-brandOrange text-white px-8 py-4 rounded-full font-bold text-xs uppercase tracking-widest overflow-hidden transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(242,101,34,0.4)] disabled:opacity-50"
-                  >
-                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      {isProcessingPayment ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" /> {isEs ? "Procesando pago seguro..." : "Processing secure payment..."}
-                        </>
-                      ) : (
-                        <>
-                          <Lock className="w-4 h-4" /> {isEs ? "Pagar $2/mes y Desbloquear" : "Pay $2/mo & Unlock"}
-                        </>
-                      )}
-                    </span>
-                  </button>
-                </div>
-              </form>
-            </motion.div>
-          )}
-
-          {/* STEP 3: ESTUDIO DE SUBIDA (SOLO PARA REGISTRADOS/SUSCRITOS) */}
-          {step === 3 && (
-            <motion.div 
-              key="step3"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="max-w-4xl mx-auto"
-            >
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 border-b border-white/10 pb-6 gap-4">
-                <div>
-                  <h1 className="text-3xl font-display font-black uppercase text-white mb-2">3Tree Studio Highlight</h1>
-                  <p className="text-white/50 text-sm font-mono flex items-center gap-1.5">
-                    <span className="text-brandOrange font-bold">{isEs ? "Usuario:" : "User:"}</span> {regName} ({regEmail})
-                  </p>
-                </div>
-                <div className="px-4 py-2 bg-green-500/10 border border-green-500/20 text-green-400 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                  {isEs ? "Suscripción Activa" : "Active Subscription"}
-                </div>
-              </div>
-
-              {/* Uploader Card */}
-              <div className="bg-white/5 border border-white/10 rounded-[2rem] p-8 md:p-12 backdrop-blur-xl">
-                <h2 className="text-xl font-bold uppercase tracking-wider mb-6 flex items-center gap-2">
-                  <Video className="w-5 h-5 text-brandOrange" /> {isEs ? "Sube tu video crudo" : "Upload your raw video"}
-                </h2>
-                
-                {!uploadSuccess ? (
-                  <form onSubmit={handleUpload} className="space-y-8">
-                    <div className="border-2 border-dashed border-white/20 rounded-2xl p-12 text-center hover:border-brandOrange/50 transition-colors bg-black/20 group relative overflow-hidden">
-                      <Video className="w-12 h-12 mx-auto mb-4 text-white/20 group-hover:text-brandOrange transition-colors" />
-                      <h3 className="text-lg font-bold mb-2">{isEs ? "Arrastra tu video aquí" : "Drag and drop your video here"}</h3>
-                      <p className="text-white/40 text-sm mb-6">{isEs ? "MP4 o MOV hasta 500MB" : "MP4 or MOV up to 500MB"}</p>
-                      <input 
-                        required
-                        type="file" 
-                        accept="video/mp4,video/quicktime" 
-                        className="block w-full max-w-xs mx-auto text-sm text-white/50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20 cursor-pointer"
-                      />
-                    </div>
-
-                    <div className="bg-brandOrange/5 border border-brandOrange/15 rounded-xl p-4 text-xs text-white/70 leading-relaxed font-mono">
-                      {isEs 
-                        ? `ℹ El video final editado se enviará a ${regEmail} y se publicará en nuestro canal de YouTube.` 
-                        : `ℹ The final edited highlight video will be sent to ${regEmail} and published to our YouTube channel.`}
-                    </div>
-
-                    <div className="flex justify-end">
-                      <button 
-                        type="submit" 
-                        disabled={isUploading}
-                        className="bg-brandOrange text-white px-8 py-4 rounded-full font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(242,101,34,0.4)] transition-all flex items-center gap-2 disabled:opacity-50"
-                      >
-                        {isUploading ? (
-                          <span className="flex items-center gap-2">{isEs ? "Procesando IA" : "IA Processing"} <span className="animate-pulse">...</span></span>
-                        ) : (
-                          <span className="flex items-center gap-2"><UploadCloud className="w-4 h-4" /> {isEs ? "Enviar a la IA" : "Submit to AI"}</span>
-                        )}
-                      </button>
-                    </div>
-                  </form>
-                ) : (
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-center py-12"
-                  >
-                    <div className="w-20 h-20 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle2 className="w-10 h-10" />
-                    </div>
-                    <h3 className="text-2xl font-bold uppercase tracking-wider mb-4">{isEs ? "¡Video en procesamiento!" : "Video Processing!"}</h3>
-                    <p className="text-white/50 max-w-md mx-auto mb-8 text-sm leading-relaxed">
-                      {isEs 
-                        ? `Estamos procesando, estabilizando y adaptando tu video. Recibirás el corte cinematográfico final en tu correo: ${regEmail} en pocos minutos, y se publicará de inmediato en nuestro canal de YouTube.`
-                        : `We are processing, stabilizing, and editing your video. You will receive the final cinematic cut at your email: ${regEmail} in a few minutes, and it will be immediately published to our YouTube channel.`}
-                    </p>
-                    <button 
-                      onClick={() => setUploadSuccess(false)}
-                      className="text-brandOrange font-bold text-xs uppercase tracking-widest hover:text-white transition-colors"
-                    >
-                      {isEs ? "Subir otro video" : "Upload another video"}
-                    </button>
-                  </motion.div>
-                )}
-              </div>
-            </motion.div>
-          )}
-          
-        </AnimatePresence>
+      {/* Architectural Grid Background (Awwwards Style) */}
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03] mix-blend-screen">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
       </div>
-    </div>
+
+      {/* Nav */}
+      <nav className="relative z-50 w-full px-6 py-6 border-b border-white/10 flex justify-between items-center bg-[#020617]/80 backdrop-blur-md">
+        <div className="font-display font-black text-2xl tracking-widest uppercase">
+          Live<span className="text-brandOrange">_</span>Dispatch
+        </div>
+        <Link href="/" className="hoverable group flex items-center gap-4 text-white hover:text-brandOrange transition-colors">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] hidden md:inline">{isEs ? "Volver al Inicio" : "Back to Home"}</span>
+          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-brandOrange bg-[#020617]">
+            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          </div>
+        </Link>
+      </nav>
+
+      {/* Hero Header */}
+      <header className="relative z-10 w-full border-b border-white/10 overflow-hidden bg-[#020617]">
+        <div className="grid grid-cols-1 lg:grid-cols-12">
+          <div className="lg:col-span-12 p-8 md:p-16 lg:p-24 flex flex-col justify-center relative overflow-hidden min-h-[40vh]">
+            <div className="absolute top-[-50%] left-[-20%] w-[600px] h-[600px] bg-brandOrange/10 blur-[120px] rounded-full pointer-events-none"></div>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <span className="w-2 h-2 bg-brandOrange rounded-full animate-pulse"></span>
+                <span className="font-mono text-xs uppercase tracking-widest text-brandOrange font-bold">LIVE FEED</span>
+              </div>
+              <h1 className="font-display text-[10vw] md:text-[8vw] lg:text-[7vw] font-black uppercase leading-[0.85] tracking-tighter relative z-10">
+                {t.inThePlayTitle} <br/> 
+                <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.2)' }}>DISPATCH</span>
+              </h1>
+              <p className="font-mono text-sm md:text-base leading-[1.8] text-white/60 mt-10 max-w-2xl">
+                {isEs 
+                  ? "Últimas noticias y actualizaciones corporativas del ecosistema global de tecnología deportiva. Cobertura en tiempo real de integraciones de IA, biomecánica y desarrollo de software."
+                  : "Breaking news and corporate updates from the global sports tech ecosystem. Real-time coverage of AI integrations, biomechanics, and software development."}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content Area - News Grid */}
+      <div className="relative z-10 w-full bg-[#020617] max-w-6xl mx-auto border-x border-white/10 border-b min-h-screen">
+        <div className="flex flex-col border-white/10">
+          {newsList.map((news, i) => {
+            const formattedDate = news.createdAt 
+              ? new Date(news.createdAt).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { day: '2-digit', month: 'short', year: 'numeric' })
+              : (news.date || "");
+            return (
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                key={news.id} 
+                className="p-8 md:p-16 border-b border-white/10 bg-[#020617] hover:bg-white/[0.02] transition-colors group"
+              >
+                <div className="flex justify-between items-start mb-8">
+                  <span className="px-4 py-2 bg-brandOrange/10 border border-brandOrange/20 font-mono text-[10px] font-bold uppercase tracking-widest text-brandOrange">
+                    {news.category}
+                  </span>
+                  <div className="flex flex-col items-end gap-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+                    <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {formattedDate}</span>
+                    {news.time && <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {news.time}</span>}
+                  </div>
+                </div>
+                
+                <h4 className="font-display text-3xl md:text-5xl font-bold uppercase leading-[1.1] text-white mb-6 group-hover:text-brandOrange transition-colors max-w-4xl">
+                  {news.title}
+                </h4>
+                
+                <p className="font-mono text-sm md:text-base leading-[1.8] text-white/60 mb-10 max-w-3xl">
+                  {news.desc}
+                </p>
+
+                {news.videoUrl && (
+                  <div className="w-full aspect-video bg-black border border-white/10 relative overflow-hidden group-hover:border-white/30 transition-colors shadow-2xl">
+                    <video 
+                      src={news.videoUrl} 
+                      controls 
+                      className="w-full h-full object-cover opacity-80"
+                    />
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </main>
   );
 }

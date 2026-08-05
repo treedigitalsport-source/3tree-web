@@ -144,7 +144,7 @@ export const neilArticles = [
     time: "12 min read",
     author: "Neil Alvarado",
     desc: "A deep dive into how Spin Rate, Launch Angle, and Exit Velocity have completely rewritten the fundamental rules of pitching and hitting.",
-    image: "/article_big_data_1785623933032.jpg", // Reusing big data image for now, can be specific if needed
+    image: "https://images.unsplash.com/photo-1508344928928-7137b29de216?q=80&w=2000&auto=format&fit=crop", // Premium baseball player imagery
     content: `
 # The Matrix of Baseball: Advanced Sabermetrics
 
@@ -164,6 +164,38 @@ Hitters have restructured their entire swing planes to match the incoming trajec
 
 ## Conclusion
 The teams that resist the data are being left behind. The integration of advanced sabermetrics into player development is the single greatest competitive advantage in modern sports. In my upcoming columns, we will break down specific case studies of how data intervention saved the careers of struggling veterans and turned them into All-Stars.
+    `,
+  },
+  {
+    id: 102,
+    slug: "the-analyst-journey",
+    title: "The Analyst's Journey: De las gradas a la jugada",
+    category: "Founder's Column",
+    time: "15 min read",
+    author: "Neil Alvarado",
+    desc: "Un relato personal sobre la evolución del rol del analista en el béisbol: de observar partidos con libreta y cronómetro, a orquestar redes neuronales que predicen el éxito de un jugador.",
+    image: "https://images.unsplash.com/photo-1541534401786-2079eeaed13f?q=80&w=2000&auto=format&fit=crop", // Premium baseball/stadium night shot
+    content: `
+# The Analyst's Journey: De las gradas a la jugada
+
+*Por Neil Alvarado, Único Fundador y CEO*
+
+El béisbol, en su forma más pura, es una sinfonía de variables infinitas. Durante más de dos décadas en el campo, fui testigo de cómo el ojo humano, por más entrenado que estuviera, siempre chocaba contra el muro de lo imperceptible. Yo era ese analista en las gradas, armado con cronómetros, libretas y una obsesión por entender el *porqué* detrás del talento.
+
+## El Límite del Ojo Humano
+Hubo una época en la que el valor de un jugador se medía por corazonadas. Un scout veterano miraba el "pop" del bate de un chico de 17 años y tomaba decisiones millonarias basadas en un instinto construido sobre sesgos cognitivos. Yo estuve allí. Observaba la rotación de un lanzador y trataba de cuantificar la mecánica, pero sabía que me estaba perdiendo el 90% de la historia. El ojo humano procesa a 60 cuadros por segundo; el béisbol ocurre a una velocidad que trasciende nuestra biología.
+
+## La Epifanía del Dato
+El punto de inflexión no fue gradual, fue violento. La llegada de los sistemas de rastreo Doppler y las cámaras de alta velocidad (Hawk-Eye) destruyó nuestros viejos paradigmas. Descubrimos que el giro de la pelota (Spin Rate), el ángulo de salida (Launch Angle) y la eficiencia biomecánica no eran solo estadísticas periféricas: eran el código fuente del juego. 
+
+Fue en ese momento cuando mi trayectoria cambió para siempre. Guardé la libreta y me sumergí en el abismo del Big Data y la Inteligencia Artificial. Me di cuenta de que si quería encontrar al próximo jugador generacional, no podía seguir confiando en el instinto. Tenía que construir sistemas que pudieran "ver" lo invisible.
+
+## El Nacimiento de 3Tree Digital
+Esta frustración con las metodologías arcaicas fue el catalizador para fundar 3Tree Digital. No se trataba de reemplazar al coach o al scout, sino de dotarlos de visión de rayos X. A través del aprendizaje automático, comenzamos a procesar modelos cinemáticos sin marcadores y a estabilizar jugadas crudas con calidad cinematográfica. 
+
+Hoy, no soy solo un analista de béisbol. Soy el arquitecto de un ecosistema que democratiza la visibilidad de los atletas, utilizando algoritmos que no mienten, no se cansan y no tienen favoritismos. 
+
+El juego ha cambiado para siempre, y nosotros fuimos los que reescribimos las reglas.
     `,
   }
 ];

@@ -6,8 +6,11 @@ import Link from "next/link";
 import CustomCursor from "@/components/CustomCursor";
 import { useState } from "react";
 import { submitContactForm } from "@/app/actions/contact";
+import { useLang } from "@/app/i18n";
 
 export default function Contact() {
+  const { lang } = useLang();
+  const isEs = lang === "es";
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -40,7 +43,7 @@ export default function Contact() {
           <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-brandOrange group-hover:bg-brandOrange/10 transition-all duration-300">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           </div>
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">Volver al Inicio</span>
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">{isEs ? "Volver al Inicio" : "Back to Home"}</span>
         </Link>
         <div className="font-display font-black text-2xl tracking-widest uppercase">
           3Tree<span className="text-brandOrange">.</span>
@@ -58,14 +61,16 @@ export default function Contact() {
           className="w-full md:w-1/2"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brandOrange/10 border border-brandOrange/20 text-brandOrange font-mono text-[10px] font-bold uppercase tracking-widest mb-6">
-            Sede Global
+            {isEs ? "Sede Global" : "Global HQ"}
           </div>
           <h1 className="font-display text-5xl md:text-7xl font-black uppercase leading-[0.9] mb-8">
-            Construyamos <br />
-            <span className="text-white/30">el futuro.</span>
+            {isEs ? "Construyamos" : "Let's Build"} <br />
+            <span className="text-white/30">{isEs ? "el futuro." : "the future."}</span>
           </h1>
           <p className="text-white/50 text-lg leading-relaxed mb-12 max-w-md font-medium">
-            ¿Listo para actualizar la infraestructura digital de tu organización? Escríbenos. Construimos software a medida y marcas para equipos deportivos de élite.
+            {isEs 
+              ? "¿Listo para actualizar la infraestructura digital de tu organización? Escríbenos. Construimos software a medida y marcas para equipos deportivos de élite."
+              : "Ready to upgrade your organization's digital infrastructure? Drop us a line. We build custom software and brands for elite sports teams."}
           </p>
 
           <div className="space-y-6">
@@ -84,8 +89,8 @@ export default function Contact() {
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-brandOrange font-bold mb-1">Ubicación</p>
-                <p className="font-medium text-lg">Lutz, Florida — Operaciones Globales</p>
+                <p className="font-mono text-[10px] uppercase tracking-widest text-brandOrange font-bold mb-1">{isEs ? "Ubicación" : "Location"}</p>
+                <p className="font-medium text-lg">{isEs ? "Lutz, Florida, USA — Operaciones Globales" : "Lutz, Florida, USA — Global Operations"}</p>
               </div>
             </div>
           </div>
@@ -103,26 +108,29 @@ export default function Contact() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-brandOrange/5 blur-[100px] pointer-events-none"></div>
 
             <h2 className="font-display text-2xl font-black uppercase mb-8 tracking-wide">
-              Iniciar Proyecto
+              {isEs ? "Iniciar Proyecto" : "Start Project"}
             </h2>
 
             <div className="space-y-6 relative z-10">
+              {/* CAPA DE SEGURIDAD 2: HONEYPOT Y TIMESTAMP OCULTOS */}
+              <input type="text" name="website_url_hp" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden opacity-0 pointer-events-none w-0 h-0 absolute -left-[9999px]" />
+              <input type="hidden" name="form_rendered_at" value={Date.now()} />
               <div>
                 <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
-                  Organización / Equipo
+                  {isEs ? "Organización / Equipo" : "Organization / Team"}
                 </label>
                 <input 
                   name="organization"
                   required
                   type="text" 
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors"
-                  placeholder="Ej. New York Yankees"
+                  placeholder={isEs ? "Ej. New York Yankees" : "e.g. New York Yankees"}
                 />
               </div>
 
               <div>
                 <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
-                  Nombre de Contacto
+                  {isEs ? "Nombre de Contacto" : "Contact Name"}
                 </label>
                 <input 
                   name="name"
@@ -134,22 +142,21 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-brandOrange">Tu Mensaje</label>
+                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-brandOrange">{isEs ? "Tu Mensaje" : "Your Message"}</label>
                 <textarea 
                   name="message"
                   required
                   rows={4}
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors resize-none mt-2"
-                  placeholder="Cuéntanos sobre tu visión..."
+                  placeholder={isEs ? "Cuéntanos sobre tu visión..." : "Tell us about your vision..."}
                 ></textarea>
               </div>
 
               {error && <p className="text-red-400 text-sm">{error}</p>}
-              {success && <p className="text-green-400 text-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> ¡Mensaje enviado con éxito!</p>}
-
+              {success && <p className="text-green-400 text-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> {isEs ? "¡Mensaje enviado con éxito!" : "Message sent successfully!"}</p>}
               <button type="submit" disabled={loading} className="group relative w-full bg-white text-black px-8 py-5 rounded-xl font-black uppercase tracking-widest overflow-hidden transition-all hover:bg-brandOrange hover:text-white mt-4 disabled:opacity-50 flex items-center justify-center gap-2">
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Send className="w-5 h-5" /> Enviar Solicitud</>}
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Send className="w-5 h-5" /> {isEs ? "Enviar Solicitud" : "Send Request"}</>}
                 </span>
               </button>
             </div>
