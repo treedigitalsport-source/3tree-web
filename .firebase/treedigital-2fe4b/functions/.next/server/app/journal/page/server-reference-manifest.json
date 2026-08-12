@@ -1,0 +1,17 @@
+{
+  "node": {
+    "003e423c24d8afec7309f46c09ca6aa5d1bf12e744": {
+      "workers": {
+        "app/journal/page": {
+          "moduleId": 77787,
+          "async": true,
+          "exportedName": "getJournalArticles",
+          "filename": "3Tree_Web/src/app/actions/journal.ts"
+        }
+      },
+      "exportedName": "getJournalArticles",
+      "filename": "3Tree_Web/src/app/actions/journal.ts"
+    }
+  },
+  "edge": {}
+}

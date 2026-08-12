@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Mail, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import CustomCursor from "@/components/CustomCursor";
@@ -97,71 +97,103 @@ export default function Contact() {
         </motion.div>
 
         {/* Right: Form */}
-        <motion.div 
+          <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
             className="w-full lg:w-1/2"
           >
-            <form onSubmit={handleSubmit} className="bg-[#020617] border border-white/10 p-8 md:p-12 rounded-[2rem] w-full max-w-lg mx-auto relative overflow-hidden">
-              
+            <div className="bg-[#020617] border border-white/10 p-8 md:p-12 rounded-[2rem] w-full max-w-lg mx-auto relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-brandOrange/5 blur-[100px] pointer-events-none"></div>
 
-            <h2 className="font-display text-2xl font-black uppercase mb-8 tracking-wide">
-              {isEs ? "Iniciar Proyecto" : "Start Project"}
-            </h2>
+              <h2 className="font-display text-2xl font-black uppercase mb-8 tracking-wide relative z-10">
+                {isEs ? "Iniciar Proyecto" : "Start Project"}
+              </h2>
 
-            <div className="space-y-6 relative z-10">
-              {/* CAPA DE SEGURIDAD 2: HONEYPOT Y TIMESTAMP OCULTOS */}
-              <input type="text" name="website_url_hp" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden opacity-0 pointer-events-none w-0 h-0 absolute -left-[9999px]" />
-              <input type="hidden" name="form_rendered_at" value={Date.now()} />
-              <div>
-                <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
-                  {isEs ? "Organización / Equipo" : "Organization / Team"}
-                </label>
-                <input 
-                  name="organization"
-                  required
-                  type="text" 
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors"
-                  placeholder={isEs ? "Ej. New York Yankees" : "e.g. New York Yankees"}
-                />
-              </div>
+              <AnimatePresence mode="wait">
+                {success ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="flex flex-col items-center justify-center text-center py-12 relative z-10"
+                  >
+                    <div className="w-20 h-20 bg-brandOrange/20 rounded-full flex items-center justify-center mb-6">
+                      <CheckCircle2 className="w-10 h-10 text-brandOrange" />
+                    </div>
+                    <h3 className="text-2xl font-display font-black uppercase mb-4 text-white">
+                      {isEs ? "¡Mensaje Recibido!" : "Message Received!"}
+                    </h3>
+                    <p className="text-white/60">
+                      {isEs ? "Gracias por contactarnos. Nuestro equipo revisará tu solicitud y se comunicará contigo pronto." : "Thank you for reaching out. Our team will review your request and get back to you shortly."}
+                    </p>
+                  </motion.div>
+                ) : (
+                  <motion.form 
+                    key="form"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onSubmit={handleSubmit} 
+                    className="space-y-6 relative z-10"
+                  >
+                    {/* CAPA DE SEGURIDAD 2: HONEYPOT Y TIMESTAMP OCULTOS */}
+                    <input type="text" name="website_url_hp" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden opacity-0 pointer-events-none w-0 h-0 absolute -left-[9999px]" />
+                    <input type="hidden" name="form_rendered_at" value={Date.now()} />
 
-              <div>
-                <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
-                  {isEs ? "Nombre de Contacto" : "Contact Name"}
-                </label>
-                <input 
-                  name="name"
-                  required
-                  type="text" 
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors"
-                  placeholder="John Doe"
-                />
-              </div>
+                    <div>
+                      <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
+                        {isEs ? "Organización / Equipo" : "Organization / Team"}
+                      </label>
+                      <input name="organization" required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors" placeholder={isEs ? "Ej. New York Yankees" : "e.g. New York Yankees"} />
+                    </div>
 
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-brandOrange">{isEs ? "Tu Mensaje" : "Your Message"}</label>
-                <textarea 
-                  name="message"
-                  required
-                  rows={4}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors resize-none mt-2"
-                  placeholder={isEs ? "Cuéntanos sobre tu visión..." : "Tell us about your vision..."}
-                ></textarea>
-              </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
+                          {isEs ? "Nombre" : "Name"}
+                        </label>
+                        <input name="name" required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors" placeholder="John Doe" />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
+                          {isEs ? "Correo Electrónico" : "Email"}
+                        </label>
+                        <input name="email" required type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors" placeholder="john@example.com" />
+                      </div>
+                    </div>
 
-              {error && <p className="text-red-400 text-sm">{error}</p>}
-              {success && <p className="text-green-400 text-sm flex items-center gap-2"><CheckCircle2 className="w-4 h-4"/> {isEs ? "¡Mensaje enviado con éxito!" : "Message sent successfully!"}</p>}
-              <button type="submit" disabled={loading} className="group relative w-full bg-white text-black px-8 py-5 rounded-xl font-black uppercase tracking-widest overflow-hidden transition-all hover:bg-brandOrange hover:text-white mt-4 disabled:opacity-50 flex items-center justify-center gap-2">
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Send className="w-5 h-5" /> {isEs ? "Enviar Solicitud" : "Send Request"}</>}
-                </span>
-              </button>
+                    <div>
+                      <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
+                        {isEs ? "Tipo de Servicio" : "Service Type"}
+                      </label>
+                      <select name="service" required defaultValue="" className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors appearance-none">
+                        <option value="" disabled>{isEs ? "Selecciona un servicio..." : "Select a service..."}</option>
+                        <option value="Software Development">{isEs ? "Desarrollo de Software / IA" : "Software / AI Development"}</option>
+                        <option value="Branding & Design">{isEs ? "Branding y Diseño UI/UX" : "Branding & UI/UX Design"}</option>
+                        <option value="Consulting">{isEs ? "Consultoría Tecnológica" : "Tech Consulting"}</option>
+                        <option value="Other">{isEs ? "Otro / General" : "Other / General"}</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-brandOrange">{isEs ? "Tu Mensaje" : "Your Message"}</label>
+                      <textarea name="message" required rows={4} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors resize-none mt-2" placeholder={isEs ? "Cuéntanos sobre tu visión..." : "Tell us about your vision..."}></textarea>
+                    </div>
+
+                    {error && <p className="text-red-400 text-sm">{error}</p>}
+
+                    <button type="submit" disabled={loading} className="group relative w-full bg-white text-black px-8 py-5 rounded-xl font-black uppercase tracking-widest overflow-hidden transition-all hover:bg-brandOrange hover:text-white mt-4 disabled:opacity-50 flex items-center justify-center gap-2">
+                      <span className="relative z-10 flex items-center justify-center gap-2">
+                        {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Send className="w-5 h-5" /> {isEs ? "Enviar Solicitud" : "Send Request"}</>}
+                      </span>
+                    </button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
             </div>
-          </form>
-        </motion.div>
+          </motion.div>
 
       </div>
     </main>

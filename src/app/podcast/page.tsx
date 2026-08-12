@@ -87,20 +87,27 @@ export default function PodcastPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const epResult = await getPodcastEpisodes();
-      if (epResult.success && epResult.episodes && epResult.episodes.length > 0) {
-        setEpisodes(epResult.episodes);
-      } else {
-        setEpisodes(isEs ? staticEpisodesEs : staticEpisodesEn);
-      }
+      try {
+        const epResult = await getPodcastEpisodes();
+        if (epResult.success && epResult.episodes && epResult.episodes.length > 0) {
+          setEpisodes(epResult.episodes);
+        } else {
+          setEpisodes(isEs ? staticEpisodesEs : staticEpisodesEn);
+        }
 
-      const newsResult = await getPodcastNews();
-      if (newsResult.success && newsResult.news && newsResult.news.length > 0) {
-        setNewsList(newsResult.news);
-      } else {
+        const newsResult = await getPodcastNews();
+        if (newsResult.success && newsResult.news && newsResult.news.length > 0) {
+          setNewsList(newsResult.news);
+        } else {
+          setNewsList(isEs ? staticNewsEs : staticNewsEn);
+        }
+      } catch (err) {
+        console.error("Error fetching podcast data:", err);
+        setEpisodes(isEs ? staticEpisodesEs : staticEpisodesEn);
         setNewsList(isEs ? staticNewsEs : staticNewsEn);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     fetchData();
   }, []);

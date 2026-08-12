@@ -1,0 +1,29 @@
+{
+  "node": {
+    "0016e6a71ed0073464833b9a0ab6716148622032f1": {
+      "workers": {
+        "app/podcast/page": {
+          "moduleId": "[project]/3Tree_Web/.next-internal/server/app/podcast/page/actions.js { ACTIONS_MODULE0 => \"[project]/3Tree_Web/src/app/actions/podcast.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getPodcastEpisodes",
+          "filename": "3Tree_Web/src/app/actions/podcast.ts"
+        }
+      },
+      "exportedName": "getPodcastEpisodes",
+      "filename": "3Tree_Web/src/app/actions/podcast.ts"
+    },
+    "00c54b5da0e3bd46231bba86991bbe41705a723167": {
+      "workers": {
+        "app/podcast/page": {
+          "moduleId": "[project]/3Tree_Web/.next-internal/server/app/podcast/page/actions.js { ACTIONS_MODULE0 => \"[project]/3Tree_Web/src/app/actions/podcast.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getPodcastNews",
+          "filename": "3Tree_Web/src/app/actions/podcast.ts"
+        }
+      },
+      "exportedName": "getPodcastNews",
+      "filename": "3Tree_Web/src/app/actions/podcast.ts"
+    }
+  },
+  "edge": {}
+}

@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[59182,["/_next/static/chunks/0nx1e-vjxsyht.js","/_next/static/chunks/31a3j3m21d358.js","/_next/static/chunks/2bph-c1yovy48.js"],"ViewportBoundary"]
+3:I[59182,["/_next/static/chunks/0nx1e-vjxsyht.js","/_next/static/chunks/31a3j3m21d358.js","/_next/static/chunks/2bph-c1yovy48.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[13457,["/_next/static/chunks/0nx1e-vjxsyht.js","/_next/static/chunks/31a3j3m21d358.js","/_next/static/chunks/2bph-c1yovy48.js"],"IconMark"]
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Designer Web Premium | 3Tree Digital"}],["$","meta","1",{"name":"description","content":"Diseño web de alta conversión y estética premium."}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L5","3",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"DTW5G-pA4xNlhAidNLU2M"}

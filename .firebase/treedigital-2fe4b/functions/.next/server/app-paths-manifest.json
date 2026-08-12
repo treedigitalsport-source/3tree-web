@@ -1,0 +1,19 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/api/groq/route": "app/api/groq/route.js",
+  "/contact/page": "app/contact/page.js",
+  "/cookies/page": "app/cookies/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/impact/page": "app/impact/page.js",
+  "/in-the-play/page": "app/in-the-play/page.js",
+  "/journal/[slug]/page": "app/journal/[slug]/page.js",
+  "/journal/page": "app/journal/page.js",
+  "/page": "app/page.js",
+  "/podcast/page": "app/podcast/page.js",
+  "/privacy/page": "app/privacy/page.js",
+  "/projects/kinebase/page": "app/projects/kinebase/page.js",
+  "/terms/page": "app/terms/page.js"
+}

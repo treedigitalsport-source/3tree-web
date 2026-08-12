@@ -52,3 +52,4 @@ firebase-service-account.json
 temp_page_backup.tsx
 recover.py
 ide_config.json
+.vercel

@@ -103,11 +103,11 @@ export default function KinebaseProPage() {
             <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-8">
               <div>
                 <span className="block font-display text-4xl font-black text-white mb-2">2ms</span>
-                <span className="font-mono text-[9px] uppercase tracking-widest text-brandOrange">Latency</span>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-brandOrange">{isEs ? "Latencia" : "Latency"}</span>
               </div>
               <div>
                 <span className="block font-display text-4xl font-black text-white mb-2">3D</span>
-                <span className="font-mono text-[9px] uppercase tracking-widest text-brandOrange">Mapping</span>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-brandOrange">{isEs ? "Mapeo 3D" : "Mapping"}</span>
               </div>
             </div>
           </div>

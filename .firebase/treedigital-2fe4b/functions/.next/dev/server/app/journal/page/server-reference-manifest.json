@@ -1,0 +1,17 @@
+{
+  "node": {
+    "005b89c2ed066e7b2680e90429a679fccf2ea50782": {
+      "workers": {
+        "app/journal/page": {
+          "moduleId": "[project]/3Tree_Web/.next-internal/server/app/journal/page/actions.js { ACTIONS_MODULE0 => \"[project]/3Tree_Web/src/app/actions/journal.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getJournalArticles",
+          "filename": "3Tree_Web/src/app/actions/journal.ts"
+        }
+      },
+      "exportedName": "getJournalArticles",
+      "filename": "3Tree_Web/src/app/actions/journal.ts"
+    }
+  },
+  "edge": {}
+}

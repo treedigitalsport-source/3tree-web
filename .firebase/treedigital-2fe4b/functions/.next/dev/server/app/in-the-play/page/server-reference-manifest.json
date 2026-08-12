@@ -1,0 +1,17 @@
+{
+  "node": {
+    "00c54b5da0e3bd46231bba86991bbe41705a723167": {
+      "workers": {
+        "app/in-the-play/page": {
+          "moduleId": "[project]/3Tree_Web/.next-internal/server/app/in-the-play/page/actions.js { ACTIONS_MODULE0 => \"[project]/3Tree_Web/src/app/actions/podcast.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getPodcastNews",
+          "filename": "3Tree_Web/src/app/actions/podcast.ts"
+        }
+      },
+      "exportedName": "getPodcastNews",
+      "filename": "3Tree_Web/src/app/actions/podcast.ts"
+    }
+  },
+  "edge": {}
+}

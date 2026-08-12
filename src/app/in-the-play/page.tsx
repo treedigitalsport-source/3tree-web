@@ -82,10 +82,15 @@ export default function SportsNewsPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const newsResult = await getPodcastNews();
-      if (newsResult.success && newsResult.news && newsResult.news.length > 0) {
-        setNewsList(newsResult.news);
-      } else {
+      try {
+        const newsResult = await getPodcastNews();
+        if (newsResult.success && newsResult.news && newsResult.news.length > 0) {
+          setNewsList(newsResult.news);
+        } else {
+          setNewsList(isEs ? staticNewsEs : staticNewsEn);
+        }
+      } catch (err) {
+        console.error("Error fetching sports news:", err);
         setNewsList(isEs ? staticNewsEs : staticNewsEn);
       }
     }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLang } from "./i18n";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, ChevronDown, Play, Globe, Activity, Brain, Video, Bot } from "lucide-react";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 import CustomCursor from "@/components/CustomCursor";
 import Lenis from "lenis";
 
@@ -140,34 +141,10 @@ function MagneticButton({ children, className = "", href = "#" }: { children: Re
 export default function MainContent() {
   const { t, lang, toggleLang } = useLang();
   const isEs = lang === "es";
-  const horizontalRef = useRef<HTMLDivElement>(null);
-
-  /* Lenis smooth scroll */
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
-  }, []);
-
   /* Scroll values for the Parallax Hero Video */
   const { scrollYProgress: heroScroll } = useScroll();
   const heroY = useTransform(heroScroll, [0, 0.3], [0, 150]);
   const heroOpacity = useTransform(heroScroll, [0, 0.3], [1, 0.3]);
-
-  /* Smoothed scroll values for the Horizontal Projects */
-  const { scrollYProgress } = useScroll({ 
-    target: horizontalRef,
-    offset: ["start start", "end end"]
-  });
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 20, mass: 0.2 });
-  const xOffset = useTransform(smoothProgress, [0, 1], ["0%", "-45%"]);
 
   return (
     <main className="relative bg-[#020617] text-white selection:bg-brandOrange selection:text-white font-sans overflow-x-hidden">
@@ -192,18 +169,17 @@ export default function MainContent() {
         <div className="flex items-center hoverable">
           <div className="h-24 md:h-28 w-[280px] md:w-[380px] flex items-center relative transition-all duration-500">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-3tree.png" alt="3Tree Digital" className="h-full w-full object-contain object-left" />
+            <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-full object-contain object-left" />
           </div>
         </div>
 
         <div className="hidden lg:flex gap-4 xl:gap-8 text-[10px] xl:text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-white/50 items-center">
           {t.nav.map((item, i) => {
-            const sectionIds = ["services", "projects", "podcast", "journal", "impact", "in-the-play", "about", "contact"];
+            const sectionIds = ["services", "projects", "podcast", "journal", "impact", "about", "contact"];
             let targetUrl = `#${sectionIds[i]}`;
             if (sectionIds[i] === "projects") targetUrl = "/projects/kinebase";
             if (sectionIds[i] === "podcast") targetUrl = "/podcast";
             if (sectionIds[i] === "journal") targetUrl = "/journal";
-            if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
             if (sectionIds[i] === "impact") targetUrl = "/impact";
             if (sectionIds[i] === "about") targetUrl = "/about";
             if (sectionIds[i] === "contact") targetUrl = "/contact";
@@ -219,12 +195,12 @@ export default function MainContent() {
           })}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 mr-2 md:mr-6 lg:mr-10">
           <button 
             onClick={toggleLang}
-            className="hoverable flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors px-4 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
+            className="group hoverable flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors px-4 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
           >
-            <Globe className="w-3 h-3 text-white/60" /> {lang === 'en' ? 'ES' : 'EN'}
+            <Globe className="w-3 h-3 text-white/60 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
           </button>
           
           <Link href="/contact" className="hoverable flex items-center gap-2 bg-brandOrange text-white px-7 py-3 rounded-full text-[10px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500">
@@ -250,10 +226,10 @@ export default function MainContent() {
               loop 
               muted 
               playsInline
-              className="w-full h-full object-cover opacity-70 mix-blend-screen scale-100 translate-y-[20%]"
+              className="w-full h-full object-cover opacity-80 scale-100 translate-y-[20%]"
               style={{ objectPosition: 'center top' }}
             >
-              <source src="/hero-video.mp4" type="video/mp4" />
+              <source src="/videos/hero-video.mp4" type="video/mp4" />
             </video>
           </div>
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
@@ -301,6 +277,27 @@ export default function MainContent() {
             >
               {t.heroDesc}
             </motion.p>
+
+            {/* Main CTA with Scarcity */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 1.2 }}
+              className="mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6 ml-[60px]"
+            >
+              <Link href="/contact" className="hoverable flex items-center justify-center gap-2 bg-brandOrange text-white px-8 py-4 rounded-full text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500 shadow-[0_0_30px_rgba(242,101,34,0.3)]">
+                {isEs ? "Agendar Demostración" : "Book a Demo"}
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              <div className="flex flex-col pt-1 sm:pt-2 px-2 text-center sm:text-left">
+                <span className="text-[10px] font-mono text-white/50 uppercase tracking-widest">
+                  {isEs ? "Disponibilidad Limitada" : "Limited Availability"}
+                </span>
+                <span className="text-xs text-brandOrange font-mono mt-1 font-bold">
+                  {isEs ? "* Solo 3 nuevos partners por trimestre" : "* Only 3 new partners per quarter"}
+                </span>
+              </div>
+            </motion.div>
           </div>
 
           {/* Scroll Indicator */}
@@ -333,6 +330,24 @@ export default function MainContent() {
         </Marquee>
       </div>
 
+      {/* SOCIAL PROOF METRICS BAR */}
+      <section className="relative z-20 w-full bg-[#020617] border-b border-white/10 py-16">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+          <div className="flex flex-col gap-3 pt-6 md:pt-0 hoverable">
+            <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter">50K+</span>
+            <span className="text-[10px] font-mono text-brandOrange uppercase tracking-[0.2em]">{isEs ? "Horas de Video Procesadas" : "Video Hours Processed"}</span>
+          </div>
+          <div className="flex flex-col gap-3 pt-6 md:pt-0 hoverable">
+            <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter">94%</span>
+            <span className="text-[10px] font-mono text-brandOrange uppercase tracking-[0.2em]">{isEs ? "Reducción en Tiempo de Análisis" : "Reduction in Analysis Time"}</span>
+          </div>
+          <div className="flex flex-col gap-3 pt-6 md:pt-0 hoverable">
+            <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter">&lt;200<span className="text-3xl text-white/50">ms</span></span>
+            <span className="text-[10px] font-mono text-brandOrange uppercase tracking-[0.2em]">{isEs ? "Certeza Algorítmica Absoluta" : "Absolute Algorithmic Certainty"}</span>
+          </div>
+        </div>
+      </section>
+
       {/* ─── BENTO GRID: STATS + EXPERTISE (CONSOLIDADO) ─── */}
       <section id="services" className="relative z-10 w-full bg-[#020617]">
         <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-white/10">
@@ -341,11 +356,15 @@ export default function MainContent() {
           <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col bg-white/[0.02]">
             <div className="p-8 md:p-12 lg:p-16 border-b border-white/10 flex flex-col justify-center min-h-[300px]">
                <h3 className="font-display text-5xl md:text-6xl font-black uppercase mb-4 leading-[0.9]">
-                 System <br/><span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.2)' }}>Architecture</span>
+                 {isEs ? "Arquitectura" : "System"} <br/><span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.2)' }}>{isEs ? "del Sistema" : "Architecture"}</span>
                </h3>
-               <p className="font-mono text-xs text-white/50 tracking-widest uppercase leading-relaxed">
+               <p className="font-mono text-xs text-white/50 tracking-widest uppercase leading-relaxed mb-8">
                  {t.ourExpertise.join(" ")}
                </p>
+               <div className="inline-flex items-center gap-3 bg-brandOrange/10 border border-brandOrange/30 text-brandOrange px-5 py-3 text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest w-fit">
+                 <Bot className="w-4 h-4" />
+                 {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
+               </div>
             </div>
             
             <div className="grid grid-cols-2 grid-rows-2 flex-grow">
@@ -417,7 +436,7 @@ export default function MainContent() {
             playsInline
             className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-[2000ms] group-hover:scale-105"
           >
-            <source src="/Drone_dive_into_baseball_stadium_202607151954.mp4" type="video/mp4" />
+            <source src="/videos/Drone_dive_into_baseball_stadium_202607151954.mp4" type="video/mp4" />
           </video>
         </motion.div>
         {/* Desvanecimiento inferior suave hacia el siguiente bloque */}
@@ -430,9 +449,9 @@ export default function MainContent() {
         <div className="container mx-auto px-6 max-w-7xl">
           
           <div className="flex flex-col items-center mb-20 text-center">
-             <span className="font-mono text-[10px] font-bold text-brandOrange tracking-[0.3em] uppercase mb-4">Innovation</span>
+             <span className="font-mono text-[10px] font-bold text-brandOrange tracking-[0.3em] uppercase mb-4">{isEs ? "Innovación" : "Innovation"}</span>
              <h2 className="font-display text-5xl md:text-7xl font-black uppercase text-white leading-[0.9]">
-               Our <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.3)' }}>Ecosystem</span>
+               {isEs ? "Nuestro" : "Our"} <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.3)' }}>{isEs ? "Ecosistema" : "Ecosystem"}</span>
              </h2>
           </div>
 
@@ -446,18 +465,21 @@ export default function MainContent() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="group"
             >
-              <div className="relative aspect-[4/5] lg:aspect-[3/4] overflow-hidden border border-white/10 bg-black hoverable flex flex-col">
+              <div className="relative aspect-[4/5] lg:aspect-[3/4] overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#020617] hoverable flex flex-col shadow-2xl">
                  <div className="h-[75%] relative overflow-hidden">
-                   <div className="absolute inset-0 bg-brandOrange/20 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1] z-10 mix-blend-color pointer-events-none"></div>
+                   <div className="absolute inset-0 bg-brandOrange/20 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1] z-30 mix-blend-color pointer-events-none"></div>
+                   {/* Smooth Gradient Masks to fade/soften edges */}
+                   <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-[#020617]/30 z-20 pointer-events-none"></div>
+                   <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/20 via-transparent to-[#020617]/20 z-20 pointer-events-none"></div>
                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                   <img src="/baseball_biomechanics_1785628048219.jpg" alt="Kinebase" className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" />
+                   <img src="/images/articles/baseball_biomechanics_1785628048219.jpg" alt="Kinebase" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-all duration-1000" />
                  </div>
-                 <div className="h-[25%] p-8 flex justify-between items-center bg-white/[0.02] border-t border-white/10 group-hover:bg-brandOrange/5 transition-colors">
+                 <div className="h-[25%] p-8 flex justify-between items-center bg-white/[0.01] border-t border-white/5 group-hover:bg-brandOrange/5 transition-colors">
                     <div>
                       <p className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase mb-2">01 — {t.biomechanics}</p>
                       <h3 className="font-display text-3xl md:text-4xl font-black uppercase text-white leading-[0.9]">Kinebase Pro</h3>
                     </div>
-                    <Link href="/projects/kinebase" className="w-14 h-14 border border-white/20 flex items-center justify-center rounded-full hover:bg-brandOrange hover:border-brandOrange hover:text-[#020617] transition-all hoverable hover:rotate-45">
+                    <Link href="/projects/kinebase" className="w-14 h-14 border border-white/10 flex items-center justify-center rounded-full hover:bg-brandOrange hover:border-brandOrange hover:text-[#020617] transition-all hoverable hover:rotate-45">
                        <ArrowUpRight className="w-5 h-5" />
                     </Link>
                  </div>
@@ -472,20 +494,23 @@ export default function MainContent() {
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="group lg:mt-32"
             >
-              <div className="relative aspect-[4/5] lg:aspect-[3/4] overflow-hidden border border-white/10 bg-black hoverable flex flex-col">
+              <div className="relative aspect-[4/5] lg:aspect-[3/4] overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#020617] hoverable flex flex-col shadow-2xl">
                  <div className="h-[75%] relative overflow-hidden">
-                   <div className="absolute inset-0 bg-brandOrange/20 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1] z-10 mix-blend-color pointer-events-none"></div>
-                   <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
-                     <source src="/smartphone_screen.mp4" type="video/mp4" />
+                   <div className="absolute inset-0 bg-brandOrange/20 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1] z-30 mix-blend-color pointer-events-none"></div>
+                   {/* Smooth Gradient Masks to fade/soften edges */}
+                   <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-[#020617]/30 z-20 pointer-events-none"></div>
+                   <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/20 via-transparent to-[#020617]/20 z-20 pointer-events-none"></div>
+                   <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-all duration-1000">
+                     <source src="/videos/smartphone_screen.mp4" type="video/mp4" />
                    </video>
                  </div>
-                 <div className="h-[25%] p-8 flex justify-between items-center bg-white/[0.02] border-t border-white/10 group-hover:bg-brandOrange/5 transition-colors">
+                 <div className="h-[25%] p-8 flex justify-between items-center bg-white/[0.01] border-t border-white/5 group-hover:bg-brandOrange/5 transition-colors">
                     <div>
                       <p className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase mb-2">02 — {t.scouting}</p>
                       <h3 className="font-display text-3xl md:text-4xl font-black uppercase text-white leading-[0.9]">Scouting AI</h3>
                     </div>
-                    <button className="px-6 py-3 border border-white/20 flex items-center justify-center rounded-none hover:bg-white/10 transition-all cursor-not-allowed">
-                       <span className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-white/30">SOON</span>
+                    <button className="px-6 py-3 border border-white/10 flex items-center justify-center rounded-sm hover:bg-white/10 transition-all cursor-not-allowed">
+                       <span className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-white/30">{isEs ? "Próximamente" : "COMING SOON"}</span>
                     </button>
                  </div>
               </div>
@@ -495,40 +520,34 @@ export default function MainContent() {
         </div>
       </section>
 
-      {/* ─── IN THE PLAY (NOTICIERO DEPORTIVO) ─── */}
-      <section id="in-the-play" className="relative z-10 w-full border-b border-white/10 bg-[#020617] pt-8 pb-24 md:pt-10 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none"></div>
-        
-        <div className="container mx-auto px-6 max-w-7xl relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-            
-            <div className="flex flex-col justify-center order-2 lg:order-1">
-              <span className="w-fit font-mono text-[10px] font-bold tracking-[0.3em] uppercase bg-brandOrange text-[#020617] px-4 py-2 mb-8 flex items-center gap-3">
-                <span className="w-2 h-2 bg-[#020617] rounded-full animate-pulse"></span> {t.liveFeed}
-              </span>
-              
-              <h3 className="font-display text-5xl md:text-7xl font-black uppercase leading-[0.85] text-white mb-6">
-                 <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.3)' }}>{t.inThePlayTitle}</span>
-              </h3>
-              
-              <p className="font-mono text-sm md:text-base text-white/50 leading-relaxed max-w-md mb-12">
-                 {t.uploadDesc}
-              </p>
-              
-              <Link href="/in-the-play" className="hoverable w-fit inline-flex items-center gap-4 bg-white/5 border border-white/20 text-white px-8 py-5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-brandOrange hover:text-[#020617] hover:border-brandOrange transition-colors">
-                <Play className="w-4 h-4" /> {t.uploadYourPlay}
-              </Link>
-            </div>
-            
-            <div className="order-1 lg:order-2 relative border border-white/10 bg-black aspect-video lg:aspect-square overflow-hidden group shadow-2xl">
-              <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_50%,transparent_75%)] bg-[length:10px_10px] pointer-events-none z-10"></div>
-              <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen grayscale group-hover:grayscale-0 transition-all duration-[2s] scale-105 group-hover:scale-100">
-                <source src="/Corredor_de_fútbol_americano_en_202608051848.mp4" type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-80"></div>
-            </div>
-
-          </div>
+      {/* ─── LEAD MAGNET (WHITE PAPER CAPTURE) ─── */}
+      <section className="relative z-10 w-full border-t border-b border-white/10 bg-brandOrange/5 py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none"></div>
+        <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
+          <span className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase font-bold mb-4 block">
+            {isEs ? "Descarga Gratuita" : "Free Download"}
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl font-black uppercase text-white leading-tight mb-6">
+            {isEs ? "Whitepaper 2026: Cinemática sin Marcadores" : "Whitepaper 2026: Markerless Kinematics"}
+          </h2>
+          <p className="font-mono text-sm md:text-base text-white/60 mb-10 max-w-2xl mx-auto">
+            {isEs ? "Únete a más de 1,200 scouts y analistas que están descubriendo cómo los Datos y la Inteligencia Artificial están redefiniendo el paradigma del scouting análogo." : "Join over 1,200 scouts and analysts discovering how Data and AI are redefining the analog scouting paradigm."}
+          </p>
+          
+          <form className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()}>
+            <input 
+              type="email" 
+              placeholder={isEs ? "Tu correo corporativo..." : "Your corporate email..."}
+              className="bg-[#020617]/80 border border-white/20 text-white px-6 py-4 outline-none focus:border-brandOrange transition-colors w-full sm:w-2/3 font-mono text-xs rounded-none"
+              required
+            />
+            <button type="submit" className="hoverable bg-brandOrange text-white px-8 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-[0_0_20px_rgba(242,101,34,0.2)]">
+              {isEs ? "Descargar" : "Download"}
+            </button>
+          </form>
+          <span className="block mt-6 text-[9px] font-mono text-white/40 uppercase tracking-widest">
+            {isEs ? "100% valor puro. Cero spam. Date de baja cuando quieras." : "100% pure value. Zero spam. Unsubscribe anytime."}
+          </span>
         </div>
       </section>
 
@@ -541,42 +560,11 @@ export default function MainContent() {
                 3tree digital <span className="text-brandOrange">Sport IA</span>
               </div>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
-                {isEs ? "Empresa Sport AI" : "Sport AI Company"}
+                {isEs ? "Sports Intelligence Company" : "Sports Intelligence Company"}
               </p>
             </div>
             
-            <div className="flex gap-6">
-              {/* Instagram */}
-              <a href="https://instagram.com/3treedigital" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-brandOrange hover:border-brandOrange transition-all hoverable">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
-                </svg>
-              </a>
-              {/* YouTube */}
-              <a href="https://youtube.com/@3treedigital" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-brandOrange hover:border-brandOrange transition-all hoverable">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                </svg>
-              </a>
-              {/* X (Twitter) */}
-              <a href="https://x.com/3treedigital" target="_blank" rel="noopener noreferrer" aria-label="X" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-brandOrange hover:border-brandOrange transition-all hoverable">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </a>
-              {/* Truth Social (Minimal T) */}
-              <a href="https://truthsocial.com/@3treedigital" target="_blank" rel="noopener noreferrer" aria-label="Truth Social" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-brandOrange hover:border-brandOrange transition-all hoverable">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M5.5 6.5h13v3.5h-4.5v8.5h-4v-8.5h-4.5z" />
-                </svg>
-              </a>
-              {/* Pinterest */}
-              <a href="https://pinterest.com/3treedigital" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-brandOrange hover:border-brandOrange transition-all hoverable">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.951-7.252 4.168 0 7.41 2.967 7.41 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.366 18.622 0 12.017 0z" />
-                </svg>
-              </a>
-            </div>
+            <SocialLinks className="gap-6" />
           </div>
           
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-6">

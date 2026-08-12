@@ -3,7 +3,7 @@
 import { db } from "@/lib/firebase-admin";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Simple en-memoria Rate Limiter anti-bots por IP/peticiones
 const submissionRateMap = new Map<string, number[]>();
@@ -38,15 +38,19 @@ export async function submitContactForm(formData: FormData) {
 
     const organizationRaw = formData.get("organization") as string;
     const nameRaw = formData.get("name") as string;
+    const emailRaw = formData.get("email") as string;
+    const serviceRaw = formData.get("service") as string;
     const messageRaw = formData.get("message") as string;
 
-    if (!nameRaw || !messageRaw || !organizationRaw) {
+    if (!nameRaw || !emailRaw || !messageRaw || !organizationRaw) {
       return { success: false, error: "Todos los campos son obligatorios" };
     }
 
     // CAPA 3: SANITIZACIÓN ESTRICTA (Anti-XSS e Inyecciones)
     const organization = sanitizeInput(organizationRaw);
     const name = sanitizeInput(nameRaw);
+    const email = sanitizeInput(emailRaw);
+    const service = sanitizeInput(serviceRaw || "No especificado");
     const message = sanitizeInput(messageRaw);
 
     // CAPA 3: RATE LIMITING (Máx 3 envíos por 5 min)
@@ -64,13 +68,15 @@ export async function submitContactForm(formData: FormData) {
     await db.collection("leads").add({
       organization,
       name,
+      email,
+      service,
       message,
       createdAt: new Date().toISOString(),
       status: "new"
     });
 
     if (process.env.RESEND_API_KEY && process.env.CEO_EMAIL) {
-      await resend.emails.send({
+      await resend?.emails.send({
         from: "Acme <onboarding@resend.dev>",
         to: process.env.CEO_EMAIL,
         subject: `Nuevo Lead 3Tree (Verificado Humano): ${organization} - ${name}`,
@@ -78,6 +84,8 @@ export async function submitContactForm(formData: FormData) {
           <h1>Nuevo Mensaje de Contacto (Humano Verificado)</h1>
           <p><strong>Organización/Equipo:</strong> ${organization}</p>
           <p><strong>Contacto:</strong> ${name}</p>
+          <p><strong>Correo:</strong> ${email}</p>
+          <p><strong>Servicio de interés:</strong> ${service}</p>
           <p><strong>Mensaje:</strong></p>
           <p>${message}</p>
         `,
