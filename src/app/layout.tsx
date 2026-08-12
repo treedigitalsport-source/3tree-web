@@ -4,6 +4,7 @@ import "./globals.css";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import { LangProvider } from "./i18n";
 import SmoothScroll from "@/components/SmoothScroll";
+import AgentChat from "@/components/ui/AgentChat";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,6 +33,7 @@ export default function RootLayout({
           <main className="flex-1 w-full">
             {children}
           </main>
+          <AgentChat />
         </LangProvider>
       </body>
     </html>
