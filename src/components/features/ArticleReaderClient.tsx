@@ -87,7 +87,7 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
               </span>
               <div className="flex items-center gap-2 text-white/80 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-widest border border-white/10">
                 <Clock className="w-3 h-3" />
-                {isEs ? article.timeEs : article.timeEn}
+                {article.time}
               </div>
               {/* @ts-ignore */}
               {article.author && (

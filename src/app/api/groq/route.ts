@@ -17,28 +17,25 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { message } = body;
+    // Expecting an array of messages: { role: 'user' | 'assistant', content: string }
+    const { messages } = body;
 
-    if (!message) {
+    if (!messages || !Array.isArray(messages)) {
       return NextResponse.json(
-        { error: 'El mensaje es requerido.' },
+        { error: 'El historial de mensajes es requerido.' },
         { status: 400 }
       );
     }
 
-    // Llamar a Groq con el modelo ultra-rápido LLaMA 3
+    const systemPrompt = {
+      role: 'system',
+      content: 'Eres Clara, la Community Manager de 3Tree Digital Sport IA. Tienes la habilidad de ANÁLISIS DE SENTIMIENTO: lee siempre la emoción oculta del cliente (frustración, alegría, urgencia, duda) y adapta tu nivel de empatía para conectar emocionalmente con él antes de intentar venderle nada. Tu tono debe ser EXTREMADAMENTE HUMANO, cálido y súper amigable, como un buen amigo. Usa emojis ocasionalmente y lenguaje natural (jamás suenes como robot). IMPORTANTE: Los servicios de 3Tree son: 1) Automatización Web, 2) Desarrollo de Software, 3) Apps, 4) Bases de Datos, y 5) Análisis de Datos. El diferenciador es que la empresa está dirigida por su fundador: Licenciado en Acondicionamiento Físico con más de 30 años de experiencia, garantizando la fusión perfecta entre deporte e IA. Usa esta autoridad si el cliente es del sector deportivo. Responde dudas, perfila al usuario y pídele sutilmente su email o WhatsApp. Sé conversacional, nunca des precios fijos y sé muy humana.'
+    };
+
+    // Llamar a Groq con el modelo LLaMA 3.3
     const chatCompletion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: 'Eres un asistente experto de ScoutAI, especializado en analíticas deportivas y tecnología avanzada.',
-        },
-        {
-          role: 'user',
-          content: message,
-        },
-      ],
-      model: 'llama3-8b-8192', // Modelo recomendado por balance de velocidad y calidad
+      messages: [systemPrompt, ...messages],
+      model: 'llama-3.3-70b-versatile', // Using latest 70b model
       temperature: 0.7,
       max_tokens: 1024,
     });

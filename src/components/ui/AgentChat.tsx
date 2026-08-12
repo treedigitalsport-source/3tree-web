@@ -10,7 +10,7 @@ export default function AgentChat() {
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [chatHistory, setChatHistory] = useState([
-    { role: "agent", text: "Hola, soy el Agente de Filtro de 3Tree Digital. ¿En qué puedo ayudarte?" }
+    { role: "agent", text: "Hola, soy Clara, la Community Manager de 3Tree Digital. ¿En qué puedo ayudarte?" }
   ]);
   // const { dict } = useLang();
 
@@ -19,28 +19,46 @@ export default function AgentChat() {
 
     // Add user message to UI immediately
     const userMsg = message;
-    setChatHistory((prev) => [...prev, { role: "user", text: userMsg }]);
+    const newHistory = [...chatHistory, { role: "user", text: userMsg }];
+    setChatHistory(newHistory);
     setMessage("");
     setIsSending(true);
 
     try {
-      // Send to MCP simulated database route
-      const res = await fetch("/api/webhooks/leads", {
+      // Background save to leads DB (Fire-and-forget)
+      fetch("/api/webhooks/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMsg }),
+      }).catch(console.error);
+
+      // Map history to Groq API format
+      const groqMessages = newHistory.map(msg => ({
+        role: msg.role === "agent" ? "assistant" : "user",
+        content: msg.text
+      }));
+
+      // Call the AI brain
+      const res = await fetch("/api/groq", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: groqMessages }),
       });
       
       const data = await res.json();
 
-      // Simulate Agent processing delay
-      setTimeout(() => {
+      if (data.response) {
         setChatHistory((prev) => [
           ...prev, 
-          { role: "agent", text: "Mensaje recibido. Nuestro Agente Comercial lo está evaluando y se contactará pronto." }
+          { role: "agent", text: data.response }
         ]);
-        setIsSending(false);
-      }, 1500);
+      } else {
+        setChatHistory((prev) => [
+          ...prev, 
+          { role: "agent", text: "Lo siento, mi sistema tuvo un breve parpadeo. ¿Me lo repites?" }
+        ]);
+      }
+      setIsSending(false);
 
     } catch (error) {
       console.error("Error sending message:", error);
@@ -82,7 +100,7 @@ export default function AgentChat() {
                   <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#111111]"></div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white text-sm">Agente Comercial</h3>
+                  <h3 className="font-semibold text-white text-sm">Clara — Community Manager</h3>
                   <div className="flex items-center gap-1 text-xs text-white/50">
                     <ShieldCheck size={12} className="text-green-500" /> MCP Protegido
                   </div>
