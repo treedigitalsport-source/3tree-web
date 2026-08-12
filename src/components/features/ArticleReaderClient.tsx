@@ -47,9 +47,9 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
     });
   };
 
-  const articleTitle = isEs ? (article.titleEs || article.titleEn || article.title) : (article.titleEn || article.titleEs || article.title);
-  const articleCategory = isEs ? (article.categoryEs || article.categoryEn || article.category) : (article.categoryEn || article.categoryEs || article.category);
-  const articleContent = isEs ? (article.contentEs || article.contentEn || article.content) : (article.contentEn || article.contentEs || article.content);
+  const articleTitle = isEs ? (article.titleEs || article.titleEn) : (article.titleEn || article.titleEs);
+  const articleCategory = isEs ? (article.categoryEs || article.categoryEn) : (article.categoryEn || article.categoryEs);
+  const articleContent = isEs ? (article.contentEs || article.contentEn) : (article.contentEn || article.contentEs);
 
 
   return (
