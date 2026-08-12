@@ -12,7 +12,7 @@ export default function AgentChat() {
   const [chatHistory, setChatHistory] = useState([
     { role: "agent", text: "Hola, soy el Agente de Filtro de 3Tree Digital. ¿En qué puedo ayudarte?" }
   ]);
-  const { dict } = useLang();
+  // const { dict } = useLang();
 
   const handleSend = async () => {
     if (!message.trim()) return;
