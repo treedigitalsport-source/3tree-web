@@ -70,7 +70,7 @@ export default function AgentChat() {
     <>
       {/* Floating Button */}
       <motion.button
-        initial={{ scale: 0 }}
+        initial={{ scale: 1 }}
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
