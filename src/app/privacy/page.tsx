@@ -161,8 +161,8 @@ export default function PrivacyPage() {
             </h2>
             <p className="text-white/60 leading-relaxed text-sm md:text-base font-light">
               {isEs
-                ? "Puedes solicitar el acceso, modificación o eliminación definitiva de tu información y tus videos cargados en cualquier momento poniéndote en contacto con nosotros en partners@3treedigital.com."
-                : "You may request access, modification, or permanent deletion of your personal information and uploaded videos at any time by contacting us at partners@3treedigital.com."}
+                ? "Puedes solicitar el acceso, modificación o eliminación definitiva de tu información y tus videos cargados en cualquier momento poniéndote en contacto con nosotros en treedigitalsport@gmail.com."
+                : "You may request access, modification, or permanent deletion of your personal information and uploaded videos at any time by contacting us at treedigitalsport@gmail.com."}
             </p>
           </section>
 
@@ -174,7 +174,9 @@ export default function PrivacyPage() {
             {isEs 
               ? "¿Preguntas sobre nuestra privacidad? Contáctanos a " 
               : "Questions about our privacy? Contact us at "}
-            <a href="mailto:partners@3treedigital.com" className="text-brandOrange hover:underline">partners@3treedigital.com</a>
+          </p>
+          <p className="text-white/60 leading-relaxed max-w-2xl">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=treedigitalsport@gmail.com" target="_blank" rel="noopener noreferrer" className="text-brandOrange hover:underline font-medium">treedigitalsport@gmail.com</a>
           </p>
         </div>
 

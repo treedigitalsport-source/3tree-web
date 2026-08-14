@@ -28,7 +28,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-black text-white font-sans overflow-x-hidden">
         <LangProvider>
-          {/* <SmoothScroll /> */}
+          <SmoothScroll />
           <LoadingScreen />
           <main className="flex-1 w-full">
             {children}

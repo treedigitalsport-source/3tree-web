@@ -126,7 +126,7 @@ export default function CookiesPage() {
             {isEs 
               ? "¿Tienes dudas sobre las cookies? Contáctanos a " 
               : "Questions about our cookies? Contact us at "}
-            <a href="mailto:partners@3treedigital.com" className="text-brandOrange hover:underline">partners@3treedigital.com</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=treedigitalsport@gmail.com" target="_blank" rel="noopener noreferrer" className="text-brandOrange hover:underline font-medium">treedigitalsport@gmail.com</a>
           </p>
         </div>
 

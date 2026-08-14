@@ -80,7 +80,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-widest text-brandOrange font-bold mb-1">Email</p>
-                <p className="font-medium text-lg">partners@3treedigital.com</p>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=treedigitalsport@gmail.com" target="_blank" rel="noopener noreferrer" className="font-medium text-lg hover:text-brandOrange transition-colors">treedigitalsport@gmail.com</a>
               </div>
             </div>
             
