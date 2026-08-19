@@ -430,11 +430,11 @@ export default function SportsNewsBroadcastPage() {
                     <div className="flex items-center gap-2">
                       {/* Team A */}
                       <div className="flex items-center gap-1.5">
-                        <div className="w-7 h-7 rounded-full bg-white/10 p-1 border border-white/25 flex items-center justify-center overflow-hidden shadow-md group-hover/card:scale-105 transition-transform">
+                        <div className="w-8 h-8 rounded-full bg-white/95 p-1 shadow-[0_2px_10px_rgba(0,0,0,0.5)] ring-1 ring-white/40 flex items-center justify-center overflow-hidden shrink-0 group-hover/card:scale-110 transition-transform">
                           <img
                             src={s.teamA.logo}
                             alt={s.teamA.name}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain drop-shadow-sm"
                           />
                         </div>
                         <span className="font-mono text-[11px] font-black text-white tracking-wide">
@@ -442,15 +442,15 @@ export default function SportsNewsBroadcastPage() {
                         </span>
                       </div>
 
-                      <span className="text-white/30 text-[9px] font-mono font-black">vs</span>
+                      <span className="text-brandOrange font-mono font-black text-[9px] px-1 bg-brandOrange/10 rounded">vs</span>
 
                       {/* Team B */}
                       <div className="flex items-center gap-1.5">
-                        <div className="w-7 h-7 rounded-full bg-white/10 p-1 border border-white/25 flex items-center justify-center overflow-hidden shadow-md group-hover/card:scale-105 transition-transform">
+                        <div className="w-8 h-8 rounded-full bg-white/95 p-1 shadow-[0_2px_10px_rgba(0,0,0,0.5)] ring-1 ring-white/40 flex items-center justify-center overflow-hidden shrink-0 group-hover/card:scale-110 transition-transform">
                           <img
                             src={s.teamB.logo}
                             alt={s.teamB.name}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain drop-shadow-sm"
                           />
                         </div>
                         <span className="font-mono text-[11px] font-black text-white tracking-wide">
