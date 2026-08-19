@@ -4,8 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Headset } from "lucide-react";
 import { useLang } from "@/app/i18n";
+import { usePathname } from "next/navigation";
 
 export default function AgentChat() {
+  const pathname = usePathname();
   const { lang } = useLang();
   const isEs = lang === "es";
 
@@ -15,6 +17,11 @@ export default function AgentChat() {
   const [chatHistory, setChatHistory] = useState<{role: string, text: string}[]>([]);
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Strictly only render Iris AI on the main home page (/)
+  if (pathname !== "/") {
+    return null;
+  }
 
   const welcomeText = isEs 
     ? "¡Hola! 👋 Soy Iris, especialista de atención en 3Tree Digital. ¿En qué te puedo colaborar hoy?"
