@@ -61,6 +61,7 @@ export default function SportsNewsBroadcastPage() {
   const sportsGroups = [
     {
       category: isEs ? "BÉISBOL GLOBAL" : "GLOBAL BASEBALL",
+      shortLabel: isEs ? "BÉISBOL" : "BASEBALL",
       items: [
         {
           league: "MLB",
@@ -93,7 +94,42 @@ export default function SportsNewsBroadcastPage() {
       ]
     },
     {
+      category: isEs ? "FÚTBOL DE ÉLITE (ESP · ENG · GER · ITA)" : "ELITE SOCCER (ESP · ENG · GER · ITA)",
+      shortLabel: isEs ? "FÚTBOL" : "SOCCER",
+      items: [
+        {
+          league: "LALIGA",
+          teamA: { name: "RMA", logo: "/logos/teams/rma.png", bg: "#FFFFFF" },
+          teamB: { name: "FCB", logo: "/logos/teams/fcb.png", bg: "#004D98" },
+          score: "2 - 1",
+          status: "FINAL"
+        },
+        {
+          league: "EPL",
+          teamA: { name: "MCI", logo: "/logos/teams/mci.png", bg: "#6CABDD" },
+          teamB: { name: "ARS", logo: "/logos/teams/ars.png", bg: "#EF0107" },
+          score: "3 - 2",
+          status: "88'"
+        },
+        {
+          league: "BUNDES",
+          teamA: { name: "BAY", logo: "/logos/teams/bay.png", bg: "#DC052D" },
+          teamB: { name: "BVB", logo: "/logos/teams/bvb.png", bg: "#FDE100" },
+          score: "4 - 1",
+          status: "FINAL"
+        },
+        {
+          league: "SERIE A",
+          teamA: { name: "INT", logo: "/logos/teams/inter.png", bg: "#010E80" },
+          teamB: { name: "JUV", logo: "/logos/teams/juv.png", bg: "#000000" },
+          score: "1 - 0",
+          status: "FINAL"
+        },
+      ]
+    },
+    {
       category: isEs ? "NFL & HOCKEY NHL" : "NFL & NHL HOCKEY",
+      shortLabel: "NFL/NHL",
       items: [
         {
           league: "NFL",
@@ -127,6 +163,7 @@ export default function SportsNewsBroadcastPage() {
     },
     {
       category: isEs ? "MOTORSPORTS & SURF" : "MOTORSPORTS & SURF",
+      shortLabel: "F1/SURF",
       items: [
         {
           league: "F1",
@@ -169,11 +206,15 @@ export default function SportsNewsBroadcastPage() {
 
   const tickerNews = isEs
     ? [
-        "🔴 BÉISBOL USA / MLB: Cámaras computarizadas analizan rotación de pitcheo en vivo",
-        "⚾ NPB JAPÓN: Algoritmos de biomecánica integrados en entrenamientos de primavera",
-        "⚾ LIDOM / REP. DOMINICANA: Scouting digital en tiempo real para prospectos de Grandes Ligas",
-        "⚾ LVBP / VENEZUELA: Telemetría 3D sin sensores físicos en transmisiones en directo",
-        "🏒 NHL HOCKEY: Modelos predictivos de aceleración sobre hielo y trayectorias de puck",
+        "⚽ LALIGA ESPAÑA: El Clásico Real Madrid vs Barcelona con telemetría de visión computacional y tracking 3D",
+        "⚽ PREMIER LEAGUE: Manchester City y Arsenal en duelo directo con modelos predictivos de posesión",
+        "⚽ BUNDESLIGA ALEMANIA: Der Klassiker Bayern vs Dortmund analizado con cinemática de alta velocidad",
+        "⚽ SERIE A ITALIA: Derby d'Italia Inter vs Juventus procesado en tiempo real por Sports OS",
+        "🔴 BÉISBOL USA / MLB: Cámaras computarizadas analizan rotación de pitcheo en transmisiones en directo",
+        "⚾ NPB JAPÓN: Algoritmos de biomecánica integrados en entrenamientos de béisbol profesional",
+        "⚾ LIDOM / REP. DOMINICANA: Scouting digital en tiempo real para prospectos élite de Grandes Ligas",
+        "⚾ LVBP / VENEZUELA: Telemetría 3D sin marcadores físicos en el estadio universitario",
+        "🏒 NHL HOCKEY: Modelos predictivos de aceleración sobre hielo y trayectorias de disco",
         "🏈 NFL: Modelos de impacto y aceleración muscular reducen tiempo de diagnóstico",
         "🏎️ FÓRMULA 1: Telemetría aerodinámica en tiempo real procesada por Sports OS",
         "🏍️ MOTOGP: Dinámica angular y telemetría de inclinación en pista en alta frecuencia",
@@ -181,10 +222,14 @@ export default function SportsNewsBroadcastPage() {
         "📡 SEÑAL GLOBAL: Muy pronto al aire en 4K HDR desde Lutz, Florida"
       ]
     : [
+        "⚽ LALIGA SPAIN: El Clásico Real Madrid vs Barcelona tracked with 3D computer vision and biomechanics",
+        "⚽ PREMIER LEAGUE: Manchester City vs Arsenal title clash with real-time predictive possession models",
+        "⚽ BUNDESLIGA GERMANY: Der Klassiker Bayern vs Dortmund analyzed with high-speed kinematic arrays",
+        "⚽ SERIE A ITALY: Derby d'Italia Inter vs Juventus processed live in real time by Sports OS",
         "🔴 BASEBALL USA / MLB: Computerized camera arrays tracking pitch rotation live",
-        "⚾ NPB JAPAN: Biomechanical computer vision algorithms deployed in spring training",
+        "⚾ NPB JAPAN: Biomechanical computer vision algorithms deployed in professional baseball",
         "⚾ LIDOM / DOMINICAN REP: Real-time digital scouting for elite MLB prospects",
-        "⚾ LVBP / VENEZUELA: Markerless 3D telemetry in live broadcast environments",
+        "⚾ LVBP / VENEZUELA: Markerless 3D telemetry tracking in live stadium broadcasts",
         "🏒 NHL HOCKEY: Predictive on-ice acceleration models and puck trajectory tracking",
         "🏈 NFL: Muscle acceleration and impact models cutting diagnostic time",
         "🏎️ FORMULA 1: Real-time aerodynamic telemetry processed live by Sports OS",
@@ -390,7 +435,7 @@ export default function SportsNewsBroadcastPage() {
               </div>
 
               {/* Category Quick Switcher Pills */}
-              <div className="flex items-center justify-between gap-1.5 bg-white/5 p-1 rounded-xl">
+              <div className="flex items-center justify-between gap-1 bg-white/5 p-1 rounded-xl">
                 {sportsGroups.map((grp, idx) => (
                   <button
                     key={idx}
@@ -401,7 +446,7 @@ export default function SportsNewsBroadcastPage() {
                         : "text-white/40 hover:text-white hover:bg-white/5"
                     }`}
                   >
-                    {idx === 0 ? "BÉISBOL" : idx === 1 ? "NFL/NHL" : "F1/SURF"}
+                    {grp.shortLabel}
                   </button>
                 ))}
               </div>
