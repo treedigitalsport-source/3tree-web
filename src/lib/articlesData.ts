@@ -3,7 +3,7 @@ export const aiArticles = [
     id: 2,
     slug: "revolucion-ia-big-data",
     author: "Ali Zapata",
-    image: "/article_automation_1785623940437.jpg",
+    image: "/images/articles/article_automation_1785623940437.jpg",
     
     titleEs: "Algoritmo del Deporte: Revolución IA, Big Data y Agentes",
     titleEn: "Algorithm of Sport: AI Revolution, Big Data and Agents",
@@ -39,7 +39,7 @@ export const neilArticles = [
     id: 101,
     slug: "baseball-analytics-revolution",
     author: "Neil Alvarado",
-    image: "https://images.unsplash.com/photo-1508344928928-7137b29de216?q=80&w=2000&auto=format&fit=crop",
+    image: "/images/articles/baseball_biomechanics_1785628048219.jpg",
     
     titleEs: "La Matriz del Béisbol: Sabermetría Avanzada",
     titleEn: "The Matrix of Baseball: Advanced Sabermetrics",
@@ -72,7 +72,7 @@ export const neilArticles = [
     id: 102,
     slug: "the-analyst-journey",
     author: "Neil Alvarado",
-    image: "https://images.unsplash.com/photo-1541534401786-2079eeaed13f?q=80&w=2000&auto=format&fit=crop",
+    image: "/images/articles/baseball_scouting_big_data_1784602676416.jpg",
     
     titleEs: "El Viaje del Analista: De las gradas a la jugada",
     titleEn: "The Analyst's Journey: From the Bleachers to the Play",

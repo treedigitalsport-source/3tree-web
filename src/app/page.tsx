@@ -4,19 +4,38 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useLang } from "./i18n";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, ChevronDown, Play, Globe, Activity, Brain, Video, Bot } from "lucide-react";
+import { 
+  ArrowUpRight, 
+  ChevronRight, 
+  Globe, 
+  Activity, 
+  Brain, 
+  Video, 
+  Bot, 
+  Volume2, 
+  VolumeX, 
+  Play, 
+  Headphones, 
+  Radio, 
+  CheckCircle2, 
+  Sparkles, 
+  Zap, 
+  Layers,
+  BarChart3,
+  Cpu
+} from "lucide-react";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 import CustomCursor from "@/components/CustomCursor";
 import Lenis from "lenis";
 
-/* ══════════════════════════════════════════════════════════════════════════ */
-/*  MOUSE SPOTLIGHT                                                           */
-/* ══════════════════════════════════════════════════════════════════════════ */
+/* ────────────────────────────────────────────────────────────────────────── */
+/*  MOUSE SPOTLIGHT (APPLE AMBIENT GLOW)                                      */
+/* ────────────────────────────────────────────────────────────────────────── */
 function MouseSpotlight() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { damping: 30, stiffness: 200 });
-  const smoothY = useSpring(mouseY, { damping: 30, stiffness: 200 });
+  const smoothX = useSpring(mouseX, { damping: 35, stiffness: 180 });
+  const smoothY = useSpring(mouseY, { damping: 35, stiffness: 180 });
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -33,20 +52,20 @@ function MouseSpotlight() {
       style={{
         x: smoothX,
         y: smoothY,
-        width: 600,
-        height: 600,
-        marginLeft: -300,
-        marginTop: -300,
-        background: "radial-gradient(circle, rgba(242,101,34,0.06) 0%, transparent 60%)",
-        filter: "blur(40px)",
+        width: 700,
+        height: 700,
+        marginLeft: -350,
+        marginTop: -350,
+        background: "radial-gradient(circle, rgba(242,101,34,0.08) 0%, rgba(242,101,34,0.02) 40%, transparent 70%)",
+        filter: "blur(50px)",
       }}
     />
   );
 }
 
-/* ══════════════════════════════════════════════════════════════════════════ */
+/* ────────────────────────────────────────────────────────────────────────── */
 /*  ANIMATED COUNTER                                                          */
-/* ══════════════════════════════════════════════════════════════════════════ */
+/* ────────────────────────────────────────────────────────────────────────── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -79,10 +98,10 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-/* ══════════════════════════════════════════════════════════════════════════ */
+/* ────────────────────────────────────────────────────────────────────────── */
 /*  MARQUEE                                                                   */
-/* ══════════════════════════════════════════════════════════════════════════ */
-function Marquee({ children, speed = 30, className="" }: { children: React.ReactNode; speed?: number; className?: string }) {
+/* ────────────────────────────────────────────────────────────────────────── */
+function Marquee({ children, speed = 35, className = "" }: { children: React.ReactNode; speed?: number; className?: string }) {
   return (
     <div className={`overflow-hidden whitespace-nowrap flex ${className}`}>
       <motion.div
@@ -97,554 +116,521 @@ function Marquee({ children, speed = 30, className="" }: { children: React.React
   );
 }
 
-/* ══════════════════════════════════════════════════════════════════════════ */
-/*  MAGNETIC BUTTON                                                           */
-/* ══════════════════════════════════════════════════════════════════════════ */
-function MagneticButton({ children, className = "", href = "#" }: { children: React.ReactNode; className?: string; href?: string }) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { damping: 15, stiffness: 300 });
-  const springY = useSpring(y, { damping: 15, stiffness: 300 });
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    x.set((e.clientX - cx) * 0.3);
-    y.set((e.clientY - cy) * 0.3);
-  }, [x, y]);
-
-  const handleMouseLeave = useCallback(() => {
-    x.set(0);
-    y.set(0);
-  }, [x, y]);
-
-  return (
-    <motion.a
-      ref={ref}
-      href={href}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: springX, y: springY }}
-      className={className}
-    >
-      {children}
-    </motion.a>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════════════ */
-/*  ROTATING HERO VERB (DYNAMIC ANIMATED "WE DESIGN")                         */
-/* ══════════════════════════════════════════════════════════════════════════ */
-function RotatingHeroVerb({ isEs }: { isEs: boolean }) {
-  const wordsEn = ["DESIGN", "ENGINEER", "QUANTIFY", "ACCELERATE", "DECODE"];
-  const wordsEs = ["DISEÑAMOS", "INGENIAMOS", "CUANTIFICAMOS", "ACELERAMOS", "DECODIFICAMOS"];
-  const words = isEs ? wordsEs : wordsEn;
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length);
-    }, 2800);
-    return () => clearInterval(interval);
-  }, [words.length]);
-
-  return (
-    <span className="inline-flex flex-wrap items-baseline gap-x-4 md:gap-x-6">
-      {!isEs && (
-        <span className="text-white drop-shadow-2xl">WE</span>
-      )}
-      <span className="relative inline-flex overflow-hidden h-[1.12em] align-baseline">
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={words[index % words.length] + (isEs ? "-es" : "-en")}
-            initial={{ y: "100%", opacity: 0, filter: "blur(12px)", rotateX: -40 }}
-            animate={{ y: "0%", opacity: 1, filter: "blur(0px)", rotateX: 0 }}
-            exit={{ y: "-100%", opacity: 0, filter: "blur(12px)", rotateX: 40 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-block text-white drop-shadow-[0_0_35px_rgba(255,255,255,0.4)]"
-          >
-            {words[index % words.length]}
-          </motion.span>
-        </AnimatePresence>
-      </span>
-    </span>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════════════ */
-/*  MAIN PAGE COMPONENT                                                       */
-/* ══════════════════════════════════════════════════════════════════════════ */
+/* ────────────────────────────────────────────────────────────────────────── */
+/*  MAIN PAGE COMPONENT (APPLE DESIGN SYSTEM)                                 */
+/* ────────────────────────────────────────────────────────────────────────── */
 export default function MainContent() {
   const { t, lang, toggleLang } = useLang();
   const isEs = lang === "es";
-  /* Scroll values for the Parallax Hero Video */
-  const { scrollYProgress: heroScroll } = useScroll();
-  const heroY = useTransform(heroScroll, [0, 0.3], [0, 150]);
-  const heroOpacity = useTransform(heroScroll, [0, 0.3], [1, 0.3]);
 
+  // Video Audio State & Control
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [isHeroMuted, setIsHeroMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
 
+  // Lenis Smooth Scrolling Init
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+      touchMultiplier: 2,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  const toggleHeroAudio = () => {
+    if (!heroVideoRef.current) return;
+    const newMuted = !isHeroMuted;
+    heroVideoRef.current.muted = newMuted;
+    if (!newMuted) {
+      heroVideoRef.current.volume = 0.85;
+    }
+    setIsHeroMuted(newMuted);
+  };
+
+  const toggleHeroPlay = () => {
+    if (!heroVideoRef.current) return;
+    if (isPlaying) {
+      heroVideoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      heroVideoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
 
   return (
-    <main className="relative bg-[#020617] text-white selection:bg-brandOrange selection:text-white font-sans">
+    <main className="relative bg-[#000000] text-white selection:bg-[#f26522] selection:text-white font-sans antialiased overflow-x-hidden min-h-screen">
       <CustomCursor />
       <MouseSpotlight />
 
-      {/* Grid Pattern Background - Only applied to structural sections, not video hero */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03] mix-blend-screen">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
-      </div>
-
-      {/* Cinematic Top Gradient Fade for Header */}
-      <div className="fixed top-0 left-0 right-0 h-[20vh] bg-gradient-to-b from-[#020617] via-[#020617]/60 to-transparent z-[40] pointer-events-none"></div>
-
-      {/* ─── HEADER ─── */}
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 w-full z-50 px-6 md:px-10 py-6 flex justify-between items-center bg-[#020617]/40 backdrop-blur-md border-b border-white/10"
-      >
-        <div className="flex items-center hoverable">
-          <div className="h-24 md:h-28 w-[280px] md:w-[380px] flex items-center relative transition-all duration-500">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-full object-contain object-left" />
-          </div>
-        </div>
-
-        <div className="hidden lg:flex gap-4 xl:gap-8 text-[10px] xl:text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-white/50 items-center">
-          {t.nav.map((item, i) => {
-            const sectionIds = ["services", "projects", "podcast", "journal", "in-the-play", "impact", "about", "contact"];
-            let targetUrl = `#${sectionIds[i]}`;
-            if (sectionIds[i] === "projects") targetUrl = "/projects/kinebase";
-            if (sectionIds[i] === "podcast") targetUrl = "/podcast";
-            if (sectionIds[i] === "journal") targetUrl = "/journal";
-            if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
-            if (sectionIds[i] === "impact") targetUrl = "/impact";
-            if (sectionIds[i] === "about") targetUrl = "/about";
-            if (sectionIds[i] === "contact") targetUrl = "/contact";
-
-            return (
-              <div key={item} className="relative group/nav whitespace-nowrap">
-                <Link href={targetUrl} className="hoverable hover:text-white transition-colors duration-500 flex items-center gap-1 group/link">
-                  {item}
-                </Link>
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandOrange group-hover/nav:w-full transition-all duration-500"></span>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center gap-4 mr-2 md:mr-6 lg:mr-10">
-          <button 
-            onClick={toggleLang}
-            className="group hoverable flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors px-4 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
-          >
-            <Globe className="w-3 h-3 text-white/60 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
-          </button>
-          
-          <Link href="/contact" className="hoverable flex items-center gap-2 bg-brandOrange text-white px-7 py-3 rounded-full text-[10px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500">
-            {t.cta} <ArrowUpRight className="w-3 h-3" />
+      {/* ─── 1. APPLE PRO FLOATING NAVBAR ─── */}
+      <header className="fixed top-6 left-0 right-0 z-50 px-4 md:px-8 max-w-6xl mx-auto flex items-center justify-between">
+        <motion.div 
+          initial={{ y: -40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full bg-[#0a0a0c]/70 backdrop-blur-2xl border border-white/[0.12] rounded-full px-5 py-3 flex items-center justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+        >
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 hoverable flex-shrink-0 group">
+            <div className="h-8 w-28 md:w-36 flex items-center relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-full object-contain object-left group-hover:opacity-90 transition-opacity" />
+            </div>
           </Link>
-        </div>
-      </motion.header>
 
-      {/* ─── HERO SECTION (ORIGINAL FULLSCREEN IMMERSIVE VIDEO) ─── */}
-      <section className="relative h-screen flex items-center overflow-hidden">
+          {/* Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-6 text-[11px] font-medium text-white/60 tracking-tight">
+            <Link href="#services" className="hover:text-white transition-colors">
+              {isEs ? "Servicios" : "Services"}
+            </Link>
+            <Link href="/projects/kinebase" className="hover:text-white transition-colors flex items-center gap-1">
+              Kinebase Pro <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-[#f26522]/20 text-[#f26522] border border-[#f26522]/30">AI</span>
+            </Link>
+            <Link href="/in-the-play" className="hover:text-white transition-colors">
+              {isEs ? "Noticiero & Media" : "News & Media"}
+            </Link>
+            <Link href="/podcast" className="hover:text-white transition-colors">
+              {isEs ? "Podcast Studio" : "Podcast"}
+            </Link>
+            <Link href="/journal" className="hover:text-white transition-colors">
+              {isEs ? "Diario" : "Journal"}
+            </Link>
+            <Link href="/about" className="hover:text-white transition-colors">
+              {isEs ? "Quiénes Somos" : "About"}
+            </Link>
+          </nav>
+
+          {/* Right Actions (Language & Pill CTA) */}
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={toggleLang}
+              className="flex items-center gap-1.5 text-[11px] font-semibold text-white/70 hover:text-white transition-colors px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/10 hover:border-white/20"
+              aria-label="Cambiar idioma"
+            >
+              <Globe className="w-3.5 h-3.5 text-white/50" />
+              <span>{lang === 'en' ? 'ES' : 'EN'}</span>
+            </button>
+            
+            <Link 
+              href="/contact" 
+              className="flex items-center gap-1.5 bg-white text-black hover:bg-white/90 text-xs font-semibold px-4 md:px-5 py-1.5 rounded-full transition-all duration-300 shadow-[0_2px_15px_rgba(255,255,255,0.2)] hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span>{isEs ? "Iniciar Proyecto" : "Start Project"}</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </motion.div>
+      </header>
+
+      {/* ─── 2. APPLE HERO SECTION ─── */}
+      <section className="relative pt-36 md:pt-44 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
         
-        {/* Cinematic Video Background */}
-        <motion.div className="absolute inset-0 z-0" style={{ y: heroY, opacity: heroOpacity }}>
-          <div 
-            className="absolute inset-0"
-            style={{
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
-            }}
+        {/* Apple Category Pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.1] text-xs text-white/80 backdrop-blur-md mb-8"
+        >
+          <span className="w-2 h-2 rounded-full bg-[#f26522] animate-pulse"></span>
+          <span className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-white/70">
+            {isEs ? "LABORATORIO DE INTELIGENCIA DEPORTIVA" : "SPORTS INTELLIGENCE LAB"}
+          </span>
+        </motion.div>
+
+        {/* Main Apple Pro Title */}
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase leading-[0.92] max-w-5xl mx-auto"
+        >
+          <span className="bg-gradient-to-b from-white via-white/95 to-white/60 bg-clip-text text-transparent">
+            {isEs ? "Diseñamos el futuro" : "Designing the future"}
+          </span>
+          <br />
+          <span className="bg-gradient-to-r from-[#f26522] via-[#ff8a4c] to-[#f26522] bg-clip-text text-transparent font-serif italic normal-case tracking-normal">
+            {isEs ? "de los deportes." : "of sports."}
+          </span>
+        </motion.h1>
+
+        {/* Apple Balanced Subtitle */}
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-6 md:mt-8 text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto font-normal leading-relaxed tracking-tight"
+        >
+          {isEs 
+            ? "Fusionamos visión computacional, biomecánica cuántica y arquitectura de software de alto rendimiento para atletas de élite y franquicias globales."
+            : "We fuse computer vision, quantum biomechanics, and high-performance software architecture for elite athletes and global franchises."}
+        </motion.p>
+
+        {/* Apple Action Buttons */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10 flex flex-col sm:flex-row items-center gap-4"
+        >
+          <Link 
+            href="/contact" 
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#f26522] hover:bg-[#ff7a3d] text-white font-semibold text-sm px-8 py-3.5 rounded-full transition-all duration-300 shadow-[0_0_40px_rgba(242,101,34,0.35)] hover:scale-[1.02] active:scale-[0.98]"
           >
+            <span>{isEs ? "Agendar Demostración" : "Book a Demo"}</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+          <Link 
+            href="/projects/kinebase" 
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white/[0.06] hover:bg-white/[0.12] text-white/90 hover:text-white border border-white/[0.12] font-semibold text-sm px-8 py-3.5 rounded-full transition-all duration-300 backdrop-blur-md"
+          >
+            <span>{isEs ? "Explorar Kinebase Pro" : "Explore Kinebase Pro"}</span>
+            <ChevronRight className="w-4 h-4 text-white/50" />
+          </Link>
+        </motion.div>
+
+        {/* ─── 3. APPLE CINEMATIC THEATER VIEWPORT (CLEAN HERO VIDEO) ─── */}
+        <motion.div
+          initial={{ opacity: 0, y: 50, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-16 md:mt-20 w-full max-w-6xl relative rounded-3xl md:rounded-[2.5rem] border border-white/[0.15] bg-[#0a0a0c]/80 backdrop-blur-3xl p-2.5 md:p-3.5 shadow-[0_25px_120px_rgba(0,0,0,0.9)] overflow-hidden group"
+        >
+          {/* Inner Video Container */}
+          <div className="relative w-full aspect-video rounded-2xl md:rounded-[2rem] overflow-hidden bg-black">
             <video 
+              ref={heroVideoRef}
               autoPlay 
               loop 
               muted 
               playsInline
-              className="w-full h-full object-cover opacity-80 scale-100 translate-y-[20%]"
-              style={{ objectPosition: 'center top' }}
+              className="w-full h-full object-cover scale-[1.02] transition-transform duration-1000 group-hover:scale-100"
             >
               <source src="/videos/hero-video.mp4" type="video/mp4" />
             </video>
-          </div>
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
-          {/* Bottom gradient for text readability */}
-          <div className="absolute bottom-0 left-0 right-0 h-[30%] z-[6] pointer-events-none bg-gradient-to-t from-[#020617] via-[#020617]/80 to-transparent"></div>
-        </motion.div>
 
-        {/* Hero Content */}
-        <div className="w-full max-w-[96%] mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-32">
-          <div className="max-w-6xl">
-            {/* Tag Line */}
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-10 ml-[60px]"
-            >
-              <span className="inline-flex items-center text-brandOrange font-mono text-sm md:text-base tracking-[0.4em] uppercase font-bold">
-                --{t.tagline}--
+            {/* Apple Subtle Vignette Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none"></div>
+
+            {/* Top Left Floating Telemetry Pill */}
+            <div className="absolute top-4 md:top-6 left-4 md:left-6 z-20 flex items-center gap-2.5 bg-black/60 backdrop-blur-xl border border-white/10 px-3.5 py-1.5 rounded-full">
+              <span className="w-2 h-2 rounded-full bg-[#00FF66] animate-pulse"></span>
+              <span className="font-mono text-[10px] font-bold text-white/90 tracking-wider uppercase">
+                KINEBASE PRO · 98 MPH VELO · 94 ELITE
               </span>
-            </motion.div>
-
-            {/* Main Title */}
-            <h1 className="font-display font-black text-[clamp(2.5rem,7vw,8rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-5xl relative z-20 pointer-events-none mix-blend-difference ml-[60px]">
-              {/* Dynamic Rotating Line 1 */}
-              <div className="overflow-hidden">
-                <motion.div
-                  initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
-                  animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="block drop-shadow-2xl text-white"
-                >
-                  <RotatingHeroVerb isEs={isEs} />
-                </motion.div>
-              </div>
-
-              {/* Line 2: The Future */}
-              <div className="overflow-hidden">
-                <motion.span
-                  initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
-                  animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.6, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                  className="block drop-shadow-2xl font-serif italic font-normal tracking-normal text-[#f26522]"
-                >
-                  {t.heroLine2}
-                </motion.span>
-              </div>
-
-              {/* Line 3: Of Sports */}
-              <div className="overflow-hidden">
-                <motion.span
-                  initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
-                  animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.6, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
-                  className="block drop-shadow-2xl text-white"
-                >
-                  {t.heroLine3}
-                </motion.span>
-              </div>
-            </h1>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 1 }}
-              className="mt-12 text-white/45 text-base md:text-lg font-light leading-[1.8] max-w-lg tracking-wide"
-            >
-              {t.heroDesc}
-            </motion.p>
-
-            {/* Main CTA with Scarcity */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 1.2 }}
-              className="mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6 ml-[60px]"
-            >
-              <Link href="/contact" className="hoverable flex items-center justify-center gap-2 bg-brandOrange text-white px-8 py-4 rounded-full text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500 shadow-[0_0_30px_rgba(242,101,34,0.3)]">
-                {isEs ? "Agendar Demostración" : "Book a Demo"}
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
-              <div className="flex flex-col pt-1 sm:pt-2 px-2 text-center sm:text-left">
-                <span className="text-[10px] font-mono text-white/50 uppercase tracking-widest">
-                  {isEs ? "Disponibilidad Limitada" : "Limited Availability"}
-                </span>
-                <span className="text-xs text-brandOrange font-mono mt-1 font-bold">
-                  {isEs ? "* Solo 3 nuevos partners por trimestre" : "* Only 3 new partners per quarter"}
-                </span>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-30 opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2, duration: 1 }}
-          >
-            <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-white/50">{t.scroll}</span>
-            <div className="w-[1px] h-16 bg-white/10 relative overflow-hidden">
-               <motion.div 
-                 animate={{ y: ["-100%", "100%"] }} 
-                 transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }} 
-                 className="absolute top-0 left-0 w-full h-full bg-brandOrange"
-               />
             </div>
-          </motion.div>
-        </div>
+
+            {/* Bottom Right Apple-Style Media Controls */}
+            <div className="absolute bottom-4 md:bottom-6 right-4 md:right-6 z-20 flex items-center gap-2">
+              {/* Play/Pause Pill */}
+              <button 
+                onClick={toggleHeroPlay}
+                className="bg-black/60 hover:bg-black/80 text-white/80 hover:text-white backdrop-blur-xl border border-white/10 px-3.5 py-2 rounded-full font-mono text-[10px] font-bold tracking-wider uppercase transition-all flex items-center gap-2"
+                aria-label={isPlaying ? "Pausar video" : "Reproducir video"}
+              >
+                <Play className={`w-3 h-3 ${isPlaying ? "fill-white text-white" : "text-white/60"}`} />
+                <span>{isPlaying ? "PAUSE" : "PLAY"}</span>
+              </button>
+
+              {/* Audio Unmute/Mute Pill */}
+              <button 
+                onClick={toggleHeroAudio}
+                className="bg-black/60 hover:bg-[#f26522] text-white/80 hover:text-white backdrop-blur-xl border border-white/10 hover:border-[#f26522] px-3.5 py-2 rounded-full font-mono text-[10px] font-bold tracking-wider uppercase transition-all flex items-center gap-2"
+                aria-label={isHeroMuted ? "Activar sonido" : "Silenciar sonido"}
+              >
+                {isHeroMuted ? (
+                  <>
+                    <VolumeX className="w-3.5 h-3.5 text-white/60" />
+                    <span>{isEs ? "ACTIVAR AUDIO" : "UNMUTE AUDIO"}</span>
+                  </>
+                ) : (
+                  <>
+                    <Volume2 className="w-3.5 h-3.5 text-white fill-current animate-pulse" />
+                    <span className="text-white">{isEs ? "AUDIO ACTIVO" : "AUDIO ON"}</span>
+                    <span className="flex items-center gap-0.5 ml-1">
+                      <span className="w-0.5 h-2 bg-white rounded-full animate-pulse"></span>
+                      <span className="w-0.5 h-3.5 bg-white rounded-full animate-pulse delay-75"></span>
+                      <span className="w-0.5 h-1.5 bg-white rounded-full animate-pulse delay-150"></span>
+                    </span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </section>
 
-      {/* MARQUEE */}
-      <div className="w-full border-y border-white/10 bg-brandOrange/5 py-4 overflow-hidden flex items-center whitespace-nowrap z-20 relative backdrop-blur-md">
-         <Marquee speed={30} className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 font-bold">
+      {/* ─── 4. APPLE LOGO MARQUEE / TRUST TICKER ─── */}
+      <div className="w-full border-y border-white/[0.08] bg-[#050507] py-4 overflow-hidden">
+        <Marquee speed={35} className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/40 font-semibold">
           {t.marquee1.map((item, i) => (
             <span key={i} className="mx-8 flex items-center gap-8">
-              {item} <span className="w-1.5 h-1.5 bg-brandOrange rounded-full"></span>
+              {item} <span className="w-1.5 h-1.5 bg-[#f26522] rounded-full"></span>
             </span>
           ))}
         </Marquee>
       </div>
 
-      {/* SOCIAL PROOF METRICS BAR */}
-      <section className="relative z-20 w-full bg-[#020617] border-b border-white/10 py-16">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-          <div className="flex flex-col gap-3 pt-6 md:pt-0 hoverable">
-            <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter">50K+</span>
-            <span className="text-[10px] font-mono text-brandOrange uppercase tracking-[0.2em]">{isEs ? "Horas de Video Procesadas" : "Video Hours Processed"}</span>
+      {/* ─── 5. APPLE PRO METRICS STRIP ─── */}
+      <section className="py-20 px-6 max-w-7xl mx-auto border-b border-white/[0.08]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-white/[0.08]">
+          <div className="flex flex-col gap-2 pt-6 md:pt-0 md:pr-8">
+            <span className="text-5xl md:text-6xl font-black text-white tracking-tight">50K+</span>
+            <span className="text-xs font-mono text-[#f26522] uppercase tracking-[0.15em] font-semibold">
+              {isEs ? "Horas de Video Procesadas" : "Video Hours Processed"}
+            </span>
+            <p className="text-xs text-white/40 mt-1">
+              {isEs ? "Entrenamiento computacional con más de 12 ligas profesionales." : "Computational training across 12+ pro leagues."}
+            </p>
           </div>
-          <div className="flex flex-col gap-3 pt-6 md:pt-0 hoverable">
-            <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter">94%</span>
-            <span className="text-[10px] font-mono text-brandOrange uppercase tracking-[0.2em]">{isEs ? "Reducción en Tiempo de Análisis" : "Reduction in Analysis Time"}</span>
-          </div>
-          <div className="flex flex-col gap-3 pt-6 md:pt-0 hoverable">
-            <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter">&lt;200<span className="text-3xl text-white/50">ms</span></span>
-            <span className="text-[10px] font-mono text-brandOrange uppercase tracking-[0.2em]">{isEs ? "Certeza Algorítmica Absoluta" : "Absolute Algorithmic Certainty"}</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── BENTO GRID: STATS + EXPERTISE (CONSOLIDADO) ─── */}
-      <section id="services" className="relative z-10 w-full bg-[#020617]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-white/10">
           
-          {/* Lado Izquierdo: Bloque Masivo de Estadísticas */}
-          <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col bg-white/[0.02]">
-            <div className="p-8 md:p-12 lg:p-16 border-b border-white/10 flex flex-col justify-center min-h-[300px]">
-               <h3 className="font-display text-5xl md:text-6xl font-black uppercase mb-4 leading-[0.9]">
-                 {isEs ? "Arquitectura" : "System"} <br/><span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.2)' }}>{isEs ? "del Sistema" : "Architecture"}</span>
-               </h3>
-               <p className="font-mono text-xs text-white/50 tracking-widest uppercase leading-relaxed mb-8">
-                 {t.ourExpertise.join(" ")}
-               </p>
-               <div className="inline-flex items-center gap-3 bg-brandOrange/10 border border-brandOrange/30 text-brandOrange px-5 py-3 text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest w-fit">
-                 <Bot className="w-4 h-4" />
-                 {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
-               </div>
+          <div className="flex flex-col gap-2 pt-6 md:pt-0 md:px-8">
+            <span className="text-5xl md:text-6xl font-black text-white tracking-tight">94%</span>
+            <span className="text-xs font-mono text-[#f26522] uppercase tracking-[0.15em] font-semibold">
+              {isEs ? "Aceleración en Scouting" : "Scouting Speed Acceleration"}
+            </span>
+            <p className="text-xs text-white/40 mt-1">
+              {isEs ? "De días de revisión manual a informes automatizados en segundos." : "From days of manual review to reports in seconds."}
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-2 pt-6 md:pt-0 md:pl-8">
+            <span className="text-5xl md:text-6xl font-black text-white tracking-tight">&lt;200<span className="text-2xl text-white/40">ms</span></span>
+            <span className="text-xs font-mono text-[#f26522] uppercase tracking-[0.15em] font-semibold">
+              {isEs ? "Latencia en Tiempo Real" : "Real-time Telemetry Latency"}
+            </span>
+            <p className="text-xs text-white/40 mt-1">
+              {isEs ? "Tracking visual instantáneo sin marcadores corporales." : "Instant visual tracking without body markers."}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 6. APPLE BENTO GRID (CAPABILITIES & ECOSYSTEM) ─── */}
+      <section id="services" className="py-24 px-6 max-w-7xl mx-auto scroll-mt-20">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="font-mono text-xs font-bold text-[#f26522] tracking-[0.25em] uppercase block mb-3">
+            {isEs ? "ECOSISTEMA TECNOLÓGICO" : "TECHNOLOGICAL ECOSYSTEM"}
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">
+            {isEs ? "Potencia analítica sin límites." : "Limitless analytical power."}
+          </h2>
+          <p className="mt-4 text-white/60 text-base max-w-xl mx-auto">
+            {isEs 
+              ? "Herramientas diseñadas con precisión milimétrica para dominar el rendimiento atlético moderno."
+              : "Tools engineered with millimeter precision to dominate modern athletic performance."}
+          </p>
+        </div>
+
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          
+          {/* Bento Card 1 (Large - Kinebase Biomechanics) */}
+          <div className="md:col-span-8 rounded-3xl bg-[#0a0a0c] border border-white/[0.08] hover:border-white/[0.2] transition-all duration-500 p-8 md:p-12 relative overflow-hidden flex flex-col justify-between group shadow-xl">
+            <div className="relative z-10">
+              <div className="w-12 h-12 rounded-2xl bg-[#f26522]/10 border border-[#f26522]/20 flex items-center justify-center text-[#f26522] mb-8">
+                <Activity className="w-6 h-6" />
+              </div>
+              <span className="font-mono text-[10px] font-bold text-[#f26522] tracking-widest uppercase block mb-2">01 — BIOMECÁNICA 3D</span>
+              <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-white mb-4">
+                Kinebase Pro Platform
+              </h3>
+              <p className="text-sm md:text-base text-white/60 max-w-lg leading-relaxed">
+                {isEs 
+                  ? "Análisis cinemático sin sensores invasivos. Extracción de métricas de velocidad, rotación y fatiga muscular directamente desde cualquier cámara."
+                  : "Sensorless kinematic analysis. Extract velocity, spin rate, and muscle fatigue metrics directly from standard broadcast cameras."}
+              </p>
             </div>
-            
-            <div className="grid grid-cols-2 grid-rows-2 flex-grow">
-              {t.stats.map((stat, i) => (
-                <div key={i} className="p-8 border-b border-r border-white/10 flex flex-col justify-center text-center group hover:bg-brandOrange/5 transition-colors">
-                  <span className="font-display text-4xl md:text-6xl font-black text-white group-hover:text-brandOrange transition-colors">
-                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                  </span>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 mt-3">{stat.label}</span>
-                </div>
-              ))}
+
+            <div className="mt-10 pt-6 border-t border-white/[0.08] flex items-center justify-between relative z-10">
+              <span className="text-xs font-mono text-white/40">Next.js 14 · Computer Vision · PyTorch</span>
+              <Link href="/projects/kinebase" className="flex items-center gap-2 text-xs font-semibold text-[#f26522] hover:text-white transition-colors">
+                <span>{isEs ? "Ver Caso de Estudio" : "View Case Study"}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            {/* Subtle Gradient Glow */}
+            <div className="absolute right-0 bottom-0 w-96 h-96 bg-gradient-to-tl from-[#f26522]/10 to-transparent pointer-events-none rounded-full blur-3xl group-hover:from-[#f26522]/15 transition-all"></div>
+          </div>
+
+          {/* Bento Card 2 (Media & Noticiero TV) */}
+          <div className="md:col-span-4 rounded-3xl bg-[#0a0a0c] border border-white/[0.08] hover:border-white/[0.2] transition-all duration-500 p-8 md:p-10 relative overflow-hidden flex flex-col justify-between group shadow-xl">
+            <div className="relative z-10">
+              <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-white mb-8">
+                <Radio className="w-6 h-6 text-[#f26522]" />
+              </div>
+              <span className="font-mono text-[10px] font-bold text-[#f26522] tracking-widest uppercase block mb-2">02 — BROADCAST & MEDIA</span>
+              <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-4">
+                Noticiero 3Sport
+              </h3>
+              <p className="text-sm text-white/60 leading-relaxed">
+                {isEs 
+                  ? "Transmisiones en vivo, marcadores en tiempo real (NFL, MLB, F1) y cobertura de periodismo deportivo de alto impacto."
+                  : "Live broadcasting, real-time scoreboards (NFL, MLB, F1), and high-impact sports journalism coverage."}
+              </p>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-white/[0.08] flex items-center justify-between relative z-10">
+              <span className="text-xs font-mono text-white/40">Live TV Hub</span>
+              <Link href="/in-the-play" className="flex items-center gap-1.5 text-xs font-semibold text-white hover:text-[#f26522] transition-colors">
+                <span>{isEs ? "Ver Noticiero" : "Watch Broadcast"}</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
 
-          {/* Lado Derecho: Catálogo de Servicios Dinámico */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 bg-[#020617]">
-            {t.services.map((service, idx) => {
-              // Asignar un ícono dinámicamente basado en el índice
-              const icons = [
-                <LayoutTemplate key={0} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Cpu key={1} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Fingerprint key={2} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Activity key={3} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Brain key={4} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Video key={5} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Bot key={6} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-              ];
-              const Icon = icons[idx % icons.length];
+          {/* Bento Card 3 (Multimedia & Podcast Suite) */}
+          <div className="md:col-span-4 rounded-3xl bg-[#0a0a0c] border border-white/[0.08] hover:border-white/[0.2] transition-all duration-500 p-8 md:p-10 relative overflow-hidden flex flex-col justify-between group shadow-xl">
+            <div className="relative z-10">
+              <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-white mb-8">
+                <Headphones className="w-6 h-6 text-[#f26522]" />
+              </div>
+              <span className="font-mono text-[10px] font-bold text-[#f26522] tracking-widest uppercase block mb-2">03 — PODCAST & AUDIO</span>
+              <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-4">
+                Podcast Studio
+              </h3>
+              <p className="text-sm text-white/60 leading-relaxed">
+                {isEs 
+                  ? "Episodios descargables en MP3, sincronización directa con Spotify y YouTube, y debates con scouts profesionales."
+                  : "Downloadable MP3 episodes, direct Spotify & YouTube sync, and debates with pro scouts."}
+              </p>
+            </div>
 
-              return (
-                <div key={idx} className="p-8 md:p-10 border-b border-r border-white/10 flex flex-col justify-between hover:bg-brandOrange/5 transition-colors group">
-                  <div>
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center mb-8 border border-white/10 bg-white/5 group-hover:border-brandOrange group-hover:bg-brandOrange/10 transition-colors">
-                      {Icon}
-                    </div>
-                    <h4 className="font-display text-2xl font-black uppercase mb-4 text-white leading-none">
-                      {service.title}
-                    </h4>
-                  </div>
-                  <p className="font-mono text-[10px] text-white/50 leading-relaxed uppercase tracking-[0.1em]">
-                    {service.desc}
-                  </p>
-                </div>
-              );
-            })}
+            <div className="mt-8 pt-6 border-t border-white/[0.08] flex items-center justify-between relative z-10">
+              <span className="text-xs font-mono text-white/40">Spotify & YouTube</span>
+              <Link href="/podcast" className="flex items-center gap-1.5 text-xs font-semibold text-white hover:text-[#f26522] transition-colors">
+                <span>{isEs ? "Escuchar" : "Listen Now"}</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Bento Card 4 (Large - Scouting AI & Computer Vision) */}
+          <div className="md:col-span-8 rounded-3xl bg-[#0a0a0c] border border-white/[0.08] hover:border-white/[0.2] transition-all duration-500 p-8 md:p-12 relative overflow-hidden flex flex-col justify-between group shadow-xl">
+            <div className="relative z-10">
+              <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-white mb-8">
+                <Brain className="w-6 h-6 text-[#f26522]" />
+              </div>
+              <span className="font-mono text-[10px] font-bold text-[#f26522] tracking-widest uppercase block mb-2">04 — SCOUTING INTELIGENTE</span>
+              <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-white mb-4">
+                Algoritmos Predictivos de Rendimiento
+              </h3>
+              <p className="text-sm md:text-base text-white/60 max-w-lg leading-relaxed">
+                {isEs 
+                  ? "Detección de prospectos y análisis comparativo con jugadores históricos de las Grandes Ligas mediante modelos de aprendizaje profundo."
+                  : "Prospect detection and comparative analysis against historical MLB data using deep learning models."}
+              </p>
+            </div>
+
+            <div className="mt-10 pt-6 border-t border-white/[0.08] flex items-center justify-between relative z-10">
+              <span className="text-xs font-mono text-white/40">Neural Pose Estimation</span>
+              <Link href="/journal" className="flex items-center gap-2 text-xs font-semibold text-[#f26522] hover:text-white transition-colors">
+                <span>{isEs ? "Leer Diario Técnico" : "Read Technical Journal"}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
 
         </div>
       </section>
 
-      {/* ═════ CINEMATIC DRONE SHOWCASE (MANTENIDO) ═════ */}
-      <section className="bg-gradient-to-b from-[#020617] to-black relative w-full pt-10 pb-0">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.5 }}
-          className="w-full h-[80vh] md:h-[100vh] relative group hoverable"
-          style={{
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 95%, transparent 100%)',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 95%, transparent 100%)',
-          }}
-        >
-          <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
+      {/* ─── 7. APPLE CINEMATIC STADIUM VIDEO SHOWCASE ─── */}
+      <section className="py-16 px-6 max-w-7xl mx-auto">
+        <div className="relative w-full h-[50vh] md:h-[70vh] rounded-3xl md:rounded-[2.5rem] border border-white/[0.1] overflow-hidden group shadow-2xl bg-black">
           <video 
             autoPlay 
             loop 
             muted 
             playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-[2000ms] group-hover:scale-105"
+            className="w-full h-full object-cover scale-[1.03] transition-transform duration-1000 group-hover:scale-100"
           >
             <source src="/videos/Drone_dive_into_baseball_stadium_202607151954.mp4" type="video/mp4" />
           </video>
-        </motion.div>
-        {/* Desvanecimiento inferior suave hacia el siguiente bloque */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#020617] to-transparent z-20 pointer-events-none"></div>
-      </section>
-
-
-      {/* ─── VERTICAL PROJECTS (EDITORIAL GRID) ─── */}
-      <section id="projects" className="relative z-10 w-full bg-[#020617] py-24 md:py-32 border-t border-white/10">
-        <div className="container mx-auto px-6 max-w-7xl">
           
-          <div className="flex flex-col items-center mb-20 text-center">
-             <span className="font-mono text-[10px] font-bold text-brandOrange tracking-[0.3em] uppercase mb-4">{isEs ? "Innovación" : "Innovation"}</span>
-             <h2 className="font-display text-5xl md:text-7xl font-black uppercase text-white leading-[0.9]">
-               {isEs ? "Nuestro" : "Our"} <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.3)' }}>{isEs ? "Ecosistema" : "Ecosystem"}</span>
-             </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-            
-            {/* Project 1 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="group"
-            >
-              <div className="relative aspect-[4/5] lg:aspect-[3/4] overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#020617] hoverable flex flex-col shadow-2xl">
-                 <div className="h-[75%] relative overflow-hidden">
-                   <div className="absolute inset-0 bg-brandOrange/20 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1] z-30 mix-blend-color pointer-events-none"></div>
-                   {/* Smooth Gradient Masks to fade/soften edges */}
-                   <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-[#020617]/30 z-20 pointer-events-none"></div>
-                   <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/20 via-transparent to-[#020617]/20 z-20 pointer-events-none"></div>
-                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                   <img src="/images/articles/baseball_biomechanics_1785628048219.jpg" alt="Kinebase" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-all duration-1000" />
-                 </div>
-                 <div className="h-[25%] p-8 flex justify-between items-center bg-white/[0.01] border-t border-white/5 group-hover:bg-brandOrange/5 transition-colors">
-                    <div>
-                      <p className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase mb-2">01 — {t.biomechanics}</p>
-                      <h3 className="font-display text-3xl md:text-4xl font-black uppercase text-white leading-[0.9]">Kinebase Pro</h3>
-                    </div>
-                    <Link href="/projects/kinebase" className="w-14 h-14 border border-white/10 flex items-center justify-center rounded-full hover:bg-brandOrange hover:border-brandOrange hover:text-[#020617] transition-all hoverable hover:rotate-45">
-                       <ArrowUpRight className="w-5 h-5" />
-                    </Link>
-                 </div>
-              </div>
-            </motion.div>
-
-            {/* Project 2 */}
-            <motion.div 
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="group lg:mt-32"
-            >
-              <div className="relative aspect-[4/5] lg:aspect-[3/4] overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#020617] hoverable flex flex-col shadow-2xl">
-                 <div className="h-[75%] relative overflow-hidden">
-                   <div className="absolute inset-0 bg-brandOrange/20 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1] z-30 mix-blend-color pointer-events-none"></div>
-                   {/* Smooth Gradient Masks to fade/soften edges */}
-                   <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-[#020617]/30 z-20 pointer-events-none"></div>
-                   <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/20 via-transparent to-[#020617]/20 z-20 pointer-events-none"></div>
-                   <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-all duration-1000">
-                     <source src="/videos/smartphone_screen.mp4" type="video/mp4" />
-                   </video>
-                 </div>
-                 <div className="h-[25%] p-8 flex justify-between items-center bg-white/[0.01] border-t border-white/5 group-hover:bg-brandOrange/5 transition-colors">
-                    <div>
-                      <p className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase mb-2">02 — {t.scouting}</p>
-                      <h3 className="font-display text-3xl md:text-4xl font-black uppercase text-white leading-[0.9]">Scouting AI</h3>
-                    </div>
-                    <button className="px-6 py-3 border border-white/10 flex items-center justify-center rounded-sm hover:bg-white/10 transition-all cursor-not-allowed">
-                       <span className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-white/30">{isEs ? "Próximamente" : "COMING SOON"}</span>
-                    </button>
-                 </div>
-              </div>
-            </motion.div>
-
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent flex flex-col justify-end p-8 md:p-14">
+            <span className="font-mono text-xs font-bold text-[#f26522] tracking-[0.25em] uppercase mb-2">
+              {isEs ? "ESCENARIO DE ALTO RENDIMIENTO" : "HIGH-PERFORMANCE ARENA"}
+            </span>
+            <h3 className="text-2xl sm:text-4xl font-black uppercase text-white tracking-tight max-w-xl">
+              {isEs ? "La tecnología que transforma cada jugada en ventaja competitiva." : "The technology transforming every play into competitive edge."}
+            </h3>
           </div>
         </div>
       </section>
 
-      {/* ─── LEAD MAGNET (WHITE PAPER CAPTURE) ─── */}
-      <section className="relative z-10 w-full border-t border-b border-white/10 bg-brandOrange/5 py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay pointer-events-none"></div>
-        <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
-          <span className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase font-bold mb-4 block">
-            {isEs ? "Descarga Gratuita" : "Free Download"}
+      {/* ─── 8. APPLE WHITEPAPER LEAD MAGNET ─── */}
+      <section className="py-24 px-6 max-w-5xl mx-auto text-center">
+        <div className="rounded-3xl bg-gradient-to-b from-[#0e0e12] to-[#060608] border border-white/[0.1] p-10 md:p-16 relative overflow-hidden shadow-2xl">
+          <span className="font-mono text-xs font-bold text-[#f26522] tracking-[0.25em] uppercase block mb-3">
+            {isEs ? "DESCARGA EXCLUSIVA" : "EXCLUSIVE DOWNLOAD"}
           </span>
-          <h2 className="font-display text-4xl md:text-5xl font-black uppercase text-white leading-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-6">
             {isEs ? "Whitepaper 2026: Cinemática sin Marcadores" : "Whitepaper 2026: Markerless Kinematics"}
           </h2>
-          <p className="font-mono text-sm md:text-base text-white/60 mb-10 max-w-2xl mx-auto">
-            {isEs ? "Únete a más de 1,200 scouts y analistas que están descubriendo cómo los Datos y la Inteligencia Artificial están redefiniendo el paradigma del scouting análogo." : "Join over 1,200 scouts and analysts discovering how Data and AI are redefining the analog scouting paradigm."}
+          <p className="text-sm md:text-base text-white/60 max-w-xl mx-auto mb-10 leading-relaxed">
+            {isEs 
+              ? "Descubra cómo los datos biomecánicos y la IA están sustituyendo el scouting tradicional en las organizaciones deportivas de élite."
+              : "Discover how biomechanical data and AI are replacing traditional scouting across elite sports organizations."}
           </p>
-          
-          <form className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()}>
+
+          <form className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
             <input 
               type="email" 
-              placeholder={isEs ? "Tu correo corporativo..." : "Your corporate email..."}
-              className="bg-[#020617]/80 border border-white/20 text-white px-6 py-4 outline-none focus:border-brandOrange transition-colors w-full sm:w-2/3 font-mono text-xs rounded-none"
+              placeholder={isEs ? "Correo corporativo..." : "Corporate email..."}
+              className="bg-white/[0.05] border border-white/[0.15] text-white px-5 py-3.5 rounded-full text-xs outline-none focus:border-[#f26522] transition-colors w-full"
               required
             />
-            <button type="submit" className="hoverable bg-brandOrange text-white px-8 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-[0_0_20px_rgba(242,101,34,0.2)]">
+            <button 
+              type="submit" 
+              className="bg-[#f26522] hover:bg-[#ff7a3d] text-white text-xs font-semibold px-7 py-3.5 rounded-full uppercase tracking-wider transition-all duration-300 shadow-lg whitespace-nowrap"
+            >
               {isEs ? "Descargar" : "Download"}
             </button>
           </form>
-          <span className="block mt-6 text-[9px] font-mono text-white/40 uppercase tracking-widest">
-            {isEs ? "100% valor puro. Cero spam. Date de baja cuando quieras." : "100% pure value. Zero spam. Unsubscribe anytime."}
+          
+          <span className="block mt-4 text-[10px] font-mono text-white/40 uppercase tracking-widest">
+            {isEs ? "100% Valor Puro · Cero Spam" : "100% Pure Value · Zero Spam"}
           </span>
         </div>
       </section>
 
-      {/* ─── FOOTER CORPORATIVO ─── */}
-      <footer className="relative z-10 w-full border-t border-white/10 bg-[#020617] pt-20 pb-12 overflow-hidden">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-12">
-            <div>
-              <div className="font-display font-black text-xl md:text-2xl tracking-widest uppercase mb-3">
-                3tree digital <span className="text-brandOrange">Sport IA</span>
-              </div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
-                {isEs ? "Sports Intelligence Company" : "Sports Intelligence Company"}
-              </p>
+      {/* ─── 9. APPLE FOOTER ─── */}
+      <footer className="border-t border-white/[0.08] bg-[#000000] py-16 px-6 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
+          <div>
+            <div className="font-display font-black text-xl tracking-wider uppercase">
+              3Tree Digital <span className="text-[#f26522]">Sports AI</span>
             </div>
-            
-            <div className="flex flex-col items-start md:items-end gap-5">
-              <SocialLinks className="gap-6" />
-              
-              {/* Enlaces Legales organizados bajo las redes sociales */}
-              <div className="flex flex-wrap gap-4 md:gap-6 font-mono text-[10px] font-bold uppercase tracking-widest text-white/50">
-                <Link href="/terms" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Términos de Servicio" : "Terms of Service"}</Link>
-                <Link href="/privacy" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Políticas de Privacidad" : "Privacy Policy"}</Link>
-                <Link href="/cookies" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Cookies" : "Cookies"}</Link>
-              </div>
-            </div>
-          </div>
-          
-          <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-            <p className="font-mono text-[10px] uppercase tracking-widest text-white/30">
-              © {new Date().getFullYear()} 3Tree Digital Sport IA. {isEs ? "Todos los derechos reservados." : "All rights reserved."}
+            <p className="text-xs text-white/40 mt-1 font-mono uppercase tracking-widest">
+              Sports Intelligence & Biomechanics Architecture
             </p>
+          </div>
+          <SocialLinks className="gap-5" />
+        </div>
+
+        <div className="pt-8 border-t border-white/[0.06] flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-white/40 font-mono">
+          <p>© {new Date().getFullYear()} 3Tree Digital LLC. {isEs ? "Todos los derechos reservados." : "All rights reserved."}</p>
+          <div className="flex gap-6">
+            <Link href="/terms" className="hover:text-white transition-colors">{isEs ? "Términos" : "Terms"}</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">{isEs ? "Privacidad" : "Privacy"}</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">{isEs ? "Contacto" : "Contact"}</Link>
           </div>
         </div>
       </footer>

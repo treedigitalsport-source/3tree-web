@@ -18,11 +18,6 @@ export default function AgentChat() {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Strictly only render Iris AI on the main home page (/)
-  if (pathname !== "/") {
-    return null;
-  }
-
   const welcomeText = isEs 
     ? "¡Hola! 👋 Soy Iris, especialista de atención en 3Tree Digital. ¿En qué te puedo colaborar hoy?"
     : "Hello! 👋 I'm Iris, client care specialist at 3Tree Digital. How can I help you today?";
@@ -36,32 +31,10 @@ export default function AgentChat() {
     scrollToBottom();
   }, [chatHistory, isSending]);
 
-  // Load chat history on mount
+  // Set initial welcome text and reset on language change
   useEffect(() => {
-    const saved = localStorage.getItem("iris_chat_history_v2");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setChatHistory(parsed);
-        } else {
-          setChatHistory([{ role: "agent", text: welcomeText }]);
-        }
-      } catch (e) {
-        setChatHistory([{ role: "agent", text: welcomeText }]);
-      }
-    } else {
-      setChatHistory([{ role: "agent", text: welcomeText }]);
-    }
-    setIsHistoryLoaded(true);
+    setChatHistory([{ role: "agent", text: welcomeText }]);
   }, [isEs]);
-
-  // Save chat history on change
-  useEffect(() => {
-    if (isHistoryLoaded && chatHistory.length > 0) {
-      localStorage.setItem("iris_chat_history_v2", JSON.stringify(chatHistory));
-    }
-  }, [chatHistory, isHistoryLoaded]);
 
   const sendQuery = async (queryText: string) => {
     if (!queryText.trim() || isSending) return;
@@ -136,6 +109,11 @@ export default function AgentChat() {
     localStorage.removeItem("iris_chat_history");
     setIsOpen(false);
   };
+
+  // Strictly only render Iris AI on the main home page (/)
+  if (pathname !== "/") {
+    return null;
+  }
 
   return (
     <>

@@ -52,6 +52,7 @@ import { QueryDocumentSnapshot } from "@google-cloud/firestore";
 
 export async function getJournalArticles() {
   try {
+    if (!db) return { success: false, articles: [] };
     const snapshot = await db.collection("articles").orderBy("createdAt", "desc").get();
     const articles = snapshot.docs.map((doc: QueryDocumentSnapshot) => ({
       id: doc.id,

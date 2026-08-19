@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, PlayCircle, Headphones, Clock, Calendar, BarChart3, Radio, Loader2, Newspaper } from "lucide-react";
 import { useLang } from "../i18n";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getPodcastEpisodes, getPodcastNews } from "@/app/actions/podcast";
 import CustomCursor from "@/components/CustomCursor";
 
@@ -71,199 +71,290 @@ const staticNewsEn = [
 export default function PodcastPage() {
   const { t, lang } = useLang();
   const isEs = lang === "es";
-  const [activeTab, setActiveTab] = useState<"podcast" | "news">("podcast");
 
-  const podcast = t.podcast || {
-    title: "zon_ethos",
-    subtitle: "Deep dives into Sports Tech, Data, and Future.",
-    listenLatest: "Listen to Latest",
-    latestEpisode: "LATEST EPISODE",
-    previousEpisodes: "Previous Episodes",
-  };
+  // Video State
+  const [selectedVideo, setSelectedVideo] = useState("/Player_speaks_with_journalists_1080p_202608051858.mp4");
+  const [videoTitle, setVideoTitle] = useState(isEs ? "Episodio 01: Análisis Biomecánico y Scouting Predictivo" : "Episode 01: Biomechanical Analysis & Predictive Scouting");
+  const videoPlayerRef = useRef<HTMLVideoElement>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-  const [episodes, setEpisodes] = useState<any[]>([]);
-  const [newsList, setNewsList] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Audio State
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [playbackRate, setPlaybackRate] = useState(1.0);
+  const [audioProgress, setAudioProgress] = useState(32); // percentage
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const epResult = await getPodcastEpisodes();
-        if (epResult.success && epResult.episodes && epResult.episodes.length > 0) {
-          setEpisodes(epResult.episodes);
-        } else {
-          setEpisodes(isEs ? staticEpisodesEs : staticEpisodesEn);
-        }
-
-        const newsResult = await getPodcastNews();
-        if (newsResult.success && newsResult.news && newsResult.news.length > 0) {
-          setNewsList(newsResult.news);
-        } else {
-          setNewsList(isEs ? staticNewsEs : staticNewsEn);
-        }
-      } catch (err) {
-        console.error("Error fetching podcast data:", err);
-        setEpisodes(isEs ? staticEpisodesEs : staticEpisodesEn);
-        setNewsList(isEs ? staticNewsEs : staticNewsEn);
-      } finally {
-        setLoading(false);
-      }
+  const videoPlaylist = [
+    {
+      id: "1",
+      title: isEs ? "Episodio 01: Análisis Biomecánico y Scouting Predictivo" : "Episode 01: Biomechanical Analysis & Predictive Scouting",
+      guest: "Ali Zapata & Neil Alvarado",
+      duration: "45:20",
+      videoUrl: "/Player_speaks_with_journalists_1080p_202608051858.mp4",
+      tag: "MLB / AI"
+    },
+    {
+      id: "2",
+      title: isEs ? "Episodio 02: Tracking Óptico y Cinemática en la NFL" : "Episode 02: Optical Tracking & Kinematics in the NFL",
+      guest: "Sports Intelligence Lab",
+      duration: "38:45",
+      videoUrl: "/Corredor_de_fútbol_americano_en_202608051848.mp4",
+      tag: "NFL / DATA"
+    },
+    {
+      id: "3",
+      title: isEs ? "Episodio 03: Drones de Alta Velocidad en Cobertura Táctica" : "Episode 03: High-Speed Drones in Tactical Coverage",
+      guest: "3Tree Drone Unit",
+      duration: "29:10",
+      videoUrl: "/Drone_dive_into_baseball_stadium_202607151954.mp4",
+      tag: "DRONE / BROADCAST"
     }
-    fetchData();
-  }, []);
-
-  const featuredEpisode = episodes[0];
-  const previousEpisodes = episodes.slice(1);
-
-  if (loading) {
-    return <div className="min-h-screen bg-[#020617] flex items-center justify-center text-brandOrange"><Loader2 className="w-12 h-12 animate-spin" /></div>;
-  }
+  ];
 
   return (
     <main className="min-h-screen bg-[#020617] text-white selection:bg-brandOrange selection:text-white relative overflow-x-hidden font-sans">
       <CustomCursor />
 
-      {/* Architectural Grid Background (Awwwards Style) */}
+      {/* Architectural Grid Background */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03] mix-blend-screen">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
       </div>
 
-      {/* Nav */}
-      <nav className="relative z-50 w-full px-6 py-6 border-b border-white/10 flex justify-between items-center bg-[#020617]/80 backdrop-blur-md">
-        <div className="font-display font-black text-2xl tracking-widest uppercase">
-          zon<span className="text-brandOrange">_</span>ethos
+      {/* Top Header */}
+      <nav className="relative z-50 w-full px-6 md:px-12 py-6 border-b border-white/10 flex justify-between items-center bg-[#020617]/80 backdrop-blur-md">
+        <div className="flex items-center gap-3">
+          <span className="w-3 h-3 rounded-full bg-brandOrange animate-pulse"></span>
+          <span className="font-display font-black text-xl tracking-widest uppercase">
+            3TREE<span className="text-brandOrange"> MEDIA HUB</span>
+          </span>
         </div>
-        <Link href="/" className="hoverable group flex items-center gap-4 text-white hover:text-brandOrange transition-colors">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] hidden md:inline">{isEs ? "Volver al Inicio" : "Back to Home"}</span>
-          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-brandOrange bg-[#020617]">
-            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+        <Link href="/" className="hoverable group flex items-center gap-3 text-white hover:text-brandOrange transition-colors">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] hidden md:inline">
+            {isEs ? "Volver al Inicio" : "Back to Home"}
+          </span>
+          <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-brandOrange bg-[#020617]">
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           </div>
         </Link>
       </nav>
 
       {/* Hero Header */}
-      <header className="relative z-10 w-full border-b border-white/10 overflow-hidden bg-[#020617]">
-        <div className="grid grid-cols-1 lg:grid-cols-12">
-          <div className="lg:col-span-8 p-8 md:p-16 lg:p-24 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-center relative overflow-hidden min-h-[40vh]">
-            <div className="absolute top-[-50%] left-[-20%] w-[600px] h-[600px] bg-brandOrange/10 blur-[120px] rounded-full pointer-events-none"></div>
-            <motion.h1 
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[10vw] md:text-[8vw] lg:text-[6vw] font-black uppercase leading-[0.85] tracking-tighter relative z-10"
-            >
-              AUDIO <br/> 
-              <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.2)' }}>INTELLIGENCE</span>
-            </motion.h1>
+      <header className="relative z-10 w-full px-6 md:px-12 pt-12 pb-8 border-b border-white/10 bg-[#020617]">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <span className="text-brandOrange font-mono text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
+              {isEs ? "ESTUDIO MULTIMEDIA OFICIAL" : "OFFICIAL MULTIMEDIA STUDIO"}
+            </span>
+            <h1 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tight text-white">
+              VIDEOCAST <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.4)' }}>& PODCAST</span>
+            </h1>
           </div>
-          <div className="lg:col-span-4 p-8 md:p-12 flex flex-col justify-end bg-white/[0.02]">
-            <p className="font-mono text-sm md:text-base leading-[1.8] text-white/60 mb-10">
-              {podcast.subtitle}
-            </p>
-            
-            {/* Tab Selector Awwwards Style */}
-            <div className="flex flex-col gap-0 border border-white/10">
-              <button
-                className={`p-4 font-mono text-[10px] font-bold tracking-[0.2em] uppercase transition-colors text-left flex items-center justify-between border-b border-white/10 bg-brandOrange text-[#020617] cursor-default`}
-              >
-                <span><Radio className="inline-block w-3 h-3 mr-2" /> PODCAST</span>
-                <span className="w-2 h-2 rounded-full bg-[#020617]"></span>
-              </button>
-            </div>
 
+          {/* External Streaming Platform Connectors */}
+          <div className="flex items-center gap-3 flex-wrap">
+            <a 
+              href="https://open.spotify.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hoverable flex items-center gap-2 bg-[#1DB954] hover:bg-[#1ed760] text-black px-4 py-2.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-105"
+            >
+              <Headphones className="w-3.5 h-3.5 fill-current" />
+              <span>Spotify</span>
+            </a>
+            <a 
+              href="https://youtube.com/@3treedigital" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hoverable flex items-center gap-2 bg-[#FF0000] hover:bg-[#ff3333] text-white px-4 py-2.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-105"
+            >
+              <PlayCircle className="w-3.5 h-3.5 fill-current" />
+              <span>YouTube</span>
+            </a>
           </div>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <div className="relative z-10 w-full bg-[#020617]">
-        <>
-          {/* Featured Player Component */}
-          <section className="grid grid-cols-1 lg:grid-cols-2 border-b border-white/10">
-            <div className="relative border-b lg:border-b-0 lg:border-r border-white/10 h-[50vh] lg:h-[70vh] bg-black overflow-hidden group">
-               {/* eslint-disable-next-line @next/next/no-img-element */}
-               <img 
-                src="/gridiron_ai_1785627944344.jpg" 
-                alt="Podcast Cover" 
-                className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" 
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#020617] to-transparent"></div>
-               <div className="absolute bottom-8 left-8">
-                 <span className="bg-brandOrange text-[#020617] px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2">
-                   <Radio className="w-3 h-3 animate-pulse" /> ON AIR
-                 </span>
-               </div>
-            </div>
-
-            <div className="p-8 md:p-16 lg:p-24 flex flex-col justify-center bg-[#020617]">
-              <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/50 mb-6">
-                {podcast.latestEpisode} • SEASON 1
-              </span>
-              <h2 className="font-display text-4xl md:text-6xl font-black uppercase leading-[0.9] text-white mb-8">
-                {featuredEpisode?.title}
-              </h2>
+      {/* ─── DUAL MULTIMEDIA HUB (VIDEO ON LEFT + AUDIO ON RIGHT) ─── */}
+      <section className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* 🎥 LADO IZQUIERDO: REPRODUCTOR DE VIDEO HD */}
+          <div className="lg:col-span-7 flex flex-col gap-4">
+            <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-black shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
               
-              <div className="flex gap-4 font-mono text-[10px] uppercase tracking-widest text-brandOrange mb-12">
-                <span>{featuredEpisode?.date}</span>
-                <span className="text-white/20">|</span>
-                <span>{featuredEpisode?.duration}</span>
+              {/* Video Badge */}
+              <div className="absolute top-4 left-4 z-20 flex items-center gap-2 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                <span className="w-2 h-2 rounded-full bg-brandOrange animate-pulse"></span>
+                <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-white">
+                  VIDEOCAST HD
+                </span>
               </div>
 
-              {/* Premium Audio Interface */}
-              <div className="bg-white/[0.02] border border-white/10 p-6 flex flex-col gap-6">
-                {/* Fake Waveform */}
-                <div className="w-full h-12 flex items-center gap-1 opacity-50">
-                  {[...Array(40)].map((_, i) => (
+              {/* Video Player Display */}
+              <div className="w-full aspect-video bg-black relative">
+                <video 
+                  ref={videoPlayerRef}
+                  src={selectedVideo}
+                  controls
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Video Info & Clip Selector */}
+            <div className="bg-white/[0.02] border border-white/10 p-6 rounded-2xl">
+              <span className="text-[9px] font-mono text-brandOrange uppercase tracking-widest block mb-2 font-bold">
+                {isEs ? "REPRODUCIENDO AHORA" : "NOW PLAYING"}
+              </span>
+              <h3 className="font-display text-xl font-bold uppercase text-white mb-4">
+                {videoTitle}
+              </h3>
+
+              {/* Video Playlist Selector */}
+              <div className="flex flex-col gap-2 border-t border-white/10 pt-4">
+                <span className="text-[9px] font-mono text-white/40 uppercase tracking-widest mb-1">
+                  {isEs ? "SELECCIONAR CAPÍTULO EN VIDEO:" : "SELECT VIDEO CHAPTER:"}
+                </span>
+                {videoPlaylist.map((v) => (
+                  <button
+                    key={v.id}
+                    onClick={() => {
+                      setSelectedVideo(v.videoUrl);
+                      setVideoTitle(v.title);
+                      if (videoPlayerRef.current) {
+                        videoPlayerRef.current.load();
+                        videoPlayerRef.current.play();
+                      }
+                    }}
+                    className={`p-3 rounded-xl text-left font-mono text-[10px] flex items-center justify-between transition-all ${
+                      selectedVideo === v.videoUrl 
+                        ? "bg-brandOrange text-[#020617] font-bold shadow-md" 
+                        : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <span className="truncate mr-2">▶ {v.title}</span>
+                    <span className="shrink-0 text-[9px] opacity-75">{v.duration}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* 🎧 LADO DERECHO: SUITE DE AUDIO DESCARGABLE & STREAMING */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            
+            {/* Master Audio Controller Card */}
+            <div className="bg-white/[0.03] border border-white/15 p-6 md:p-8 rounded-2xl relative overflow-hidden shadow-2xl">
+              
+              {/* Top Meta */}
+              <div className="flex items-center justify-between mb-6">
+                <span className="bg-brandOrange/20 text-brandOrange px-3 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-widest border border-brandOrange/30">
+                  AUDIO STREAM
+                </span>
+                <span className="text-[10px] font-mono text-white/50">
+                  320 KBPS • LOSSLESS
+                </span>
+              </div>
+
+              <h2 className="font-display text-2xl font-bold uppercase text-white mb-2 leading-tight">
+                {isEs ? "ZON ETHOS: EL PODCAST" : "ZON ETHOS: THE PODCAST"}
+              </h2>
+              <p className="font-mono text-xs text-white/60 mb-6">
+                {isEs ? "Inmersión profunda en Big Data, Biomecánica y Sports OS." : "Deep dives into Big Data, Biomechanics & Sports OS."}
+              </p>
+
+              {/* Sound Waveform Visualizer */}
+              <div className="bg-black/60 p-4 rounded-xl border border-white/10 mb-6">
+                <div className="w-full h-14 flex items-center gap-1.5 px-2">
+                  {[40, 65, 80, 45, 90, 70, 30, 85, 95, 60, 50, 75, 90, 40, 65, 80, 55, 90, 75, 60, 85, 45, 70, 95, 80, 60, 40, 75, 90, 50].map((h, i) => (
                     <motion.div 
                       key={i}
-                      animate={{ height: ["20%", "100%", "30%"] }}
-                      transition={{ repeat: Infinity, duration: (i % 5) * 0.2 + 0.5, ease: "easeInOut" }}
-                      className="flex-1 bg-brandOrange w-1 rounded-full"
+                      animate={isAudioPlaying ? { height: [`${Math.max(15, h * 0.3)}%`, `${h}%`, `${Math.max(20, h * 0.6)}%`] } : { height: `${h * 0.5}%` }}
+                      transition={{ repeat: Infinity, duration: (i % 4) * 0.2 + 0.6, ease: "easeInOut" }}
+                      className={`flex-1 rounded-full ${i < 12 ? "bg-brandOrange" : "bg-white/20"}`}
                     />
                   ))}
                 </div>
-                <div className="flex items-center justify-between border-t border-white/10 pt-6">
-                  <button className="hoverable w-16 h-16 rounded-full bg-white text-[#020617] flex items-center justify-center hover:bg-brandOrange transition-colors">
-                    <PlayCircle className="w-8 h-8 ml-1" />
-                  </button>
-                  <div className="text-right">
-                    <p className="font-mono text-xs font-bold uppercase tracking-widest text-white mb-1">{podcast.listenLatest}</p>
-                    <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">Spotify • Apple Podcasts</p>
-                  </div>
+
+                {/* Scrubber Time Bar */}
+                <div className="flex items-center justify-between font-mono text-[9px] text-white/50 mt-2 px-1">
+                  <span>14:32</span>
+                  <span>45:20</span>
                 </div>
               </div>
-            </div>
-          </section>
 
-          {/* Previous Episodes Grid */}
-          <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 border-l border-white/10">
-            <div className="p-8 md:p-12 border-b border-r border-white/10 flex flex-col justify-center bg-white/[0.02] min-h-[300px]">
-              <h3 className="font-display text-4xl font-black uppercase mb-4 leading-none">
-                {podcast.previousEpisodes}
-              </h3>
-              <p className="font-mono text-[10px] text-white/50 tracking-[0.2em] uppercase">Archive Index</p>
-            </div>
+              {/* Player Controls & Speed Selector */}
+              <div className="flex items-center justify-between gap-4 mb-6">
+                <button 
+                  onClick={() => setIsAudioPlaying(!isAudioPlaying)}
+                  className="hoverable flex-1 py-3 px-6 rounded-xl bg-brandOrange hover:bg-white text-white hover:text-brandOrange font-mono text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg"
+                >
+                  {isAudioPlaying ? (
+                    <><span>PAUSAR AUDIO</span></>
+                  ) : (
+                    <><PlayCircle className="w-4 h-4 fill-current" /><span>ESCUCHAR AUDIO</span></>
+                  )}
+                </button>
 
-            {previousEpisodes.map((ep: any, i: number) => (
-              <div key={i} className="p-8 border-b border-r border-white/10 bg-[#020617] hover:bg-brandOrange/5 transition-colors group flex flex-col justify-between min-h-[300px] hoverable cursor-pointer relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <PlayCircle className="w-8 h-8 text-brandOrange" />
-                </div>
-                <div>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30 mb-6 block">EPISODE 0{i + 2}</span>
-                  <h4 className="font-display text-2xl font-bold uppercase leading-tight text-white mb-6 group-hover:text-brandOrange transition-colors">
-                    {ep.title}
-                  </h4>
-                </div>
-                <div className="flex items-center gap-4 font-mono text-[10px] uppercase tracking-widest text-brandOrange/70">
-                  <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3" /> {ep.date}</span>
-                  <span className="flex items-center gap-1.5"><Clock className="w-3 h-3" /> {ep.duration}</span>
-                </div>
+                {/* Speed Toggle */}
+                <button 
+                  onClick={() => {
+                    const speeds = [1.0, 1.5, 2.0];
+                    const next = speeds[(speeds.indexOf(playbackRate) + 1) % speeds.length];
+                    setPlaybackRate(next);
+                  }}
+                  className="px-3 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-bold transition-colors"
+                  title="Velocidad de reproducción"
+                >
+                  {playbackRate}x
+                </button>
               </div>
-            ))}
-          </section>
-        </>
-      </div>
+
+              {/* Download MP3 Button */}
+              <a
+                href="/Soccer_player_kicks_ball_202608190134.mp4"
+                download="3Tree_Sports_Podcast_Ep01.mp3"
+                className="hoverable w-full py-3 px-4 rounded-xl border border-white/20 hover:border-brandOrange text-white hover:text-brandOrange font-mono text-[10px] font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 bg-white/5 hover:bg-brandOrange/10"
+              >
+                <span>⬇ {isEs ? "DESCARGAR EPISODIO (AUDIO MP3)" : "DOWNLOAD EPISODE (AUDIO MP3)"}</span>
+              </a>
+            </div>
+
+            {/* Direct Connectors Card */}
+            <div className="bg-white/[0.02] border border-white/10 p-5 rounded-2xl flex items-center justify-between">
+              <div>
+                <p className="font-mono text-[10px] text-white/50 uppercase tracking-widest">
+                  {isEs ? "DISPONIBLE TAMBIÉN EN:" : "ALSO AVAILABLE ON:"}
+                </p>
+                <p className="font-mono text-xs font-bold text-white mt-0.5">
+                  Spotify • Apple Podcasts • YouTube Music
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <a 
+                  href="https://open.spotify.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-[#1DB954] text-black flex items-center justify-center hover:scale-110 transition-transform"
+                  aria-label="Spotify"
+                >
+                  <Headphones className="w-4 h-4 fill-current" />
+                </a>
+                <a 
+                  href="https://youtube.com/@3treedigital" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-[#FF0000] text-white flex items-center justify-center hover:scale-110 transition-transform"
+                  aria-label="YouTube"
+                >
+                  <PlayCircle className="w-4 h-4 fill-current" />
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

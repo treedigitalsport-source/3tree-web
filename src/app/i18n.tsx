@@ -4,9 +4,9 @@ import React, { createContext, useContext, useState } from 'react';
 
 const dict = {
   en: {
-    nav: ["Services", "Projects", "Podcast", "Journal", "News", "Impact", "About us", "Contact"],
+    nav: ["Services", "Projects", "Journal", "News & Media", "Impact", "About us", "Contact"],
     cta: "Start Project",
-    tagline: "Sport Intelligence Operating System",
+    tagline: "Sports Intelligence Company",
     heroLine1: "We Design",
     heroLine2: "The Future",
     heroLine3: "Of Sports.",
@@ -177,13 +177,13 @@ const dict = {
     }
   },
   es: {
-    nav: ["Servicios", "Proyectos", "Podcast", "Diario", "Noticiero", "Impacto", "Quiénes somos", "Contacto"],
+    nav: ["Servicios", "Proyectos", "Diario", "Noticiero & Media", "Impacto", "Quiénes somos", "Contacto"],
     cta: "Iniciar Proyecto",
-    tagline: "Sistema Operativo de Inteligencia Deportiva",
+    tagline: "Sports Intelligence Company",
     heroLine1: "Diseñamos",
     heroLine2: "El Futuro",
     heroLine3: "De Los Deportes.",
-    heroDesc: "Fusionamos diseño de alto rendimiento, análisis de datos y nuestro Sistema Operativo de Inteligencia Deportiva para la industria de élite.",
+    heroDesc: "Fusionamos diseño de alto rendimiento, análisis de datos y desarrollo de vanguardia para la industria deportiva.",
     biomechanics: "Biomecánica Markerless",
     scouting: "Scouting Predictivo",
     viewWork: "Ver Trabajo",

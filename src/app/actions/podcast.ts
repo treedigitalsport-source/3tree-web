@@ -64,6 +64,7 @@ import { QueryDocumentSnapshot } from "@google-cloud/firestore";
 
 export async function getPodcastEpisodes() {
   try {
+    if (!db) return { success: false, episodes: [] };
     const snapshot = await db.collection("podcasts").orderBy("createdAt", "desc").get();
     const episodes = snapshot.docs.map((doc: QueryDocumentSnapshot) => ({
       id: doc.id,
@@ -78,6 +79,7 @@ export async function getPodcastEpisodes() {
 
 export async function createPodcastNews(formData: FormData) {
   try {
+    if (!db || !storage) return { success: false, error: "Database not connected" };
     const title = formData.get("title") as string;
     const category = formData.get("category") as string;
     const desc = formData.get("desc") as string;
@@ -121,6 +123,7 @@ export async function createPodcastNews(formData: FormData) {
 
 export async function getPodcastNews() {
   try {
+    if (!db) return { success: false, news: [] };
     const snapshot = await db.collection("podcastNews").orderBy("createdAt", "desc").get();
     const news = snapshot.docs.map((doc: QueryDocumentSnapshot) => ({
       id: doc.id,
