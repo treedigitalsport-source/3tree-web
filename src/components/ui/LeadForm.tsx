@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, CheckCircle2, ArrowRight } from "lucide-react";
 
+import { submitQuickLead } from "@/app/actions/contact";
+
 export default function LeadForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -16,14 +18,10 @@ export default function LeadForm() {
     setStatus("loading");
 
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+      const response = await submitQuickLead(email);
 
-      if (!response.ok) {
-        throw new Error("Ocurrió un error. Intenta de nuevo.");
+      if (!response.success) {
+        throw new Error(response.error || "Ocurrió un error. Intenta de nuevo.");
       }
 
       setStatus("success");

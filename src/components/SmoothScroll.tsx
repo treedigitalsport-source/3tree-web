@@ -5,19 +5,16 @@ import Lenis from "lenis";
 
 export default function SmoothScroll() {
   useEffect(() => {
+    // Configuración base de Lenis (sin alterar los multiplicadores por defecto del trackpad)
     const lenis = new Lenis({
-      lerp: 0.1, // Mucho más responsivo al trackpad de laptop
-      wheelMultiplier: 1,
+      lerp: 0.1, // Responsividad
       smoothWheel: true,
-      smoothTouch: false,
-      touchMultiplier: 2,
-    } as any); // cast to any si cambian los tipos de lenis
+    });
 
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
-
     requestAnimationFrame(raf);
 
     return () => {

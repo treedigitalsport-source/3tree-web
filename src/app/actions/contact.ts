@@ -98,3 +98,46 @@ export async function submitContactForm(formData: FormData) {
     return { success: false, error: "Error al enviar el mensaje" };
   }
 }
+
+export async function submitQuickLead(emailRaw: string) {
+  try {
+    const email = sanitizeInput(emailRaw);
+    if (!email) return { success: false, error: "Email requerido" };
+
+    // RATE LIMITING
+    const ip = "client-ip-lead";
+    const now = Date.now();
+    const timestamps = submissionRateMap.get(ip) || [];
+    const validTimestamps = timestamps.filter(t => now - t < 5 * 60 * 1000);
+    
+    if (validTimestamps.length >= 3) {
+      return { success: false, error: "Demasiadas solicitudes. Por favor intente más tarde." };
+    }
+    validTimestamps.push(now);
+    submissionRateMap.set(ip, validTimestamps);
+
+    await db.collection("leads").add({
+      email,
+      source: "Quick Lead Form",
+      createdAt: new Date().toISOString(),
+      status: "new"
+    });
+
+    if (process.env.RESEND_API_KEY && process.env.CEO_EMAIL) {
+      await resend?.emails.send({
+        from: "Acme <onboarding@resend.dev>",
+        to: process.env.CEO_EMAIL,
+        subject: `Nuevo Lead Rápido (Suscripción): ${email}`,
+        html: `
+          <h1>Nuevo Email Capturado</h1>
+          <p>Un usuario dejó su correo electrónico en la página principal.</p>
+          <p><strong>Correo:</strong> ${email}</p>
+        `,
+      });
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Error submitting quick lead:", error);
+    return { success: false, error: "Error al suscribirse" };
+  }
+}

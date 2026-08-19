@@ -10,6 +10,16 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     
+    if (body.fullHistory) {
+      const reportsDir = "C:\\Users\\fitne\\.gemini\\antigravity\\scratch\\social-media-skills\\reports";
+      if (!fs.existsSync(reportsDir)) {
+        fs.mkdirSync(reportsDir, { recursive: true });
+      }
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+      const reportContent = `# Chat Report - ${timestamp}\n\n` + body.fullHistory.map((msg: any) => `**${msg.role}**: ${msg.text}`).join('\n\n');
+      fs.writeFileSync(path.join(reportsDir, `chat-report-${timestamp}.md`), reportContent);
+    }
+
     // Read current leads
     let leads = [];
     if (fs.existsSync(DB_PATH)) {
@@ -28,15 +38,17 @@ export async function POST(request: Request) {
     leads.push(newLead);
     
     // Write back to the mock DB for the MCP to read
-    fs.writeFileSync(DB_PATH, JSON.stringify(leads, null, 2));
+    if (fs.existsSync(path.dirname(DB_PATH))) {
+      fs.writeFileSync(DB_PATH, JSON.stringify(leads, null, 2));
+    }
 
     return NextResponse.json({ 
       success: true, 
-      message: "Lead sent successfully. AI Agent will review it shortly."
+      message: "Lead/Report processed successfully."
     });
 
   } catch (error) {
-    console.error("Error saving lead:", error);
-    return NextResponse.json({ success: false, error: "Failed to process lead" }, { status: 500 });
+    console.error("Error saving lead/report:", error);
+    return NextResponse.json({ success: false, error: "Failed to process lead/report" }, { status: 500 });
   }
 }

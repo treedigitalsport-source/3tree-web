@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Spline from "@splinetool/react-spline";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -40,21 +41,25 @@ export default function HeroSection() {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <motion.button 
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full sm:w-auto px-8 py-4 bg-white text-black rounded-full font-medium tracking-wide hover:bg-gray-200 transition-colors shadow-[0_0_40px_rgba(255,255,255,0.3)]"
-          >
-            Agenda una Demo
-          </motion.button>
+          <Link href="/contact" passHref legacyBehavior>
+            <motion.a 
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto px-8 py-4 bg-white text-black rounded-full font-medium tracking-wide hover:bg-gray-200 transition-colors shadow-[0_0_40px_rgba(255,255,255,0.3)] text-center cursor-pointer block"
+            >
+              Agenda una Demo
+            </motion.a>
+          </Link>
           
-          <motion.button 
-            whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full sm:w-auto px-8 py-4 bg-transparent text-white border border-white/30 rounded-full font-medium tracking-wide transition-colors"
-          >
-            Ver Trabajos
-          </motion.button>
+          <Link href="#projects" passHref legacyBehavior>
+            <motion.a 
+              whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto px-8 py-4 bg-transparent text-white border border-white/30 rounded-full font-medium tracking-wide transition-colors text-center cursor-pointer block"
+            >
+              Ver Trabajos
+            </motion.a>
+          </Link>
         </div>
       </motion.div>
     </section>

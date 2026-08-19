@@ -1,44 +1,84 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Bot, ShieldCheck } from "lucide-react";
+import { MessageSquare, X, Send, Headset } from "lucide-react";
 import { useLang } from "@/app/i18n";
 
 export default function AgentChat() {
+  const { lang } = useLang();
+  const isEs = lang === "es";
+
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
-  const [chatHistory, setChatHistory] = useState([
-    { role: "agent", text: "Hola, soy Clara, la Community Manager de 3Tree Digital. ¿En qué puedo ayudarte?" }
-  ]);
-  // const { dict } = useLang();
+  const [chatHistory, setChatHistory] = useState<{role: string, text: string}[]>([]);
+  const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const handleSend = async () => {
-    if (!message.trim()) return;
+  const welcomeText = isEs 
+    ? "¡Hola! 👋 Soy Iris, especialista de atención en 3Tree Digital. ¿En qué te puedo colaborar hoy?"
+    : "Hello! 👋 I'm Iris, client care specialist at 3Tree Digital. How can I help you today?";
 
-    // Add user message to UI immediately
-    const userMsg = message;
+  // Auto-scroll to bottom
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatHistory, isSending]);
+
+  // Load chat history on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("iris_chat_history_v2");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setChatHistory(parsed);
+        } else {
+          setChatHistory([{ role: "agent", text: welcomeText }]);
+        }
+      } catch (e) {
+        setChatHistory([{ role: "agent", text: welcomeText }]);
+      }
+    } else {
+      setChatHistory([{ role: "agent", text: welcomeText }]);
+    }
+    setIsHistoryLoaded(true);
+  }, [isEs]);
+
+  // Save chat history on change
+  useEffect(() => {
+    if (isHistoryLoaded && chatHistory.length > 0) {
+      localStorage.setItem("iris_chat_history_v2", JSON.stringify(chatHistory));
+    }
+  }, [chatHistory, isHistoryLoaded]);
+
+  const sendQuery = async (queryText: string) => {
+    if (!queryText.trim() || isSending) return;
+
+    const userMsg = queryText.trim();
     const newHistory = [...chatHistory, { role: "user", text: userMsg }];
     setChatHistory(newHistory);
     setMessage("");
     setIsSending(true);
 
     try {
-      // Background save to leads DB (Fire-and-forget)
+      // Fire-and-forget lead capture
       fetch("/api/webhooks/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMsg }),
-      }).catch(console.error);
+      }).catch(() => {});
 
-      // Map history to Groq API format
+      // Groq format
       const groqMessages = newHistory.map(msg => ({
         role: msg.role === "agent" ? "assistant" : "user",
         content: msg.text
       }));
 
-      // Call the AI brain
       const res = await fetch("/api/groq", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -55,90 +95,169 @@ export default function AgentChat() {
       } else {
         setChatHistory((prev) => [
           ...prev, 
-          { role: "agent", text: "Lo siento, mi sistema tuvo un breve parpadeo. ¿Me lo repites?" }
+          { role: "agent", text: isEs ? "Disculpa, tuve un breve retraso de conexión. ¿Podrías reiterar tu consulta?" : "Pardon me, I experienced a brief connection delay. Could you repeat your question?" }
         ]);
       }
-      setIsSending(false);
-
     } catch (error) {
-      console.error("Error sending message:", error);
+      setChatHistory((prev) => [
+        ...prev, 
+        { role: "agent", text: isEs ? "Por favor contáctanos directamente a contacto@3treedigital.com o intenta nuevamente." : "Please feel free to reach out directly to contacto@3treedigital.com or try again." }
+      ]);
+    } finally {
       setIsSending(false);
     }
   };
 
+  const handleSend = () => {
+    sendQuery(message);
+  };
+
+  const handleClose = () => {
+    if (chatHistory.length > 1) {
+      fetch("/api/webhooks/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          message: "CHAT_SESSION_ENDED", 
+          fullHistory: chatHistory 
+        }),
+      }).catch(() => {});
+    }
+    
+    setChatHistory([{ role: "agent", text: welcomeText }]);
+    localStorage.removeItem("iris_chat_history_v2");
+    localStorage.removeItem("iris_chat_history");
+    setIsOpen(false);
+  };
+
   return (
     <>
-      {/* Floating Button */}
-      <motion.button
-        initial={{ scale: 1 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full bg-[#F26522] text-white shadow-2xl transition-opacity duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-      >
-        <MessageSquare size={28} />
-      </motion.button>
+      {/* Floating Button with Pulse Halo */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <motion.button
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.92 }}
+          onClick={() => setIsOpen(true)}
+          className={`relative w-12 h-12 rounded-full bg-[#0a0f1d] border border-brandOrange/50 text-white shadow-[0_0_25px_rgba(242,101,34,0.4)] transition-all duration-300 group flex items-center justify-center ${
+            isOpen ? 'opacity-0 pointer-events-none scale-50' : 'opacity-100 scale-100'
+          }`}
+          aria-label="Abrir chat con Iris"
+        >
+          {/* Rotating Conic Gradient Aura Ring */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+            className="absolute -inset-0.5 rounded-full bg-[conic-gradient(from_0deg,#f26522,#ff8c42,transparent,#f26522)] blur-[1px] opacity-80 group-hover:opacity-100 transition-opacity"
+          />
 
-      {/* Chat Window */}
+          <div className="relative w-11 h-11 rounded-full bg-[#0a0f1d] flex items-center justify-center z-10">
+            <Headset className="w-5 h-5 text-brandOrange group-hover:text-white transition-colors drop-shadow-[0_0_8px_rgba(242,101,34,0.8)]" />
+          </div>
+
+          {/* Live Status Badge */}
+          <span className="absolute top-0 right-0 flex h-3 w-3 z-20">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-[#020617]"></span>
+          </span>
+
+          {/* Hover Tooltip */}
+          <div className="absolute right-full mr-3 px-3 py-1.5 rounded-xl bg-black/90 border border-white/15 text-white font-mono text-[10px] font-bold uppercase tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl">
+            {isEs ? "Iris · Especialista" : "Iris · Specialist"}
+          </div>
+        </motion.button>
+      </div>
+
+      {/* Chat Modal */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-            className="fixed bottom-6 right-6 z-[60] w-[360px] max-w-[calc(100vw-3rem)] h-[500px] max-h-[calc(100vh-3rem)] bg-[#111111]/90 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl flex flex-col overflow-hidden"
+            exit={{ opacity: 0, y: 30, scale: 0.95 }}
+            transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+            className="fixed bottom-6 right-6 z-[60] w-[390px] max-w-[calc(100vw-2rem)] h-[580px] max-h-[calc(100vh-4rem)] bg-[#0a0f1d]/95 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden"
           >
-            {/* Header */}
+            {/* Header Profile */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/40">
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <div className="p-2 bg-[#F26522]/20 rounded-full">
-                    <Bot className="text-[#F26522]" size={20} />
+              <div className="flex items-center gap-3.5">
+                <div className="relative flex items-center justify-center">
+                  {/* Rotating Conic Gradient Aura Ring */}
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+                    className="absolute -inset-0.5 rounded-full bg-[conic-gradient(from_0deg,#f26522,#ff8c42,transparent,#f26522)] blur-[1px] opacity-90"
+                  />
+                  
+                  {/* Avatar Core */}
+                  <div className="relative w-10 h-10 rounded-full bg-[#0a0f1d] border border-white/20 flex items-center justify-center shadow-lg">
+                    <motion.div
+                      animate={{ scale: [1, 1.08, 1] }}
+                      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                    >
+                      <Headset className="w-5 h-5 text-brandOrange drop-shadow-[0_0_10px_rgba(242,101,34,0.7)]" />
+                    </motion.div>
                   </div>
-                  <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#111111]"></div>
+                  
+                  {/* Live Status Badge */}
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-[#020617] shadow-sm" title="En línea">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white text-sm">Clara — Community Manager</h3>
-                  <div className="flex items-center gap-1 text-xs text-white/50">
-                    <ShieldCheck size={12} className="text-green-500" /> MCP Protegido
+                  <div className="flex items-center gap-1.5">
+                    <h3 className="font-display font-bold text-white text-sm tracking-wide">Iris</h3>
+                    <span className="text-[9px] font-mono font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-brandOrange/10 border border-brandOrange/20 text-brandOrange">
+                      {isEs ? "Especialista" : "Specialist"}
+                    </span>
                   </div>
+                  <p className="text-[10px] font-mono text-white/50 tracking-wider">
+                    {isEs ? "3Tree Digital · Lutz, FL" : "3Tree Digital · Lutz, FL"}
+                  </p>
                 </div>
               </div>
+
               <button 
-                onClick={() => setIsOpen(false)}
-                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                onClick={handleClose}
+                className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                aria-label="Cerrar chat"
               >
-                <X size={20} className="text-white/70" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Chat Area */}
-            <div className="flex-1 p-6 overflow-y-auto flex flex-col gap-4">
+            {/* Chat Messages Body */}
+            <div className="flex-1 p-5 overflow-y-auto flex flex-col gap-4 text-sm font-sans">
               {chatHistory.map((msg, idx) => (
-                <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div key={idx} className={`flex flex-col ${msg.role === "user" ? "items-end" : "items-start"}`}>
                   <div 
-                    className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${
+                    className={`max-w-[88%] p-3.5 rounded-2xl text-xs md:text-sm leading-relaxed ${
                       msg.role === "user" 
-                        ? "bg-[#F26522] text-white rounded-tr-sm" 
-                        : "bg-white/10 text-white/90 rounded-tl-sm"
+                        ? "bg-brandOrange text-white rounded-tr-xs shadow-md font-medium" 
+                        : "bg-white/[0.04] border border-white/10 text-white/90 rounded-tl-xs backdrop-blur-sm"
                     }`}
                   >
                     {msg.text}
                   </div>
                 </div>
               ))}
+
+              {/* Typing animation */}
               {isSending && (
                 <div className="flex justify-start">
-                  <div className="bg-white/10 text-white/50 p-3 rounded-2xl rounded-tl-sm text-sm flex gap-1">
-                    <span className="animate-bounce">.</span><span className="animate-bounce delay-100">.</span><span className="animate-bounce delay-200">.</span>
+                  <div className="bg-white/[0.04] border border-white/10 text-brandOrange p-3 rounded-2xl rounded-tl-xs text-xs flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brandOrange animate-bounce"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-brandOrange animate-bounce delay-150"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-brandOrange animate-bounce delay-300"></span>
                   </div>
                 </div>
               )}
+
+              <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area */}
+            {/* Input Bar */}
             <div className="p-4 border-t border-white/10 bg-black/40">
               <div className="relative flex items-center">
                 <input 
@@ -146,16 +265,22 @@ export default function AgentChat() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="Escribe tu mensaje..."
-                  className="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-4 pr-12 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#F26522]/50 transition-colors"
+                  placeholder={isEs ? "Escribe un mensaje para Iris..." : "Message Iris..."}
+                  className="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-4 pr-12 text-xs md:text-sm text-white placeholder-white/30 focus:outline-none focus:border-brandOrange/50 transition-colors"
                 />
                 <button 
                   onClick={handleSend}
                   disabled={!message.trim() || isSending}
-                  className="absolute right-2 p-2 bg-[#F26522] hover:bg-[#ff7a3a] disabled:opacity-50 disabled:hover:bg-[#F26522] text-white rounded-full transition-colors"
+                  className="absolute right-2 p-2 bg-brandOrange hover:bg-[#ff7a3a] disabled:opacity-40 disabled:hover:bg-brandOrange text-white rounded-full transition-all duration-200 shadow-sm"
+                  aria-label="Enviar mensaje"
                 >
-                  <Send size={16} />
+                  <Send className="w-3.5 h-3.5" />
                 </button>
+              </div>
+              <div className="mt-2 text-center">
+                <span className="text-[9px] font-mono text-white/30 tracking-widest uppercase">
+                  3Tree Digital Sport IA · Florida, USA
+                </span>
               </div>
             </div>
           </motion.div>

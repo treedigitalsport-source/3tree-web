@@ -1,0 +1,4 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="#0054A6" stroke="#FFFFFF" stroke-width="3"/>
+  <text x="50" y="62" font-family="Arial Black, Impact, sans-serif" font-size="32" font-weight="900" fill="#FFFFFF" text-anchor="middle">WSL</text>
+</svg>

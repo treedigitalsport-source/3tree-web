@@ -136,6 +136,45 @@ function MagneticButton({ children, className = "", href = "#" }: { children: Re
 }
 
 /* ══════════════════════════════════════════════════════════════════════════ */
+/*  ROTATING HERO VERB (DYNAMIC ANIMATED "WE DESIGN")                         */
+/* ══════════════════════════════════════════════════════════════════════════ */
+function RotatingHeroVerb({ isEs }: { isEs: boolean }) {
+  const wordsEn = ["DESIGN", "ENGINEER", "QUANTIFY", "ACCELERATE", "DECODE"];
+  const wordsEs = ["DISEÑAMOS", "INGENIAMOS", "CUANTIFICAMOS", "ACELERAMOS", "DECODIFICAMOS"];
+  const words = isEs ? wordsEs : wordsEn;
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [words.length]);
+
+  return (
+    <span className="inline-flex flex-wrap items-baseline gap-x-4 md:gap-x-6">
+      {!isEs && (
+        <span className="text-white drop-shadow-2xl">WE</span>
+      )}
+      <span className="relative inline-flex overflow-hidden h-[1.12em] align-baseline">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={words[index % words.length] + (isEs ? "-es" : "-en")}
+            initial={{ y: "100%", opacity: 0, filter: "blur(12px)", rotateX: -40 }}
+            animate={{ y: "0%", opacity: 1, filter: "blur(0px)", rotateX: 0 }}
+            exit={{ y: "-100%", opacity: 0, filter: "blur(12px)", rotateX: 40 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-block text-white drop-shadow-[0_0_35px_rgba(255,255,255,0.4)]"
+          >
+            {words[index % words.length]}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+    </span>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════════════════ */
 /*  MAIN PAGE COMPONENT                                                       */
 /* ══════════════════════════════════════════════════════════════════════════ */
 export default function MainContent() {
@@ -146,8 +185,10 @@ export default function MainContent() {
   const heroY = useTransform(heroScroll, [0, 0.3], [0, 150]);
   const heroOpacity = useTransform(heroScroll, [0, 0.3], [1, 0.3]);
 
+
+
   return (
-    <main className="relative bg-[#020617] text-white selection:bg-brandOrange selection:text-white font-sans overflow-x-hidden">
+    <main className="relative bg-[#020617] text-white selection:bg-brandOrange selection:text-white font-sans">
       <CustomCursor />
       <MouseSpotlight />
 
@@ -175,11 +216,12 @@ export default function MainContent() {
 
         <div className="hidden lg:flex gap-4 xl:gap-8 text-[10px] xl:text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-white/50 items-center">
           {t.nav.map((item, i) => {
-            const sectionIds = ["services", "projects", "podcast", "journal", "impact", "about", "contact"];
+            const sectionIds = ["services", "projects", "podcast", "journal", "in-the-play", "impact", "about", "contact"];
             let targetUrl = `#${sectionIds[i]}`;
             if (sectionIds[i] === "projects") targetUrl = "/projects/kinebase";
             if (sectionIds[i] === "podcast") targetUrl = "/podcast";
             if (sectionIds[i] === "journal") targetUrl = "/journal";
+            if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
             if (sectionIds[i] === "impact") targetUrl = "/impact";
             if (sectionIds[i] === "about") targetUrl = "/about";
             if (sectionIds[i] === "contact") targetUrl = "/contact";
@@ -253,19 +295,42 @@ export default function MainContent() {
             </motion.div>
 
             {/* Main Title */}
-            <h1 className="font-display font-black text-[clamp(2.5rem,7vw,8rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-4xl relative z-20 pointer-events-none mix-blend-difference ml-[60px]">
-              {[t.heroLine1, t.heroLine2, t.heroLine3].map((line, i) => (
-                <div key={i} className="overflow-hidden">
-                  <motion.span
-                    initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
-                    animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.6, delay: 0.2 + i * 0.18, ease: [0.16, 1, 0.3, 1] }}
-                    className={`block drop-shadow-2xl ${i === 1 ? "font-serif italic font-normal tracking-normal text-[#f26522]" : "text-white"}`}
-                  >
-                    {line}
-                  </motion.span>
-                </div>
-              ))}
+            <h1 className="font-display font-black text-[clamp(2.5rem,7vw,8rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-5xl relative z-20 pointer-events-none mix-blend-difference ml-[60px]">
+              {/* Dynamic Rotating Line 1 */}
+              <div className="overflow-hidden">
+                <motion.div
+                  initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
+                  animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="block drop-shadow-2xl text-white"
+                >
+                  <RotatingHeroVerb isEs={isEs} />
+                </motion.div>
+              </div>
+
+              {/* Line 2: The Future */}
+              <div className="overflow-hidden">
+                <motion.span
+                  initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
+                  animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.6, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                  className="block drop-shadow-2xl font-serif italic font-normal tracking-normal text-[#f26522]"
+                >
+                  {t.heroLine2}
+                </motion.span>
+              </div>
+
+              {/* Line 3: Of Sports */}
+              <div className="overflow-hidden">
+                <motion.span
+                  initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
+                  animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.6, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
+                  className="block drop-shadow-2xl text-white"
+                >
+                  {t.heroLine3}
+                </motion.span>
+              </div>
             </h1>
 
             {/* Subtitle */}
@@ -552,11 +617,11 @@ export default function MainContent() {
       </section>
 
       {/* ─── FOOTER CORPORATIVO ─── */}
-      <footer className="relative z-10 w-full border-t border-white/10 bg-[#020617] pt-20 pb-10 overflow-hidden">
+      <footer className="relative z-10 w-full border-t border-white/10 bg-[#020617] pt-20 pb-12 overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 mb-16">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-12">
             <div>
-              <div className="font-display font-black text-xl md:text-2xl tracking-widest uppercase mb-4">
+              <div className="font-display font-black text-xl md:text-2xl tracking-widest uppercase mb-3">
                 3tree digital <span className="text-brandOrange">Sport IA</span>
               </div>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
@@ -564,19 +629,22 @@ export default function MainContent() {
               </p>
             </div>
             
-            <SocialLinks className="gap-6" />
+            <div className="flex flex-col items-start md:items-end gap-5">
+              <SocialLinks className="gap-6" />
+              
+              {/* Enlaces Legales organizados bajo las redes sociales */}
+              <div className="flex flex-wrap gap-4 md:gap-6 font-mono text-[10px] font-bold uppercase tracking-widest text-white/50">
+                <Link href="/terms" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Términos de Servicio" : "Terms of Service"}</Link>
+                <Link href="/privacy" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Políticas de Privacidad" : "Privacy Policy"}</Link>
+                <Link href="/cookies" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Cookies" : "Cookies"}</Link>
+              </div>
+            </div>
           </div>
           
-          <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-6">
+          <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
             <p className="font-mono text-[10px] uppercase tracking-widest text-white/30">
-              © {new Date().getFullYear()} 3Tree Digital. {isEs ? "Todos los derechos reservados." : "All rights reserved."}
+              © {new Date().getFullYear()} 3Tree Digital Sport IA. {isEs ? "Todos los derechos reservados." : "All rights reserved."}
             </p>
-            
-            <div className="flex flex-wrap gap-4 md:gap-8 justify-center font-mono text-[10px] font-bold uppercase tracking-widest text-white/50">
-              <Link href="/terms" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Términos de Servicio" : "Terms of Service"}</Link>
-              <Link href="/privacy" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Políticas de Privacidad" : "Privacy Policy"}</Link>
-              <Link href="/cookies" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Cookies" : "Cookies"}</Link>
-            </div>
           </div>
         </div>
       </footer>
