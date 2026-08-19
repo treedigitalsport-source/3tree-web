@@ -256,10 +256,10 @@ export default function MainContent() {
         {/* Cinematic Video Background */}
         <motion.div className="absolute inset-0 z-0" style={{ y: heroY, opacity: heroOpacity }}>
           <div 
-            className="absolute inset-0"
+            className="absolute inset-0 bg-black"
             style={{
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
             }}
           >
             <video 
@@ -267,7 +267,7 @@ export default function MainContent() {
               loop 
               muted 
               playsInline
-              className="w-full h-full object-cover opacity-80 scale-100 translate-y-[20%]"
+              className="w-full h-full object-cover opacity-80 scale-100"
               style={{ objectPosition: 'center top' }}
             >
               <source src="/videos/hero-video.mp4" type="video/mp4" />
