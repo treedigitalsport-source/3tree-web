@@ -179,9 +179,19 @@ export default function JournalHub() {
 
                       {/* Card Footer CTA */}
                       <div className="pt-4 border-t border-white/10 flex justify-between items-center">
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">
-                          {article.author}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-full bg-brandOrange/20 border border-brandOrange/40 flex items-center justify-center text-brandOrange">
+                            <User className="w-3.5 h-3.5" />
+                          </div>
+                          <div>
+                            <span className="block text-[8px] font-mono uppercase tracking-widest text-white/50">
+                              {isEs ? "Escrito por" : "Written by"}
+                            </span>
+                            <span className="font-mono text-xs uppercase tracking-wider text-brandOrange font-black">
+                              {article.author || "Neil Alvarado"}
+                            </span>
+                          </div>
+                        </div>
 
                         <Link
                           href={`/journal/${article.slug || article.id}`}
@@ -271,9 +281,19 @@ export default function JournalHub() {
 
                       {/* Card Footer CTA */}
                       <div className="pt-4 border-t border-white/10 flex justify-between items-center">
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">
-                          {article.author}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-full bg-white/10 border border-white/30 flex items-center justify-center text-white">
+                            <User className="w-3.5 h-3.5 text-white" />
+                          </div>
+                          <div>
+                            <span className="block text-[8px] font-mono uppercase tracking-widest text-white/50">
+                              {isEs ? "Escrito por" : "Written by"}
+                            </span>
+                            <span className="font-mono text-xs uppercase tracking-wider text-white font-black">
+                              {article.author || "Ali Zapata"}
+                            </span>
+                          </div>
+                        </div>
 
                         <Link
                           href={`/journal/${article.slug || article.id}`}
