@@ -505,12 +505,23 @@ export default function SportsNewsBroadcastPage() {
                     </div>
                   </div>
 
-                  {/* Right: Big Digital Score & Status Badge */}
-                  <div className="text-right flex flex-col items-end">
-                    <span className="font-mono font-black text-brandOrange text-xs md:text-sm tracking-wider drop-shadow-[0_0_8px_rgba(242,101,34,0.4)]">
+                  {/* Right: Big Digital Score & High-Visibility Status Badge */}
+                  <div className="text-right flex flex-col items-end gap-1">
+                    <span className="font-mono font-black text-brandOrange text-sm md:text-base tracking-wider drop-shadow-[0_0_10px_rgba(242,101,34,0.5)]">
                       {s.score}
                     </span>
-                    <span className="text-[8px] font-mono font-bold text-white/50 bg-white/5 px-1.5 py-0.5 rounded border border-white/10 uppercase mt-0.5">
+                    <span
+                      className={`text-[9px] font-mono font-black px-2 py-0.5 rounded border uppercase tracking-wider shadow-md flex items-center gap-1 ${
+                        s.status === "EN VIVO" || s.status === "88'" || s.status === "HEAT 4"
+                          ? "bg-red-500/20 text-red-300 border-red-500/50"
+                          : s.status === "FINAL"
+                          ? "bg-white/20 text-white border-white/40 shadow-sm"
+                          : "bg-brandOrange/20 text-brandOrange border-brandOrange/40"
+                      }`}
+                    >
+                      {(s.status === "EN VIVO" || s.status === "88'" || s.status === "HEAT 4") && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping inline-block" />
+                      )}
                       {s.status}
                     </span>
                   </div>
