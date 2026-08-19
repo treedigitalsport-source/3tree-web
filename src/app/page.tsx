@@ -267,11 +267,13 @@ export default function MainContent() {
               loop 
               muted 
               playsInline
-              className="w-full h-full object-cover opacity-80 scale-[1.25]"
+              className="w-full h-full object-cover opacity-50 scale-[1.25]"
               style={{ objectPosition: 'center center' }}
             >
               <source src="/videos/hero-video.mp4" type="video/mp4" />
             </video>
+            {/* Dark overlay to place the video strictly in the background */}
+            <div className="absolute inset-0 bg-black/60 pointer-events-none z-[1]"></div>
           </div>
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
           {/* Bottom gradient for text readability */}
@@ -294,7 +296,7 @@ export default function MainContent() {
             </motion.div>
 
             {/* Main Title */}
-            <h1 className="font-display font-black text-[clamp(2.5rem,7vw,8rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-5xl relative z-20 pointer-events-none mix-blend-difference ml-[60px]">
+            <h1 className="font-display font-black text-[clamp(2.5rem,7vw,8rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-5xl relative z-20 pointer-events-none ml-[60px]">
               {/* Dynamic Rotating Line 1 */}
               <div className="overflow-hidden">
                 <motion.div
