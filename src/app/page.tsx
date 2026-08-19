@@ -216,9 +216,10 @@ export default function MainContent() {
 
         <div className="hidden lg:flex gap-4 xl:gap-8 text-[10px] xl:text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-white/50 items-center">
           {t.nav.map((item, i) => {
-            const sectionIds = ["services", "projects", "journal", "in-the-play", "impact", "about", "contact"];
+            const sectionIds = ["services", "projects", "podcast", "journal", "in-the-play", "impact", "about", "contact"];
             let targetUrl = `#${sectionIds[i]}`;
             if (sectionIds[i] === "projects") targetUrl = "/projects/kinebase";
+            if (sectionIds[i] === "podcast") targetUrl = "/podcast";
             if (sectionIds[i] === "journal") targetUrl = "/journal";
             if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
             if (sectionIds[i] === "impact") targetUrl = "/impact";
@@ -256,10 +257,10 @@ export default function MainContent() {
         {/* Cinematic Video Background */}
         <motion.div className="absolute inset-0 z-0" style={{ y: heroY, opacity: heroOpacity }}>
           <div 
-            className="absolute inset-0 bg-black"
+            className="absolute inset-0"
             style={{
-              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
             }}
           >
             <video 
@@ -267,13 +268,11 @@ export default function MainContent() {
               loop 
               muted 
               playsInline
-              className="w-full h-full object-cover opacity-50 scale-[1.25]"
-              style={{ objectPosition: 'center center' }}
+              className="w-full h-full object-cover opacity-80 scale-100 translate-y-[20%]"
+              style={{ objectPosition: 'center top' }}
             >
               <source src="/videos/hero-video.mp4" type="video/mp4" />
             </video>
-            {/* Dark overlay to place the video strictly in the background */}
-            <div className="absolute inset-0 bg-black/60 pointer-events-none z-[1]"></div>
           </div>
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
           {/* Bottom gradient for text readability */}
@@ -296,7 +295,7 @@ export default function MainContent() {
             </motion.div>
 
             {/* Main Title */}
-            <h1 className="font-display font-black text-[clamp(2.5rem,7vw,8rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-5xl relative z-20 pointer-events-none ml-[60px]">
+            <h1 className="font-display font-black text-[clamp(2.5rem,7vw,8rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-5xl relative z-20 pointer-events-none mix-blend-difference ml-[60px]">
               {/* Dynamic Rotating Line 1 */}
               <div className="overflow-hidden">
                 <motion.div
