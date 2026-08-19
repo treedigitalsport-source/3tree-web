@@ -267,8 +267,8 @@ export default function MainContent() {
               loop 
               muted 
               playsInline
-              className="w-full h-full object-cover opacity-80 scale-100"
-              style={{ objectPosition: 'center top' }}
+              className="w-full h-full object-cover opacity-80 scale-[1.25]"
+              style={{ objectPosition: 'center center' }}
             >
               <source src="/videos/hero-video.mp4" type="video/mp4" />
             </video>
