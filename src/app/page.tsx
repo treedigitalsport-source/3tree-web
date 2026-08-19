@@ -216,10 +216,9 @@ export default function MainContent() {
 
         <div className="hidden lg:flex gap-4 xl:gap-8 text-[10px] xl:text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-white/50 items-center">
           {t.nav.map((item, i) => {
-            const sectionIds = ["services", "projects", "podcast", "journal", "in-the-play", "impact", "about", "contact"];
+            const sectionIds = ["services", "projects", "journal", "in-the-play", "impact", "about", "contact"];
             let targetUrl = `#${sectionIds[i]}`;
             if (sectionIds[i] === "projects") targetUrl = "/projects/kinebase";
-            if (sectionIds[i] === "podcast") targetUrl = "/podcast";
             if (sectionIds[i] === "journal") targetUrl = "/journal";
             if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
             if (sectionIds[i] === "impact") targetUrl = "/impact";
