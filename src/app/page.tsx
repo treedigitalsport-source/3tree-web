@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useLang } from "./i18n";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, Globe, Activity, Brain, Video, Bot } from "lucide-react";
+import { ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, Globe, Activity, Brain, Video, Bot, Menu, X } from "lucide-react";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 import CustomCursor from "@/components/CustomCursor";
 import Lenis from "lenis";
@@ -218,6 +218,27 @@ export default function MainContent() {
 
 
 
+  // Scroll-aware header state
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { label: t.nav[0], href: "/#services" },
+    { label: t.nav[1], href: "/#projects" },
+    { label: t.nav[2], href: "/journal" },
+    { label: t.nav[3], href: "/in-the-play" },
+    { label: t.nav[4], href: "/impact" },
+    { label: t.nav[5], href: "/about" },
+  ];
+
   return (
     <main className="relative bg-[#020617] text-white selection:bg-brandOrange selection:text-white font-sans">
       <CustomCursor />
@@ -233,58 +254,109 @@ export default function MainContent() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 w-full z-50 px-6 md:px-10 py-6 flex justify-between items-center bg-transparent border-none pointer-events-auto"
+        className={`fixed top-0 w-full z-50 px-4 sm:px-6 md:px-10 transition-all duration-500 flex justify-between items-center ${
+          isScrolled
+            ? "py-3 md:py-4 bg-[#020617]/85 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+            : "py-5 md:py-6 bg-gradient-to-b from-[#020617]/80 via-[#020617]/30 to-transparent border-b border-transparent"
+        }`}
       >
-        <div className="flex items-center hoverable">
-          <div className="h-24 md:h-28 w-[280px] md:w-[380px] flex items-center relative transition-all duration-500">
+        {/* Clickable Responsive Logo */}
+        <Link href="/" className="flex items-center hoverable group z-50">
+          <div className="h-12 sm:h-16 md:h-20 w-[170px] sm:w-[220px] md:w-[300px] flex items-center relative transition-all duration-300 group-hover:opacity-90">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-full object-contain object-left" />
           </div>
+        </Link>
+
+        {/* Desktop Navigation Links */}
+        <div className="hidden lg:flex gap-4 xl:gap-8 text-[10px] xl:text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-white/60 items-center">
+          {navLinks.map((link) => (
+            <div key={link.href} className="relative group/nav whitespace-nowrap">
+              <Link href={link.href} className="hoverable hover:text-white transition-colors duration-300 flex items-center gap-1 group/link">
+                {link.label}
+              </Link>
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandOrange group-hover/nav:w-full transition-all duration-300"></span>
+            </div>
+          ))}
         </div>
 
-        <div className="hidden lg:flex gap-4 xl:gap-8 text-[10px] xl:text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-white/50 items-center">
-          {t.nav.map((item, i) => {
-            const sectionIds = ["services", "projects", "journal", "in-the-play", "impact", "about", "contact"];
-            let targetUrl = `#${sectionIds[i]}`;
-            if (sectionIds[i] === "projects") targetUrl = "/projects/kinebase";
-            if (sectionIds[i] === "journal") targetUrl = "/journal";
-            if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
-            if (sectionIds[i] === "impact") targetUrl = "/impact";
-            if (sectionIds[i] === "about") targetUrl = "/about";
-            if (sectionIds[i] === "contact") targetUrl = "/contact";
-
-            return (
-              <div key={item} className="relative group/nav whitespace-nowrap">
-                <Link href={targetUrl} className="hoverable hover:text-white transition-colors duration-500 flex items-center gap-1 group/link">
-                  {item}
-                </Link>
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandOrange group-hover/nav:w-full transition-all duration-500"></span>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center gap-4 mr-2 md:mr-6 lg:mr-10">
+        {/* Desktop Header Actions */}
+        <div className="hidden sm:flex items-center gap-3 md:gap-4 mr-0 md:mr-4">
           <button 
             onClick={toggleLang}
-            className="group hoverable flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors px-4 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
+            className="group hoverable flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors px-3 sm:px-4 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
           >
             <Globe className="w-3 h-3 text-white/60 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
           </button>
           
-          <Link href="/contact" className="hoverable flex items-center gap-2 bg-brandOrange text-white px-7 py-3 rounded-full text-[10px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500">
+          <Link href="/contact" className="hoverable flex items-center gap-2 bg-brandOrange text-white px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-[10px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500 shadow-lg shadow-brandOrange/20">
             {t.cta} <ArrowUpRight className="w-3 h-3" />
           </Link>
         </div>
+
+        {/* Mobile Hamburger & Lang Button */}
+        <div className="flex lg:hidden items-center gap-2 z-50">
+          <button 
+            onClick={toggleLang}
+            className="flex items-center gap-1 text-[9px] font-mono font-bold uppercase tracking-wider text-white/80 px-2.5 py-1.5 border border-white/10 rounded-full bg-white/[0.05]"
+          >
+            <Globe className="w-2.5 h-2.5 text-white/60" /> {lang === 'en' ? 'ES' : 'EN'}
+          </button>
+
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.05] backdrop-blur-md flex items-center justify-center text-white hover:text-brandOrange hover:border-brandOrange/40 transition-colors"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+
+        {/* Mobile Menu Drawer Overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="absolute top-full left-0 right-0 w-full bg-[#020617]/95 backdrop-blur-2xl border-b border-white/10 p-6 flex flex-col gap-6 lg:hidden shadow-2xl"
+            >
+              <div className="flex flex-col gap-4 font-mono text-xs font-bold uppercase tracking-[0.2em]">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-2.5 px-3 rounded-lg border border-transparent hover:border-white/10 hover:bg-white/[0.03] hover:text-brandOrange transition-all flex items-center justify-between text-white/70"
+                  >
+                    <span>{link.label}</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-white/30" />
+                  </Link>
+                ))}
+              </div>
+
+              <div className="pt-2 border-t border-white/10">
+                <Link
+                  href="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center justify-center gap-2 bg-brandOrange text-white py-3.5 rounded-full text-xs font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all shadow-xl shadow-brandOrange/25"
+                >
+                  {t.cta} <ArrowUpRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.header>
 
       {/* ─── HERO SECTION (ABSOLUTE FULLSCREEN IMMERSIVE VIDEO) ─── */}
       <section className="relative min-h-screen w-full flex items-center overflow-hidden">
 
-        {/* Capa 1: Video Hero Background — Beisbol Hero Ultra Optimized (3.3MB) */}
+        {/* Capa 1: Video Hero Background — Scouts Béisbol en el Terreno (2.5MB) */}
         <video
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-70 mix-blend-screen"
-          src="/videos/beisbol_hero_ultra.mp4"
+          src="/videos/scouts_beisbol_hero.mp4"
           autoPlay
           loop
           muted
