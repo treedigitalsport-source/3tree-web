@@ -3,8 +3,8 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useLang } from "./i18n";
-import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, ChevronDown, Play, Globe, Activity, Brain, Video, Bot } from "lucide-react";
+import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, Globe, Activity, Brain, Video, Bot } from "lucide-react";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 import CustomCursor from "@/components/CustomCursor";
 import Lenis from "lenis";
@@ -180,10 +180,41 @@ function RotatingHeroVerb({ isEs }: { isEs: boolean }) {
 export default function MainContent() {
   const { t, lang, toggleLang } = useLang();
   const isEs = lang === "es";
-  /* Scroll values for the Parallax Hero Video */
-  const { scrollYProgress: heroScroll } = useScroll();
-  const heroY = useTransform(heroScroll, [0, 0.3], [0, 150]);
-  const heroOpacity = useTransform(heroScroll, [0, 0.3], [1, 0.3]);
+
+  // Form Lead Magnet State
+  const [leadEmail, setLeadEmail] = useState("");
+  const [leadStatus, setLeadStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  // Initialize Lenis Smooth Scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!leadEmail) return;
+    setLeadStatus("loading");
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setLeadStatus("success");
+      setLeadEmail("");
+    } catch {
+      setLeadStatus("error");
+    }
+  };
 
 
 
@@ -197,15 +228,12 @@ export default function MainContent() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
       </div>
 
-      {/* Cinematic Top Gradient Fade for Header */}
-      <div className="fixed top-0 left-0 right-0 h-[20vh] bg-gradient-to-b from-[#020617] via-[#020617]/60 to-transparent z-[40] pointer-events-none"></div>
-
       {/* ─── HEADER ─── */}
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 w-full z-50 px-6 md:px-10 py-6 flex justify-between items-center bg-[#020617]/40 backdrop-blur-md border-b border-white/10"
+        className="fixed top-0 w-full z-50 px-6 md:px-10 py-6 flex justify-between items-center bg-transparent border-none pointer-events-auto"
       >
         <div className="flex items-center hoverable">
           <div className="h-24 md:h-28 w-[280px] md:w-[380px] flex items-center relative transition-all duration-500">
@@ -216,10 +244,9 @@ export default function MainContent() {
 
         <div className="hidden lg:flex gap-4 xl:gap-8 text-[10px] xl:text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-white/50 items-center">
           {t.nav.map((item, i) => {
-            const sectionIds = ["services", "projects", "podcast", "journal", "in-the-play", "impact", "about", "contact"];
+            const sectionIds = ["services", "projects", "journal", "in-the-play", "impact", "about", "contact"];
             let targetUrl = `#${sectionIds[i]}`;
             if (sectionIds[i] === "projects") targetUrl = "/projects/kinebase";
-            if (sectionIds[i] === "podcast") targetUrl = "/podcast";
             if (sectionIds[i] === "journal") targetUrl = "/journal";
             if (sectionIds[i] === "in-the-play") targetUrl = "/in-the-play";
             if (sectionIds[i] === "impact") targetUrl = "/impact";
@@ -251,43 +278,35 @@ export default function MainContent() {
         </div>
       </motion.header>
 
-      {/* ─── HERO SECTION (ORIGINAL FULLSCREEN IMMERSIVE VIDEO) ─── */}
-      <section className="relative h-screen flex items-center overflow-hidden">
-        
-        {/* Cinematic Video Background */}
-        <motion.div className="absolute inset-0 z-0" style={{ y: heroY, opacity: heroOpacity }}>
-          <div 
-            className="absolute inset-0"
-            style={{
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
-            }}
-          >
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              className="w-full h-full object-cover opacity-80 scale-100 translate-y-[20%]"
-              style={{ objectPosition: 'center top' }}
-            >
-              <source src="/videos/hero-video.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
-          {/* Bottom gradient for text readability */}
-          <div className="absolute bottom-0 left-0 right-0 h-[30%] z-[6] pointer-events-none bg-gradient-to-t from-[#020617] via-[#020617]/80 to-transparent"></div>
-        </motion.div>
+      {/* ─── HERO SECTION (ABSOLUTE FULLSCREEN IMMERSIVE VIDEO) ─── */}
+      <section className="relative min-h-screen w-full flex items-center overflow-hidden">
 
-        {/* Hero Content */}
-        <div className="w-full max-w-[96%] mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-32">
+        {/* Capa 1: Video Hero Background — Beisbol Hero Ultra Optimized (3.3MB) */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-70 mix-blend-screen"
+          src="/videos/beisbol_hero_ultra.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+        />
+
+        {/* Capa 2: Overlay de oscurecimiento para legibilidad del texto */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/80 via-[#020617]/40 to-[#020617]/90 pointer-events-none" />
+
+        {/* Hero Content Container - Directly Below Logo & Main Menu Text (Where Video Was) */}
+        <div className="w-full max-w-[96%] mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-32 md:pt-36 pb-16">
           <div className="max-w-6xl">
+            
             {/* Tag Line */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-10 ml-[60px]"
+              className="mb-8 ml-0 md:ml-[60px]"
             >
               <span className="inline-flex items-center text-brandOrange font-mono text-sm md:text-base tracking-[0.4em] uppercase font-bold">
                 --{t.tagline}--
@@ -295,14 +314,14 @@ export default function MainContent() {
             </motion.div>
 
             {/* Main Title */}
-            <h1 className="font-display font-black text-[clamp(2.5rem,7vw,8rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-5xl relative z-20 pointer-events-none mix-blend-difference ml-[60px]">
+            <h1 className="font-display font-black text-[clamp(2rem,4.5vw,4.5rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-5xl relative z-20 pointer-events-none mix-blend-difference ml-0 md:ml-[60px]">
               {/* Dynamic Rotating Line 1 */}
               <div className="overflow-hidden">
                 <motion.div
                   initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
                   animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
                   transition={{ duration: 1.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="block drop-shadow-2xl text-white"
+                  className="block text-white"
                 >
                   <RotatingHeroVerb isEs={isEs} />
                 </motion.div>
@@ -314,7 +333,7 @@ export default function MainContent() {
                   initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
                   animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
                   transition={{ duration: 1.6, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                  className="block drop-shadow-2xl font-serif italic font-normal tracking-normal text-[#f26522]"
+                  className="block font-serif italic font-normal tracking-normal text-[#f26522]"
                 >
                   {t.heroLine2}
                 </motion.span>
@@ -326,7 +345,7 @@ export default function MainContent() {
                   initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
                   animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
                   transition={{ duration: 1.6, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
-                  className="block drop-shadow-2xl text-white"
+                  className="block text-white"
                 >
                   {t.heroLine3}
                 </motion.span>
@@ -338,7 +357,7 @@ export default function MainContent() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 1 }}
-              className="mt-12 text-white/45 text-base md:text-lg font-light leading-[1.8] max-w-lg tracking-wide"
+              className="mt-10 text-white/45 text-base md:text-lg font-light leading-[1.8] max-w-lg tracking-wide ml-0 md:ml-[60px]"
             >
               {t.heroDesc}
             </motion.p>
@@ -348,12 +367,12 @@ export default function MainContent() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 1.2 }}
-              className="mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6 ml-[60px]"
+              className="mt-10 mb-16 flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6 ml-0 md:ml-[60px]"
             >
-              <Link href="/contact" className="hoverable flex items-center justify-center gap-2 bg-brandOrange text-white px-8 py-4 rounded-full text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500 shadow-[0_0_30px_rgba(242,101,34,0.3)]">
+              <MagneticButton href="/contact" className="hoverable inline-flex items-center justify-center gap-2 bg-brandOrange text-white px-8 py-4 rounded-full text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500 shadow-[0_0_30px_rgba(242,101,34,0.3)]">
                 {isEs ? "Agendar Demostración" : "Book a Demo"}
                 <ArrowUpRight className="w-4 h-4" />
-              </Link>
+              </MagneticButton>
               <div className="flex flex-col pt-1 sm:pt-2 px-2 text-center sm:text-left">
                 <span className="text-[10px] font-mono text-white/50 uppercase tracking-widest">
                   {isEs ? "Disponibilidad Limitada" : "Limited Availability"}
@@ -363,28 +382,33 @@ export default function MainContent() {
                 </span>
               </div>
             </motion.div>
-          </div>
 
-          {/* Scroll Indicator */}
-          <motion.div
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-30 opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2, duration: 1 }}
-          >
-            <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-white/50">{t.scroll}</span>
-            <div className="w-[1px] h-16 bg-white/10 relative overflow-hidden">
-               <motion.div 
-                 animate={{ y: ["-100%", "100%"] }} 
-                 transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }} 
-                 className="absolute top-0 left-0 w-full h-full bg-brandOrange"
-               />
-            </div>
-          </motion.div>
+            {/* ─── SOCIAL PROOF METRICS (50K+ / 94% / <200ms) ALOJADO EN EL HERO ─── */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.4 }}
+              className="ml-0 md:ml-[60px] grid grid-cols-1 sm:grid-cols-3 gap-8 bg-gradient-to-br from-white/[0.04] to-white/[0.01] backdrop-blur-2xl border border-white/15 p-8 md:p-10 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.5)] mb-12 hover:border-brandOrange/30 transition-all duration-500"
+            >
+              <div className="flex flex-col gap-2 group cursor-default">
+                <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter group-hover:text-brandOrange transition-colors">50K+</span>
+                <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.2em] font-bold">{isEs ? "Horas de Video Procesadas" : "Video Hours Processed"}</span>
+              </div>
+              <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-8 group cursor-default">
+                <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter group-hover:text-brandOrange transition-colors">94%</span>
+                <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.2em] font-bold">{isEs ? "Reducción en Tiempo de Análisis" : "Reduction in Analysis Time"}</span>
+              </div>
+              <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-8 group cursor-default">
+                <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter group-hover:text-brandOrange transition-colors">&lt;200<span className="text-3xl text-white/50">ms</span></span>
+                <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.2em] font-bold">{isEs ? "Certeza Algorítmica Absoluta" : "Absolute Algorithmic Certainty"}</span>
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
-      {/* MARQUEE */}
+      {/* MARQUEE ACOPLADO DIRECTAMENTE A LAS METRICAS HERO */}
       <div className="w-full border-y border-white/10 bg-brandOrange/5 py-4 overflow-hidden flex items-center whitespace-nowrap z-20 relative backdrop-blur-md">
          <Marquee speed={30} className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 font-bold">
           {t.marquee1.map((item, i) => (
@@ -395,102 +419,110 @@ export default function MainContent() {
         </Marquee>
       </div>
 
-      {/* SOCIAL PROOF METRICS BAR */}
-      <section className="relative z-20 w-full bg-[#020617] border-b border-white/10 py-16">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-          <div className="flex flex-col gap-3 pt-6 md:pt-0 hoverable">
-            <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter">50K+</span>
-            <span className="text-[10px] font-mono text-brandOrange uppercase tracking-[0.2em]">{isEs ? "Horas de Video Procesadas" : "Video Hours Processed"}</span>
+      {/* ─── SERVICES: 3-ZONE EDITORIAL LAYOUT ─── */}
+      <section id="services" className="relative z-20 w-full bg-[#020617] border-b border-white/10">
+
+        {/* ZONE 1: Section Header + Badge (full-width) */}
+        <div className="w-full border-b border-white/10 px-8 md:px-16 lg:px-20 py-12 md:py-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+          <div>
+            <div className="inline-flex items-center gap-3 bg-brandOrange/10 border border-brandOrange/30 text-brandOrange px-5 py-2.5 text-[10px] font-mono font-bold uppercase tracking-widest mb-6">
+              <Bot className="w-3.5 h-3.5" />
+              {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
+            </div>
+            <h2 className="font-display font-black uppercase leading-[0.85] tracking-tight text-5xl md:text-6xl lg:text-7xl">
+              {isEs ? "Arquitectura" : "System"}<br />
+              <span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
+                {isEs ? "del Sistema" : "Architecture"}
+              </span>
+            </h2>
+            <p className="font-mono text-xs text-white/40 tracking-widest uppercase mt-5 max-w-sm leading-relaxed">
+              {t.ourExpertise.join(" ")}
+            </p>
           </div>
-          <div className="flex flex-col gap-3 pt-6 md:pt-0 hoverable">
-            <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter">94%</span>
-            <span className="text-[10px] font-mono text-brandOrange uppercase tracking-[0.2em]">{isEs ? "Reducción en Tiempo de Análisis" : "Reduction in Analysis Time"}</span>
-          </div>
-          <div className="flex flex-col gap-3 pt-6 md:pt-0 hoverable">
-            <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter">&lt;200<span className="text-3xl text-white/50">ms</span></span>
-            <span className="text-[10px] font-mono text-brandOrange uppercase tracking-[0.2em]">{isEs ? "Certeza Algorítmica Absoluta" : "Absolute Algorithmic Certainty"}</span>
+
+          {/* Stats Row */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 shrink-0 lg:max-w-[600px] w-full lg:w-auto">
+            {t.stats.map((stat, i) => (
+              <div key={i} className="bg-[#020617] flex flex-col items-center justify-center text-center px-6 py-8 group hover:bg-brandOrange/5 transition-colors">
+                <span className="font-display text-3xl md:text-5xl font-black text-white group-hover:text-brandOrange transition-colors leading-none">
+                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                </span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/35 mt-3 leading-relaxed">{stat.label}</span>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
 
-      {/* ─── BENTO GRID: STATS + EXPERTISE (CONSOLIDADO) ─── */}
-      <section id="services" className="relative z-10 w-full bg-[#020617]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-white/10">
-          
-          {/* Lado Izquierdo: Bloque Masivo de Estadísticas */}
-          <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col bg-white/[0.02]">
-            <div className="p-8 md:p-12 lg:p-16 border-b border-white/10 flex flex-col justify-center min-h-[300px]">
-               <h3 className="font-display text-5xl md:text-6xl font-black uppercase mb-4 leading-[0.9]">
-                 {isEs ? "Arquitectura" : "System"} <br/><span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.2)' }}>{isEs ? "del Sistema" : "Architecture"}</span>
-               </h3>
-               <p className="font-mono text-xs text-white/50 tracking-widest uppercase leading-relaxed mb-8">
-                 {t.ourExpertise.join(" ")}
-               </p>
-               <div className="inline-flex items-center gap-3 bg-brandOrange/10 border border-brandOrange/30 text-brandOrange px-5 py-3 text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest w-fit">
-                 <Bot className="w-4 h-4" />
-                 {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
-               </div>
-            </div>
-            
-            <div className="grid grid-cols-2 grid-rows-2 flex-grow">
-              {t.stats.map((stat, i) => (
-                <div key={i} className="p-8 border-b border-r border-white/10 flex flex-col justify-center text-center group hover:bg-brandOrange/5 transition-colors">
-                  <span className="font-display text-4xl md:text-6xl font-black text-white group-hover:text-brandOrange transition-colors">
-                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                  </span>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 mt-3">{stat.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* ZONE 2: Service Cards Grid (7 services in 3-4 col responsive) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {t.services.map((service, idx) => {
+            const icons = [
+              <LayoutTemplate key={0} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+              <Cpu key={1} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+              <Fingerprint key={2} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+              <Activity key={3} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+              <Brain key={4} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+              <Video key={5} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+              <Bot key={6} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+            ];
+            const Icon = icons[idx % icons.length];
+            // Highlight the last card (AI Agents)
+            const isHighlighted = idx === t.services.length - 1;
 
-          {/* Lado Derecho: Catálogo de Servicios Dinámico */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 bg-[#020617]">
-            {t.services.map((service, idx) => {
-              // Asignar un ícono dinámicamente basado en el índice
-              const icons = [
-                <LayoutTemplate key={0} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Cpu key={1} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Fingerprint key={2} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Activity key={3} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Brain key={4} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Video key={5} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-                <Bot key={6} className="w-6 h-6 text-white group-hover:text-brandOrange" />,
-              ];
-              const Icon = icons[idx % icons.length];
-
-              return (
-                <div key={idx} className="p-8 md:p-10 border-b border-r border-white/10 flex flex-col justify-between hover:bg-brandOrange/5 transition-colors group">
-                  <div>
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center mb-8 border border-white/10 bg-white/5 group-hover:border-brandOrange group-hover:bg-brandOrange/10 transition-colors">
-                      {Icon}
-                    </div>
-                    <h4 className="font-display text-2xl font-black uppercase mb-4 text-white leading-none">
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: idx * 0.06 }}
+                className={`p-8 md:p-10 border-b border-r border-white/10 flex flex-col justify-between min-h-[280px] group transition-colors duration-300
+                  ${isHighlighted
+                    ? "bg-brandOrange/5 hover:bg-brandOrange/10 border-brandOrange/20"
+                    : "hover:bg-white/[0.025]"
+                  }`}
+              >
+                <div>
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-8 border transition-colors duration-300
+                    ${isHighlighted
+                      ? "border-brandOrange/40 bg-brandOrange/10 group-hover:bg-brandOrange/20"
+                      : "border-white/10 bg-white/[0.04] group-hover:border-brandOrange group-hover:bg-brandOrange/10"
+                    }`}>
+                    {Icon}
+                  </div>
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <h4 className="font-display text-xl md:text-2xl font-black uppercase text-white leading-none">
                       {service.title}
                     </h4>
+                    {isHighlighted && (
+                      <span className="shrink-0 font-mono text-[8px] font-bold uppercase tracking-widest text-brandOrange bg-brandOrange/10 border border-brandOrange/30 px-2 py-1 mt-0.5">
+                        NEW
+                      </span>
+                    )}
                   </div>
-                  <p className="font-mono text-[10px] text-white/50 leading-relaxed uppercase tracking-[0.1em]">
-                    {service.desc}
-                  </p>
                 </div>
-              );
-            })}
-          </div>
-
+                <p className="font-mono text-[10px] text-white/45 leading-relaxed tracking-[0.06em]">
+                  {service.desc}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
+
       </section>
 
-      {/* ═════ CINEMATIC DRONE SHOWCASE (MANTENIDO) ═════ */}
-      <section className="bg-gradient-to-b from-[#020617] to-black relative w-full pt-10 pb-0">
+
+      {/* ═════ CINEMATIC DRONE SHOWCASE (DIRECTLY COUPLED TO SERVICES) ═════ */}
+      <section className="bg-gradient-to-b from-[#020617] via-[#020617] to-black relative w-full pt-4 md:pt-6 pb-4">
         <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.5 }}
-          className="w-full h-[80vh] md:h-[100vh] relative group hoverable"
+          transition={{ duration: 1.2 }}
+          className="w-full max-w-[94%] mx-auto h-[70vh] md:h-[85vh] relative group hoverable rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10"
           style={{
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 95%, transparent 100%)',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 95%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
           }}
         >
           <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
@@ -503,9 +535,11 @@ export default function MainContent() {
           >
             <source src="/videos/Drone_dive_into_baseball_stadium_202607151954.mp4" type="video/mp4" />
           </video>
+
+          {/* Top & Bottom internal fade gradient overlays */}
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#020617]/70 to-transparent z-20 pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020617] to-transparent z-20 pointer-events-none"></div>
         </motion.div>
-        {/* Desvanecimiento inferior suave hacia el siguiente bloque */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#020617] to-transparent z-20 pointer-events-none"></div>
       </section>
 
 
@@ -574,7 +608,7 @@ export default function MainContent() {
                       <p className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase mb-2">02 — {t.scouting}</p>
                       <h3 className="font-display text-3xl md:text-4xl font-black uppercase text-white leading-[0.9]">Scouting AI</h3>
                     </div>
-                    <button className="px-6 py-3 border border-white/10 flex items-center justify-center rounded-sm hover:bg-white/10 transition-all cursor-not-allowed">
+                    <button disabled aria-label={isEs ? "Próximamente disponible" : "Coming soon"} className="px-6 py-3 border border-white/10 flex items-center justify-center rounded-sm hover:bg-white/10 transition-all cursor-not-allowed disabled:opacity-50">
                        <span className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-white/30">{isEs ? "Próximamente" : "COMING SOON"}</span>
                     </button>
                  </div>
@@ -599,17 +633,30 @@ export default function MainContent() {
             {isEs ? "Únete a más de 1,200 scouts y analistas que están descubriendo cómo los Datos y la Inteligencia Artificial están redefiniendo el paradigma del scouting análogo." : "Join over 1,200 scouts and analysts discovering how Data and AI are redefining the analog scouting paradigm."}
           </p>
           
-          <form className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()}>
-            <input 
-              type="email" 
-              placeholder={isEs ? "Tu correo corporativo..." : "Your corporate email..."}
-              className="bg-[#020617]/80 border border-white/20 text-white px-6 py-4 outline-none focus:border-brandOrange transition-colors w-full sm:w-2/3 font-mono text-xs rounded-none"
-              required
-            />
-            <button type="submit" className="hoverable bg-brandOrange text-white px-8 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-[0_0_20px_rgba(242,101,34,0.2)]">
-              {isEs ? "Descargar" : "Download"}
-            </button>
-          </form>
+          {leadStatus === "success" ? (
+            <div className="p-6 rounded-2xl bg-brandOrange/20 border border-brandOrange/40 text-brandOrange font-mono text-sm uppercase tracking-widest max-w-lg mx-auto">
+              ✓ {isEs ? "¡Whitepaper enviado exitosamente a tu correo!" : "Whitepaper successfully sent to your email!"}
+            </div>
+          ) : (
+            <form className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto" onSubmit={handleLeadSubmit}>
+              <input 
+                type="email" 
+                value={leadEmail}
+                onChange={(e) => setLeadEmail(e.target.value)}
+                placeholder={isEs ? "Tu correo corporativo..." : "Your corporate email..."}
+                aria-label={isEs ? "Correo electrónico corporativo" : "Corporate email"}
+                className="bg-[#020617]/80 border border-white/20 text-white px-6 py-4 outline-none focus:border-brandOrange focus:ring-2 focus:ring-brandOrange transition-all w-full sm:w-2/3 font-mono text-xs rounded-none"
+                required
+              />
+              <button 
+                type="submit" 
+                disabled={leadStatus === "loading"}
+                className="hoverable bg-brandOrange text-white px-8 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-[0_0_20px_rgba(242,101,34,0.2)] disabled:opacity-50"
+              >
+                {leadStatus === "loading" ? (isEs ? "Enviando..." : "Sending...") : (isEs ? "Descargar" : "Download")}
+              </button>
+            </form>
+          )}
           <span className="block mt-6 text-[9px] font-mono text-white/40 uppercase tracking-widest">
             {isEs ? "100% valor puro. Cero spam. Date de baja cuando quieras." : "100% pure value. Zero spam. Unsubscribe anytime."}
           </span>

@@ -429,7 +429,7 @@ export default function SportsNewsBroadcastPage() {
                     <button
                       key={idx}
                       onClick={() => setScoreTab(idx)}
-                      className={`font-mono text-[8px] sm:text-[9px] font-black uppercase py-1 px-0.5 rounded transition-all truncate text-center ${
+                      className={`font-mono text-[10px] sm:text-[11px] font-bold uppercase py-2 px-2 rounded-lg transition-all truncate text-center min-h-[38px] flex items-center justify-center ${
                         scoreTab === idx
                           ? "bg-brandOrange text-[#020617] font-bold shadow-md shadow-brandOrange/30"
                           : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"

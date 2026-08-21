@@ -15,6 +15,12 @@
   --foreground: #ffffff;
 }
 
+/* High Contrast & Focus Ring Standard */
+:focus-visible {
+  outline: 2px solid #f26522 !important;
+  outline-offset: 2px !important;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

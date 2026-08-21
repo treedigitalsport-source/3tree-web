@@ -69,7 +69,7 @@ export default function JournalHub() {
 
             <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-[0.9]">
               THE EDGE <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandOrange via-white to-[#0054A6]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandOrange via-white to-sky-400">
                 JOURNAL
               </span>
             </h1>

@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "project_name": "3Tree Digital Sport AI",
+  "protocol_version": "AFAA_v3.0_Canon_Edition",
+  "founder_and_ceo": "Ali",
+  "governance_rules": {
+    "total_departments": 10,
+    "total_agents": 31,
+    "memory_architecture": {
+      "isolation_model": "Shared-Nothing-Zero-Trust",
+      "vector_cross_reading_allowed": false,
+      "cross_read_denied": [
+        "*"
+      ],
+      "shared_exchange_directory": "/shared_artifacts/"
+    }
+  },
+  "agent_registry": [
+    {
+      "agent_id": "AG-001",
+      "name": "Ali",
+      "role": "CEO & Founder",
+      "department": "01_Executive",
+      "memory_vault": "KM-AG001",
+      "security_level": 5,
+      "allowed_write_paths": [
+        "/01_Executive/ceo/"
+      ]
+    },
+    {
+      "agent_id": "AG-002",
+      "name": "Sara",
+      "role": "Chief Operating Officer",
+      "department": "01_Executive",
+      "memory_vault": "KM-AG002",
+      "security_level": 4,
+      "allowed_write_paths": [
+        "/01_Executive/coo/"
+      ]
+    },
+    {
+      "agent_id": "AG-003",
+      "name": "Sebastian",
+      "role": "Art Director",
+      "department": "03_Design",
+      "memory_vault": "KM-AG003",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/03_Design_Creativity/art/"
+      ]
+    },
+    {
+      "agent_id": "AG-004",
+      "name": "Jony",
+      "role": "Lead Frontend Engineer",
+      "department": "02_Technology",
+      "memory_vault": "KM-AG004",
+      "security_level": 3,
+      "allowed_write_paths": [
+        "/02_Technology/frontend-next15/"
+      ]
+    },
+    {
+      "agent_id": "AG-005",
+      "name": "Cyrus",
+      "role": "Lead Backend Engineer",
+      "department": "02_Technology",
+      "memory_vault": "KM-AG005",
+      "security_level": 3,
+      "allowed_write_paths": [
+        "/02_Technology/backend-apis/"
+      ]
+    },
+    {
+      "agent_id": "AG-006",
+      "name": "Orion",
+      "role": "DevOps & Infrastructure Specialist",
+      "department": "02_Technology",
+      "memory_vault": "KM-AG006",
+      "security_level": 4,
+      "allowed_write_paths": [
+        "/02_Technology/devops-infra/"
+      ]
+    },
+    {
+      "agent_id": "AG-007",
+      "name": "Forge",
+      "role": "MCP Integration Specialist",
+      "department": "02_Technology",
+      "memory_vault": "KM-AG007",
+      "security_level": 3,
+      "allowed_write_paths": [
+        "/02_Technology/mcp-protocols/"
+      ]
+    },
+    {
+      "agent_id": "AG-008",
+      "name": "Ava",
+      "role": "QA & Testing Specialist",
+      "department": "02_Technology",
+      "memory_vault": "KM-AG008",
+      "security_level": 3,
+      "allowed_write_paths": [
+        "/02_Technology/tests-qa/"
+      ]
+    },
+    {
+      "agent_id": "AG-009",
+      "name": "Neo",
+      "role": "AI Architect & LLMOps",
+      "department": "02_Technology",
+      "memory_vault": "KM-AG009",
+      "security_level": 4,
+      "allowed_write_paths": [
+        "/02_Technology/ai-llm-core/"
+      ]
+    },
+    {
+      "agent_id": "AG-010",
+      "name": "Camila",
+      "role": "Branding & Visual Identity Specialist",
+      "department": "03_Design",
+      "memory_vault": "KM-AG010",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/03_Design_Creativity/branding/"
+      ]
+    },
+    {
+      "agent_id": "AG-011",
+      "name": "Lucas",
+      "role": "UI/UX & Web Designer Principal",
+      "department": "03_Design",
+      "memory_vault": "KM-AG011",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/03_Design_Creativity/ui-ux/"
+      ]
+    },
+    {
+      "agent_id": "AG-012",
+      "name": "Valentina",
+      "role": "Graphic Designer & Product Assets",
+      "department": "03_Design",
+      "memory_vault": "KM-AG012",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/03_Design_Creativity/graphics/"
+      ]
+    },
+    {
+      "agent_id": "AG-013",
+      "name": "Mateo",
+      "role": "Motion Designer & Video Broadcast Editor",
+      "department": "03_Design",
+      "memory_vault": "KM-AG013",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/03_Design_Creativity/motion-tv/"
+      ]
+    },
+    {
+      "agent_id": "AG-014",
+      "name": "Emma",
+      "role": "Project Manager & Sprint Lead",
+      "department": "01_Executive",
+      "memory_vault": "KM-AG014",
+      "security_level": 4,
+      "allowed_write_paths": [
+        "/01_Executive/pm/"
+      ]
+    },
+    {
+      "agent_id": "AG-015",
+      "name": "NOVA",
+      "role": "CMO & Growth Lead",
+      "department": "04_Marketing",
+      "memory_vault": "KM-AG015",
+      "security_level": 3,
+      "allowed_write_paths": [
+        "/04_Marketing_Growth/cmo/"
+      ]
+    },
+    {
+      "agent_id": "AG-016",
+      "name": "Atlas",
+      "role": "SEO & Digital Traffic Specialist",
+      "department": "04_Marketing",
+      "memory_vault": "KM-AG016",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/04_Marketing_Growth/seo/"
+      ]
+    },
+    {
+      "agent_id": "AG-017",
+      "name": "Clara",
+      "role": "Community Manager & Social Media Lead",
+      "department": "04_Marketing",
+      "memory_vault": "KM-AG017",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/04_Marketing_Growth/social/"
+      ]
+    },
+    {
+      "agent_id": "AG-018",
+      "name": "Maya",
+      "role": "Copywriter & Bilingual Document Translator",
+      "department": "04_Marketing",
+      "memory_vault": "KM-AG018",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/04_Marketing_Growth/copywriting/"
+      ]
+    },
+    {
+      "agent_id": "AG-019",
+      "name": "Lex",
+      "role": "Legal Counsel & IP Protection",
+      "department": "05_Finance_Legal",
+      "memory_vault": "KM-AG019",
+      "security_level": 5,
+      "allowed_write_paths": [
+        "/05_Finance_Legal/legal/"
+      ]
+    },
+    {
+      "agent_id": "AG-020",
+      "name": "Leo",
+      "role": "CFO & Financial Director",
+      "department": "05_Finance_Legal",
+      "memory_vault": "KM-AG020",
+      "security_level": 5,
+      "allowed_write_paths": [
+        "/05_Finance_Legal/finanzas/"
+      ]
+    },
+    {
+      "agent_id": "AG-021",
+      "name": "Kine",
+      "role": "Biomechanics Lead & Markerless Specialist",
+      "department": "06_Sports_Science",
+      "memory_vault": "KM-AG021",
+      "security_level": 5,
+      "allowed_write_paths": [
+        "/06_Sports_Science/kinebase/"
+      ]
+    },
+    {
+      "agent_id": "AG-022",
+      "name": "Aria",
+      "role": "Sports Performance & Injury Analyst",
+      "department": "06_Sports_Science",
+      "memory_vault": "KM-AG022",
+      "security_level": 5,
+      "allowed_write_paths": [
+        "/06_Sports_Science/performance/"
+      ]
+    },
+    {
+      "agent_id": "AG-023",
+      "name": "Aegis",
+      "role": "CISO & Cybersecurity Director",
+      "department": "07_Cybersecurity",
+      "memory_vault": "KM-AG023",
+      "security_level": 5,
+      "allowed_write_paths": [
+        "/07_Cybersecurity/ciso/"
+      ]
+    },
+    {
+      "agent_id": "AG-024",
+      "name": "Vanguard",
+      "role": "SecOps & Pentesting Engineer",
+      "department": "07_Cybersecurity",
+      "memory_vault": "KM-AG024",
+      "security_level": 5,
+      "allowed_write_paths": [
+        "/07_Cybersecurity/secops/"
+      ]
+    },
+    {
+      "agent_id": "AG-025",
+      "name": "Hermes",
+      "role": "Sales Lead & B2B Business Development",
+      "department": "09_Sales_Accounts",
+      "memory_vault": "KM-AG025",
+      "security_level": 3,
+      "allowed_write_paths": [
+        "/09_Sales_Accounts/sales/"
+      ]
+    },
+    {
+      "agent_id": "AG-026",
+      "name": "Oracle",
+      "role": "Data Scraping & Market Intelligence Lead",
+      "department": "08_Market_Intelligence",
+      "memory_vault": "KM-AG026",
+      "security_level": 3,
+      "allowed_write_paths": [
+        "/08_Market_Intelligence/scraping/"
+      ]
+    },
+    {
+      "agent_id": "AG-027",
+      "name": "Scout",
+      "role": "Research & Industry Trend Analyst",
+      "department": "08_Market_Intelligence",
+      "memory_vault": "KM-AG027",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/08_Market_Intelligence/scouting/"
+      ]
+    },
+    {
+      "agent_id": "AG-028",
+      "name": "Titan",
+      "role": "Account Manager & Club Relations",
+      "department": "09_Sales_Accounts",
+      "memory_vault": "KM-AG028",
+      "security_level": 3,
+      "allowed_write_paths": [
+        "/09_Sales_Accounts/accounts/"
+      ]
+    },
+    {
+      "agent_id": "AG-029",
+      "name": "Raven",
+      "role": "Visual Intelligence & Competitor Analyst",
+      "department": "08_Market_Intelligence",
+      "memory_vault": "KM-AG029",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/08_Market_Intelligence/competitor/"
+      ]
+    },
+    {
+      "agent_id": "AG-030",
+      "name": "Journalist",
+      "role": "Broadcast News & TV Script Editor",
+      "department": "08_Market_Intelligence",
+      "memory_vault": "KM-AG030",
+      "security_level": 2,
+      "allowed_write_paths": [
+        "/08_Market_Intelligence/news-tv/"
+      ]
+    },
+    {
+      "agent_id": "AG-031",
+      "name": "Concierge",
+      "role": "Customer Success & VIP Athlete Support",
+      "department": "10_Customer_Success",
+      "memory_vault": "KM-AG031",
+      "security_level": 4,
+      "allowed_write_paths": [
+        "/10_Customer_Success/concierge/"
+      ]
+    }
+  ]
+}

@@ -20,7 +20,6 @@ const dict = {
     stats: [
       { value: 26, suffix: "", label: "Years Field Experience" },
       { value: 100, suffix: "%", label: "Data-Driven Focus" },
-      { value: 24, suffix: "/7", label: "Autonomous Analysis" },
       { value: 0, suffix: "", label: "Human Bias" },
     ],
     whatWeDo: "What We Do",
@@ -32,7 +31,7 @@ const dict = {
       { title: "Automation", desc: "Streamline your workflows with custom automation pipelines, saving time and eliminating human error in sports scouting." },
       { title: "AI Implementation", desc: "Integration of predictive LLMs and computer vision into your ecosystem. We deploy artificial intelligence that actually works." },
       { title: "Cinematic Drone Services", desc: "High-speed drone tracking and aerial videography. We capture breathtaking angles for performance analysis and commercial sports marketing." },
-      { title: "AI Agents", desc: "Autonomous AI agents tailored for your business. We build smart assistants that operate 24/7, driving engagement and automating complex tasks." },
+      { title: "AI Agents", desc: "Custom autonomous AI agents built for your business. We design intelligent assistants that operate 24/7, automating complex workflows and elevating fan & athlete engagement." },
     ],
     caseStudy: "Case Study 01",
     pro: "Pro",
@@ -68,7 +67,7 @@ const dict = {
     placeholderName: "e.g. John Doe",
     placeholderEmail: "e.g. john@company.com",
     placeholderIdea: "e.g. We want a scouting app...",
-    whoDaresWins: "Who Dares Wins *sas*",
+    whoDaresWins: "Who Dares Wins",
     scoutAi: "Kinebase",
     
     // Diario translations
@@ -81,7 +80,7 @@ const dict = {
     saveEntry: "Save Article",
     recentEntries: "Recent Articles",
     reflection: "Design Reflection",
-    lorem: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    lorem: "Deep analysis and investigative reporting at the intersection of professional sports, biomechanics, data science, and artificial intelligence.",
     
     // Sports News (Formerly In the Play)
     inThePlayTitle: "Sports News",
@@ -205,7 +204,7 @@ const dict = {
       { title: "Automatización", desc: "Optimizamos tus flujos de trabajo con pipelines automáticos, ahorrando tiempo y eliminando el error humano en el scouting deportivo." },
       { title: "Implementación de IA", desc: "Integración de LLMs predictivos y visión por computadora en tu ecosistema. Desplegamos inteligencia artificial que realmente funciona." },
       { title: "Servicios de Dron Cinemático", desc: "Grabación aérea de alta velocidad y seguimiento con drones. Capturamos ángulos impresionantes para análisis de rendimiento y publicidad deportiva." },
-      { title: "Agentes de IA", desc: "Agentes autónomos de IA a la medida de tu negocio. Creamos asistentes inteligentes que operan 24/7, automatizando tareas complejas y mejorando el engagement." },
+      { title: "Agentes de IA", desc: "Agentes autónomos de IA a la medida de tu negocio. Creamos asistentes inteligentes que operan 24/7, automatizando tareas complejas y mejorando el engagement de fans y atletas." },
     ],
     caseStudy: "Caso de Estudio 01",
     pro: "Pro",
@@ -241,7 +240,7 @@ const dict = {
     placeholderName: "ej. Juan Pérez",
     placeholderEmail: "ej. juan@empresa.com",
     placeholderIdea: "ej. Queremos una app de scouting...",
-    whoDaresWins: "Quien Arriesga Gana *sas*",
+    whoDaresWins: "Quien Arriesga Gana",
     scoutAi: "Kinebase",
     
     // Diario translations
@@ -254,7 +253,7 @@ const dict = {
     saveEntry: "Guardar Artículo",
     recentEntries: "Artículos Recientes",
     reflection: "Reflexión de Diseño",
-    lorem: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    lorem: "Análisis profundo y reportajes de investigación en la intersección del deporte profesional, la biomecánica, la ciencia de datos y la inteligencia artificial.",
     
     // Sports News (Formerly In the Play)
     inThePlayTitle: "Noticiero",

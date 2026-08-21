@@ -143,24 +143,24 @@ export default function Contact() {
                     <input type="hidden" name="form_rendered_at" value={Date.now()} />
 
                     <div>
-                      <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
+                      <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/60 mb-2">
                         {isEs ? "Organización / Equipo" : "Organization / Team"}
                       </label>
-                      <input name="organization" required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors" placeholder={isEs ? "Ej. New York Yankees" : "e.g. New York Yankees"} />
+                      <input name="organization" required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brandOrange focus:border-transparent transition-all" placeholder={isEs ? "Ej. New York Yankees" : "e.g. New York Yankees"} />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
+                        <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/60 mb-2">
                           {isEs ? "Nombre" : "Name"}
                         </label>
-                        <input name="name" required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors" placeholder="John Doe" />
+                        <input name="name" required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brandOrange focus:border-transparent transition-all" placeholder="John Doe" />
                       </div>
                       <div>
-                        <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
+                        <label className="block font-mono text-[10px] font-bold uppercase tracking-widest text-white/60 mb-2">
                           {isEs ? "Correo Electrónico" : "Email"}
                         </label>
-                        <input name="email" required type="email" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors" placeholder="john@example.com" />
+                        <input name="email" required type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-brandOrange focus:border-transparent transition-all" placeholder="john@example.com" />
                       </div>
                     </div>
 

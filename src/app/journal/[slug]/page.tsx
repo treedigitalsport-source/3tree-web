@@ -13,7 +13,6 @@ export function generateStaticParams() {
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   // Find article in either array
-  // @ts-ignore
   const article = [...aiArticles, ...neilArticles].find((a) => a.slug === resolvedParams.slug);
 
   if (!article) {

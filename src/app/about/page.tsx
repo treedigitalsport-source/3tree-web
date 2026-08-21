@@ -116,9 +116,9 @@ export default function AboutPage() {
               <table className="w-full text-left border-collapse min-w-[700px]">
                 <thead>
                   <tr className="border-b border-white/10 bg-white/[0.02]">
-                    <th className="p-6 font-mono text-xs uppercase tracking-widest text-white/50 w-1/4">{t.about.tableHeaders[0]}</th>
-                    <th className="p-6 font-mono text-xs uppercase tracking-widest text-white/50 w-1.5/4">{t.about.tableHeaders[1]}</th>
-                    <th className="p-6 font-mono text-xs uppercase tracking-widest text-brandOrange w-2/4">{t.about.tableHeaders[2]}</th>
+                    <th className="p-4 sm:p-6 font-mono text-xs uppercase tracking-widest text-white/70 w-1/4">{t.about.tableHeaders[0]}</th>
+                    <th className="p-4 sm:p-6 font-mono text-xs uppercase tracking-widest text-white/70 w-1/3">{t.about.tableHeaders[1]}</th>
+                    <th className="p-4 sm:p-6 font-mono text-xs uppercase tracking-widest text-brandOrange w-5/12">{t.about.tableHeaders[2]}</th>
                   </tr>
                 </thead>
                 <tbody>
