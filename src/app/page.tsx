@@ -256,42 +256,46 @@ export default function MainContent() {
         transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ${
           isScrolled
-            ? "py-3 bg-[#020617]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl"
-            : "py-4 md:py-6 bg-gradient-to-b from-[#020617]/90 via-[#020617]/40 to-transparent border-b border-transparent"
+            ? "py-2.5 bg-[#020617]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+            : "py-3.5 md:py-4 bg-gradient-to-b from-[#020617]/90 via-[#020617]/40 to-transparent border-b border-transparent"
         }`}
       >
         <div className="w-full px-6 md:px-12 lg:px-16 flex items-center justify-between">
-          {/* Clickable Large Responsive Logo (Anchored to the left) */}
+          {/* Clickable Large Brand Responsive Logo (65% Scaled) */}
           <Link href="/" className="flex items-center hoverable group z-50 shrink-0">
-            <div className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto flex items-center relative transition-all duration-300 group-hover:opacity-95">
+            <div className="h-16 sm:h-18 md:h-22 lg:h-24 w-auto flex items-center relative transition-all duration-300 group-hover:scale-[1.02]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-auto max-h-28 max-w-[300px] md:max-w-[360px] object-contain object-left drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]" />
+              <img 
+                src="/icons/logo-3tree.png" 
+                alt="3Tree Digital" 
+                className="h-full w-auto max-h-24 max-w-[270px] sm:max-w-[330px] md:max-w-[380px] lg:max-w-[420px] object-contain object-left drop-shadow-[0_4px_25px_rgba(0,0,0,0.85)] filter brightness-105" 
+              />
             </div>
           </Link>
 
-          {/* Desktop Navigation Links (Separación armónica equilibrada) */}
-          <div className="hidden lg:flex ml-8 xl:ml-14 mr-auto gap-5 xl:gap-8 text-[13px] xl:text-[14px] font-sans font-bold tracking-wider uppercase text-white/85 items-center">
+          {/* Desktop Navigation Links (Posición fija y estable, sin moverse) */}
+          <div className="hidden lg:flex gap-5 xl:gap-8 text-[11px] xl:text-[12px] font-mono font-bold tracking-wider uppercase text-white/80 items-center">
             {navLinks.map((link) => (
               <div key={link.href} className="relative group/nav whitespace-nowrap">
                 <Link href={link.href} className="hoverable hover:text-brandOrange transition-colors duration-300 flex items-center py-1">
                   {link.label}
                 </Link>
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brandOrange group-hover/nav:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-brandOrange group-hover/nav:w-full transition-all duration-300"></span>
               </div>
             ))}
           </div>
 
           {/* Desktop Header Actions */}
-          <div className="hidden sm:flex items-center gap-3 md:gap-4 shrink-0">
+          <div className="hidden sm:flex items-center gap-2.5 md:gap-3 shrink-0">
             <button 
               onClick={toggleLang}
-              className="group hoverable flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-white/85 hover:text-white transition-colors px-3.5 py-2 border border-white/15 rounded-full bg-white/[0.04] backdrop-blur-md hover:border-brandOrange/40"
+              className="group hoverable flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors px-3 py-1.5 border border-white/15 rounded-full bg-white/[0.04] backdrop-blur-md hover:border-brandOrange/40"
             >
-              <Globe className="w-3.5 h-3.5 text-white/70 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
+              <Globe className="w-3 h-3 text-white/70 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
             </button>
             
-            <Link href="/contact" className="hoverable flex items-center gap-2 bg-brandOrange text-white px-6 md:px-7 py-3 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-lg shadow-brandOrange/25">
-              {t.cta} <ArrowUpRight className="w-3.5 h-3.5" />
+            <Link href="/contact" className="hoverable flex items-center gap-1.5 bg-brandOrange text-white px-5 md:px-6 py-2 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-md shadow-brandOrange/25">
+              {t.cta} <ArrowUpRight className="w-3 h-3" />
             </Link>
           </div>
 
@@ -306,10 +310,10 @@ export default function MainContent() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.05] backdrop-blur-md flex items-center justify-center text-white hover:text-brandOrange hover:border-brandOrange/40 transition-colors"
+              className="w-9 h-9 rounded-full border border-white/15 bg-white/[0.05] backdrop-blur-md flex items-center justify-center text-white hover:text-brandOrange hover:border-brandOrange/40 transition-colors"
               aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
@@ -371,24 +375,24 @@ export default function MainContent() {
         {/* Capa 2: Overlay de oscurecimiento para legibilidad del texto */}
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/80 via-[#020617]/40 to-[#020617]/90 pointer-events-none" />
 
-        {/* Hero Content Container - Directly Below Logo & Main Menu Text (Where Video Was) */}
-        <div className="w-full max-w-[96%] mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-36 sm:pt-44 md:pt-52 pb-16">
-          <div className="max-w-6xl">
+        {/* Hero Content Container - Perfectamente Equilibrado */}
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-28 md:pt-36 pb-16">
+          <div className="max-w-4xl">
             
-            {/* Tag Line (Alineación armónica) */}
+            {/* Tag Line */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-4 md:mt-8 mb-8 ml-0 md:ml-6 lg:ml-8"
+              className="mb-6"
             >
-              <span className="inline-flex items-center text-brandOrange font-mono text-sm md:text-base tracking-[0.4em] uppercase font-bold drop-shadow-[0_2px_12px_rgba(242,101,34,0.35)]">
+              <span className="inline-flex items-center text-brandOrange font-mono text-xs md:text-sm tracking-[0.3em] uppercase font-bold drop-shadow-[0_2px_10px_rgba(242,101,34,0.3)]">
                 --{t.tagline}--
               </span>
             </motion.div>
 
-            {/* Main Title con Tipografía Syne Ultra-Moderna, Compacta y Equilibrada */}
-            <h1 className="font-display font-black text-[clamp(2.2rem,4.2vw,4.2rem)] text-white uppercase leading-[0.9] tracking-[-0.02em] max-w-2xl relative z-20 pointer-events-none ml-0 md:ml-6 lg:ml-8 drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]">
+            {/* Main Title con Tipografía Syne Proporcionada y Elegante */}
+            <h1 className="font-display font-black text-[clamp(2rem,3.8vw,3.8rem)] text-white uppercase leading-[0.92] tracking-[-0.02em] max-w-xl relative z-20 pointer-events-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]">
               {/* Dynamic Rotating Line 1 */}
               <div className="overflow-hidden">
                 <motion.div
@@ -431,7 +435,7 @@ export default function MainContent() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 1 }}
-              className="mt-10 text-white/45 text-base md:text-lg font-light leading-[1.8] max-w-lg tracking-wide ml-0 md:ml-6 lg:ml-8"
+              className="mt-8 text-white/50 text-sm md:text-base font-light leading-[1.7] max-w-lg tracking-wide"
             >
               {t.heroDesc}
             </motion.p>
@@ -441,7 +445,7 @@ export default function MainContent() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 1.2 }}
-              className="mt-10 mb-16 flex flex-col sm:flex-row items-start gap-4 md:gap-6 ml-0 md:ml-6 lg:ml-8"
+              className="mt-8 mb-12 flex flex-col sm:flex-row items-start gap-4 md:gap-6"
             >
               <MagneticButton href="/contact" className="hoverable inline-flex items-center justify-center gap-2 bg-brandOrange text-white px-8 py-4 rounded-full text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500 shadow-[0_0_30px_rgba(242,101,34,0.3)]">
                 {isEs ? "Agendar Demostración" : "Book a Demo"}
