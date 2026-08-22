@@ -6,16 +6,27 @@ let initialized = false;
 
 if (getApps().length === 0) {
   try {
+    // 1. Intentar con archivo de credenciales local
     const serviceAccount = require("../../firebase-service-account.json");
     initializeApp({
       credential: cert(serviceAccount),
       storageBucket: "treedigital-2fe4b.appspot.com"
     });
     initialized = true;
-  } catch (error) {
-    // If running in cloud environment without local credentials, fallback safely
+  } catch {
+    // 2. Intentar con variables individuales de entorno (.env / Vercel)
     try {
-      if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+      if (process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) {
+        initializeApp({
+          credential: cert({
+            projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "treedigital-2fe4b",
+            clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+            privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+          }),
+          storageBucket: "treedigital-2fe4b.appspot.com"
+        });
+        initialized = true;
+      } else if (process.env.FIREBASE_SERVICE_ACCOUNT) {
         const parsed = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
         initializeApp({
           credential: cert(parsed),
@@ -24,7 +35,7 @@ if (getApps().length === 0) {
         initialized = true;
       }
     } catch (e) {
-      // safe fallback
+      console.warn("Firebase Admin fallback initialization error:", e);
     }
   }
 } else {
@@ -33,3 +44,4 @@ if (getApps().length === 0) {
 
 export const db = initialized ? getFirestore() : (null as unknown as Firestore);
 export const storage = initialized ? getStorage() : (null as unknown as Storage);
+
