@@ -65,31 +65,41 @@ export async function submitContactForm(formData: FormData) {
     validTimestamps.push(now);
     submissionRateMap.set(ip, validTimestamps);
 
-    await db.collection("leads").add({
-      organization,
-      name,
-      email,
-      service,
-      message,
-      createdAt: new Date().toISOString(),
-      status: "new"
-    });
+    try {
+      if (db) {
+        await db.collection("leads").add({
+          organization,
+          name,
+          email,
+          service,
+          message,
+          createdAt: new Date().toISOString(),
+          status: "new"
+        });
+      }
+    } catch (dbErr) {
+      console.warn("Database storage fallback warning:", dbErr);
+    }
 
     if (process.env.RESEND_API_KEY && process.env.CEO_EMAIL) {
-      await resend?.emails.send({
-        from: "Acme <onboarding@resend.dev>",
-        to: process.env.CEO_EMAIL,
-        subject: `Nuevo Lead 3Tree (Verificado Humano): ${organization} - ${name}`,
-        html: `
-          <h1>Nuevo Mensaje de Contacto (Humano Verificado)</h1>
-          <p><strong>Organización/Equipo:</strong> ${organization}</p>
-          <p><strong>Contacto:</strong> ${name}</p>
-          <p><strong>Correo:</strong> ${email}</p>
-          <p><strong>Servicio de interés:</strong> ${service}</p>
-          <p><strong>Mensaje:</strong></p>
-          <p>${message}</p>
-        `,
-      });
+      try {
+        await resend?.emails.send({
+          from: "3Tree Digital <onboarding@resend.dev>",
+          to: process.env.CEO_EMAIL,
+          subject: `Nuevo Lead 3Tree: ${organization} - ${name}`,
+          html: `
+            <h2>Nuevo Mensaje de Contacto (Verificado)</h2>
+            <p><strong>Organización/Equipo:</strong> ${organization}</p>
+            <p><strong>Contacto:</strong> ${name}</p>
+            <p><strong>Correo:</strong> ${email}</p>
+            <p><strong>Servicio de interés:</strong> ${service}</p>
+            <p><strong>Mensaje:</strong></p>
+            <p>${message}</p>
+          `,
+        });
+      } catch (emailErr) {
+        console.error("Error sending email notification:", emailErr);
+      }
     }
 
     return { success: true };
@@ -116,24 +126,34 @@ export async function submitQuickLead(emailRaw: string) {
     validTimestamps.push(now);
     submissionRateMap.set(ip, validTimestamps);
 
-    await db.collection("leads").add({
-      email,
-      source: "Quick Lead Form",
-      createdAt: new Date().toISOString(),
-      status: "new"
-    });
+    try {
+      if (db) {
+        await db.collection("leads").add({
+          email,
+          source: "Quick Lead Form",
+          createdAt: new Date().toISOString(),
+          status: "new"
+        });
+      }
+    } catch (dbErr) {
+      console.warn("Database storage fallback warning:", dbErr);
+    }
 
     if (process.env.RESEND_API_KEY && process.env.CEO_EMAIL) {
-      await resend?.emails.send({
-        from: "Acme <onboarding@resend.dev>",
-        to: process.env.CEO_EMAIL,
-        subject: `Nuevo Lead Rápido (Suscripción): ${email}`,
-        html: `
-          <h1>Nuevo Email Capturado</h1>
-          <p>Un usuario dejó su correo electrónico en la página principal.</p>
-          <p><strong>Correo:</strong> ${email}</p>
-        `,
-      });
+      try {
+        await resend?.emails.send({
+          from: "3Tree Digital <onboarding@resend.dev>",
+          to: process.env.CEO_EMAIL,
+          subject: `Nuevo Lead Rápido (Suscripción): ${email}`,
+          html: `
+            <h2>Nuevo Email Capturado</h2>
+            <p>Un usuario dejó su correo electrónico en la página principal.</p>
+            <p><strong>Correo:</strong> ${email}</p>
+          `,
+        });
+      } catch (emailErr) {
+        console.error("Error sending email notification:", emailErr);
+      }
     }
     return { success: true };
   } catch (error) {
