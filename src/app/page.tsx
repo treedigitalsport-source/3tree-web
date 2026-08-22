@@ -502,9 +502,9 @@ export default function MainContent() {
       {/* ─── SERVICES: 3-ZONE EDITORIAL LAYOUT ─── */}
       <section id="services" className="relative z-20 w-full bg-[#020617] border-b border-white/10">
 
-        {/* ZONE 1: Section Header + Badge (full-width) */}
-        <div className="w-full border-b border-white/10 px-8 md:px-16 lg:px-20 py-12 md:py-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-          <div>
+        {/* ZONE 1: Section Header + Badge */}
+        <div className="w-full border-b border-white/10 px-6 sm:px-10 md:px-12 lg:px-16 py-12 md:py-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 max-w-7xl mx-auto">
+          <div className="max-w-xl">
             <div className="inline-flex items-center gap-3 bg-brandOrange/10 border border-brandOrange/30 text-brandOrange px-5 py-2.5 text-[10px] font-mono font-bold uppercase tracking-widest mb-6">
               <Bot className="w-3.5 h-3.5" />
               {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
@@ -521,13 +521,13 @@ export default function MainContent() {
           </div>
 
           {/* Stats Row */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 shrink-0 lg:max-w-[600px] w-full lg:w-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 border border-white/10 shrink-0 lg:max-w-[680px] w-full lg:w-auto rounded-2xl overflow-hidden shadow-xl">
             {t.stats.map((stat, i) => (
-              <div key={i} className="bg-[#020617] flex flex-col items-center justify-center text-center px-6 py-8 group hover:bg-brandOrange/5 transition-colors">
-                <span className="font-display text-3xl md:text-5xl font-black text-white group-hover:text-brandOrange transition-colors leading-none">
+              <div key={i} className="bg-[#020617] flex flex-col items-center justify-center text-center px-4 py-7 md:px-5 md:py-8 group hover:bg-brandOrange/5 transition-colors">
+                <span className="font-display text-3xl md:text-4xl lg:text-5xl font-black text-white group-hover:text-brandOrange transition-colors leading-none">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/35 mt-3 leading-relaxed">{stat.label}</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/40 mt-3 leading-tight min-h-[22px] flex items-center justify-center">{stat.label}</span>
               </div>
             ))}
           </div>
