@@ -392,14 +392,14 @@ export default function MainContent() {
             </motion.div>
 
             {/* Main Title con Tipografía Syne Proporcionada, Sólida y Sin Cortes */}
-            <h1 className="font-display font-black text-[clamp(2.2rem,4vw,4rem)] text-white uppercase leading-[1.12] tracking-[-0.02em] max-w-xl relative z-20 pointer-events-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] overflow-visible">
-              {/* Line 1: DISEÑAMOS (100% Visible, sin cortes) */}
+            <h1 className="font-display font-black text-[clamp(1.8rem,3.2vw,3.2rem)] text-white uppercase leading-[1.15] tracking-normal max-w-2xl relative z-20 pointer-events-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] overflow-visible">
+              {/* Line 1: DISEÑAMOS (Tamaño calibrado, S 100% visible) */}
               <div className="pt-2 pb-1 overflow-visible">
                 <motion.span
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="block text-white font-extrabold tracking-tight"
+                  className="inline-block text-hero-gradient font-extrabold tracking-normal pr-4"
                 >
                   {t.heroLine1}
                 </motion.span>
@@ -411,7 +411,7 @@ export default function MainContent() {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 1, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                  className="block font-serif italic font-normal tracking-wide bg-gradient-to-r from-brandOrange via-[#ff8c42] to-[#ffb07c] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(242,101,34,0.5)]"
+                  className="inline-block font-serif italic font-normal tracking-wide bg-gradient-to-r from-brandOrange via-[#ff8c42] to-[#ffb07c] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(242,101,34,0.5)] pr-4"
                 >
                   {t.heroLine2}
                 </motion.span>

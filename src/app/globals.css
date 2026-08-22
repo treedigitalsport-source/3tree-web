@@ -67,3 +67,29 @@ body {
   animation: laser-sweep 5s linear infinite;
   filter: drop-shadow(0 0 25px rgba(242, 101, 34, 0.35));
 }
+
+@keyframes hero-shimmer-sweep {
+  0% {
+    background-position: -200% 0;
+  }
+  35%, 100% {
+    background-position: 200% 0;
+  }
+}
+
+.text-hero-gradient {
+  background: linear-gradient(
+    115deg,
+    #ffffff 0%,
+    #ffffff 38%,
+    #f26522 50%,
+    #ffffff 62%,
+    #ffffff 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hero-shimmer-sweep 6s ease-in-out infinite;
+  filter: drop-shadow(0px 4px 25px rgba(255, 255, 255, 0.4));
+}
