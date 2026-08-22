@@ -181,7 +181,7 @@ const dict = {
     tagline: "Sports Intelligence Company",
     heroLine1: "Diseñamos",
     heroLine2: "El Futuro",
-    heroLine3: "De Los Deportes.",
+    heroLine3: "Del Deporte.",
     heroDesc: "Fusionamos diseño de alto rendimiento, análisis de datos y desarrollo de vanguardia para la industria deportiva.",
     biomechanics: "Biomecánica Markerless",
     scouting: "Scouting Predictivo",

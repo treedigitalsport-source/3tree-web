@@ -139,8 +139,8 @@ function MagneticButton({ children, className = "", href = "#" }: { children: Re
 /*  ROTATING HERO VERB (DYNAMIC ANIMATED "WE DESIGN")                         */
 /* ══════════════════════════════════════════════════════════════════════════ */
 function RotatingHeroVerb({ isEs }: { isEs: boolean }) {
-  const wordsEn = ["DESIGN", "ENGINEER", "QUANTIFY", "ACCELERATE", "DECODE"];
-  const wordsEs = ["DISEÑAMOS", "INGENIAMOS", "CUANTIFICAMOS", "ACELERAMOS", "DECODIFICAMOS"];
+  const wordsEn = ["DESIGN", "ENGINEER", "ACCELERATE", "INNOVATE", "POWER"];
+  const wordsEs = ["DISEÑAMOS", "CREAMOS", "IMPULSAMOS", "INNOVAMOS", "POTENCIAMOS"];
   const words = isEs ? wordsEs : wordsEn;
   const [index, setIndex] = useState(0);
 
@@ -257,20 +257,20 @@ export default function MainContent() {
         className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ${
           isScrolled
             ? "py-3 bg-[#020617]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl"
-            : "py-4 md:py-5 bg-gradient-to-b from-[#020617]/90 via-[#020617]/40 to-transparent border-b border-transparent"
+            : "py-4 md:py-6 bg-gradient-to-b from-[#020617]/90 via-[#020617]/40 to-transparent border-b border-transparent"
         }`}
       >
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Clickable Responsive Logo */}
+        <div className="w-full px-6 md:px-12 lg:px-16 flex items-center justify-between">
+          {/* Clickable Large Responsive Logo (Anchored to the left) */}
           <Link href="/" className="flex items-center hoverable group z-50 shrink-0">
-            <div className="h-14 sm:h-16 md:h-20 lg:h-24 w-[200px] sm:w-[260px] md:w-[320px] lg:w-[360px] flex items-center relative transition-all duration-300 group-hover:opacity-90">
+            <div className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto flex items-center relative transition-all duration-300 group-hover:opacity-95">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-full object-contain object-left" />
+              <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-auto max-h-28 max-w-[300px] md:max-w-[360px] object-contain object-left drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]" />
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex gap-4 xl:gap-7 text-[13px] xl:text-[14px] font-mono font-medium tracking-wide uppercase text-white/80 items-center">
+          {/* Desktop Navigation Links (Separación armónica equilibrada) */}
+          <div className="hidden lg:flex ml-8 xl:ml-14 mr-auto gap-5 xl:gap-8 text-[13px] xl:text-[14px] font-sans font-bold tracking-wider uppercase text-white/85 items-center">
             {navLinks.map((link) => (
               <div key={link.href} className="relative group/nav whitespace-nowrap">
                 <Link href={link.href} className="hoverable hover:text-brandOrange transition-colors duration-300 flex items-center py-1">
@@ -282,15 +282,15 @@ export default function MainContent() {
           </div>
 
           {/* Desktop Header Actions */}
-          <div className="hidden sm:flex items-center gap-2.5 md:gap-3.5 shrink-0">
+          <div className="hidden sm:flex items-center gap-3 md:gap-4 shrink-0">
             <button 
               onClick={toggleLang}
-              className="group hoverable flex items-center gap-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors px-3 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
+              className="group hoverable flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-white/85 hover:text-white transition-colors px-3.5 py-2 border border-white/15 rounded-full bg-white/[0.04] backdrop-blur-md hover:border-brandOrange/40"
             >
-              <Globe className="w-3.5 h-3.5 text-white/60 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
+              <Globe className="w-3.5 h-3.5 text-white/70 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
             </button>
             
-            <Link href="/contact" className="hoverable flex items-center gap-1.5 bg-brandOrange text-white px-5 md:px-6 py-2.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-md shadow-brandOrange/20">
+            <Link href="/contact" className="hoverable flex items-center gap-2 bg-brandOrange text-white px-6 md:px-7 py-3 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-lg shadow-brandOrange/25">
               {t.cta} <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -372,42 +372,42 @@ export default function MainContent() {
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/80 via-[#020617]/40 to-[#020617]/90 pointer-events-none" />
 
         {/* Hero Content Container - Directly Below Logo & Main Menu Text (Where Video Was) */}
-        <div className="w-full max-w-[96%] mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-32 md:pt-36 pb-16">
+        <div className="w-full max-w-[96%] mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-36 sm:pt-44 md:pt-52 pb-16">
           <div className="max-w-6xl">
             
-            {/* Tag Line */}
+            {/* Tag Line (Alineación armónica) */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-8 ml-0 md:ml-[60px]"
+              className="mt-4 md:mt-8 mb-8 ml-0 md:ml-6 lg:ml-8"
             >
-              <span className="inline-flex items-center text-brandOrange font-mono text-sm md:text-base tracking-[0.4em] uppercase font-bold">
+              <span className="inline-flex items-center text-brandOrange font-mono text-sm md:text-base tracking-[0.4em] uppercase font-bold drop-shadow-[0_2px_12px_rgba(242,101,34,0.35)]">
                 --{t.tagline}--
               </span>
             </motion.div>
 
-            {/* Main Title */}
-            <h1 className="font-display font-black text-[clamp(2rem,4.5vw,4.5rem)] text-white uppercase leading-[0.85] tracking-[-0.02em] max-w-5xl relative z-20 pointer-events-none mix-blend-difference ml-0 md:ml-[60px]">
+            {/* Main Title con Tipografía Syne Ultra-Moderna, Compacta y Equilibrada */}
+            <h1 className="font-display font-black text-[clamp(2.2rem,4.2vw,4.2rem)] text-white uppercase leading-[0.9] tracking-[-0.02em] max-w-2xl relative z-20 pointer-events-none ml-0 md:ml-6 lg:ml-8 drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]">
               {/* Dynamic Rotating Line 1 */}
               <div className="overflow-hidden">
                 <motion.div
                   initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
                   animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
                   transition={{ duration: 1.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="block text-white"
+                  className="block text-white font-extrabold tracking-tight"
                 >
                   <RotatingHeroVerb isEs={isEs} />
                 </motion.div>
               </div>
 
               {/* Line 2: The Future */}
-              <div className="overflow-hidden">
+              <div className="overflow-hidden my-1">
                 <motion.span
                   initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
                   animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
                   transition={{ duration: 1.6, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                  className="block font-serif italic font-normal tracking-normal text-[#f26522]"
+                  className="block font-serif italic font-normal tracking-wide bg-gradient-to-r from-brandOrange via-[#ff8c42] to-[#ffb07c] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(242,101,34,0.5)]"
                 >
                   {t.heroLine2}
                 </motion.span>
@@ -419,7 +419,7 @@ export default function MainContent() {
                   initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
                   animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
                   transition={{ duration: 1.6, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
-                  className="block text-white"
+                  className="block text-white font-black tracking-tight"
                 >
                   {t.heroLine3}
                 </motion.span>
@@ -431,7 +431,7 @@ export default function MainContent() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 1 }}
-              className="mt-10 text-white/45 text-base md:text-lg font-light leading-[1.8] max-w-lg tracking-wide ml-0 md:ml-[60px]"
+              className="mt-10 text-white/45 text-base md:text-lg font-light leading-[1.8] max-w-lg tracking-wide ml-0 md:ml-6 lg:ml-8"
             >
               {t.heroDesc}
             </motion.p>
@@ -441,7 +441,7 @@ export default function MainContent() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 1.2 }}
-              className="mt-10 mb-16 flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6 ml-0 md:ml-[60px]"
+              className="mt-10 mb-16 flex flex-col sm:flex-row items-start gap-4 md:gap-6 ml-0 md:ml-6 lg:ml-8"
             >
               <MagneticButton href="/contact" className="hoverable inline-flex items-center justify-center gap-2 bg-brandOrange text-white px-8 py-4 rounded-full text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500 shadow-[0_0_30px_rgba(242,101,34,0.3)]">
                 {isEs ? "Agendar Demostración" : "Book a Demo"}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Syne, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import "lenis/dist/lenis.css";
 import LoadingScreen from "@/components/ui/LoadingScreen";
@@ -9,6 +9,17 @@ import AgentChat from "@/components/ui/AgentChat";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -45,7 +56,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} antialiased`}
+      className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-black text-white font-sans">
         <LangProvider>
