@@ -503,33 +503,35 @@ export default function MainContent() {
       <section id="services" className="relative z-20 w-full bg-[#020617] border-b border-white/10">
 
         {/* ZONE 1: Section Header + Badge */}
-        <div className="w-full border-b border-white/10 px-6 sm:px-10 md:px-12 lg:px-16 py-12 md:py-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 max-w-7xl mx-auto">
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-3 bg-brandOrange/10 border border-brandOrange/30 text-brandOrange px-5 py-2.5 text-[10px] font-mono font-bold uppercase tracking-widest mb-6">
-              <Bot className="w-3.5 h-3.5" />
-              {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
-            </div>
-            <h2 className="font-display font-black uppercase leading-[0.85] tracking-tight text-5xl md:text-6xl lg:text-7xl">
-              {isEs ? "Arquitectura" : "System"}<br />
-              <span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
-                {isEs ? "del Sistema" : "Architecture"}
-              </span>
-            </h2>
-            <p className="font-mono text-xs text-white/40 tracking-widest uppercase mt-5 max-w-sm leading-relaxed">
-              {t.ourExpertise.join(" ")}
-            </p>
-          </div>
-
-          {/* Stats Row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 border border-white/10 shrink-0 lg:max-w-[680px] w-full lg:w-auto rounded-2xl overflow-hidden shadow-xl">
-            {t.stats.map((stat, i) => (
-              <div key={i} className="bg-[#020617] flex flex-col items-center justify-center text-center px-4 py-7 md:px-5 md:py-8 group hover:bg-brandOrange/5 transition-colors">
-                <span className="font-display text-3xl md:text-4xl lg:text-5xl font-black text-white group-hover:text-brandOrange transition-colors leading-none">
-                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/40 mt-3 leading-tight min-h-[22px] flex items-center justify-center">{stat.label}</span>
+        <div className="w-full border-b border-white/10">
+          <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-12 lg:px-16 py-10 md:py-14 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div className="max-w-xl">
+              <div className="inline-flex items-center gap-3 bg-brandOrange/10 border border-brandOrange/30 text-brandOrange px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-widest mb-5">
+                <Bot className="w-3.5 h-3.5" />
+                {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
               </div>
-            ))}
+              <h2 className="font-display font-black uppercase leading-[0.85] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+                {isEs ? "Arquitectura" : "System"}<br />
+                <span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
+                  {isEs ? "del Sistema" : "Architecture"}
+                </span>
+              </h2>
+              <p className="font-mono text-xs text-white/40 tracking-widest uppercase mt-4 max-w-sm leading-relaxed">
+                {t.ourExpertise.join(" ")}
+              </p>
+            </div>
+
+            {/* Stats Row (Sleek, Compact Telemetry Bar) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 border border-white/15 shrink-0 lg:max-w-[480px] w-full lg:w-auto rounded-xl overflow-hidden shadow-lg">
+              {t.stats.map((stat, i) => (
+                <div key={i} className="bg-[#020617] flex flex-col items-center justify-center text-center px-3 py-4 md:px-4 md:py-5 group hover:bg-brandOrange/5 transition-colors">
+                  <span className="font-display text-2xl md:text-3xl font-black text-white group-hover:text-brandOrange transition-colors leading-none tracking-tight">
+                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                  </span>
+                  <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-[0.12em] text-white/40 mt-2 leading-tight text-center">{stat.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
