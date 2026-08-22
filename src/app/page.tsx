@@ -391,26 +391,26 @@ export default function MainContent() {
               </span>
             </motion.div>
 
-            {/* Main Title con Tipografía Syne Proporcionada y Elegante */}
-            <h1 className="font-display font-black text-[clamp(2rem,3.8vw,3.8rem)] text-white uppercase leading-[0.92] tracking-[-0.02em] max-w-xl relative z-20 pointer-events-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]">
-              {/* Dynamic Rotating Line 1 */}
-              <div className="overflow-hidden">
-                <motion.div
-                  initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
-                  animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            {/* Main Title con Tipografía Syne Proporcionada, Sólida y Sin Cortes */}
+            <h1 className="font-display font-black text-[clamp(2.2rem,4vw,4rem)] text-white uppercase leading-[1.12] tracking-[-0.02em] max-w-xl relative z-20 pointer-events-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] overflow-visible">
+              {/* Line 1: DISEÑAMOS (100% Visible, sin cortes) */}
+              <div className="pt-2 pb-1 overflow-visible">
+                <motion.span
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                   className="block text-white font-extrabold tracking-tight"
                 >
-                  <RotatingHeroVerb isEs={isEs} />
-                </motion.div>
+                  {t.heroLine1}
+                </motion.span>
               </div>
 
               {/* Line 2: The Future */}
-              <div className="overflow-hidden my-1">
+              <div className="my-1 overflow-visible">
                 <motion.span
-                  initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
-                  animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.6, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
                   className="block font-serif italic font-normal tracking-wide bg-gradient-to-r from-brandOrange via-[#ff8c42] to-[#ffb07c] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(242,101,34,0.5)]"
                 >
                   {t.heroLine2}
@@ -418,11 +418,11 @@ export default function MainContent() {
               </div>
 
               {/* Line 3: Of Sports */}
-              <div className="overflow-hidden">
+              <div className="overflow-visible">
                 <motion.span
-                  initial={{ y: "150%", rotateX: 60, filter: "blur(20px)", opacity: 0, scale: 1.1 }}
-                  animate={{ y: 0, rotateX: 0, filter: "blur(0px)", opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.6, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
                   className="block text-white font-black tracking-tight"
                 >
                   {t.heroLine3}
