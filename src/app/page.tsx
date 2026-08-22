@@ -254,62 +254,64 @@ export default function MainContent() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 w-full z-50 px-4 sm:px-6 md:px-10 transition-all duration-500 flex justify-between items-center ${
+        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ${
           isScrolled
-            ? "py-3 md:py-4 bg-[#020617]/85 backdrop-blur-xl border-b border-white/10 shadow-2xl"
-            : "py-5 md:py-6 bg-gradient-to-b from-[#020617]/80 via-[#020617]/30 to-transparent border-b border-transparent"
+            ? "py-3 bg-[#020617]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+            : "py-4 md:py-5 bg-gradient-to-b from-[#020617]/90 via-[#020617]/40 to-transparent border-b border-transparent"
         }`}
       >
-        {/* Clickable Responsive Logo */}
-        <Link href="/" className="flex items-center hoverable group z-50">
-          <div className="h-12 sm:h-16 md:h-20 w-[170px] sm:w-[220px] md:w-[300px] flex items-center relative transition-all duration-300 group-hover:opacity-90">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-full object-contain object-left" />
-          </div>
-        </Link>
-
-        {/* Desktop Navigation Links */}
-        <div className="hidden lg:flex gap-4 xl:gap-8 text-[10px] xl:text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-white/60 items-center">
-          {navLinks.map((link) => (
-            <div key={link.href} className="relative group/nav whitespace-nowrap">
-              <Link href={link.href} className="hoverable hover:text-white transition-colors duration-300 flex items-center gap-1 group/link">
-                {link.label}
-              </Link>
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-brandOrange group-hover/nav:w-full transition-all duration-300"></span>
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          {/* Clickable Responsive Logo */}
+          <Link href="/" className="flex items-center hoverable group z-50 shrink-0">
+            <div className="h-10 sm:h-12 md:h-14 w-[140px] sm:w-[180px] md:w-[240px] flex items-center relative transition-all duration-300 group-hover:opacity-90">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-full object-contain object-left" />
             </div>
-          ))}
-        </div>
-
-        {/* Desktop Header Actions */}
-        <div className="hidden sm:flex items-center gap-3 md:gap-4 mr-0 md:mr-4">
-          <button 
-            onClick={toggleLang}
-            className="group hoverable flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white/80 hover:text-white transition-colors px-3 sm:px-4 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
-          >
-            <Globe className="w-3 h-3 text-white/60 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
-          </button>
-          
-          <Link href="/contact" className="hoverable flex items-center gap-2 bg-brandOrange text-white px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-[10px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500 shadow-lg shadow-brandOrange/20">
-            {t.cta} <ArrowUpRight className="w-3 h-3" />
           </Link>
-        </div>
 
-        {/* Mobile Hamburger & Lang Button */}
-        <div className="flex lg:hidden items-center gap-2 z-50">
-          <button 
-            onClick={toggleLang}
-            className="flex items-center gap-1 text-[9px] font-mono font-bold uppercase tracking-wider text-white/80 px-2.5 py-1.5 border border-white/10 rounded-full bg-white/[0.05]"
-          >
-            <Globe className="w-2.5 h-2.5 text-white/60" /> {lang === 'en' ? 'ES' : 'EN'}
-          </button>
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex gap-3 xl:gap-6 text-[10px] xl:text-[11px] font-mono font-bold tracking-wider uppercase text-white/70 items-center">
+            {navLinks.map((link) => (
+              <div key={link.href} className="relative group/nav whitespace-nowrap">
+                <Link href={link.href} className="hoverable hover:text-white transition-colors duration-300 flex items-center py-1">
+                  {link.label}
+                </Link>
+                <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-brandOrange group-hover/nav:w-full transition-all duration-300"></span>
+              </div>
+            ))}
+          </div>
 
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.05] backdrop-blur-md flex items-center justify-center text-white hover:text-brandOrange hover:border-brandOrange/40 transition-colors"
-            aria-label="Toggle navigation menu"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Desktop Header Actions */}
+          <div className="hidden sm:flex items-center gap-2 md:gap-3 shrink-0">
+            <button 
+              onClick={toggleLang}
+              className="group hoverable flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors px-3 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
+            >
+              <Globe className="w-3 h-3 text-white/60 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
+            </button>
+            
+            <Link href="/contact" className="hoverable flex items-center gap-1.5 bg-brandOrange text-white px-5 md:px-6 py-2.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-md shadow-brandOrange/20">
+              {t.cta} <ArrowUpRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          {/* Mobile Hamburger & Lang Button */}
+          <div className="flex lg:hidden items-center gap-2 z-50">
+            <button 
+              onClick={toggleLang}
+              className="flex items-center gap-1 text-[9px] font-mono font-bold uppercase tracking-wider text-white/80 px-2.5 py-1.5 border border-white/10 rounded-full bg-white/[0.05]"
+            >
+              <Globe className="w-2.5 h-2.5 text-white/60" /> {lang === 'en' ? 'ES' : 'EN'}
+            </button>
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.05] backdrop-blur-md flex items-center justify-center text-white hover:text-brandOrange hover:border-brandOrange/40 transition-colors"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu Drawer Overlay */}

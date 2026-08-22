@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState } from 'react';
 
 const dict = {
   en: {
-    nav: ["Services", "Projects", "Journal", "News & Media", "Impact", "About us", "Contact"],
+    nav: ["Services", "Ecosystem", "Journal", "News", "Impact", "About"],
     cta: "Start Project",
     tagline: "Sports Intelligence Company",
     heroLine1: "We Design",
@@ -176,7 +176,7 @@ const dict = {
     }
   },
   es: {
-    nav: ["Servicios", "Proyectos", "Diario", "Noticiero & Media", "Impacto", "Quiénes somos", "Contacto"],
+    nav: ["Servicios", "Ecosistema", "Diario", "Noticiero", "Impacto", "Nosotros"],
     cta: "Iniciar Proyecto",
     tagline: "Sports Intelligence Company",
     heroLine1: "Diseñamos",
