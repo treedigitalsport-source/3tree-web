@@ -466,19 +466,19 @@ export default function MainContent() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1.4 }}
-              className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 bg-gradient-to-br from-white/[0.04] to-white/[0.01] backdrop-blur-2xl border border-white/15 p-6 md:p-8 lg:p-10 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.5)] mb-12 hover:border-brandOrange/30 transition-all duration-500"
+              className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 bg-gradient-to-br from-white/[0.04] to-white/[0.01] backdrop-blur-2xl border border-white/15 p-6 sm:p-8 md:p-10 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.5)] mb-12 hover:border-brandOrange/30 transition-all duration-500"
             >
               <div className="flex flex-col gap-2 group cursor-default min-w-0">
-                <span className="text-4xl sm:text-4xl md:text-5xl xl:text-6xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">50K+</span>
+                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">50K+</span>
                 <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Horas de Video Procesadas" : "Video Hours Processed"}</span>
               </div>
               <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
-                <span className="text-4xl sm:text-4xl md:text-5xl xl:text-6xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">94%</span>
+                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">94%</span>
                 <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Reducción en Tiempo de Análisis" : "Reduction in Analysis Time"}</span>
               </div>
               <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
-                <span className="text-4xl sm:text-4xl md:text-5xl xl:text-6xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">
-                  99.9<span className="text-2xl sm:text-3xl md:text-4xl text-white/70 ml-0.5">%</span>
+                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">
+                  99.9<span className="text-2xl sm:text-3xl md:text-4xl text-white/80 ml-1">%</span>
                 </span>
                 <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Certeza Algorítmica Absoluta" : "Absolute Algorithmic Certainty"}</span>
               </div>
