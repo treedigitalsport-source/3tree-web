@@ -478,7 +478,7 @@ export default function MainContent() {
               </div>
               <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-8 group cursor-default">
                 <span className="text-5xl md:text-6xl font-black text-white font-display tracking-tighter group-hover:text-brandOrange transition-colors">&lt;200<span className="text-3xl text-white/50">ms</span></span>
-                <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.2em] font-bold">{isEs ? "Certeza Algorítmica Absoluta" : "Absolute Algorithmic Certainty"}</span>
+                <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.2em] font-bold">{isEs ? "Latencia en Tiempo Real" : "Real-Time AI Latency"}</span>
               </div>
             </motion.div>
 
