@@ -533,60 +533,62 @@ export default function MainContent() {
           </div>
         </div>
 
-        {/* ZONE 2: Service Cards Grid (7 services in 3-4 col responsive) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {t.services.map((service, idx) => {
-            const icons = [
-              <LayoutTemplate key={0} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
-              <Cpu key={1} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
-              <Fingerprint key={2} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
-              <Activity key={3} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
-              <Brain key={4} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
-              <Video key={5} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
-              <Bot key={6} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
-            ];
-            const Icon = icons[idx % icons.length];
-            // Highlight the last card (AI Agents)
-            const isHighlighted = idx === t.services.length - 1;
+        {/* ZONE 2: Service Cards Grid (Contained, Balanced 4x2 Grid) */}
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-12 lg:px-16 py-8 md:py-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            {t.services.map((service, idx) => {
+              const icons = [
+                <LayoutTemplate key={0} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+                <Cpu key={1} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+                <Fingerprint key={2} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+                <Activity key={3} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+                <Brain key={4} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+                <Video key={5} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+                <Bot key={6} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+              ];
+              const Icon = icons[idx % icons.length];
+              // Highlight the last card (AI Agents)
+              const isHighlighted = idx === t.services.length - 1;
 
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: idx * 0.06 }}
-                className={`p-8 md:p-10 border-b border-r border-white/10 flex flex-col justify-between min-h-[280px] group transition-colors duration-300
-                  ${isHighlighted
-                    ? "bg-brandOrange/5 hover:bg-brandOrange/10 border-brandOrange/20"
-                    : "hover:bg-white/[0.025]"
-                  }`}
-              >
-                <div>
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-8 border transition-colors duration-300
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.06 }}
+                  className={`p-7 md:p-8 rounded-3xl border flex flex-col justify-between min-h-[260px] group transition-all duration-300 backdrop-blur-sm
                     ${isHighlighted
-                      ? "border-brandOrange/40 bg-brandOrange/10 group-hover:bg-brandOrange/20"
-                      : "border-white/10 bg-white/[0.04] group-hover:border-brandOrange group-hover:bg-brandOrange/10"
-                    }`}>
-                    {Icon}
+                      ? "xl:col-span-2 bg-gradient-to-br from-brandOrange/15 via-brandOrange/5 to-transparent border-brandOrange/30 hover:border-brandOrange/50 shadow-[0_0_30px_rgba(242,101,34,0.1)]"
+                      : "bg-white/[0.02] border-white/10 hover:border-brandOrange/30 hover:bg-white/[0.04]"
+                    }`}
+                >
+                  <div>
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border transition-all duration-300
+                      ${isHighlighted
+                        ? "border-brandOrange/50 bg-brandOrange/20 text-brandOrange shadow-[0_0_15px_rgba(242,101,34,0.3)]"
+                        : "border-white/10 bg-white/[0.04] group-hover:border-brandOrange group-hover:bg-brandOrange/10"
+                      }`}>
+                      {Icon}
+                    </div>
+                    <div className="flex items-start justify-between gap-4 mb-3">
+                      <h4 className="font-display text-lg md:text-xl font-black uppercase text-white leading-tight">
+                        {service.title}
+                      </h4>
+                      {isHighlighted && (
+                        <span className="shrink-0 font-mono text-[8px] font-bold uppercase tracking-widest text-brandOrange bg-brandOrange/20 border border-brandOrange/40 px-2.5 py-1 rounded-full">
+                          NEW
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <h4 className="font-display text-xl md:text-2xl font-black uppercase text-white leading-none">
-                      {service.title}
-                    </h4>
-                    {isHighlighted && (
-                      <span className="shrink-0 font-mono text-[8px] font-bold uppercase tracking-widest text-brandOrange bg-brandOrange/10 border border-brandOrange/30 px-2 py-1 mt-0.5">
-                        NEW
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <p className="font-mono text-[10px] text-white/45 leading-relaxed tracking-[0.06em]">
-                  {service.desc}
-                </p>
-              </motion.div>
-            );
-          })}
+                  <p className="font-mono text-[10px] text-white/50 leading-relaxed tracking-[0.04em] mt-2">
+                    {service.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
 
       </section>
