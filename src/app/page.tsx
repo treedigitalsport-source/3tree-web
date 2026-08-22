@@ -559,22 +559,22 @@ export default function MainContent() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.5, delay: idx * 0.06 }}
-                  className={`p-7 md:p-8 rounded-3xl border flex flex-col justify-between min-h-[260px] group transition-all duration-300 backdrop-blur-sm
+                  className={`p-6 sm:p-7 md:p-8 rounded-3xl border flex flex-col justify-between min-h-[270px] group transition-all duration-300 backdrop-blur-sm
                     ${isHighlighted
                       ? "xl:col-span-2 bg-gradient-to-br from-brandOrange/15 via-brandOrange/5 to-transparent border-brandOrange/30 hover:border-brandOrange/50 shadow-[0_0_30px_rgba(242,101,34,0.1)]"
                       : "bg-white/[0.02] border-white/10 hover:border-brandOrange/30 hover:bg-white/[0.04]"
                     }`}
                 >
                   <div>
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border transition-all duration-300
+                    <div className={`w-11 h-11 rounded-2xl flex items-center justify-center mb-5 border transition-all duration-300
                       ${isHighlighted
                         ? "border-brandOrange/50 bg-brandOrange/20 text-brandOrange shadow-[0_0_15px_rgba(242,101,34,0.3)]"
                         : "border-white/10 bg-white/[0.04] group-hover:border-brandOrange group-hover:bg-brandOrange/10"
                       }`}>
                       {Icon}
                     </div>
-                    <div className="flex items-start justify-between gap-4 mb-3">
-                      <h4 className="font-display text-lg md:text-xl font-black uppercase text-white leading-tight">
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <h4 className="font-display text-base md:text-lg font-black uppercase text-white leading-tight min-h-[38px] flex items-center">
                         {service.title}
                       </h4>
                       {isHighlighted && (
@@ -584,7 +584,7 @@ export default function MainContent() {
                       )}
                     </div>
                   </div>
-                  <p className="font-mono text-[10px] text-white/50 leading-relaxed tracking-[0.04em] mt-2">
+                  <p className="font-mono text-[10px] text-white/50 leading-relaxed tracking-[0.03em] mt-3">
                     {service.desc}
                   </p>
                 </motion.div>
