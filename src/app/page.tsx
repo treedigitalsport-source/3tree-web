@@ -263,35 +263,35 @@ export default function MainContent() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Clickable Responsive Logo */}
           <Link href="/" className="flex items-center hoverable group z-50 shrink-0">
-            <div className="h-10 sm:h-12 md:h-14 w-[140px] sm:w-[180px] md:w-[240px] flex items-center relative transition-all duration-300 group-hover:opacity-90">
+            <div className="h-14 sm:h-16 md:h-20 lg:h-24 w-[200px] sm:w-[260px] md:w-[320px] lg:w-[360px] flex items-center relative transition-all duration-300 group-hover:opacity-90">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/icons/logo-3tree.png" alt="3Tree Digital" className="h-full w-full object-contain object-left" />
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex gap-3 xl:gap-6 text-[10px] xl:text-[11px] font-mono font-bold tracking-wider uppercase text-white/70 items-center">
+          <div className="hidden lg:flex gap-4 xl:gap-7 text-[13px] xl:text-[14px] font-mono font-medium tracking-wide uppercase text-white/80 items-center">
             {navLinks.map((link) => (
               <div key={link.href} className="relative group/nav whitespace-nowrap">
-                <Link href={link.href} className="hoverable hover:text-white transition-colors duration-300 flex items-center py-1">
+                <Link href={link.href} className="hoverable hover:text-brandOrange transition-colors duration-300 flex items-center py-1">
                   {link.label}
                 </Link>
-                <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-brandOrange group-hover/nav:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brandOrange group-hover/nav:w-full transition-all duration-300"></span>
               </div>
             ))}
           </div>
 
           {/* Desktop Header Actions */}
-          <div className="hidden sm:flex items-center gap-2 md:gap-3 shrink-0">
+          <div className="hidden sm:flex items-center gap-2.5 md:gap-3.5 shrink-0">
             <button 
               onClick={toggleLang}
-              className="group hoverable flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors px-3 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
+              className="group hoverable flex items-center gap-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors px-3 py-2 border border-white/10 rounded-full bg-white/[0.03] backdrop-blur-md hover:border-brandOrange/40"
             >
-              <Globe className="w-3 h-3 text-white/60 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
+              <Globe className="w-3.5 h-3.5 text-white/60 group-hover:text-brandOrange group-hover:rotate-180 transition-all duration-700 ease-in-out" /> {lang === 'en' ? 'ES' : 'EN'}
             </button>
             
-            <Link href="/contact" className="hoverable flex items-center gap-1.5 bg-brandOrange text-white px-5 md:px-6 py-2.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-md shadow-brandOrange/20">
-              {t.cta} <ArrowUpRight className="w-3 h-3" />
+            <Link href="/contact" className="hoverable flex items-center gap-1.5 bg-brandOrange text-white px-5 md:px-6 py-2.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider hover:bg-white hover:text-brandOrange transition-all duration-300 shadow-md shadow-brandOrange/20">
+              {t.cta} <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
