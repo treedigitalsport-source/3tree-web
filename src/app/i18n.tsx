@@ -20,6 +20,7 @@ const dict = {
     stats: [
       { value: 26, suffix: "", label: "Years Field Experience" },
       { value: 100, suffix: "%", label: "Data-Driven Focus" },
+      { value: 24, suffix: "/7", label: "Autonomous Analysis" },
       { value: 0, suffix: "", label: "Human Bias" },
     ],
     whatWeDo: "What We Do",
