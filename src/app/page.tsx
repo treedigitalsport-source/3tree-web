@@ -521,12 +521,12 @@ export default function MainContent() {
               </p>
             </div>
 
-            {/* Stats Row (Sleek, Compact Telemetry Bar) */}
+            {/* Stats Row (Sleek, Direct Telemetry Bar) */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 border border-white/15 shrink-0 lg:max-w-[480px] w-full lg:w-auto rounded-xl overflow-hidden shadow-lg">
               {t.stats.map((stat, i) => (
                 <div key={i} className="bg-[#020617] flex flex-col items-center justify-center text-center px-3 py-4 md:px-4 md:py-5 group hover:bg-brandOrange/5 transition-colors">
                   <span className="font-display text-2xl md:text-3xl font-black text-white group-hover:text-brandOrange transition-colors leading-none tracking-tight">
-                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                    {stat.value}
                   </span>
                   <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-[0.12em] text-white/40 mt-2 leading-tight text-center">{stat.label}</span>
                 </div>
