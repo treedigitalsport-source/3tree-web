@@ -42,6 +42,16 @@ if (getApps().length === 0) {
   initialized = true;
 }
 
-export const db = initialized ? getFirestore() : (null as unknown as Firestore);
-export const storage = initialized ? getStorage() : (null as unknown as Storage);
+export const getAdminDb = (): Firestore | null => {
+  if (getApps().length > 0) return getFirestore();
+  return null;
+};
+
+export const getAdminStorage = (): Storage | null => {
+  if (getApps().length > 0) return getStorage();
+  return null;
+};
+
+export const db = (initialized ? getFirestore() : null) as unknown as Firestore;
+export const storage = (initialized ? getStorage() : null) as unknown as Storage;
 

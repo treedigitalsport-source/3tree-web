@@ -1,22 +1,27 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import os from "os";
 
-// In production, this would be a real database (PostgreSQL/Supabase)
-// For local MCP integration, we write to the shared MCP mock DB
-const DB_PATH = "C:\\Users\\fitne\\Documents\\3Tree_Codebase\\3Tree_MCP\\leads_db.json";
+interface ChatMessage {
+  role: string;
+  text: string;
+}
+
+// Fallback to tmp directory for production serverless compatibility
+const DB_PATH = process.env.LEADS_DB_PATH || path.join(os.tmpdir(), "leads_db.json");
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    if (body.fullHistory) {
-      const reportsDir = "C:\\Users\\fitne\\.gemini\\antigravity\\scratch\\social-media-skills\\reports";
+    if (body.fullHistory && Array.isArray(body.fullHistory)) {
+      const reportsDir = process.env.REPORTS_DIR || path.join(os.tmpdir(), "reports");
       if (!fs.existsSync(reportsDir)) {
         fs.mkdirSync(reportsDir, { recursive: true });
       }
       const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-      const reportContent = `# Chat Report - ${timestamp}\n\n` + body.fullHistory.map((msg: any) => `**${msg.role}**: ${msg.text}`).join('\n\n');
+      const reportContent = `# Chat Report - ${timestamp}\n\n` + body.fullHistory.map((msg: ChatMessage) => `**${msg.role}**: ${msg.text}`).join('\n\n');
       fs.writeFileSync(path.join(reportsDir, `chat-report-${timestamp}.md`), reportContent);
     }
 

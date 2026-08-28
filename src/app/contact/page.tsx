@@ -9,8 +9,9 @@ import { submitContactForm } from "@/app/actions/contact";
 import { useLang } from "@/app/i18n";
 
 export default function Contact() {
-  const { lang } = useLang();
+  const { lang, toggleLang } = useLang();
   const isEs = lang === "es";
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -45,25 +46,33 @@ export default function Contact() {
           </div>
           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">{isEs ? "Volver al Inicio" : "Back to Home"}</span>
         </Link>
-        <div className="font-display font-black text-2xl tracking-widest uppercase">
-          3Tree<span className="text-brandOrange">.</span>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={toggleLang}
+            className="font-mono text-xs font-extrabold px-3 py-1.5 rounded-full border border-white/20 bg-white/5 hover:border-brandOrange hover:text-brandOrange transition-all cursor-pointer uppercase tracking-wider text-white"
+          >
+            {lang === "es" ? "EN" : "ES"}
+          </button>
+          <Link href="/" className="font-display font-black text-xl tracking-wider uppercase leading-none flex items-baseline">
+            <span>3Tree</span><span className="text-brandOrange">.</span>
+          </Link>
         </div>
       </nav>
 
       {/* Contact Content */}
-      <div className="flex-1 flex flex-col md:flex-row items-center justify-center px-6 md:px-12 relative z-10 w-full max-w-7xl mx-auto gap-16 pb-20">
+      <div className="flex-1 flex flex-col md:flex-row items-center justify-center px-6 md:px-12 relative z-10 w-full max-w-7xl mx-auto gap-8 md:gap-12 pt-4 md:pt-8 pb-20">
         
         {/* Left: Info */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-full md:w-1/2"
+          className="w-full md:w-1/2 pb-2 md:pb-0"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brandOrange/10 border border-brandOrange/20 text-brandOrange font-mono text-[10px] font-bold uppercase tracking-widest mb-6">
             {isEs ? "Sede Global" : "Global HQ"}
           </div>
-          <h1 className="font-display text-5xl md:text-7xl font-black uppercase leading-[0.9] mb-8">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-black uppercase leading-[0.9] mb-8">
             {isEs ? "Construyamos" : "Let's Build"} <br />
             <span className="text-white/30">{isEs ? "el futuro." : "the future."}</span>
           </h1>

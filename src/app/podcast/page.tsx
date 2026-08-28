@@ -69,7 +69,7 @@ const staticNewsEn = [
 ];
 
 export default function PodcastPage() {
-  const { t, lang } = useLang();
+  const { t, lang, toggleLang } = useLang();
   const isEs = lang === "es";
 
   // Video State
@@ -121,20 +121,28 @@ export default function PodcastPage() {
 
       {/* Top Header */}
       <nav className="relative z-50 w-full px-6 md:px-12 py-6 border-b border-white/10 flex justify-between items-center bg-[#020617]/80 backdrop-blur-md">
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <span className="w-3 h-3 rounded-full bg-brandOrange animate-pulse"></span>
           <span className="font-display font-black text-xl tracking-widest uppercase">
             3TREE<span className="text-brandOrange"> MEDIA HUB</span>
           </span>
-        </div>
-        <Link href="/" className="hoverable group flex items-center gap-3 text-white hover:text-brandOrange transition-colors">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] hidden md:inline">
-            {isEs ? "Volver al Inicio" : "Back to Home"}
-          </span>
-          <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-brandOrange bg-[#020617]">
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          </div>
         </Link>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={toggleLang}
+            className="font-mono text-xs font-extrabold px-3 py-1.5 rounded-full border border-white/20 bg-white/5 hover:border-brandOrange hover:text-brandOrange transition-all cursor-pointer uppercase tracking-wider text-white"
+          >
+            {lang === "es" ? "EN" : "ES"}
+          </button>
+          <Link href="/" className="hoverable group flex items-center gap-3 text-white hover:text-brandOrange transition-colors">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] hidden md:inline">
+              {isEs ? "Volver al Inicio" : "Back to Home"}
+            </span>
+            <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-brandOrange bg-[#020617]">
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            </div>
+          </Link>
+        </div>
       </nav>
 
       {/* Hero Header */}

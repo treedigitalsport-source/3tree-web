@@ -256,37 +256,45 @@ export default function MainContent() {
         transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 ${
           isScrolled
-            ? "py-2.5 bg-[#020617]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl"
-            : "py-3.5 md:py-4 bg-gradient-to-b from-[#020617]/90 via-[#020617]/40 to-transparent border-b border-transparent"
+            ? "py-2.5 bg-[#020617]/90 backdrop-blur-xl shadow-2xl"
+            : "py-3.5 md:py-4 bg-gradient-to-b from-[#020617]/90 via-[#020617]/40 to-transparent"
         }`}
       >
-        <div className="w-full px-6 md:px-12 lg:px-16 flex items-center justify-between">
-          {/* Clickable Large Brand Responsive Logo (65% Scaled) */}
-          <Link href="/" className="flex items-center hoverable group z-50 shrink-0">
-            <div className="h-16 sm:h-18 md:h-22 lg:h-24 w-auto flex items-center relative transition-all duration-300 group-hover:scale-[1.02]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="/icons/logo-3tree.png" 
-                alt="3Tree Digital" 
-                className="h-full w-auto max-h-24 max-w-[270px] sm:max-w-[330px] md:max-w-[380px] lg:max-w-[420px] object-contain object-left drop-shadow-[0_4px_25px_rgba(0,0,0,0.85)] filter brightness-105" 
-              />
-            </div>
-          </Link>
+        {/* Soft Diffused Horizontal Divider Line */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/[0.07] to-transparent pointer-events-none opacity-80" />
 
-          {/* Desktop Navigation Links (Posición fija y estable, sin moverse) */}
-          <div className="hidden lg:flex gap-5 xl:gap-8 text-[11px] xl:text-[12px] font-mono font-bold tracking-wider uppercase text-white/80 items-center">
+        <div className="w-full px-6 md:px-12 lg:px-16 flex items-center justify-between relative z-10">
+          <div className="flex items-center gap-6">
+            {/* Clickable Large Brand Responsive Logo */}
+            <Link href="/" className="flex items-center hoverable group z-50 shrink-0">
+              <div className="h-20 sm:h-24 md:h-28 lg:h-32 w-auto flex items-center relative transition-all duration-300 group-hover:scale-[1.02]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src="/icons/logo-3tree.png" 
+                  alt="3Tree Digital" 
+                  className="h-full w-auto max-h-32 max-w-[320px] sm:max-w-[400px] md:max-w-[480px] lg:max-w-[540px] object-contain object-left drop-shadow-[0_4px_25px_rgba(0,0,0,0.85)] filter brightness-105" 
+                />
+              </div>
+            </Link>
+
+            {/* Soft Diffused Gradient Vertical Divider Line */}
+            <div className="hidden lg:block h-9 w-[1px] bg-gradient-to-b from-transparent via-white/[0.1] to-transparent blur-[0.4px] pointer-events-none"></div>
+          </div>
+
+          {/* Desktop Navigation Links (Posición prominente, grande y clara) */}
+          <div className="hidden lg:flex gap-6 xl:gap-9 text-xs xl:text-sm font-mono font-extrabold tracking-widest uppercase text-white/90 items-center">
             {navLinks.map((link) => (
               <div key={link.href} className="relative group/nav whitespace-nowrap">
                 <Link href={link.href} className="hoverable hover:text-brandOrange transition-colors duration-300 flex items-center py-1">
                   {link.label}
                 </Link>
-                <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-brandOrange group-hover/nav:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brandOrange group-hover/nav:w-full transition-all duration-300"></span>
               </div>
             ))}
           </div>
 
           {/* Desktop Header Actions */}
-          <div className="hidden sm:flex items-center gap-2.5 md:gap-3 shrink-0">
+          <div className="hidden lg:flex items-center gap-2.5 md:gap-3 shrink-0">
             <button 
               onClick={toggleLang}
               className="group hoverable flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors px-3 py-1.5 border border-white/15 rounded-full bg-white/[0.04] backdrop-blur-md hover:border-brandOrange/40"
@@ -361,7 +369,7 @@ export default function MainContent() {
 
         {/* Capa 1: Video Hero Background — Scouts Béisbol en el Terreno (2.5MB) */}
         <video
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-70 mix-blend-screen"
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-90"
           src="/videos/scouts_beisbol_hero.mp4"
           autoPlay
           loop
@@ -372,11 +380,11 @@ export default function MainContent() {
           disableRemotePlayback
         />
 
-        {/* Capa 2: Overlay de oscurecimiento para legibilidad del texto */}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/80 via-[#020617]/40 to-[#020617]/90 pointer-events-none" />
+        {/* Capa 2: Overlay suave — solo lo suficiente para legibilidad del texto */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/50 via-[#020617]/20 to-[#020617]/70 pointer-events-none" />
 
-        {/* Hero Content Container - Perfectamente Equilibrado */}
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-28 md:pt-36 pb-16">
+        {/* Hero Content Container - Perfectamente Equilibrado con despeje del header */}
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-36 md:pt-48 lg:pt-52 pb-16">
           <div className="max-w-4xl">
             
             {/* Tag Line */}
@@ -386,8 +394,9 @@ export default function MainContent() {
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="mb-6"
             >
-              <span className="inline-flex items-center text-brandOrange font-mono text-xs md:text-sm tracking-[0.3em] uppercase font-bold drop-shadow-[0_2px_10px_rgba(242,101,34,0.3)]">
-                --{t.tagline}--
+              <span className="inline-flex items-center gap-2.5 text-brandOrange font-mono text-xs md:text-sm tracking-[0.25em] uppercase font-extrabold px-4 py-2 rounded-full border border-brandOrange/30 bg-brandOrange/10 backdrop-blur-md shadow-[0_0_20px_rgba(242,101,34,0.2)]">
+                <span className="w-2 h-2 rounded-full bg-brandOrange animate-pulse" />
+                {t.tagline}
               </span>
             </motion.div>
 
@@ -510,7 +519,7 @@ export default function MainContent() {
                 <Bot className="w-3.5 h-3.5" />
                 {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
               </div>
-              <h2 className="font-display font-black uppercase leading-[0.85] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+              <h2 className="font-display font-black uppercase leading-[0.85] tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl">
                 {isEs ? "Arquitectura" : "System"}<br />
                 <span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
                   {isEs ? "del Sistema" : "Architecture"}
@@ -521,23 +530,23 @@ export default function MainContent() {
               </p>
             </div>
 
-            {/* Stats Row (Sleek, Direct Telemetry Bar) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 border border-white/15 shrink-0 lg:max-w-[480px] w-full lg:w-auto rounded-xl overflow-hidden shadow-lg">
+            {/* Stats Row (Calibrated, Legible Telemetry Bar) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 border border-white/15 shrink-0 lg:max-w-[580px] w-full lg:w-auto rounded-2xl overflow-hidden shadow-xl">
               {t.stats.map((stat, i) => (
-                <div key={i} className="bg-[#020617] flex flex-col items-center justify-center text-center px-3 py-4 md:px-4 md:py-5 group hover:bg-brandOrange/5 transition-colors">
-                  <span className="font-display text-2xl md:text-3xl font-black text-white group-hover:text-brandOrange transition-colors leading-none tracking-tight">
+                <div key={i} className="bg-[#020617] flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 group hover:bg-brandOrange/5 transition-colors">
+                  <span className="font-display text-xl sm:text-2xl font-black text-white group-hover:text-brandOrange transition-colors leading-none tracking-tight">
                     {stat.value}
                   </span>
-                  <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-[0.12em] text-white/40 mt-2 leading-tight text-center">{stat.label}</span>
+                  <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.14em] text-white/50 mt-2 leading-snug text-center min-h-[24px] flex items-center justify-center">{stat.label}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* ZONE 2: Service Cards Grid (Contained, Balanced 4x2 Grid) */}
+        {/* ZONE 2: Service Cards Grid (Balanced 3x2 Grid for 6 Services) */}
         <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 md:px-12 lg:px-16 py-8 md:py-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {t.services.map((service, idx) => {
               const icons = [
                 <LayoutTemplate key={0} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
@@ -545,11 +554,9 @@ export default function MainContent() {
                 <Fingerprint key={2} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
                 <Activity key={3} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
                 <Brain key={4} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
-                <Video key={5} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
-                <Bot key={6} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
+                <Bot key={5} className="w-6 h-6 text-white group-hover:text-brandOrange transition-colors" />,
               ];
               const Icon = icons[idx % icons.length];
-              // Highlight the last card (AI Agents)
               const isHighlighted = idx === t.services.length - 1;
 
               return (
@@ -559,32 +566,35 @@ export default function MainContent() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.5, delay: idx * 0.06 }}
-                  className={`p-6 sm:p-7 md:p-8 rounded-3xl border flex flex-col justify-between min-h-[270px] group transition-all duration-300 backdrop-blur-sm
-                    ${isHighlighted
-                      ? "xl:col-span-2 bg-gradient-to-br from-brandOrange/15 via-brandOrange/5 to-transparent border-brandOrange/30 hover:border-brandOrange/50 shadow-[0_0_30px_rgba(242,101,34,0.1)]"
+                  className={`p-6 sm:p-7 rounded-[2rem] border flex flex-col gap-4 overflow-hidden group transition-all duration-300 backdrop-blur-sm ${
+                    isHighlighted
+                      ? "bg-gradient-to-br from-brandOrange/15 via-brandOrange/5 to-transparent border-brandOrange/30 hover:border-brandOrange/50 shadow-[0_0_30px_rgba(242,101,34,0.1)]"
                       : "bg-white/[0.02] border-white/10 hover:border-brandOrange/30 hover:bg-white/[0.04]"
-                    }`}
+                  }`}
                 >
-                  <div>
-                    <div className={`w-11 h-11 rounded-2xl flex items-center justify-center mb-5 border transition-all duration-300
-                      ${isHighlighted
-                        ? "border-brandOrange/50 bg-brandOrange/20 text-brandOrange shadow-[0_0_15px_rgba(242,101,34,0.3)]"
-                        : "border-white/10 bg-white/[0.04] group-hover:border-brandOrange group-hover:bg-brandOrange/10"
-                      }`}>
-                      {Icon}
-                    </div>
-                    <div className="flex items-start justify-between gap-3 mb-3">
-                      <h4 className="font-display text-base md:text-lg font-black uppercase text-white leading-tight min-h-[38px] flex items-center">
-                        {service.title}
-                      </h4>
-                      {isHighlighted && (
-                        <span className="shrink-0 font-mono text-[8px] font-bold uppercase tracking-widest text-brandOrange bg-brandOrange/20 border border-brandOrange/40 px-2.5 py-1 rounded-full">
-                          NEW
-                        </span>
-                      )}
-                    </div>
+                  {/* Icon */}
+                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border transition-all duration-300 ${
+                    isHighlighted
+                      ? "border-brandOrange/50 bg-brandOrange/20 text-brandOrange shadow-[0_0_15px_rgba(242,101,34,0.3)]"
+                      : "border-white/10 bg-white/[0.04] group-hover:border-brandOrange group-hover:bg-brandOrange/10"
+                  }`}>
+                    {Icon}
                   </div>
-                  <p className="font-mono text-[10px] text-white/50 leading-relaxed tracking-[0.03em] mt-3">
+
+                  {/* Title + Badge */}
+                  <div className="flex items-start justify-between gap-2">
+                    <h4 className="font-display text-sm sm:text-base md:text-lg font-black uppercase text-white leading-snug tracking-tight break-words flex-1 min-w-0">
+                      {service.title}
+                    </h4>
+                    {isHighlighted && (
+                      <span className="shrink-0 font-mono text-[8px] font-bold uppercase tracking-widest text-brandOrange bg-brandOrange/20 border border-brandOrange/40 px-2 py-1 rounded-full">
+                        NEW
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Full Description (Zero Truncation) */}
+                  <p className="font-mono text-xs text-white/60 leading-relaxed tracking-normal">
                     {service.desc}
                   </p>
                 </motion.div>
@@ -690,7 +700,9 @@ export default function MainContent() {
                  <div className="h-[25%] p-8 flex justify-between items-center bg-white/[0.01] border-t border-white/5 group-hover:bg-brandOrange/5 transition-colors">
                     <div>
                       <p className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase mb-2">02 — {t.scouting}</p>
-                      <h3 className="font-display text-3xl md:text-4xl font-black uppercase text-white leading-[0.9]">Scouting AI</h3>
+                      <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-black uppercase text-white leading-[0.9] mb-2">
+                         {isEs ? "Centro de Analítica de Datos" : "Data Analytics Hub"}
+                       </h3>
                     </div>
                     <button disabled aria-label={isEs ? "Próximamente disponible" : "Coming soon"} className="px-6 py-3 border border-white/10 flex items-center justify-center rounded-sm hover:bg-white/10 transition-all cursor-not-allowed disabled:opacity-50">
                        <span className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-white/30">{isEs ? "Próximamente" : "COMING SOON"}</span>
@@ -710,7 +722,7 @@ export default function MainContent() {
           <span className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase font-bold mb-4 block">
             {isEs ? "Descarga Gratuita" : "Free Download"}
           </span>
-          <h2 className="font-display text-4xl md:text-5xl font-black uppercase text-white leading-tight mb-6">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white leading-tight tracking-tight mb-6 break-words">
             {isEs ? "Whitepaper 2026: Cinemática sin Marcadores" : "Whitepaper 2026: Markerless Kinematics"}
           </h2>
           <p className="font-mono text-sm md:text-base text-white/60 mb-10 max-w-2xl mx-auto">
@@ -744,6 +756,9 @@ export default function MainContent() {
           <span className="block mt-6 text-[9px] font-mono text-white/40 uppercase tracking-widest">
             {isEs ? "100% valor puro. Cero spam. Date de baja cuando quieras." : "100% pure value. Zero spam. Unsubscribe anytime."}
           </span>
+          <p className="font-mono text-[10px] font-bold text-brandOrange uppercase tracking-[0.4em] mt-4 drop-shadow-md">
+            Who Dares Wins <span className="text-white/40">*sas*</span>
+          </p>
         </div>
       </section>
 
@@ -753,7 +768,7 @@ export default function MainContent() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-12">
             <div>
               <div className="font-display font-black text-xl md:text-2xl tracking-widest uppercase mb-3">
-                3tree digital <span className="text-brandOrange">Sport IA</span>
+                3Tree Digital <span className="text-brandOrange">Sport IA</span>
               </div>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
                 {isEs ? "Sports Intelligence Company" : "Sports Intelligence Company"}
@@ -783,3 +798,4 @@ export default function MainContent() {
     </main>
   );
 }
+

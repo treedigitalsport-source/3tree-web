@@ -6,7 +6,7 @@ import { ArrowLeft, ShieldCheck, Lock, Eye, FileText, Database, Cpu, Activity, U
 import { useLang } from "@/app/i18n";
 
 export default function PrivacyPage() {
-  const { lang } = useLang();
+  const { lang, toggleLang } = useLang();
   const isEs = lang === "es";
 
   return (
@@ -21,11 +21,17 @@ export default function PrivacyPage() {
       <div className="fixed inset-0 z-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)', backgroundSize: '50px 50px' }}></div>
 
       {/* Nav Bar */}
-      <nav className="relative z-50 w-full p-8 md:px-16 flex justify-between items-center mix-blend-difference">
+      <nav className="relative z-50 w-full p-8 md:px-16 flex justify-between items-center">
         <Link href="/" className="hoverable group flex items-center gap-2 text-white/50 hover:text-white transition-colors">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span className="text-[10px] font-bold uppercase tracking-[0.2em]">{isEs ? "Volver al Inicio" : "Back to Home"}</span>
         </Link>
+        <button
+          onClick={toggleLang}
+          className="font-mono text-xs font-extrabold px-3 py-1.5 rounded-full border border-white/20 bg-white/5 hover:border-brandOrange hover:text-brandOrange transition-all cursor-pointer uppercase tracking-wider text-white"
+        >
+          {lang === "es" ? "EN" : "ES"}
+        </button>
       </nav>
 
       {/* Main Content */}

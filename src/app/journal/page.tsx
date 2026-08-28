@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useLang } from "@/app/i18n";
 
 export default function JournalHub() {
-  const { lang } = useLang();
+  const { lang, toggleLang } = useLang();
   const isEs = lang === "es";
 
   const [activeFilter, setActiveFilter] = useState("all");
@@ -35,23 +35,31 @@ export default function JournalHub() {
 
       {/* ─── NAVIGATION ─── */}
       <nav className="relative z-50 w-full px-6 md:px-12 py-6 border-b border-white/10 flex justify-between items-center bg-[#020617]/80 backdrop-blur-xl">
-        <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <div className="w-8 h-8 rounded-lg bg-brandOrange flex items-center justify-center font-display font-black text-sm text-white shadow-md">
             3
           </div>
           <div className="font-display font-black text-xl tracking-widest uppercase text-white">
             3Tree<span className="text-brandOrange">.</span>Journal
           </div>
-        </div>
-
-        <Link href="/" className="hoverable group flex items-center gap-3 text-white/70 hover:text-white transition-colors">
-          <span className="text-[11px] font-mono font-bold uppercase tracking-widest hidden sm:inline">
-            {isEs ? "Volver al Inicio" : "Back to Home"}
-          </span>
-          <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-brandOrange group-hover:bg-brandOrange/10 transition-all duration-300">
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-          </div>
         </Link>
+
+        <div className="flex items-center gap-4">
+          <button
+            onClick={toggleLang}
+            className="font-mono text-xs font-extrabold px-3 py-1.5 rounded-full border border-white/20 bg-white/5 hover:border-brandOrange hover:text-brandOrange transition-all cursor-pointer uppercase tracking-wider text-white"
+          >
+            {lang === "es" ? "EN" : "ES"}
+          </button>
+          <Link href="/" className="hoverable group flex items-center gap-3 text-white/70 hover:text-white transition-colors">
+            <span className="text-[11px] font-mono font-bold uppercase tracking-widest hidden sm:inline">
+              {isEs ? "Volver al Inicio" : "Back to Home"}
+            </span>
+            <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-brandOrange group-hover:bg-brandOrange/10 transition-all duration-300">
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            </div>
+          </Link>
+        </div>
       </nav>
 
       {/* ─── HERO HEADER ─── */}
@@ -106,7 +114,7 @@ export default function JournalHub() {
       <section className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           
-          {/* ═════════ WINDOW 1: COLUMNA DEL FUNDADOR (NEIL ALVARADO) ═════════ */}
+          {/* ═════════ WINDOW 1: PERSPECTIVA DEL ANALISTA (NEIL ALVARADO) ═════════ */}
           {filteredNeil.length > 0 && (
             <div className="flex flex-col gap-6">
               
@@ -118,10 +126,10 @@ export default function JournalHub() {
                   </div>
                   <div>
                     <h2 className="font-display font-black text-lg md:text-xl uppercase tracking-wider text-white">
-                      {isEs ? "Columna del Fundador" : "Founder's Column"}
+                      {isEs ? "Perspectiva del Analista" : "Analyst's Perspective"}
                     </h2>
                     <span className="font-mono text-[10px] text-brandOrange uppercase tracking-widest">
-                      Neil Alvarado · Lead Analyst
+                      Neil Alvarado · Analista Deportivo
                     </span>
                   </div>
                 </div>

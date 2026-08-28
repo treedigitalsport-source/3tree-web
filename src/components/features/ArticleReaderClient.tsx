@@ -10,8 +10,14 @@ type Article = {
   id: number;
   slug: string;
   image: string;
-  time: string;
+  time?: string;
+  timeEs?: string;
+  timeEn?: string;
   author?: string;
+  execSummaryEn?: string;
+  execSummaryEs?: string;
+  insightsEn?: string[];
+  insightsEs?: string[];
   titleEn: string;
   categoryEn: string;
   descEn: string;
@@ -23,7 +29,7 @@ type Article = {
 };
 
 export default function ArticleReaderClient({ article }: { article: Article }) {
-  const { lang } = useLang();
+  const { lang, toggleLang } = useLang();
   const isEs = lang === "es";
 
   // Very basic markdown parser for the article content
@@ -42,28 +48,35 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
           </blockquote>
         );
       }
-      if (line.trim() === '') return <div key={index} className="h-4"></div>;
-      return <p key={index} className="text-white/90 text-base md:text-lg leading-relaxed mb-6 font-normal">{line}</p>;
+      if (line.trim() === '') return <div key={index} className="h-4" />;
+      return <p key={index} className="text-white/80 text-base md:text-xl leading-relaxed mb-6 font-serif tracking-wide">{line}</p>;
     });
   };
 
   const articleTitle = isEs ? (article.titleEs || article.titleEn) : (article.titleEn || article.titleEs);
   const articleCategory = isEs ? (article.categoryEs || article.categoryEn) : (article.categoryEn || article.categoryEs);
   const articleContent = isEs ? (article.contentEs || article.contentEn) : (article.contentEn || article.contentEs);
+  const articleTime = isEs ? (article.timeEs || article.time || "5 min read") : (article.timeEn || article.time || "5 min read");
 
 
   return (
     <main className="min-h-screen bg-[#020617] text-white selection:bg-brandOrange selection:text-white relative overflow-x-hidden">
       {/* Navigation */}
-      <nav className="absolute top-0 w-full px-6 md:px-12 py-8 flex justify-between items-center z-50 mix-blend-difference">
+      <nav className="absolute top-0 w-full px-6 md:px-12 py-8 flex justify-between items-center z-50">
         <Link href="/journal" className="hoverable flex items-center gap-3 text-white/70 hover:text-white transition-colors group">
           <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white transition-all duration-300 backdrop-blur-md bg-white/5">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           </div>
-          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] hidden md:inline">{isEs ? "Volver al Diario" : "Back to Journal"}</span>
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] hidden md:inline">
+            {isEs ? "Volver al Diario" : "Back to Journal"}
           </span>
         </Link>
+        <button
+          onClick={toggleLang}
+          className="font-mono text-xs font-extrabold px-3 py-1.5 rounded-full border border-white/20 bg-white/10 hover:border-brandOrange hover:text-brandOrange transition-all cursor-pointer uppercase tracking-wider text-white backdrop-blur-md"
+        >
+          {lang === "es" ? "EN" : "ES"}
+        </button>
       </nav>
 
       {/* Hero Image Section */}
@@ -87,9 +100,8 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
               </span>
               <div className="flex items-center gap-2 text-white/80 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-widest border border-white/10">
                 <Clock className="w-3 h-3" />
-                {article.time}
+                {articleTime}
               </div>
-              {/* @ts-ignore */}
               {article.author && (
                 <div className="flex items-center gap-2 text-white bg-[#0054a6] px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-widest border border-white/10">
                   By {article.author}
@@ -106,7 +118,6 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
         {/* Left Sidebar: Intelligence Panel */}
         <aside className="md:col-span-4 space-y-12 order-2 md:order-1 sticky top-32">
           {/* Executive Summary Box */}
-          {/* @ts-ignore - Dynamic fields added to DB */}
           {(article.execSummaryEn || article.execSummaryEs) && (
             <div className="bg-brandOrange/[0.02] border border-brandOrange/20 p-8 rounded-xl backdrop-blur-md relative overflow-hidden group hover:border-brandOrange/50 transition-colors">
               <div className="absolute top-0 left-0 w-1 h-full bg-brandOrange"></div>
@@ -115,21 +126,18 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
                 {isEs ? "Resumen Ejecutivo" : "Executive Summary"}
               </h3>
               <p className="text-white/80 text-[15px] leading-relaxed font-serif italic">
-                {/* @ts-ignore */}
                 {isEs ? article.execSummaryEs : article.execSummaryEn}
               </p>
             </div>
           )}
 
           {/* Key Insights Box */}
-          {/* @ts-ignore */}
           {(article.insightsEn || article.insightsEs) && (
             <div className="space-y-6">
                <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 border-b border-white/10 pb-3">
                 {isEs ? "Datos Clave (Insights)" : "Key Insights"}
                </h3>
                <ul className="space-y-5">
-                  {/* @ts-ignore */}
                   {(isEs ? article.insightsEs : article.insightsEn)?.map((insight: string, i: number) => (
                     <li key={i} className="flex gap-4 items-start text-[14px] text-[#9ca3af] font-light leading-relaxed">
                       <span className="font-mono text-brandOrange font-bold opacity-50 text-xs mt-1">0{i + 1}</span>

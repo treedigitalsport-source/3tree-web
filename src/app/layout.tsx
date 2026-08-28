@@ -25,21 +25,21 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://3treedigital.com"),
-  title: "3Tree Digital | Sports AI & Biomechanics Engineering",
+  title: "3Tree Digital Sport IA | Sports AI & Biomechanics Engineering",
   description: "Diseñamos el futuro del deporte. Fusionamos inteligencia artificial, biomecánica sin marcadores (Markerless Biomechanics), analítica de datos y desarrollo de vanguardia.",
-  keywords: ["Sports AI", "Markerless Biomechanics", "Kinebase Pro", "Sports Analytics", "3Tree Digital", "Tecnología Deportiva", "IA Deportes"],
+  keywords: ["Sports AI", "Markerless Biomechanics", "Kinebase Pro", "Sports Analytics", "3Tree Digital Sport IA", "Tecnología Deportiva", "IA Deportes"],
   authors: [{ name: "3Tree Digital Sport IA" }],
   openGraph: {
-    title: "3Tree Digital | Sports AI & Biomechanics Engineering",
+    title: "3Tree Digital Sport IA | Sports AI & Biomechanics Engineering",
     description: "Diseñamos el futuro del deporte con IA, biomecánica y desarrollo de élite.",
     url: "https://3treedigital.com",
-    siteName: "3Tree Digital",
+    siteName: "3Tree Digital Sport IA",
     locale: "es_LA",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "3Tree Digital | Sports AI & Biomechanics Engineering",
+    title: "3Tree Digital Sport IA | Sports AI & Biomechanics Engineering",
     description: "Diseñamos el futuro del deporte con IA, biomecánica y desarrollo de élite.",
   },
   robots: {
@@ -58,12 +58,12 @@ export default function RootLayout({
       lang="es"
       className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} antialiased`}
     >
-      <body className="min-h-screen flex flex-col bg-black text-white font-sans">
+      <body className="min-h-screen flex flex-col bg-[#020617] text-white font-sans">
         <LangProvider>
           <LoadingScreen />
-          <main className="flex-1 w-full">
+          <div className="flex-1 w-full">
             {children}
-          </main>
+          </div>
           <AgentChat />
         </LangProvider>
       </body>

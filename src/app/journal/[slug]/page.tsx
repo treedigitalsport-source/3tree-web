@@ -27,7 +27,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <CustomCursor />
-      {/* @ts-ignore */}
       <ArticleReaderClient article={article} />
     </>
   );

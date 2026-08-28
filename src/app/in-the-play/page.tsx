@@ -9,7 +9,7 @@ import CustomCursor from "@/components/CustomCursor";
 import { useState, useEffect, useRef } from "react";
 
 export default function SportsNewsBroadcastPage() {
-  const { lang } = useLang();
+  const { lang, toggleLang } = useLang();
   const isEs = lang === "es";
 
   // Real-time clock for TV broadcast
@@ -323,6 +323,13 @@ export default function SportsNewsBroadcastPage() {
                 {timeStr}
               </span>
             </div>
+
+            <button
+              onClick={toggleLang}
+              className="font-mono text-xs font-extrabold px-3.5 py-2 rounded-xl border border-white/20 bg-black/80 hover:border-brandOrange hover:text-brandOrange transition-all cursor-pointer uppercase tracking-wider text-white backdrop-blur-md"
+            >
+              {lang === "es" ? "EN" : "ES"}
+            </button>
 
             <Link 
               href="/"
