@@ -59,7 +59,7 @@ const dict = {
     formEmail: "Email Address",
     formIdea: "Tell us your idea",
     sendMessage: "Send Message",
-    footerText: "¬© 2026 3Tree Digital Sport IA. All rights reserved.",
+    footerText: "© 2026 3Tree Digital Sport IA. All rights reserved.",
     footerLinks: ["Privacy", "Terms", "Cookies", "About us"],
     langToggle: "ES",
     project1Title: ["Gridiron", "AI"],
@@ -100,13 +100,13 @@ const dict = {
     },
     about: {
       title: "ABOUT US",
-      subtitle: "3TREE DIGITAL SPORT IA ¬∑ SPORTS INTELLIGENCE COMPANY",
-      tagline: "Sport Tech Revolution ¬∑ Technology, AI, Data Analytics, and Automation for Peak Performance.",
-      heroText1: "Headquartered in Lutz, Florida, with a global vision, 3Tree Digital Sport IA is a Sports Intelligence company focused on transforming the way technology, data, and Artificial Intelligence are applied to sports. We design and develop advanced software, mobile applications, AI agents, automation systems, data solutions, drone-based technologies, sports branding, and digital experiences for the sports ecosystem.",
+      subtitle: "3TREE DIGITAL SPORT IA ∑ SPORTS INTELLIGENCE COMPANY",
+      tagline: "Sport Tech Revolution ∑ Technology, AI, Data Analytics, and Automation for Peak Performance.",
+      heroText1: "Headquartered in Lutz, Florida, with a global vision, 3Tree Digital Sport IA is a Sports Intelligence company focused on transforming the way technology, data, and Artificial Intelligence are applied to sports. We design and develop intelligent systems, mobile applications, AI agents, automation systems, data solutions, drone-based technologies, sports branding, and digital experiences for the sports ecosystem.",
       heroText2: "Our objective is simple: Turn technology and data into practical intelligence for sports.",
       heroText3: "We were not born in traditional corporate boardrooms. Our vision was forged through more than 26 years of experience connected to sports and high-performance training, where we witnessed a recurring reality: thousands of athletes work relentlessly to develop their abilities, yet access to technology, structured data, and professional-level tools remains uneven. That reality led us to one fundamental question: What if technology, Artificial Intelligence, and data could become accessible tools for every level of sports? That question became the foundation of 3Tree Digital Sport IA.",
       uvpTitle: "OUR PHILOSOPHY",
-      uvpQuote: "We believe the future of sports intelligence lies at the intersection of human experience, data, and Artificial Intelligence. The human eye provides experience and context. Data provides measurable information. AI provides the ability to process, connect, and transform that information at scale. We do not replace human intelligence ‚Äî we amplify it.",
+      uvpQuote: "We believe the future of sports intelligence lies at the intersection of human experience, data, and Artificial Intelligence. The human eye provides experience and context. Data provides measurable information. AI provides the ability to process, connect, and transform that information at scale. We do not replace human intelligence ó we amplify it.",
       tableHeaders: ["Dimension", "Conventional Approach", "The 3Tree Approach"],
       tableRows: [
         { dim: "Technology", old: "Disconnected tools designed around individual needs.", new: "Integrated digital solutions built around the sports ecosystem." },
@@ -126,12 +126,12 @@ const dict = {
       roadmap: [
         { phase: "THE ORIGINS", desc: "Born from the frustration of seeing talent, information, and opportunity disconnected. Our origins are rooted in sports, training, and more than 26 years of real-world experience. We learned that technology is most valuable when it begins by understanding the people and problems it is designed to serve." },
         { phase: "THE PRESENT", desc: "Building the infrastructure. We are developing the technological ecosystem that brings together software, applications, Artificial Intelligence, data, automation, AI agents, digital experiences, and sports-focused technology. Our current mission is to transform complex technological capabilities into practical tools for the sports ecosystem." },
-        { phase: "THE FUTURE", desc: "Our vision is to help establish a new global standard for Sports Intelligence. We envision a sports ecosystem where athletes, coaches, clubs, academies, leagues, and organizations can use data, Artificial Intelligence, automation, and technology to make better-informed decisions and operate more intelligently. We are building toward a future where sports technology is not simply a tool ‚Äî but an intelligent infrastructure connecting data, people, and opportunity." }
+        { phase: "THE FUTURE", desc: "Our vision is to help establish a new global standard for Sports Intelligence. We envision a sports ecosystem where athletes, coaches, clubs, academies, leagues, and organizations can use data, Artificial Intelligence, automation, and technology to make better-informed decisions and operate more intelligently. We are building toward a future where sports technology is not simply a tool ó but an intelligent infrastructure connecting data, people, and opportunity." }
       ],
       closingBanner: {
         company: "3TREE DIGITAL SPORT IA",
         badge: "SPORTS INTELLIGENCE COMPANY",
-        tags: "SPORT TECH ¬∑ AI ¬∑ DATA ¬∑ SPORTS OS ¬∑ AUTOMATION",
+        tags: "SPORT TECH ∑ AI ∑ DATA ∑ SPORTS OS ∑ AUTOMATION",
         moto: "Sport Tech Revolution",
         sub: "Technology created to understand, connect, and transform sports."
       }
@@ -179,65 +179,65 @@ const dict = {
     nav: ["Servicios", "Ecosistema", "Diario", "Noticiero", "Impacto", "Nosotros"],
     cta: "Iniciar Proyecto",
     tagline: "Sports Intelligence Company",
-    heroLine1: "Dise√±amos",
+    heroLine1: "DiseÒamos",
     heroLine2: "El Futuro",
     heroLine3: "Del Deporte.",
-    heroDesc: "Fusionamos dise√±o de alto rendimiento, an√°lisis de datos y desarrollo de vanguardia para la industria deportiva.",
-    biomechanics: "Biomec√°nica Markerless",
-    scouting: "Base de Datos Anal√≠tica",
+    heroDesc: "Fusionamos diseÒo de alto rendimiento, an·lisis de datos y desarrollo de vanguardia para la industria deportiva.",
+    biomechanics: "Biomec·nica Markerless",
+    scouting: "Base de Datos AnalÌtica",
     whoDaresWins: "Who Dares Wins",
     viewWork: "Ver Trabajo",
-    getInTouch: "Cont√°ctanos",
+    getInTouch: "Cont·ctanos",
     scroll: "Bajar",
-    marquee1: ["Arquitectura UI/UX", "An√°lisis Deportivo", "Identidad de Marca", "N√∫cleo Sports OS", "Visualizaci√≥n de Datos", "Interfaces Inteligentes", "Integraci√≥n IA", "Tecnolog√≠a de Rendimiento"],
+    marquee1: ["Arquitectura UI/UX", "An·lisis Deportivo", "Identidad de Marca", "N˙cleo Sports OS", "VisualizaciÛn de Datos", "Interfaces Inteligentes", "IntegraciÛn IA", "TecnologÌa de Rendimiento"],
     stats: [
-      { value: "26", label: "A√±os de Experiencia" },
+      { value: "26", label: "AÒos de Experiencia" },
       { value: "100%", label: "Enfoque en Datos" },
-      { value: "24/7", label: "An√°lisis Aut√≥nomo" },
+      { value: "24/7", label: "An·lisis AutÛnomo" },
       { value: "0", label: "Sesgo Humano" },
     ],
     whatWeDo: "Lo Que Hacemos",
     ourExpertise: ["Nuestra", "Experiencia"],
     services: [
-      { title: "Sports OS Core", desc: "Arquitectura propietaria para centralizar rendimiento, visi√≥n computacional y anal√≠tica predictiva en clubes y academias de √©lite." },
-      { title: "Interfaces Deportivas", desc: "Entornos digitales de alta precisi√≥n y paneles t√°cticos en tiempo real para entrenadores, scouts y atletas." },
-      { title: "Automatizaci√≥n", desc: "Pipelines autom√°ticos que optimizan flujos de trabajo, ahorran tiempo y eliminan el error humano en el scouting." },
-      { title: "Implementaci√≥n de IA", desc: "LLMs predictivos y visi√≥n por computadora integrados en tu ecosistema. Inteligencia artificial que realmente funciona." },
-      { title: "Dron Cinem√°tico", desc: "Grabaci√≥n a√©rea de alta velocidad con drones. √Ångulos impresionantes para an√°lisis y publicidad deportiva." },
-      { title: "Agentes de IA", desc: "Asistentes aut√≥nomos 24/7 a la medida de tu negocio. Automatizan tareas complejas y mejoran el engagement deportivo." },
+      { title: "Sports OS Core", desc: "Arquitectura propietaria para centralizar rendimiento, visiÛn computacional y analÌtica predictiva en clubes y academias de Èlite." },
+      { title: "Interfaces Deportivas", desc: "Entornos digitales de alta precisiÛn y paneles t·cticos en tiempo real para entrenadores, scouts y atletas." },
+      { title: "AutomatizaciÛn", desc: "Pipelines autom·ticos que optimizan flujos de trabajo, ahorran tiempo y eliminan el error humano en el scouting." },
+      { title: "ImplementaciÛn de IA", desc: "LLMs predictivos y visiÛn por computadora integrados en tu ecosistema. Inteligencia artificial que realmente funciona." },
+      { title: "Dron Cinem·tico", desc: "GrabaciÛn aÈrea de alta velocidad con drones. ¡ngulos impresionantes para an·lisis y publicidad deportiva." },
+      { title: "Agentes de IA", desc: "Asistentes autÛnomos 24/7 a la medida de tu negocio. Automatizan tareas complejas y mejoran el engagement deportivo." },
     ],
     caseStudy: "Caso de Estudio 01",
     pro: "Pro",
-    exploreScroll: "Una revoluci√≥n en an√°lisis de b√©isbol. Haz scroll para explorar.",
+    exploreScroll: "Una revoluciÛn en an·lisis de bÈisbol. Haz scroll para explorar.",
     phase1: "Fase 01",
-    phase1Desc: "Seguimiento Avanzado de Mec√°nicas. An√°lisis de precisi√≥n de cada movimiento.",
+    phase1Desc: "Seguimiento Avanzado de Mec·nicas. An·lisis de precisiÛn de cada movimiento.",
     phase2: "Fase 02",
-    phase2Desc: "An√°lisis de mapas de calor en tiempo real y seguimiento biomec√°nico. Empoderando equipos de √©lite.",
+    phase2Desc: "An·lisis de mapas de calor en tiempo real y seguimiento biomec·nico. Empoderando equipos de Èlite.",
     phase3: "Fase 03",
-    phase3Desc: "Seguimiento de precisi√≥n en el hielo. M√©tricas de velocidad e impacto.",
-    haveProject1: "¬øTienes un",
+    phase3Desc: "Seguimiento de precisiÛn en el hielo. MÈtricas de velocidad e impacto.",
+    haveProject1: "øTienes un",
     haveProject2: "proyecto",
     haveProject3: "en mente?",
     letsTalk: "Hablemos",
-    marquee2: ["B√©isbol", "Hockey", "F√∫tbol", "Surf", "Boxeo", "Artes Marciales", "F√∫tbol Americano", "Tenis", "Golf", "eSports", "MMA", "Nataci√≥n", "Atletismo"],
+    marquee2: ["BÈisbol", "Hockey", "F˙tbol", "Surf", "Boxeo", "Artes Marciales", "F˙tbol Americano", "Tenis", "Golf", "eSports", "MMA", "NataciÛn", "Atletismo"],
     ourJournal: "Nuestro Diario",
     theEdge: ["La", "Vanguardia"],
     exploreJournal: "Explorar Diario",
     startProject: "Iniciar Proyecto",
     letsBuild: "Construyamos",
     theFuture: "El Futuro.",
-    contactDesc: "¬øTienes una idea para una plataforma deportiva, sistema de datos o nueva tecnolog√≠a? Cu√©ntanos sobre tu proyecto.",
+    contactDesc: "øTienes una idea para una plataforma deportiva, sistema de datos o nueva tecnologÌa? CuÈntanos sobre tu proyecto.",
     formName: "Tu Nombre",
-    formEmail: "Correo Electr√≥nico",
-    formIdea: "Cu√©ntanos tu idea",
+    formEmail: "Correo ElectrÛnico",
+    formIdea: "CuÈntanos tu idea",
     sendMessage: "Enviar Mensaje",
-    footerText: "¬© 2026 3Tree Digital Sport IA. Todos los derechos reservados.",
-    footerLinks: ["Privacidad", "T√©rminos", "Cookies", "Qui√©nes somos"],
+    footerText: "© 2026 3Tree Digital Sport IA. Todos los derechos reservados.",
+    footerLinks: ["Privacidad", "TÈrminos", "Cookies", "QuiÈnes somos"],
     langToggle: "EN",
     project1Title: ["Gridiron", "AI"],
-    project2Title: ["Anal√≠tica", "de Datos"],
-    project3Title: ["Anal√≠tica", "Deportiva"],
-    placeholderName: "ej. Juan P√©rez",
+    project2Title: ["AnalÌtica", "de Datos"],
+    project3Title: ["AnalÌtica", "Deportiva"],
+    placeholderName: "ej. Juan PÈrez",
     placeholderEmail: "ej. juan@empresa.com",
     placeholderIdea: "ej. Queremos una app de scouting...",
     scoutAi: "Kinebase",
@@ -246,89 +246,89 @@ const dict = {
     diarioTitle: "El Diario",
     diarioSubtitle1: "Editorial",
     diarioSubtitle2: "Insights",
-    newEntry: "Nuevo Art√≠culo",
-    entryTitle: "T√≠tulo del art√≠culo...",
+    newEntry: "Nuevo ArtÌculo",
+    entryTitle: "TÌtulo del artÌculo...",
     entryBody: "Escribe tus pensamientos, ideas o notas...",
-    saveEntry: "Guardar Art√≠culo",
-    recentEntries: "Art√≠culos Recientes",
-    reflection: "Reflexi√≥n de Dise√±o",
-    lorem: "An√°lisis profundo y reportajes de investigaci√≥n en la intersecci√≥n del deporte profesional, la biomec√°nica, la ciencia de datos y la inteligencia artificial.",
+    saveEntry: "Guardar ArtÌculo",
+    recentEntries: "ArtÌculos Recientes",
+    reflection: "ReflexiÛn de DiseÒo",
+    lorem: "An·lisis profundo y reportajes de investigaciÛn en la intersecciÛn del deporte profesional, la biomec·nica, la ciencia de datos y la inteligencia artificial.",
     
     // Sports News (Formerly In the Play)
     inThePlayTitle: "Noticiero",
     inThePlayDesc: "La plataforma de noticias deportivas definitiva.",
-    uploadYourPlay: "Ver √öltimas Noticias",
-    uploadDesc: "Mantente al d√≠a con nuestro noticiero en vivo sobre lo √∫ltimo en el ecosistema sport tech.",
+    uploadYourPlay: "Ver ⁄ltimas Noticias",
+    uploadDesc: "Mantente al dÌa con nuestro noticiero en vivo sobre lo ˙ltimo en el ecosistema sport tech.",
     uploadButton: "SUBIR VIDEO",
     liveFeed: "FEED EN VIVO",
     watchVideos: "Ver Videos",
     uploadVideoMenu: "Subir Video",
     podcast: {
       title: "zon_ethos",
-      subtitle: "Inmersiones profundas en tecnolog√≠a deportiva, datos y futuro.",
-      listenLatest: "Escuchar el √öltimo Episodio",
-      latestEpisode: "√öLTIMO EPISODIO",
+      subtitle: "Inmersiones profundas en tecnologÌa deportiva, datos y futuro.",
+      listenLatest: "Escuchar el ⁄ltimo Episodio",
+      latestEpisode: "⁄LTIMO EPISODIO",
       previousEpisodes: "Episodios Anteriores"
     },
     about: {
-      title: "QUI√âNES SOMOS",
-      subtitle: "3TREE DIGITAL SPORT IA ¬∑ SPORTS INTELLIGENCE COMPANY",
-      tagline: "Revoluci√≥n Sport Tech ¬∑ Tecnolog√≠a, IA, Datos y Automatizaci√≥n Deportiva.",
-      heroText1: "Con sede en Lutz, Florida, y una visi√≥n global, 3Tree Digital Sport IA es una compa√±√≠a de Sports Intelligence enfocada en transformar la manera en que la tecnolog√≠a, los datos y la Inteligencia Artificial se aplican al deporte. Dise√±amos y desarrollamos sistemas inteligentes avanzados, aplicaciones m√≥viles, agentes de IA, sistemas de automatizaci√≥n, soluciones de datos, tecnolog√≠as basadas en drones, branding deportivo y experiencias digitales para el ecosistema deportivo.",
-      heroText2: "Nuestro objetivo es simple: Convertir la tecnolog√≠a y los datos en inteligencia pr√°ctica para el deporte.",
-      heroText3: "No nacimos en salas de juntas corporativas tradicionales. Nuestra visi√≥n se forj√≥ a trav√©s de m√°s de 26 a√±os de experiencia vinculada al deporte y al entrenamiento de alto rendimiento, donde presenciamos una realidad recurrente: miles de atletas trabajan incansablemente para desarrollar sus habilidades, pero el acceso a la tecnolog√≠a, a los datos estructurados y a herramientas de nivel profesional sigue siendo desigual. Esa realidad nos llev√≥ a una pregunta fundamental: ¬øQu√© pasar√≠a si la tecnolog√≠a, la Inteligencia Artificial y los datos pudieran convertirse en herramientas accesibles para todos los niveles del deporte? Esa pregunta se convirti√≥ en la base de 3Tree Digital Sport IA.",
-      uvpTitle: "NUESTRA FILOSOF√çA",
-      uvpQuote: "Creemos que el futuro de la inteligencia deportiva reside en la intersecci√≥n de la experiencia humana, los datos y la Inteligencia Artificial. El ojo humano aporta experiencia y contexto. Los datos aportan informaci√≥n medible. La IA aporta la capacidad de procesar, conectar y transformar esa informaci√≥n a escala. No reemplazamos la inteligencia humana ‚Äî la amplificamos.",
-      tableHeaders: ["Dimensi√≥n", "Enfoque Convencional", "El Enfoque 3Tree"],
+      title: "QUI…NES SOMOS",
+      subtitle: "3TREE DIGITAL SPORT IA ∑ SPORTS INTELLIGENCE COMPANY",
+      tagline: "RevoluciÛn Sport Tech ∑ TecnologÌa, IA, Datos y AutomatizaciÛn Deportiva.",
+      heroText1: "Con sede en Lutz, Florida, y una visiÛn global, 3Tree Digital Sport IA es una compaÒÌa de Sports Intelligence enfocada en transformar la manera en que la tecnologÌa, los datos y la Inteligencia Artificial se aplican al deporte. DiseÒamos y desarrollamos sistemas inteligentes, aplicaciones mÛviles, agentes de IA, sistemas de automatizaciÛn, soluciones de datos, tecnologÌas basadas en drones, branding deportivo y experiencias digitales para el ecosistema deportivo.",
+      heroText2: "Nuestro objetivo es simple: Convertir la tecnologÌa y los datos en inteligencia pr·ctica para el deporte.",
+      heroText3: "No nacimos en salas de juntas corporativas tradicionales. Nuestra visiÛn se forjÛ a travÈs de m·s de 26 aÒos de experiencia vinculada al deporte y al entrenamiento de alto rendimiento, donde presenciamos una realidad recurrente: miles de atletas trabajan incansablemente para desarrollar sus habilidades, pero el acceso a la tecnologÌa, a los datos estructurados y a herramientas de nivel profesional sigue siendo desigual. Esa realidad nos llevÛ a una pregunta fundamental: øQuÈ pasarÌa si la tecnologÌa, la Inteligencia Artificial y los datos pudieran convertirse en herramientas accesibles para todos los niveles del deporte? Esa pregunta se convirtiÛ en la base de 3Tree Digital Sport IA.",
+      uvpTitle: "NUESTRA FILOSOFÕA",
+      uvpQuote: "Creemos que el futuro de la inteligencia deportiva reside en la intersecciÛn de la experiencia humana, los datos y la Inteligencia Artificial. El ojo humano aporta experiencia y contexto. Los datos aportan informaciÛn medible. La IA aporta la capacidad de procesar, conectar y transformar esa informaciÛn a escala. No reemplazamos la inteligencia humana ó la amplificamos.",
+      tableHeaders: ["DimensiÛn", "Enfoque Convencional", "El Enfoque 3Tree"],
       tableRows: [
-        { dim: "Tecnolog√≠a", old: "Herramientas desconectadas dise√±adas alrededor de necesidades individuales.", new: "Soluciones digitales integradas construidas alrededor del ecosistema deportivo." },
-        { dim: "An√°lisis de Datos", old: "Informaci√≥n distribuida en m√∫ltiples sistemas, hojas de c√°lculo y plataformas aisladas. Procesos manuales lentos y dif√≠ciles de escalar.", new: "Datos estructurados transformados en inteligencia deportiva utilizable. An√°lisis asistido por IA y automatizaci√≥n dise√±ada para acelerar flujos de trabajo." },
-        { dim: "Desarrollo", old: "Tecnolog√≠a gen√©rica sin comprensi√≥n profunda del entorno deportivo.", new: "Soluciones construidas en torno a necesidades deportivas espec√≠ficas y experiencia real de campo." },
-        { dim: "Automatizaci√≥n", old: "Procesos repetitivos gestionados de forma manual.", new: "Flujos de trabajo inteligentes y agentes de IA dise√±ados para automatizar tareas seleccionadas." },
-        { dim: "Accesibilidad", old: "Tecnolog√≠a avanzada a menudo concentrada en organizaciones con mayores recursos.", new: "Tecnolog√≠a dise√±ada para expandir el acceso en todos los niveles del deporte." }
+        { dim: "TecnologÌa", old: "Herramientas desconectadas diseÒadas alrededor de necesidades individuales.", new: "Soluciones digitales integradas construidas alrededor del ecosistema deportivo." },
+        { dim: "An·lisis de Datos", old: "InformaciÛn distribuida en m˙ltiples sistemas, hojas de c·lculo y plataformas aisladas. Procesos manuales lentos y difÌciles de escalar.", new: "Datos estructurados transformados en inteligencia deportiva utilizable. An·lisis asistido por IA y automatizaciÛn diseÒada para acelerar flujos de trabajo." },
+        { dim: "Desarrollo", old: "TecnologÌa genÈrica sin comprensiÛn profunda del entorno deportivo.", new: "Soluciones construidas en torno a necesidades deportivas especÌficas y experiencia real de campo." },
+        { dim: "AutomatizaciÛn", old: "Procesos repetitivos gestionados de forma manual.", new: "Flujos de trabajo inteligentes y agentes de IA diseÒados para automatizar tareas seleccionadas." },
+        { dim: "Accesibilidad", old: "TecnologÌa avanzada a menudo concentrada en organizaciones con mayores recursos.", new: "TecnologÌa diseÒada para expandir el acceso en todos los niveles del deporte." }
       ],
-      pillarsTitle: "PILARES ESTRAT√âGICOS",
+      pillarsTitle: "PILARES ESTRAT…GICOS",
       pillars: [
-        { title: "Biomec√°nica 3D Sin Marcadores", desc: "Reconstrucci√≥n cinem√°tica 3D a 240 fps con Kinebase Pro directamente desde video est√°ndar sin requerir trajes ni sensores f√≠sicos. An√°lisis preciso de √°ngulos articulares, torques y prevenci√≥n de lesiones." },
-        { title: "Sports OS Core & Data Engine", desc: "Arquitectura propietaria de inteligencia deportiva que centraliza m√©tricas de rendimiento, telemetr√≠a y bases de datos anal√≠ticas para clubes, academias y organizaciones profesionales." },
-        { title: "Scouting Predictivo & Modelos LLM", desc: "Eliminaci√≥n del sesgo humano mediante modelos de lenguaje y visi√≥n computacional que transforman notas subjetivas en perfiles de talento estructurados y curvas de rendimiento." },
-        { title: "Agentes de IA & Automatizaci√≥n", desc: "Asistentes de IA personalizados y pipelines de video automatizados que procesan datos, distribuyen material t√°ctico y optimizan flujos de trabajo 24/7 sin intervenci√≥n manual." }
+        { title: "Biomec·nica 3D Sin Marcadores", desc: "ReconstrucciÛn cinem·tica 3D a 240 fps con Kinebase Pro directamente desde video est·ndar sin requerir trajes ni sensores fÌsicos. An·lisis preciso de ·ngulos articulares, torques y prevenciÛn de lesiones." },
+        { title: "Sports OS Core & Data Engine", desc: "Arquitectura propietaria de inteligencia deportiva que centraliza mÈtricas de rendimiento, telemetrÌa y bases de datos analÌticas para clubes, academias y organizaciones profesionales." },
+        { title: "Scouting Predictivo & Modelos LLM", desc: "EliminaciÛn del sesgo humano mediante modelos de lenguaje y visiÛn computacional que transforman notas subjetivas en perfiles de talento estructurados y curvas de rendimiento." },
+        { title: "Agentes de IA & AutomatizaciÛn", desc: "Asistentes de IA personalizados y pipelines de video automatizados que procesan datos, distribuyen material t·ctico y optimizan flujos de trabajo 24/7 sin intervenciÛn manual." }
       ],
       roadmapTitle: "NUESTRA HOJA DE RUTA",
       roadmap: [
-        { phase: "LOS OR√çGENES", desc: "Nacidos de la frustraci√≥n de ver el talento, la informaci√≥n y las oportunidades desconectadas. Nuestros or√≠genes est√°n arraigados en el deporte, el entrenamiento y m√°s de 26 a√±os de experiencia real. Aprendimos que la tecnolog√≠a es m√°s valiosa cuando comienza por comprender a las personas y los problemas que debe resolver." },
-        { phase: "EL PRESENTE", desc: "Construyendo la infraestructura. Desarrollamos el ecosistema tecnol√≥gico que integra software, aplicaciones, Inteligencia Artificial, datos, automatizaci√≥n, agentes de IA, experiencias digitales y tecnolog√≠a deportiva especializada. Nuestra misi√≥n actual es transformar capacidades tecnol√≥gicas complejas en herramientas pr√°cticas para el deporte." },
-        { phase: "EL FUTURO", desc: "Nuestra visi√≥n es ayudar a establecer un nuevo est√°ndar global para Sports Intelligence. Visualizamos un ecosistema donde atletas, entrenadores, clubes, academias, ligas y organizaciones utilicen datos, IA, automatizaci√≥n y tecnolog√≠a para tomar decisiones informadas y operar con mayor inteligencia. Construimos hacia un futuro donde la tecnolog√≠a deportiva no sea solo una herramienta ‚Äî sino una infraestructura inteligente que conecte datos, personas y oportunidades." }
+        { phase: "LOS ORÕGENES", desc: "Nacidos de la frustraciÛn de ver el talento, la informaciÛn y las oportunidades desconectadas. Nuestros orÌgenes est·n arraigados en el deporte, el entrenamiento y m·s de 26 aÒos de experiencia real. Aprendimos que la tecnologÌa es m·s valiosa cuando comienza por comprender a las personas y los problemas que debe resolver." },
+        { phase: "EL PRESENTE", desc: "Construyendo la infraestructura. Desarrollamos el ecosistema tecnolÛgico que integra software, aplicaciones, Inteligencia Artificial, datos, automatizaciÛn, agentes de IA, experiencias digitales y tecnologÌa deportiva especializada. Nuestra misiÛn actual es transformar capacidades tecnolÛgicas complejas en herramientas pr·cticas para el deporte." },
+        { phase: "EL FUTURO", desc: "Nuestra visiÛn es ayudar a establecer un nuevo est·ndar global para Sports Intelligence. Visualizamos un ecosistema donde atletas, entrenadores, clubes, academias, ligas y organizaciones utilicen datos, IA, automatizaciÛn y tecnologÌa para tomar decisiones informadas y operar con mayor inteligencia. Construimos hacia un futuro donde la tecnologÌa deportiva no sea solo una herramienta ó sino una infraestructura inteligente que conecte datos, personas y oportunidades." }
       ],
       closingBanner: {
         company: "3TREE DIGITAL SPORT IA",
         badge: "SPORTS INTELLIGENCE COMPANY",
-        tags: "SPORT TECH ¬∑ AI ¬∑ DATA ¬∑ SPORTS OS ¬∑ AUTOMATION",
+        tags: "SPORT TECH ∑ AI ∑ DATA ∑ SPORTS OS ∑ AUTOMATION",
         moto: "Sport Tech Revolution",
-        sub: "Tecnolog√≠a creada para entender, conectar y transformar los deportes."
+        sub: "TecnologÌa creada para entender, conectar y transformar los deportes."
       }
     },
     impact: {
       preTitle: "El Futuro del Deporte",
       title1: "El Impacto",
       title2: "De La IA",
-      desc: "La Inteligencia Artificial ya no es ciencia ficci√≥n, es la nueva ventaja competitiva. Somos una Sports Intelligence Company impulsada por Visi√≥n Computarizada, Big Data y Modelos de Lenguaje (LLMs) que erradica el sesgo humano del scouting.",
+      desc: "La Inteligencia Artificial ya no es ciencia ficciÛn, es la nueva ventaja competitiva. Somos una Sports Intelligence Company impulsada por VisiÛn Computarizada, Big Data y Modelos de Lenguaje (LLMs) que erradica el sesgo humano del scouting.",
       scroll: "Scroll",
       pillarsTitle1: "Los 3",
       pillarsTitle2: "Pilares",
-      pillarsDesc: "La arquitectura tecnol√≥gica detr√°s de nuestra ventaja injusta.",
+      pillarsDesc: "La arquitectura tecnolÛgica detr·s de nuestra ventaja injusta.",
       pillars: [
         { 
-          title: "Visi√≥n Computarizada", 
-          desc: "An√°lisis biomec√°nico sin marcadores (Kinebase Pro). Medimos √°ngulos, torque y velocidad de rotaci√≥n extrayendo datos exactos directamente del p√≠xel. Adi√≥s al sesgo del ojo cl√≠nico." 
+          title: "VisiÛn Computarizada", 
+          desc: "An·lisis biomec·nico sin marcadores (Kinebase Pro). Medimos ·ngulos, torque y velocidad de rotaciÛn extrayendo datos exactos directamente del pÌxel. AdiÛs al sesgo del ojo clÌnico." 
         },
         { 
           title: "LLMs Predictivos", 
-          desc: "Transformamos notas subjetivas y m√©tricas crudas en perfiles de talento estructurados. Nuestros modelos de lenguaje predicen curvas de rendimiento y alertan sobre riesgos de lesi√≥n." 
+          desc: "Transformamos notas subjetivas y mÈtricas crudas en perfiles de talento estructurados. Nuestros modelos de lenguaje predicen curvas de rendimiento y alertan sobre riesgos de lesiÛn." 
         },
         { 
           title: "Flujos Automatizados", 
-          desc: "Democratizamos la visibilidad. Pipelines automatizados de video que editan, estabilizan y procesan material crudo, envi√°ndolo instant√°neamente al feed global de scouting." 
+          desc: "Democratizamos la visibilidad. Pipelines automatizados de video que editan, estabilizan y procesan material crudo, envi·ndolo instant·neamente al feed global de scouting." 
         }
       ],
       oldParadigmTitle: "El Viejo Paradigma",
@@ -340,10 +340,10 @@ const dict = {
       ],
       newParadigmTitle: "El Paradigma 3Tree",
       newParadigm: [
-        "Biomec√°nica Sin Marcadores",
-        "Edici√≥n Aut√≥noma con IA",
+        "Biomec·nica Sin Marcadores",
+        "EdiciÛn AutÛnoma con IA",
         "Feed Global Basado en Datos",
-        "Reportes T√°cticos con LLMs"
+        "Reportes T·cticos con LLMs"
       ]
     }
   }
@@ -382,3 +382,5 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
 export function useLang() {
   return useContext(LangContext);
 }
+
+
