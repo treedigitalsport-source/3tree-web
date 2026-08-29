@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,7 +19,7 @@ export default function AgentChat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const welcomeText = isEs 
-    ? "¡Hola! 👋 Soy Iris, especialista de atención en 3Tree Digital. ¿En qué te puedo colaborar hoy?"
+    ? "¡Hola! 👋 Soy Iris · Especialista de atención en 3Tree Digital. ¿En qué te puedo colaborar hoy?"
     : "Hello! 👋 I'm Iris, client care specialist at 3Tree Digital. How can I help you today?";
 
   // Auto-scroll to bottom
