@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter, Syne, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import "lenis/dist/lenis.css";
