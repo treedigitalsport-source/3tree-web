@@ -6,6 +6,7 @@ import { useLang } from "./i18n";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, Globe, Activity, Brain, Video, Bot, Menu, X, ChevronDown } from "lucide-react";
 import { SocialLinks } from "@/components/ui/SocialLinks";
+import { SocialAccountsGrid } from "@/components/ui/SocialAccountsGrid";
 import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import CustomCursor from "@/components/CustomCursor";
 
@@ -379,7 +380,7 @@ export default function MainContent() {
 
         {/* Capa 1: Video Hero Background — Scouts Béisbol en el Terreno (2.5MB) */}
         <video
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-90"
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-90 pointer-events-none"
           src="/videos/scouts_beisbol_hero.mp4"
           autoPlay
           loop
@@ -801,8 +802,13 @@ export default function MainContent() {
       </section>
 
       {/* ─── FOOTER CORPORATIVO ─── */}
-      <footer className="relative z-10 w-full border-t border-white/10 bg-[#020617] pt-20 pb-12 overflow-hidden">
+      <footer className="relative z-10 w-full border-t border-white/10 bg-[#020617] pt-16 pb-12 overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
+          {/* ─── REDES SOCIALES Y CUENTAS CONECTADAS ─── */}
+          <div className="mb-14">
+            <SocialAccountsGrid />
+          </div>
+
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-12">
             <div>
               <div className="font-display font-black text-xl md:text-2xl tracking-widest uppercase mb-3">
