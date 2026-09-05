@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Syne, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import "lenis/dist/lenis.css";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import { LangProvider } from "./i18n";
-import SmoothScroll from "@/components/SmoothScroll";
 import AgentChat from "@/components/ui/AgentChat";
 
 const inter = Inter({
@@ -60,7 +58,6 @@ export default function RootLayout({
     >
       <body className="min-h-screen flex flex-col bg-[#020617] text-white font-sans">
         <LangProvider>
-          <SmoothScroll />
           <LoadingScreen />
           <div className="flex-1 w-full">
             {children}
