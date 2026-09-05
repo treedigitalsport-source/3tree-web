@@ -44,6 +44,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    other: {
+      "p:domain_verify": ["53d0f51fa8fae313829e944cd81b1745"],
+    },
+  },
 };
 
 export default function RootLayout({
@@ -56,6 +61,9 @@ export default function RootLayout({
       lang="es"
       className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} antialiased`}
     >
+      <head>
+        <meta name="p:domain_verify" content="53d0f51fa8fae313829e944cd81b1745" />
+      </head>
       <body className="min-h-screen flex flex-col bg-[#020617] text-white font-sans">
         <LangProvider>
           <LoadingScreen />
