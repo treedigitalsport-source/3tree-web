@@ -249,19 +249,16 @@ export default function MainContent() {
 
         <div className="w-full px-6 md:px-12 lg:px-16 flex items-center justify-between relative z-10">
           <div className="flex items-center gap-6">
-            {/* Clickable Official Brand Logo with SPORT IA Badge */}
-            <Link href="/" className="flex items-center gap-2.5 hoverable group z-50 shrink-0">
-              <div className="h-8 sm:h-9 md:h-10 w-auto flex items-center relative transition-all duration-300 group-hover:scale-105">
+            {/* Clickable Brand Responsive Logo (Original Design) */}
+            <Link href="/" className="flex items-center hoverable group z-50 shrink-0">
+              <div className="h-14 sm:h-16 md:h-20 lg:h-24 w-auto flex items-center relative transition-all duration-300 group-hover:scale-[1.02]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src="/icons/logo-3tree.png" 
-                  alt="3Tree Digital Sport IA" 
-                  className="h-full w-auto object-contain drop-shadow-[0_2px_15px_rgba(242,101,34,0.3)] filter brightness-110" 
+                  alt="3Tree Digital" 
+                  className="h-full w-auto max-h-24 max-w-[260px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] object-contain object-left drop-shadow-[0_4px_25px_rgba(0,0,0,0.85)] filter brightness-105" 
                 />
               </div>
-              <span className="text-brandOrange font-mono text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded bg-brandOrange/15 border border-brandOrange/30 shrink-0 tracking-wider">
-                SPORT IA
-              </span>
             </Link>
 
             {/* Soft Diffused Gradient Vertical Divider Line */}
