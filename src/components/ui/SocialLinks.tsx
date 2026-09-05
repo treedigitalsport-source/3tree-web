@@ -30,7 +30,7 @@ export function SocialLinks({ className = "", iconSize = "w-4 h-4" }: { classNam
         <BlueskyIcon className={iconSize} />
       </a>
       {/* Truth Social */}
-      <a href="https://truthsocial.com/@3treedigital" target="_blank" rel="noopener noreferrer" aria-label="Truth Social" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#605af5] hover:text-white hover:border-[#605af5] transition-all cursor-pointer text-white/50">
+      <a href="https://truthsocial.com/@3TreeSportAI" target="_blank" rel="noopener noreferrer" aria-label="Truth Social" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#605af5] hover:text-white hover:border-[#605af5] transition-all cursor-pointer text-white/50">
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 6.5h13v3.5h-4.5v8.5h-4v-8.5h-4.5z" /></svg>
       </a>
       {/* Pinterest */}
