@@ -819,10 +819,8 @@ export default function MainContent() {
               </p>
             </div>
             
-            <div className="flex flex-col items-start md:items-end gap-5">
-              <SocialLinks className="gap-6" />
-              
-              {/* Enlaces Legales organizados bajo las redes sociales */}
+            <div className="flex flex-col items-start md:items-end gap-3">
+              {/* Enlaces Legales */}
               <div className="flex flex-wrap gap-4 md:gap-6 font-mono text-[10px] font-bold uppercase tracking-widest text-white/50">
                 <Link href="/terms" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Términos de Servicio" : "Terms of Service"}</Link>
                 <Link href="/privacy" className="hover:text-brandOrange transition-colors hoverable">{isEs ? "Políticas de Privacidad" : "Privacy Policy"}</Link>
