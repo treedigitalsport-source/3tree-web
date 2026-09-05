@@ -644,17 +644,17 @@ export default function MainContent() {
       </section>
 
 
-      {/* ═════ CINEMATIC DRONE SHOWCASE (DIRECTLY COUPLED TO SERVICES) ═════ */}
-      <section className="bg-gradient-to-b from-[#020617] via-[#020617] to-black relative w-full pt-4 md:pt-6 pb-4">
+      {/* ═════ CINEMATIC DRONE SHOWCASE (ORIGINAL FULL-WIDTH IMMERSIVE) ═════ */}
+      <section className="bg-gradient-to-b from-[#020617] to-black relative w-full pt-10 pb-0 overflow-hidden">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.2 }}
-          className="w-full max-w-[94%] mx-auto h-[70vh] md:h-[85vh] relative group hoverable rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10"
+          transition={{ duration: 1.5 }}
+          className="w-full h-[80vh] md:h-[100vh] relative group hoverable"
           style={{
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 95%, transparent 100%)',
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 95%, transparent 100%)',
           }}
         >
           <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
@@ -667,10 +667,6 @@ export default function MainContent() {
           >
             <source src="/videos/Drone_dive_into_baseball_stadium_202607151954.mp4" type="video/mp4" />
           </video>
-
-          {/* Top & Bottom internal fade gradient overlays */}
-          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#020617]/70 to-transparent z-20 pointer-events-none"></div>
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020617] to-transparent z-20 pointer-events-none"></div>
         </motion.div>
       </section>
 
