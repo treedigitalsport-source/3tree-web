@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { InstagramIcon } from "./InstagramIcon";
@@ -80,8 +80,8 @@ export function SocialAccountsGrid() {
     },
     {
       name: "YouTube",
-      handle: "3Tree Digital Sport IA",
-      url: "https://www.youtube.com/channel/UCN1HgKHwaj3Ln4gJOewQg4w",
+      handle: "@3TreeSportAI",
+      url: "https://www.youtube.com/@3TreeSportAI",
       color: "#FF0000",
       badge: "Oficial",
       category: "Canal y Podcast",

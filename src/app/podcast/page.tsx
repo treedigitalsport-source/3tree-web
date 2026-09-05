@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -169,7 +169,7 @@ export default function PodcastPage() {
               <span>Spotify</span>
             </a>
             <a 
-              href="https://youtube.com/@3treedigital" 
+              href="https://www.youtube.com/@3TreeSportAI" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="hoverable flex items-center gap-2 bg-[#FF0000] hover:bg-[#ff3333] text-white px-4 py-2.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-105"
@@ -349,7 +349,7 @@ export default function PodcastPage() {
                   <Headphones className="w-4 h-4 fill-current" />
                 </a>
                 <a 
-                  href="https://youtube.com/@3treedigital" 
+                  href="https://www.youtube.com/@3TreeSportAI" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full bg-[#FF0000] text-white flex items-center justify-center hover:scale-110 transition-transform"
