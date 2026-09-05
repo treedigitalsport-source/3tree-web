@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Cpu, Activity, ShieldAlert, Award } from "lucide-react";
 import { useLang } from "@/app/i18n";
 import CustomCursor from "@/components/CustomCursor";
+import { Footer } from "@/components/ui/Footer";
 
 export default function KinebaseProPage() {
   const { lang, toggleLang } = useLang();
@@ -192,6 +193,8 @@ export default function KinebaseProPage() {
         </Link>
       </section>
 
+      {/* ─── FOOTER CORPORATIVO UNIFICADO ─── */}
+      <Footer />
     </main>
   );
 }

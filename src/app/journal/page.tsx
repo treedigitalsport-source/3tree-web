@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import CustomCursor from "@/components/CustomCursor";
 import { aiArticles, neilArticles } from "@/lib/articlesData";
 import { useState } from "react";
 import { useLang } from "@/app/i18n";
+import { Footer } from "@/components/ui/Footer";
 
 export default function JournalHub() {
   const { lang, toggleLang } = useLang();
@@ -320,6 +321,9 @@ export default function JournalHub() {
 
         </div>
       </section>
+
+      {/* ─── FOOTER CORPORATIVO UNIFICADO ─── */}
+      <Footer />
     </main>
   );
 }

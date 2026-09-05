@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Brain, Camera, Database, ArrowLeft, X, Sparkles } from "lucide-react";
 import { useLang } from "@/app/i18n";
 import CustomCursor from "@/components/CustomCursor";
+import { Footer } from "@/components/ui/Footer";
 
 export default function ImpactPage() {
   const { t, lang, toggleLang } = useLang();
@@ -197,6 +198,9 @@ export default function ImpactPage() {
           <ArrowRight className="w-4 h-4" />
         </Link>
       </section>
+
+      {/* ─── FOOTER CORPORATIVO UNIFICADO ─── */}
+      <Footer />
     </main>
   );
 }

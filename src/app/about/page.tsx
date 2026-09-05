@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, Target, Globe, Bot, Database, Compass, CheckCircle2, AlertCircle, Zap, ArrowUpRight } from "lucide-react";
 import { useLang } from "@/app/i18n";
 import CustomCursor from "@/components/CustomCursor";
+import { Footer } from "@/components/ui/Footer";
 
 export default function AboutPage() {
   const { lang, t, toggleLang } = useLang();
@@ -306,6 +307,9 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
+
+      {/* ─── FOOTER CORPORATIVO UNIFICADO ─── */}
+      <Footer />
     </div>
   );
 }

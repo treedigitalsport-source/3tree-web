@@ -5,6 +5,7 @@ import { ArrowLeft, Mail, MapPin, Send, Loader2, CheckCircle2 } from "lucide-rea
 import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import Link from "next/link";
 import CustomCursor from "@/components/CustomCursor";
+import { Footer } from "@/components/ui/Footer";
 import { useState } from "react";
 import { submitContactForm } from "@/app/actions/contact";
 import { useLang } from "@/app/i18n";
@@ -216,6 +217,9 @@ export default function Contact() {
           </motion.div>
 
       </div>
+
+      {/* ─── FOOTER CORPORATIVO UNIFICADO ─── */}
+      <Footer />
     </main>
   );
 }
