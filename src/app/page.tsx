@@ -6,7 +6,6 @@ import { useLang } from "./i18n";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, Globe, Activity, Brain, Video, Bot, Menu, X, ChevronDown } from "lucide-react";
 import { Footer } from "@/components/ui/Footer";
-import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import CustomCursor from "@/components/CustomCursor";
 
 
@@ -283,17 +282,6 @@ export default function MainContent() {
 
           {/* Desktop Header Actions */}
           <div className="hidden lg:flex items-center gap-2.5 md:gap-3 shrink-0">
-            <a
-              href="https://www.instagram.com/3treesportai/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram 3Tree Sport AI"
-              title="Instagram @3treesportai"
-              className="hoverable w-8 h-8 rounded-full border border-white/15 bg-white/[0.04] backdrop-blur-md flex items-center justify-center text-white/70 hover:text-white hover:bg-[#E1306C] hover:border-[#E1306C] transition-all duration-300"
-            >
-              <InstagramIcon className="w-3.5 h-3.5" />
-            </a>
-
             <button 
               onClick={toggleLang}
               className="group hoverable flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors px-3 py-1.5 border border-white/15 rounded-full bg-white/[0.04] backdrop-blur-md hover:border-brandOrange/40"
@@ -308,17 +296,6 @@ export default function MainContent() {
 
           {/* Mobile Hamburger & Lang Button */}
           <div className="flex lg:hidden items-center gap-2 z-50">
-            <a
-              href="https://www.instagram.com/3treesportai/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram 3Tree Sport AI"
-              title="Instagram @3treesportai"
-              className="w-8 h-8 rounded-full border border-white/10 bg-white/[0.05] flex items-center justify-center text-white/70 hover:text-white hover:bg-[#E1306C]"
-            >
-              <InstagramIcon className="w-3.5 h-3.5" />
-            </a>
-
             <button 
               onClick={toggleLang}
               className="flex items-center gap-1 text-[9px] font-mono font-bold uppercase tracking-wider text-white/80 px-2.5 py-1.5 border border-white/10 rounded-full bg-white/[0.05]"
