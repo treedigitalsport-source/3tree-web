@@ -1,22 +1,42 @@
-﻿import React from "react";
+﻿"use client";
+
+import React, { useState } from "react";
 import { InstagramIcon } from "./InstagramIcon";
 import { RumbleIcon } from "./RumbleIcon";
 import { BlueskyIcon } from "./BlueskyIcon";
 import { TruthSocialIcon } from "./TruthSocialIcon";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, QrCode, X, Smartphone, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export interface SocialAccountItem {
   name: string;
   handle: string;
   url: string;
+  appUrl?: string;
   color: string;
   badge: string;
   category: string;
+  note?: string;
+  hasQr?: boolean;
   icon: React.ReactNode;
 }
 
 export function SocialAccountsGrid() {
+  const [showQrModal, setShowQrModal] = useState(false);
+
   const accounts: SocialAccountItem[] = [
+    {
+      name: "Instagram",
+      handle: "@3treesportai",
+      url: "https://www.instagram.com/3treesportai/",
+      appUrl: "instagram://user?username=3treesportai",
+      color: "#E1306C",
+      badge: "Oficial",
+      category: "Reels & Multimedia",
+      note: "Escanear QR para ver sin bloqueos de Meta",
+      hasQr: true,
+      icon: <InstagramIcon className="w-5 h-5 text-[#E1306C]" />,
+    },
     {
       name: "Truth Social",
       handle: "@3TreeSportAI",
@@ -24,16 +44,8 @@ export function SocialAccountsGrid() {
       color: "#605af5",
       badge: "Verificado",
       category: "Canal Oficial",
+      note: "Abrir en App para omitir anuncios de terceros",
       icon: <TruthSocialIcon className="w-5 h-5 text-[#605af5]" />,
-    },
-    {
-      name: "Instagram",
-      handle: "@3treesportai",
-      url: "https://www.instagram.com/3treesportai/",
-      color: "#E1306C",
-      badge: "Oficial",
-      category: "Reels & Multimedia",
-      icon: <InstagramIcon className="w-5 h-5 text-[#E1306C]" />,
     },
     {
       name: "Rumble",
@@ -108,7 +120,7 @@ export function SocialAccountsGrid() {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
         <div>
           <span className="font-mono text-[10px] font-bold text-brandOrange tracking-[0.25em] uppercase">
@@ -118,20 +130,26 @@ export function SocialAccountsGrid() {
             Redes Sociales & Cuentas Conectadas
           </h3>
         </div>
-        <span className="font-mono text-[10px] text-white/40 uppercase tracking-widest flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          8 Redes Verificadas
-        </span>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowQrModal(true)}
+            className="hoverable px-3 py-1.5 rounded-full bg-brandOrange/15 border border-brandOrange/30 text-brandOrange font-mono text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 hover:bg-brandOrange hover:text-white transition-all shadow-md"
+          >
+            <QrCode className="w-3.5 h-3.5" />
+            <span>Escanear QR Instagram</span>
+          </button>
+          <span className="font-mono text-[10px] text-white/40 uppercase tracking-widest hidden md:flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            8 Redes Verificadas
+          </span>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
         {accounts.map((acc, i) => (
-          <a
+          <div
             key={i}
-            href={acc.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group hoverable p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-brandOrange/40 hover:bg-white/[0.06] transition-all duration-300 flex flex-col justify-between gap-3 shadow-lg"
+            className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-brandOrange/40 hover:bg-white/[0.06] transition-all duration-300 flex flex-col justify-between gap-3 shadow-lg group relative"
           >
             <div className="flex items-start justify-between">
               <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -152,15 +170,100 @@ export function SocialAccountsGrid() {
               <p className="font-mono text-xs font-bold text-brandOrange tracking-wide mt-1 break-all">
                 {acc.handle}
               </p>
+              {acc.note && (
+                <p className="text-[9px] font-mono text-white/40 mt-1 leading-snug">
+                  {acc.note}
+                </p>
+              )}
             </div>
 
-            <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-white/50 group-hover:text-white transition-colors">
-              <span>Abrir Canal</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-brandOrange group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-2">
+              {acc.hasQr ? (
+                <button
+                  onClick={() => setShowQrModal(true)}
+                  className="hoverable text-[10px] font-mono font-bold text-brandOrange hover:text-white flex items-center gap-1 transition-colors"
+                >
+                  <QrCode className="w-3 h-3" />
+                  <span>Ver QR</span>
+                </button>
+              ) : (
+                <span className="text-[9px] font-mono text-white/30">Directo</span>
+              )}
+
+              <a
+                href={acc.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hoverable flex items-center gap-1 text-[10px] font-mono font-bold text-white/70 hover:text-brandOrange transition-colors ml-auto"
+              >
+                <span>Abrir</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-brandOrange group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
             </div>
-          </a>
+          </div>
         ))}
       </div>
+
+      {/* ─── MODAL QR OFICIAL INSTAGRAM ─── */}
+      <AnimatePresence>
+        {showQrModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-sm bg-[#0a0f1d] border border-white/15 rounded-3xl p-6 shadow-2xl flex flex-col items-center text-center"
+            >
+              <button
+                onClick={() => setShowQrModal(false)}
+                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                aria-label="Cerrar modal QR"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] p-0.5 mb-4 shadow-lg">
+                <div className="w-full h-full bg-[#0a0f1d] rounded-[14px] flex items-center justify-center">
+                  <InstagramIcon className="w-6 h-6 text-white" />
+                </div>
+              </div>
+
+              <span className="font-mono text-[10px] font-bold text-brandOrange uppercase tracking-[0.25em]">
+                Instagram Oficial
+              </span>
+              <h3 className="font-display text-xl font-black text-white mt-1">
+                @3treesportai
+              </h3>
+              <p className="text-xs text-white/60 mt-1.5 max-w-xs font-sans leading-relaxed">
+                Escanea este código con la cámara de tu teléfono para abrir el perfil directo en tu aplicación sin pantallas de registro.
+              </p>
+
+              {/* QR Image Frame */}
+              <div className="my-5 p-3 rounded-2xl bg-white border-4 border-white/10 shadow-2xl flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/instagram_qr_3treesportai.png"
+                  alt="Código QR Instagram @3treesportai"
+                  className="w-56 h-auto object-contain rounded-xl"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2 w-full">
+                <a
+                  href="https://www.instagram.com/3treesportai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-full bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] text-white font-mono text-xs font-bold uppercase tracking-wider hover:opacity-95 transition-opacity shadow-lg flex items-center justify-center gap-2"
+                >
+                  <Smartphone className="w-4 h-4" />
+                  <span>Abrir en Instagram</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
