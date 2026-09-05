@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Mail, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react";
+import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import Link from "next/link";
 import CustomCursor from "@/components/CustomCursor";
 import { useState } from "react";
@@ -100,6 +101,16 @@ export default function Contact() {
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-widest text-brandOrange font-bold mb-1">{isEs ? "Ubicación" : "Location"}</p>
                 <p className="font-medium text-lg">{isEs ? "Lutz, Florida, USA — Operaciones Globales" : "Lutz, Florida, USA — Global Operations"}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 text-white/70">
+              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                <InstagramIcon className="w-5 h-5 text-[#E1306C]" />
+              </div>
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-widest text-brandOrange font-bold mb-1">Instagram</p>
+                <a href="https://www.instagram.com/3treesportai/" target="_blank" rel="noopener noreferrer" className="font-medium text-lg hover:text-brandOrange transition-colors">@3treesportai</a>
               </div>
             </div>
           </div>

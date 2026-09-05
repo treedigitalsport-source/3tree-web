@@ -5,19 +5,24 @@ import Lenis from "lenis";
 
 export default function SmoothScroll() {
   useEffect(() => {
-    // Configuración base de Lenis (sin alterar los multiplicadores por defecto del trackpad)
     const lenis = new Lenis({
-      lerp: 0.1, // Responsividad
+      lerp: 0.08,
       smoothWheel: true,
+      syncTouch: false,
+      wheelMultiplier: 1,
+      touchMultiplier: 1,
+      autoRaf: false,
     });
 
+    let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);
