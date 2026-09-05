@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useLang } from "./i18n";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, Globe, Activity, Brain, Video, Bot, Menu, X } from "lucide-react";
+import { ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, Globe, Activity, Brain, Video, Bot, Menu, X, ChevronDown } from "lucide-react";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 import { InstagramIcon } from "@/components/ui/InstagramIcon";
 import CustomCursor from "@/components/CustomCursor";
@@ -250,16 +250,19 @@ export default function MainContent() {
 
         <div className="w-full px-6 md:px-12 lg:px-16 flex items-center justify-between relative z-10">
           <div className="flex items-center gap-6">
-            {/* Clickable Large Brand Responsive Logo */}
-            <Link href="/" className="flex items-center hoverable group z-50 shrink-0">
-              <div className="h-20 sm:h-24 md:h-28 lg:h-32 w-auto flex items-center relative transition-all duration-300 group-hover:scale-[1.02]">
+            {/* Clickable Official Brand Logo with SPORT IA Badge */}
+            <Link href="/" className="flex items-center gap-2.5 hoverable group z-50 shrink-0">
+              <div className="h-8 sm:h-9 md:h-10 w-auto flex items-center relative transition-all duration-300 group-hover:scale-105">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src="/icons/logo-3tree.png" 
-                  alt="3Tree Digital" 
-                  className="h-full w-auto max-h-32 max-w-[320px] sm:max-w-[400px] md:max-w-[480px] lg:max-w-[540px] object-contain object-left drop-shadow-[0_4px_25px_rgba(0,0,0,0.85)] filter brightness-105" 
+                  alt="3Tree Digital Sport IA" 
+                  className="h-full w-auto object-contain drop-shadow-[0_2px_15px_rgba(242,101,34,0.3)] filter brightness-110" 
                 />
               </div>
+              <span className="text-brandOrange font-mono text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded bg-brandOrange/15 border border-brandOrange/30 shrink-0 tracking-wider">
+                SPORT IA
+              </span>
             </Link>
 
             {/* Soft Diffused Gradient Vertical Divider Line */}
@@ -461,7 +464,7 @@ export default function MainContent() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 1.2 }}
-              className="mt-8 mb-12 flex flex-col sm:flex-row items-start gap-4 md:gap-6"
+              className="mt-8 mb-4 flex flex-col sm:flex-row items-start gap-4 md:gap-6"
             >
               <MagneticButton href="/contact" className="hoverable inline-flex items-center justify-center gap-2 bg-brandOrange text-white px-8 py-4 rounded-full text-[11px] font-mono font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brandOrange transition-all duration-500 shadow-[0_0_30px_rgba(242,101,34,0.3)]">
                 {isEs ? "Agendar Demostración" : "Book a Demo"}
@@ -477,34 +480,34 @@ export default function MainContent() {
               </div>
             </motion.div>
 
-            {/* ─── SOCIAL PROOF METRICS (50K+ / 94% / <200ms) ALOJADO EN EL HERO ─── */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.4 }}
-              className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 bg-gradient-to-br from-white/[0.04] to-white/[0.01] backdrop-blur-2xl border border-white/15 p-6 sm:p-8 md:p-10 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.5)] mb-12 hover:border-brandOrange/30 transition-all duration-500"
-            >
-              <div className="flex flex-col gap-2 group cursor-default min-w-0">
-                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">50K+</span>
-                <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Horas de Video Procesadas" : "Video Hours Processed"}</span>
-              </div>
-              <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
-                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">94%</span>
-                <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Reducción en Tiempo de Análisis" : "Reduction in Analysis Time"}</span>
-              </div>
-              <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
-                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">
-                  99.9<span className="text-2xl sm:text-3xl md:text-4xl text-white/80 ml-1">%</span>
-                </span>
-                <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Certeza Algorítmica Absoluta" : "Absolute Algorithmic Certainty"}</span>
-              </div>
-            </motion.div>
-
           </div>
         </div>
+
+        {/* ─── SCROLL INDICATOR ABAJO DEL PRIMER VIDEO ─── */}
+        <motion.div
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center cursor-pointer z-30 group hoverable"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          onClick={() => {
+            const nextSec = document.getElementById("services");
+            if (nextSec) {
+              nextSec.scrollIntoView({ behavior: "smooth" });
+            } else {
+              window.scrollBy({ top: window.innerHeight * 0.85, behavior: "smooth" });
+            }
+          }}
+        >
+          <span className="text-[10px] uppercase tracking-[0.4em] font-mono font-bold text-brandOrange group-hover:text-white transition-colors">
+            SCROLL
+          </span>
+          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+            <ChevronDown className="w-5 h-5 text-brandOrange mt-1" />
+          </motion.div>
+        </motion.div>
       </section>
 
-      {/* MARQUEE ACOPLADO DIRECTAMENTE A LAS METRICAS HERO */}
+      {/* MARQUEE ACOPLADO DIRECTAMENTE AL HERO */}
       <div className="w-full border-y border-white/10 bg-brandOrange/5 py-4 overflow-hidden flex items-center whitespace-nowrap z-20 relative backdrop-blur-md">
          <Marquee speed={30} className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50 font-bold">
           {t.marquee1.map((item, i) => (
@@ -514,6 +517,34 @@ export default function MainContent() {
           ))}
         </Marquee>
       </div>
+
+      {/* ─── SOCIAL PROOF METRICS (50K+ / 94% / 99.9%) ─── */}
+      <section className="relative z-20 w-full bg-[#020617] py-12 border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 flex justify-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 bg-gradient-to-br from-white/[0.04] to-white/[0.01] backdrop-blur-2xl border border-white/15 p-6 sm:p-8 md:p-10 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.5)] hover:border-brandOrange/30 transition-all duration-500"
+          >
+            <div className="flex flex-col gap-2 group cursor-default min-w-0">
+              <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">50K+</span>
+              <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Horas de Video Procesadas" : "Video Hours Processed"}</span>
+            </div>
+            <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
+              <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">94%</span>
+              <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Reducción en Tiempo de Análisis" : "Reduction in Analysis Time"}</span>
+            </div>
+            <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
+              <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">
+                99.9<span className="text-2xl sm:text-3xl md:text-4xl text-white/80 ml-1">%</span>
+              </span>
+              <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Certeza Algorítmica Absoluta" : "Absolute Algorithmic Certainty"}</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* ─── SERVICES: 3-ZONE EDITORIAL LAYOUT ─── */}
       <section id="services" className="relative z-20 w-full bg-[#020617] border-b border-white/10">

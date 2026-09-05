@@ -66,7 +66,6 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col bg-[#020617] text-white font-sans">
         <LangProvider>
-          <LoadingScreen />
           <div className="flex-1 w-full">
             {children}
           </div>
