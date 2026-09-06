@@ -245,6 +245,20 @@ export function SocialAccountsGrid() {
             <span>YouTube Music</span>
             <ArrowUpRight className="w-3 h-3 text-white/40" />
           </a>
+
+          {/* Apple Podcasts */}
+          <a
+            href="https://podcasts.apple.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hoverable flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:border-[#A855F7]/50 hover:bg-[#A855F7]/10 transition-all text-white/80 hover:text-white text-xs font-mono font-medium"
+          >
+            <svg className="w-4 h-4 text-[#A855F7]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12c0 4.6 2.9 8.5 7 9.9v-2.2C5.3 18.4 3.7 15.4 3.7 12c0-4.6 3.7-8.3 8.3-8.3s8.3 3.7 8.3 8.3c0 3.4-1.6 6.4-4.8 7.7v2.2c4.1-1.4 7-5.3 7-9.9 0-5.8-4.7-10.5-10.5-10.5zm0 3.8C8.4 5.3 5.5 8.2 5.5 11.8c0 2.8 1.4 5.3 4.1 6.5v-2.3c-1.6-.9-2.6-2.5-2.6-4.2 0-2.8 2.2-5 5-5s5 2.2 5 5c0 1.7-1 3.3-2.6 4.2v2.3c2.7-1.2 4.1-3.7 4.1-6.5 0-3.6-2.9-6.5-6.5-6.5zm0 4.2c-1.4 0-2.5 1.1-2.5 2.5 0 1 .6 1.8 1.4 2.2l-.7 4.3h3.6l-.7-4.3c.8-.4 1.4-1.2 1.4-2.2 0-1.4-1.1-2.5-2.5-2.5z"/>
+            </svg>
+            <span>Apple Podcasts</span>
+            <ArrowUpRight className="w-3 h-3 text-white/40" />
+          </a>
         </div>
       </div>
 
