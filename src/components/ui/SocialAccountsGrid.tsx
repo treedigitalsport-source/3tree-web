@@ -206,6 +206,48 @@ export function SocialAccountsGrid() {
         ))}
       </div>
 
+      {/* ─── PLATAFORMAS DE AUDIO & PODCAST (COMPACTAS) ─── */}
+      <div className="mt-4 p-3 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[9px] font-bold text-brandOrange tracking-[0.2em] uppercase">
+            {isEs ? "Audio & Podcasts:" : "Audio & Podcasts:"}
+          </span>
+          <span className="text-[11px] font-sans text-white/50 hidden md:inline">
+            {isEs ? "Episodios y análisis en streaming" : "Streaming episodes & analysis"}
+          </span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+          {/* Spotify */}
+          <a
+            href="https://open.spotify.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hoverable flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:border-[#1DB954]/50 hover:bg-[#1DB954]/10 transition-all text-white/80 hover:text-white text-xs font-mono font-medium"
+          >
+            <svg className="w-4 h-4 text-[#1DB954]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.484 17.307c-.215.353-.674.464-1.026.248-2.812-1.718-6.353-2.107-10.523-1.155-.403.092-.807-.16-.899-.564-.092-.403.16-.807.564-.899 4.567-1.044 8.484-.596 11.636 1.332.353.216.464.675.248 1.038zm1.464-3.255c-.27.44-.848.58-1.288.31-3.219-1.978-8.128-2.55-11.936-1.393-.497.151-1.025-.133-1.176-.63-.151-.497.133-1.025.63-1.176 4.354-1.321 9.774-.68 13.46 1.587.44.27.58.848.31 1.288zm.126-3.41c-3.86-2.292-10.228-2.503-13.899-1.389-.592.18-1.222-.154-1.402-.746-.18-.592.154-1.222.746-1.402 4.223-1.282 11.258-1.036 15.698 1.597.533.316.708 1.008.392 1.541-.316.533-1.008.708-1.541.392z"/>
+            </svg>
+            <span>Spotify</span>
+            <ArrowUpRight className="w-3 h-3 text-white/40" />
+          </a>
+
+          {/* YouTube Music */}
+          <a
+            href="https://music.youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hoverable flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:border-[#FF0000]/50 hover:bg-[#FF0000]/10 transition-all text-white/80 hover:text-white text-xs font-mono font-medium"
+          >
+            <svg className="w-4 h-4 text-[#FF0000]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-11.872c-2.634 0-4.768 2.134-4.768 4.768 0 2.634 2.134 4.768 4.768 4.768s4.768-2.134 4.768-4.768c0-2.634-2.134-4.768-4.768-4.768zm-1.44 6.72V10.08l2.88 1.936-2.88 1.936z"/>
+            </svg>
+            <span>YouTube Music</span>
+            <ArrowUpRight className="w-3 h-3 text-white/40" />
+          </a>
+        </div>
+      </div>
+
       {/* ─── MODAL QR OFICIAL INSTAGRAM ─── */}
       <AnimatePresence>
         {showQrModal && (
