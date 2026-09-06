@@ -2,6 +2,7 @@ import React from 'react';
 import { RumbleIcon } from './RumbleIcon';
 import { BlueskyIcon } from './BlueskyIcon';
 import { TruthSocialIcon } from './TruthSocialIcon';
+import { TikTokIcon } from './TikTokIcon';
 
 export function SocialLinks({ className = "", iconSize = "w-4 h-4" }: { className?: string, iconSize?: string }) {
   return (
@@ -14,9 +15,9 @@ export function SocialLinks({ className = "", iconSize = "w-4 h-4" }: { classNam
       <a href="https://rumble.com/user/3TreeSportAI" target="_blank" rel="noopener noreferrer" aria-label="Rumble" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#85c742] hover:text-white hover:border-[#85c742] transition-all cursor-pointer text-white/50">
         <RumbleIcon className={iconSize} />
       </a>
-      {/* LinkedIn */}
-      <a href="https://linkedin.com/company/3treedigital" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5] transition-all cursor-pointer text-white/50">
-        <svg className={iconSize} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+      {/* TikTok */}
+      <a href="https://www.tiktok.com/@3TreeSportAI" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-black hover:text-[#00F2FE] hover:border-[#00F2FE] transition-all cursor-pointer text-white/50">
+        <TikTokIcon className={iconSize} />
       </a>
       {/* YouTube */}
       <a href="https://www.youtube.com/@3TreeSportAI" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] transition-all cursor-pointer text-white/50">

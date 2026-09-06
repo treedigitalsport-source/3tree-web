@@ -113,7 +113,7 @@ export const en = {
     },
     socials: {
       twitter: "Twitter",
-      linkedin: "LinkedIn",
+      tiktok: "TikTok",
       instagram: "Instagram"
     },
     rights: "© 2026 3Tree Digital. All rights reserved."
