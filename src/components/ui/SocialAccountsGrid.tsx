@@ -127,7 +127,7 @@ export function SocialAccountsGrid() {
             {isEs ? "Canales Oficiales" : "Official Channels"}
           </span>
           <h3 className="font-display text-xl sm:text-2xl font-black text-white uppercase tracking-tight mt-1">
-            {isEs ? "Redes Sociales & Cuentas Conectadas" : "Social Networks & Connected Accounts"}
+            {isEs ? "Redes Sociales" : "Social Networks"}
           </h3>
         </div>
         <div className="flex items-center gap-3">
