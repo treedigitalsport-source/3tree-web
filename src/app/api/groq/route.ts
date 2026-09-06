@@ -1,4 +1,4 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
 
 // Initialize the Groq client. It will automatically use the GROQ_API_KEY environment variable.
@@ -72,7 +72,7 @@ ${knowledgeBase}`
     try {
       const chatCompletion = await groq.chat.completions.create({
         messages: [systemPrompt, ...messages],
-        model: 'openai/gpt-oss-120b',
+        model: 'llama-3.3-70b-versatile',
         temperature: 0.7,
         max_tokens: 1024,
       });
@@ -81,7 +81,7 @@ ${knowledgeBase}`
       console.warn('Fallo modelo primario, intentando con modelo secundario...', primaryError);
       const fallbackCompletion = await groq.chat.completions.create({
         messages: [systemPrompt, ...messages],
-        model: 'openai/gpt-oss-20b',
+        model: 'llama-3.1-8b-instant',
         temperature: 0.7,
         max_tokens: 1024,
       });
