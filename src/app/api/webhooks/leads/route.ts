@@ -3,26 +3,28 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 
+export const dynamic = "force-dynamic";
+
 interface ChatMessage {
   role: string;
   text: string;
 }
 
 // Fallback to tmp directory for production serverless compatibility
-const DB_PATH = process.env.LEADS_DB_PATH || path.join(os.tmpdir(), "leads_db.json");
+const DB_PATH = process.env.LEADS_DB_PATH || path.join(/*turbopackIgnore: true*/ os.tmpdir(), "leads_db.json");
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     
     if (body.fullHistory && Array.isArray(body.fullHistory)) {
-      const reportsDir = process.env.REPORTS_DIR || path.join(os.tmpdir(), "reports");
+      const reportsDir = process.env.REPORTS_DIR || path.join(/*turbopackIgnore: true*/ os.tmpdir(), "reports");
       if (!fs.existsSync(reportsDir)) {
         fs.mkdirSync(reportsDir, { recursive: true });
       }
       const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
       const reportContent = `# Chat Report - ${timestamp}\n\n` + body.fullHistory.map((msg: ChatMessage) => `**${msg.role}**: ${msg.text}`).join('\n\n');
-      fs.writeFileSync(path.join(reportsDir, `chat-report-${timestamp}.md`), reportContent);
+      fs.writeFileSync(path.join(/*turbopackIgnore: true*/ reportsDir, `chat-report-${timestamp}.md`), reportContent);
     }
 
     // Read current leads
