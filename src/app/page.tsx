@@ -531,13 +531,15 @@ export default function MainContent() {
                 <Bot className="w-3.5 h-3.5" />
                 {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
               </div>
-              <h2 className="font-display font-black uppercase leading-[0.85] tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl">
-                {isEs ? "Nuestras" : "Intelligent"}<br />
-                <span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
+              <h2 className="font-display font-black uppercase leading-tight tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+                <span className="block text-white mb-1">
+                  {isEs ? "Nuestras" : "Intelligent"}
+                </span>
+                <span className="block bg-gradient-to-r from-brandOrange via-[#ff8c42] to-white bg-clip-text text-transparent">
                   {isEs ? "Soluciones" : "Solutions"}
                 </span>
               </h2>
-              <p className="font-mono text-xs text-white/40 tracking-widest uppercase mt-4 max-w-sm leading-relaxed">
+              <p className="font-mono text-xs text-white/50 tracking-widest uppercase mt-4 max-w-md leading-relaxed">
                 {isEs ? "Ecosistema de Inteligencia Deportiva de Alto Rendimiento" : "High-Performance Sports Intelligence Ecosystem"}
               </p>
             </div>
