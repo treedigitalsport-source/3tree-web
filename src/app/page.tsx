@@ -351,9 +351,9 @@ export default function MainContent() {
       {/* ─── HERO SECTION (ABSOLUTE FULLSCREEN IMMERSIVE VIDEO) ─── */}
       <section className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#020617]">
 
-        {/* Capa 1: Video Hero Background — Scouts Béisbol en el Terreno (High Quality 1080p Master) */}
+        {/* Capa 1: Video Hero Background — 1080p Pristine Broadcast Master */}
         <video
-          className="absolute inset-0 w-full h-full object-cover object-[75%_center] lg:object-[80%_center] z-0 opacity-85 pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover object-center z-0 opacity-75 pointer-events-none"
           src="/videos/scouts_beisbol_hero.mp4"
           autoPlay
           loop
