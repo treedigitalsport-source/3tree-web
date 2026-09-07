@@ -531,11 +531,9 @@ export default function MainContent() {
                 <Bot className="w-3.5 h-3.5" />
                 {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
               </div>
-              <h2 className="font-display font-black uppercase leading-tight tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-                <span className="block text-white mb-1">
-                  {isEs ? "Nuestras" : "Intelligent"}
-                </span>
-                <span className="block bg-gradient-to-r from-brandOrange via-[#ff8c42] to-white bg-clip-text text-transparent">
+              <h2 className="font-display font-black uppercase leading-[1.08] tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-4xl">
+                {isEs ? "Nuestras" : "Intelligent"}<br />
+                <span className="text-transparent" style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.35)" }}>
                   {isEs ? "Soluciones" : "Solutions"}
                 </span>
               </h2>
