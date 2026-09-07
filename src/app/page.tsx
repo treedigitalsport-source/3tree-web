@@ -538,7 +538,7 @@ export default function MainContent() {
                 </span>
               </h2>
               <p className="font-mono text-xs text-white/40 tracking-widest uppercase mt-4 max-w-sm leading-relaxed">
-                {t.ourExpertise.join(" ")}
+                {isEs ? "Ecosistema de Inteligencia Deportiva de Alto Rendimiento" : "High-Performance Sports Intelligence Ecosystem"}
               </p>
             </div>
 

@@ -104,7 +104,7 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
               </div>
               {article.author && (
                 <div className="flex items-center gap-2 text-white bg-[#0054a6] px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-widest border border-white/10">
-                  By {article.author}
+                  {isEs ? "Por " : "By "}{article.author}
                 </div>
               )}
             </div>

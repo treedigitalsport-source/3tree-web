@@ -242,7 +242,7 @@ export default function AboutPage() {
               {t.about.roadmap.map((step, i) => (
                 <div key={i} className="flex flex-col md:flex-row gap-6 md:gap-16 items-start bg-black/5 p-8 sm:p-10 rounded-3xl border border-black/10 hover:bg-black/10 transition-colors">
                   <div className="md:w-1/3 flex-shrink-0">
-                    <span className="font-mono text-xs uppercase tracking-widest text-[#020617]/60 block mb-1 font-bold">Fase 0{i+1}</span>
+                    <span className="font-mono text-xs uppercase tracking-widest text-[#020617]/60 block mb-1 font-bold">{isEs ? `Fase 0${i+1}` : `Phase 0${i+1}`}</span>
                     <h3 className="font-display text-2xl md:text-3xl font-black uppercase border-b-2 border-[#020617]/30 pb-3">
                       {step.phase}
                     </h3>
@@ -294,7 +294,7 @@ export default function AboutPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
               href="/contact" 
-              className="hoverable inline-flex items-center gap-3 bg-brandOrange text-[#020617] hover:bg-white text-white px-8 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] transition-all rounded-xl shadow-lg shadow-brandOrange/20"
+              className="hoverable inline-flex items-center gap-3 bg-brandOrange text-white hover:bg-white hover:text-brandOrange px-8 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] transition-all rounded-xl shadow-lg shadow-brandOrange/20"
             >
               {t.cta} <ArrowUpRight className="w-4 h-4" />
             </Link>
