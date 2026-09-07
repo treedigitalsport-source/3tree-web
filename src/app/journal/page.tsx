@@ -151,26 +151,27 @@ export default function JournalHub() {
                     transition={{ delay: index * 0.1 }}
                     className="group relative bg-[#060c1c]/90 border border-white/10 hover:border-brandOrange/60 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-1"
                   >
+                    {/* Dedicated Top Badges Header */}
+                    <div className="px-6 pt-5 pb-3 flex justify-between items-center bg-[#060c1c] border-b border-white/5">
+                      <span className="px-3 py-1 rounded-full bg-brandOrange text-white font-mono text-[10px] font-black uppercase tracking-wider shadow-md">
+                        {isEs ? article.categoryEs : article.categoryEn}
+                      </span>
+
+                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/80 font-mono text-[10px]">
+                        <Clock className="w-3 h-3 text-brandOrange" />
+                        <span>{isEs ? article.timeEs : article.timeEn}</span>
+                      </div>
+                    </div>
+
                     {/* Featured Image Frame */}
-                    <div className="relative w-full aspect-[16/9] overflow-hidden">
-                      <Image
-                        src={article.image || "/images/articles/baseball_biomechanics_1785628048219.jpg"}
-                        alt={isEs ? article.titleEs : article.titleEn}
-                        fill
-                        className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#060c1c] via-[#060c1c]/40 to-transparent" />
-
-                      {/* Top Badges */}
-                      <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
-                        <span className="px-3 py-1 rounded-full bg-brandOrange text-white font-mono text-[10px] font-black uppercase tracking-wider shadow-md">
-                          {isEs ? article.categoryEs : article.categoryEn}
-                        </span>
-
-                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-white/80 font-mono text-[10px]">
-                          <Clock className="w-3 h-3 text-brandOrange" />
-                          <span>{isEs ? article.timeEs : article.timeEn}</span>
-                        </div>
+                    <div className="relative w-full aspect-[16/10] overflow-hidden bg-black/90 p-3 flex items-center justify-center">
+                      <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-inner">
+                        <Image
+                          src={article.image || "/images/articles/baseball_biomechanics_1785628048219.jpg"}
+                          alt={isEs ? article.titleEs : article.titleEn}
+                          fill
+                          className="object-cover object-center grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                        />
                       </div>
                     </div>
 
@@ -258,26 +259,27 @@ export default function JournalHub() {
                     transition={{ delay: index * 0.1 }}
                     className="group relative bg-[#060c1c]/90 border border-white/10 hover:border-[#0054A6] rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-1"
                   >
-                    {/* Featured Image Frame (Framed to show the full infographic clearly) */}
-                    <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-[#020617]">
-                      <Image
-                        src={article.image || "/images/articles/el_partido_invisible_1788755675644.jpg"}
-                        alt={isEs ? article.titleEs : article.titleEn}
-                        fill
-                        className="object-cover object-center transition-all duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#060c1c] via-transparent to-black/30 pointer-events-none" />
+                    {/* Dedicated Top Badges Header (Outside of the artwork to prevent any overlay or cut) */}
+                    <div className="px-6 pt-5 pb-3 flex justify-between items-center bg-[#060c1c] border-b border-white/5">
+                      <span className="px-3 py-1 rounded-full bg-[#0054A6] text-white font-mono text-[10px] font-black uppercase tracking-wider shadow-md">
+                        {isEs ? article.categoryEs : article.categoryEn}
+                      </span>
 
-                      {/* Top Badges */}
-                      <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
-                        <span className="px-3 py-1 rounded-full bg-[#0054A6] text-white font-mono text-[10px] font-black uppercase tracking-wider shadow-md">
-                          {isEs ? article.categoryEs : article.categoryEn}
-                        </span>
+                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/80 font-mono text-[10px]">
+                        <Clock className="w-3 h-3 text-[#388bfd]" />
+                        <span>{isEs ? article.timeEs : article.timeEn}</span>
+                      </div>
+                    </div>
 
-                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-white/80 font-mono text-[10px]">
-                          <Clock className="w-3 h-3 text-[#388bfd]" />
-                          <span>{isEs ? article.timeEs : article.timeEn}</span>
-                        </div>
+                    {/* Featured Image Frame: 100% Full Uncropped Square Infographic */}
+                    <div className="relative w-full aspect-square overflow-hidden bg-black/95 p-3 flex items-center justify-center">
+                      <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-inner">
+                        <Image
+                          src={article.image || "/images/articles/el_partido_invisible_1788755675644.jpg"}
+                          alt={isEs ? article.titleEs : article.titleEn}
+                          fill
+                          className="object-contain object-center transition-all duration-700 group-hover:scale-[1.02]"
+                        />
                       </div>
                     </div>
 
