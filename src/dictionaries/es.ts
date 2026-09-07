@@ -1,9 +1,9 @@
 export const es = {
   header: {
-    services: "Servicios",
-    projects: "Proyectos",
+    services: "Soluciones",
+    projects: "Tecnología",
     journal: "Diario",
-    impact: "Impacto",
+    impact: "Intelligence",
     contact: "Contacto",
     startProject: "Explorar Solución"
   },
@@ -28,8 +28,8 @@ export const es = {
     "Tecnología de Alto Rendimiento"
   ],
   services: {
-    badge: "Qué Hacemos",
-    title: "Nuestra Experiencia",
+    badge: "Soluciones",
+    title: "Nuestras Soluciones",
     items: [
       {
         title: "Diseño UI/UX",
@@ -37,7 +37,7 @@ export const es = {
       },
       {
         title: "Desarrollo Sport Tech",
-        description: "Desarrollo de software a medida e integración de API de datos deportivos. Desde analíticas en tiempo real hasta machine learning."
+        description: "Desarrollo de sistemas inteligentes a medida e integración de API de datos deportivos. Desde analíticas en tiempo real hasta machine learning."
       },
       {
         title: "Identidad de Marca",
@@ -88,7 +88,7 @@ export const es = {
     ]
   },
   impact: {
-    badge: "El Impacto",
+    badge: "Intelligence",
     title: "En Números",
     stats: [
       { value: "150+", label: "Proyectos Entregados" },
@@ -107,7 +107,7 @@ export const es = {
     description: "Elevando la industria deportiva a través de experiencias digitales de alto rendimiento.",
     links: {
       work: "Trabajo",
-      services: "Servicios",
+      services: "Soluciones",
       about: "Nosotros",
       contact: "Contacto"
     },

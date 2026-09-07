@@ -194,7 +194,7 @@ export default function ImpactPage() {
           href="/#projects" 
           className="hoverable inline-flex items-center gap-4 bg-brandOrange text-white px-10 py-5 rounded-2xl font-mono text-xs font-bold uppercase tracking-[0.2em] transition-all hover:bg-white hover:text-brandOrange hover:scale-105 shadow-[0_0_30px_rgba(242,101,34,0.3)]"
         >
-          {isEs ? "Explorar Ecosistema" : "Explore Ecosystem"} 
+          {isEs ? "Explorar Tecnología" : "Explore Technology"} 
           <ArrowRight className="w-4 h-4" />
         </Link>
       </section>

@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState } from 'react';
 
 const dict = {
   en: {
-    nav: ["Services", "Ecosystem", "Journal", "News", "Impact", "About"],
+    nav: ["Solutions", "Technology", "Journal", "News", "Intelligence", "About"],
     cta: "Explore Solution",
     tagline: "AI Sports Intelligence Company",
     heroLine1: "We Design",
@@ -24,8 +24,8 @@ const dict = {
       { value: "24/7", label: "Autonomous Analysis" },
       { value: "0", label: "Human Bias" },
     ],
-    whatWeDo: "What We Do",
-    ourExpertise: ["Our", "Expertise"],
+    whatWeDo: "Solutions",
+    ourExpertise: ["Our", "Solutions"],
     services: [
       { title: "Sports OS Core", desc: "Proprietary operating system architecture designed to centralize performance data, computer vision models, and predictive analytics for elite clubs and academies." },
       { title: "Intelligent Sports Interfaces", desc: "High-precision digital environments and tactical control panels built for coaches, scouts, and athletes in real time." },
@@ -138,7 +138,7 @@ const dict = {
       tableRows: [
         { dim: "Technology", old: "Disconnected tools built around single isolated needs.", new: "Integrated digital solutions constructed around the sports ecosystem." },
         { dim: "Data Analytics", old: "Scattered data across spreadsheets and isolated silos. Slow and manual processes.", new: "Structured data converted into actionable sports intelligence with AI-assisted workflows." },
-        { dim: "Development", old: "Generic software without real understanding of the athletic field.", new: "High-performance systems built from deep domain expertise and real field experience." },
+        { dim: "Development", old: "Generic platforms without real understanding of the athletic field.", new: "High-performance systems built from deep domain expertise and real field experience." },
         { dim: "Automation", old: "Repetitive manual tasks consuming coaching time.", new: "Autonomous workflows and AI agents handling scouting, video pipelines, and analytics 24/7." },
         { dim: "Accessibility", old: "Elite technology restricted only to billionaire franchises.", new: "Scalable architecture designed to expand elite capabilities to academies and athletes worldwide." }
       ],
@@ -167,8 +167,8 @@ const dict = {
     // Impact translations
     impact: {
       preTitle: "The Future of Sports",
-      title1: "The Impact",
-      title2: "Of AI",
+      title1: "Sports",
+      title2: "Intelligence",
       desc: "Artificial Intelligence is no longer science fiction, it's the new competitive advantage. We are an AI Sports Intelligence Company driven by Computer Vision, Big Data, and LLMs that eradicates human bias from scouting.",
       scroll: "Scroll",
       pillarsTitle1: "The 3",
@@ -205,7 +205,7 @@ const dict = {
     }
   },
   es: {
-    nav: ["Servicios", "Ecosistema", "Diario", "Noticiero", "Impacto", "Nosotros"],
+    nav: ["Soluciones", "Tecnología", "Diario", "Noticiero", "Intelligence", "Nosotros"],
     cta: "Explorar Solución",
     tagline: "AI Sports Intelligence Company",
     heroLine1: "Diseñamos",
@@ -225,8 +225,8 @@ const dict = {
       { value: "24/7", label: "Análisis Autónomo" },
       { value: "0", label: "Sesgo Humano" },
     ],
-    whatWeDo: "Lo Que Hacemos",
-    ourExpertise: ["Nuestra", "Especialidad"],
+    whatWeDo: "Soluciones",
+    ourExpertise: ["Nuestras", "Soluciones"],
     services: [
       { title: "Núcleo Sports OS", desc: "Arquitectura propietaria de sistema operativo diseñada para centralizar datos de rendimiento, modelos de visión computacional y analítica predictiva para clubes y academias de élite." },
       { title: "Interfaces Deportivas Inteligentes", desc: "Entornos digitales de alta precisión y paneles tácticos en tiempo real construidos para entrenadores, scouts y atletas." },
@@ -339,7 +339,7 @@ const dict = {
       tableRows: [
         { dim: "Tecnología", old: "Herramientas desconectadas diseñadas alrededor de necesidades individuales.", new: "Soluciones digitales integradas construidas alrededor del ecosistema deportivo." },
         { dim: "Análisis de Datos", old: "Información distribuida en múltiples sistemas, hojas de cálculo y plataformas aisladas. Procesos manuales lentos y difíciles de escalar.", new: "Datos estructurados transformados en inteligencia deportiva utilizable. Análisis asistido por IA y automatización diseñada para acelerar flujos de trabajo." },
-        { dim: "Desarrollo", old: "Tecnología genérica sin comprensión profunda del entorno deportivo.", new: "Sistemas de alto rendimiento construidos en torno a necesidades deportivas específicas y experiencia real de campo." },
+        { dim: "Desarrollo", old: "Plataformas genéricas sin comprensión profunda del entorno deportivo.", new: "Sistemas de alto rendimiento construidos en torno a necesidades deportivas específicas y experiencia real de campo." },
         { dim: "Automatización", old: "Procesos repetitivos gestionados de forma manual que consumen tiempo valioso.", new: "Flujos de trabajo autónomos y agentes de IA diseñados para scouting, video y analítica 24/7." },
         { dim: "Accesibilidad", old: "Tecnología avanzada a menudo concentrada exclusivamente en organizaciones millonarias.", new: "Arquitectura escalable diseñada para expandir capacidades de élite a academias y atletas de todo el mundo." }
       ],
@@ -368,8 +368,8 @@ const dict = {
     // Impact translations
     impact: {
       preTitle: "El Futuro del Deporte",
-      title1: "El Impacto",
-      title2: "De La IA",
+      title1: "Sports",
+      title2: "Intelligence",
       desc: "La Inteligencia Artificial ya no es ciencia ficción, es la nueva ventaja competitiva. Somos una AI Sports Intelligence Company impulsada por Visión Computacional, Big Data y Modelos de Lenguaje (LLMs) que erradica el sesgo humano del scouting.",
       scroll: "Bajar",
       pillarsTitle1: "Los 3",

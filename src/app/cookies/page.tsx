@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -212,8 +212,8 @@ export default function CookiesPage() {
             </h2>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs
-                ? "3Tree Digital Sport IA desarrolla tecnología para el ecosistema deportivo, incluyendo software, aplicaciones, Inteligencia Artificial, soluciones de datos, automatización, agentes de IA, plataformas web, tecnologías relacionadas con drones, branding y experiencias digitales."
-                : "3Tree Digital Sport IA develops technology for the sports ecosystem, including software, applications, Artificial Intelligence, data solutions, automation, AI agents, web platforms, drone-related technologies, branding, and digital experiences."}
+                ? "3Tree Digital Sport IA desarrolla tecnología para el ecosistema deportivo, incluyendo sistemas inteligentes, aplicaciones, Inteligencia Artificial, soluciones de datos, automatización, agentes de IA, plataformas web, tecnologías relacionadas con drones, branding y experiencias digitales."
+                : "3Tree Digital Sport IA develops technology for the sports ecosystem, including intelligent systems, applications, Artificial Intelligence, data solutions, automation, AI agents, web platforms, drone-related technologies, branding, and digital experiences."}
             </p>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs

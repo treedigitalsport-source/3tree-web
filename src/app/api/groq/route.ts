@@ -38,7 +38,7 @@ We were forged through more than 26 years of high-performance training and athle
 
 **3. Key Solutions & Ecosystem**
 - **Sport Intelligence Operating System (Sports OS)**: Proprietary architecture centralizing athletic data, computer vision, and predictive analytics.
-- **Kinebase Pro**: Markerless Biomechanics software using computer vision to extract kinematic vectors, angles, and velocity directly from standard video without physical markers.
+- **Kinebase Pro**: Markerless Biomechanics intelligent AI system using computer vision to extract kinematic vectors, angles, and velocity directly from standard video without physical markers.
 - **Intelligent Sports Interfaces**: Tactical control panels and real-time field analysis for coaching staff and scouts.
 - **Intelligent Automation**: Streamlined pipelines for video processing and data extraction.
 - **Cinematic Drone Services**: High-speed aerial sports tracking.

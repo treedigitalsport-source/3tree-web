@@ -1,9 +1,9 @@
 export const en = {
   header: {
-    services: "Services",
-    projects: "Projects",
+    services: "Solutions",
+    projects: "Technology",
     journal: "Journal",
-    impact: "Impact",
+    impact: "Intelligence",
     contact: "Contact",
     startProject: "Explore Solution"
   },
@@ -28,8 +28,8 @@ export const en = {
     "Performance Tech"
   ],
   services: {
-    badge: "What We Do",
-    title: "Our Expertise",
+    badge: "Solutions",
+    title: "Our Solutions",
     items: [
       {
         title: "UI/UX Design",
@@ -37,7 +37,7 @@ export const en = {
       },
       {
         title: "Sport Tech Dev",
-        description: "Custom software development and sports data API integration. From real-time analytics to machine learning pipelines."
+        description: "Custom intelligent systems and sports data API integration. From real-time analytics to machine learning pipelines."
       },
       {
         title: "Brand Identity",
@@ -88,7 +88,7 @@ export const en = {
     ]
   },
   impact: {
-    badge: "The Impact",
+    badge: "Intelligence",
     title: "By The Numbers",
     stats: [
       { value: "150+", label: "Projects Delivered" },
@@ -107,7 +107,7 @@ export const en = {
     description: "Elevating the sports industry through high-performance digital experiences.",
     links: {
       work: "Work",
-      services: "Services",
+      services: "Solutions",
       about: "About",
       contact: "Contact"
     },

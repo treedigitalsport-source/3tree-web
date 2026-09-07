@@ -532,9 +532,9 @@ export default function MainContent() {
                 {isEs ? "Integración Cero Fricción: Sin Hardware Adicional." : "Zero-Friction Integration: No Extra Hardware."}
               </div>
               <h2 className="font-display font-black uppercase leading-[0.85] tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl">
-                {isEs ? "Arquitectura" : "System"}<br />
+                {isEs ? "Nuestras" : "Intelligent"}<br />
                 <span className="text-transparent" style={{ WebkitTextStroke: "2px rgba(255,255,255,0.2)" }}>
-                  {isEs ? "del Sistema" : "Architecture"}
+                  {isEs ? "Soluciones" : "Solutions"}
                 </span>
               </h2>
               <p className="font-mono text-xs text-white/40 tracking-widest uppercase mt-4 max-w-sm leading-relaxed">
@@ -652,7 +652,7 @@ export default function MainContent() {
           <div className="flex flex-col items-center mb-20 text-center">
              <span className="font-mono text-[10px] font-bold text-brandOrange tracking-[0.3em] uppercase mb-4">{isEs ? "Innovación" : "Innovation"}</span>
              <h2 className="font-display text-5xl md:text-7xl font-black uppercase text-white leading-[0.9]">
-               {isEs ? "Nuestro" : "Our"} <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.3)' }}>{isEs ? "Ecosistema" : "Ecosystem"}</span>
+               {isEs ? "Nuestra" : "Our"} <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.3)' }}>{isEs ? "Tecnología" : "Technology"}</span>
              </h2>
           </div>
 

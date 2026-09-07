@@ -82,8 +82,8 @@ export default function TermsPage() {
             </h2>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs 
-                ? "Al acceder o utilizar el ecosistema digital, sitios web, aplicaciones, software y servicios tecnológicos provistos por 3Tree Digital Sport IA, aceptas estar sujeto a estos Términos de Servicio. Estos términos rigen el uso de nuestra tecnología y servicios digitales, incluyendo soluciones de software, aplicaciones, sistemas de Inteligencia Artificial, servicios relacionados con datos, herramientas de automatización, agentes de IA, plataformas web y otras soluciones de tecnología deportiva ofrecidas por 3Tree Digital Sport IA."
-                : "By accessing or using the digital ecosystem, websites, applications, software, and technology services provided by 3Tree Digital Sport IA, you agree to be bound by these Terms of Service. These terms govern the use of our technology and digital services, including software solutions, applications, Artificial Intelligence systems, data-related services, automation tools, AI agents, web platforms, and other sports technology solutions offered by 3Tree Digital Sport IA."}
+                ? "Al acceder o utilizar el ecosistema digital, sitios web, aplicaciones, sistemas inteligentes y servicios tecnológicos provistos por 3Tree Digital Sport IA, aceptas estar sujeto a estos Términos de Servicio. Estos términos rigen el uso de nuestra tecnología y servicios digitales, incluyendo soluciones y sistemas inteligentes, aplicaciones, sistemas de Inteligencia Artificial, servicios relacionados con datos, herramientas de automatización, agentes de IA, plataformas web y otras soluciones de tecnología deportiva ofrecidas por 3Tree Digital Sport IA."
+                : "By accessing or using the digital ecosystem, websites, applications, intelligent systems, and technology services provided by 3Tree Digital Sport IA, you agree to be bound by these Terms of Service. These terms govern the use of our technology and digital services, including intelligent system solutions, applications, Artificial Intelligence systems, data-related services, automation tools, AI agents, web platforms, and other sports technology solutions offered by 3Tree Digital Sport IA."}
             </p>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs
@@ -106,7 +106,7 @@ export default function TermsPage() {
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-white/60 text-sm font-light pl-2">
               <li className="flex items-start gap-2">
                 <span className="text-brandOrange mt-1">•</span>
-                {isEs ? "Software deportivo y plataformas digitales." : "Sports software and digital platforms."}
+                {isEs ? "Sistemas inteligentes deportivos y plataformas digitales." : "Sports intelligent systems and digital platforms."}
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-brandOrange mt-1">•</span>
@@ -196,8 +196,8 @@ export default function TermsPage() {
             </h2>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs
-                ? "A menos que se establezca expresamente lo contrario en un acuerdo por escrito, el software, la tecnología, el código fuente, los algoritmos, la arquitectura de sistemas, las interfaces, los diseños, las marcas, los elementos de branding, la documentación y otros materiales patentados desarrollados o propiedad de 3Tree Digital Sport IA pertenecen a 3Tree Digital Sport IA o a sus respectivos licenciantes."
-                : "Unless expressly stated otherwise in a written agreement, the software, technology, source code, algorithms, system architecture, interfaces, designs, trademarks, branding elements, documentation, and other proprietary materials developed or owned by 3Tree Digital Sport IA remain the property of 3Tree Digital Sport IA or its respective licensors."}
+                ? "A menos que se establezca expresamente lo contrario en un acuerdo por escrito, los sistemas inteligentes, la tecnología, el código fuente, los algoritmos, la arquitectura de sistemas, las interfaces, los diseños, las marcas, los elementos de branding, la documentación y otros materiales patentados desarrollados o propiedad de 3Tree Digital Sport IA pertenecen a 3Tree Digital Sport IA o a sus respectivos licenciantes."
+                : "Unless expressly stated otherwise in a written agreement, the intelligent systems, technology, source code, algorithms, system architecture, interfaces, designs, trademarks, branding elements, documentation, and other proprietary materials developed or owned by 3Tree Digital Sport IA remain the property of 3Tree Digital Sport IA or its respective licensors."}
             </p>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs
@@ -259,8 +259,8 @@ export default function TermsPage() {
             </h2>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs
-                ? "La tecnología, la Inteligencia Artificial, el software y los sistemas de datos evolucionan continuamente. 3Tree Digital Sport IA se reserva el derecho de actualizar, modificar, mejorar, reemplazar, suspender o descontinuar características específicas, tecnologías, algoritmos, interfaces, aplicaciones o servicios cuando sea razonablemente necesario."
-                : "Technology, Artificial Intelligence, software, and data systems evolve continuously. 3Tree Digital Sport IA reserves the right to update, modify, improve, replace, suspend, or discontinue specific features, technologies, algorithms, interfaces, applications, or services when reasonably necessary."}
+                ? "La tecnología, la Inteligencia Artificial, los sistemas inteligentes y los sistemas de datos evolucionan continuamente. 3Tree Digital Sport IA se reserva el derecho de actualizar, modificar, mejorar, reemplazar, suspender o descontinuar características específicas, tecnologías, algoritmos, interfaces, aplicaciones o servicios cuando sea razonablemente necesario."
+                : "Technology, Artificial Intelligence, intelligent systems, and data systems evolve continuously. 3Tree Digital Sport IA reserves the right to update, modify, improve, replace, suspend, or discontinue specific features, technologies, algorithms, interfaces, applications, or services when reasonably necessary."}
             </p>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs ? "Estos cambios pueden realizarse para:" : "These changes may be made to:"}

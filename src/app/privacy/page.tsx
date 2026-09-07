@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -82,8 +82,8 @@ export default function PrivacyPage() {
             </h2>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs 
-                ? "En 3Tree Digital Sport IA, respetamos tu privacidad y estamos comprometidos a proteger la información personal que nos confías. Como empresa de Sports Intelligence (Inteligencia Deportiva), desarrollamos tecnología, software, aplicaciones, sistemas de Inteligencia Artificial, soluciones de datos, herramientas de automatización, agentes de IA, plataformas web y otras soluciones digitales para el ecosistema deportivo."
-                : "At 3Tree Digital Sport IA, we respect your privacy and are committed to protecting personal information entrusted to us. As a Sports Intelligence Company, we develop technology, software, applications, Artificial Intelligence systems, data solutions, automation tools, AI agents, web platforms, and other digital solutions for the sports ecosystem."}
+                ? "En 3Tree Digital Sport IA, respetamos tu privacidad y estamos comprometidos a proteger la información personal que nos confías. Como empresa de Sports Intelligence (Inteligencia Deportiva), desarrollamos tecnología, sistemas inteligentes, aplicaciones, sistemas de Inteligencia Artificial, soluciones de datos, herramientas de automatización, agentes de IA, plataformas web y otras soluciones digitales para el ecosistema deportivo."
+                : "At 3Tree Digital Sport IA, we respect your privacy and are committed to protecting personal information entrusted to us. As a Sports Intelligence Company, we develop technology, intelligent systems, applications, Artificial Intelligence systems, data solutions, automation tools, AI agents, web platforms, and other digital solutions for the sports ecosystem."}
             </p>
             <p className="text-white/70 leading-relaxed text-sm md:text-base font-light">
               {isEs
@@ -210,7 +210,7 @@ export default function PrivacyPage() {
               <li className="flex items-start gap-2"><span className="text-brandOrange mt-1">•</span>{isEs ? "Proveer y operar nuestros servicios digitales." : "Provide and operate our digital services."}</li>
               <li className="flex items-start gap-2"><span className="text-brandOrange mt-1">•</span>{isEs ? "Responder a consultas y solicitudes." : "Respond to inquiries and requests."}</li>
               <li className="flex items-start gap-2"><span className="text-brandOrange mt-1">•</span>{isEs ? "Comunicarnos con usuarios y clientes." : "Communicate with users and clients."}</li>
-              <li className="flex items-start gap-2"><span className="text-brandOrange mt-1">•</span>{isEs ? "Mantener y optimizar sitios web, apps y software." : "Maintain and improve our websites, applications, and software."}</li>
+              <li className="flex items-start gap-2"><span className="text-brandOrange mt-1">•</span>{isEs ? "Mantener y optimizar sitios web, apps y sistemas digitales." : "Maintain and improve our websites, applications, and digital systems."}</li>
               <li className="flex items-start gap-2"><span className="text-brandOrange mt-1">•</span>{isEs ? "Desarrollar y mejorar la tecnología." : "Develop and improve technology."}</li>
               <li className="flex items-start gap-2"><span className="text-brandOrange mt-1">•</span>{isEs ? "Mantener la seguridad de los sistemas." : "Maintain system security."}</li>
               <li className="flex items-start gap-2"><span className="text-brandOrange mt-1">•</span>{isEs ? "Detectar y prevenir actividad no autorizada o fraude." : "Detect and prevent unauthorized or fraudulent activity."}</li>

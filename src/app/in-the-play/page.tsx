@@ -94,7 +94,7 @@ export default function SportsNewsBroadcastPage() {
       ]
     },
     {
-      category: isEs ? "FÚTBOL DE ÉÉLITE (ESP · ENG · GER · ITA)" : "EÉLITE SOCCER (ESP · ENG · GER · ITA)",
+      category: isEs ? "FÚTBOL DE ÉLITE (ESP · ENG · GER · ITA)" : "ELITE SOCCER (ESP · ENG · GER · ITA)",
       shortLabel: isEs ? "FÚTBOL" : "SOCCER",
       items: [
         {
@@ -212,7 +212,7 @@ export default function SportsNewsBroadcastPage() {
         "⚽ SERIE A ITALIA: Derby d'Italia Inter vs Juventus procesado en tiempo real por Sports OS",
         "🔴 BÉISBOL USA / MLB: Cámaras computarizadas analizan rotación de pitcheo en transmisiones en directo",
         "⚾ NPB JAPÓN: Algoritmos de biomecánica integrados en entrenamientos de béisbol profesional",
-        "⚾ LIDOM / REP. DOMINICANA: Scouting digital en tiempo real para prospectos éÉLITE de Grandes Ligas",
+        "⚾ LIDOM / REP. DOMINICANA: Scouting digital en tiempo real para prospectos de élite de Grandes Ligas",
         "⚾ LVBP / VENEZUELA: Telemetría 3D sin marcadores físicos en el estadio universitario",
         "🏒 NHL HOCKEY: Modelos predictivos de aceleración sobre hielo y trayectorias de disco",
         "🏈 NFL: Modelos de impacto y aceleración muscular reducen tiempo de diagnóstico",
@@ -228,7 +228,7 @@ export default function SportsNewsBroadcastPage() {
         "⚽ SERIE A ITALY: Derby d'Italia Inter vs Juventus processed live in real time by Sports OS",
         "🔴 BASEBALL USA / MLB: Computerized camera arrays tracking pitch rotation live",
         "⚾ NPB JAPAN: Biomechanical computer vision algorithms deployed in professional baseball",
-        "⚾ LIDOM / DOMINICAN REP: Real-time digital scouting for eÉLITE MLB prospects",
+        "⚾ LIDOM / DOMINICAN REP: Real-time digital scouting for elite MLB prospects",
         "⚾ LVBP / VENEZUELA: Markerless 3D telemetry tracking in live stadium broadcasts",
         "🏒 NHL HOCKEY: Predictive on-ice acceleration models and puck trajectory tracking",
         "🏈 NFL: Muscle acceleration and impact models cutting diagnostic time",
@@ -256,7 +256,7 @@ export default function SportsNewsBroadcastPage() {
     },
     {
       id: "2",
-      title: isEs ? "Episodio 02: Tracking ÓÓptico y Cinemática en la NFL" : "Episode 02: Optical Tracking & Kinematics in the NFL",
+      title: isEs ? "Episodio 02: Tracking Óptico y Cinemática en la NFL" : "Episode 02: Optical Tracking & Kinematics in the NFL",
       guest: "Sports Intelligence Lab",
       duration: "38:45",
       videoUrl: "/Corredor_de_fútbol_americano_en_202608051848.mp4",
