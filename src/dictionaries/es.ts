@@ -67,8 +67,8 @@ export const es = {
     ]
   },
   journal: {
-    badge: "Nuestro Journal",
-    title: "The Edge",
+    badge: "Nuestro Diario",
+    title: "El Diario",
     items: [
       {
         title: "Cómo la IA está remodelando la biomecánica del atleta en 2026",

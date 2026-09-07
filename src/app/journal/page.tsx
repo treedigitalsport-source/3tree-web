@@ -41,7 +41,7 @@ export default function JournalHub() {
             3
           </div>
           <div className="font-display font-black text-xl tracking-widest uppercase text-white">
-            3Tree<span className="text-brandOrange">.</span>Journal
+            3Tree<span className="text-brandOrange">.</span>{isEs ? "Diario" : "Journal"}
           </div>
         </Link>
 
@@ -77,9 +77,9 @@ export default function JournalHub() {
             </div>
 
             <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-[0.9]">
-              THE EDGE <br />
+              {isEs ? "EL DIARIO" : "THE EDGE"} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandOrange via-white to-sky-400">
-                JOURNAL
+                {isEs ? "EDITORIAL" : "JOURNAL"}
               </span>
             </h1>
           </div>
