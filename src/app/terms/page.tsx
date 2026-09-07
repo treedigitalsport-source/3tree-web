@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -281,7 +281,7 @@ export default function TermsPage() {
             </p>
             <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-1 text-sm font-mono text-white/80 mt-6">
               <p className="font-bold text-white text-base">3Tree Digital Sport IA</p>
-              <p className="text-brandOrange text-xs uppercase tracking-wider font-semibold">Sports Intelligence Company</p>
+              <p className="text-brandOrange text-xs uppercase tracking-wider font-semibold">AI Sports Intelligence Company</p>
               <p className="text-white/40 text-xs pt-1">{isEs ? "Última Actualización: Agosto 2026" : "Last Updated: August 2026"}</p>
             </div>
           </section>

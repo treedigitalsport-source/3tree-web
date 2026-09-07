@@ -5,14 +5,14 @@ export const es = {
     journal: "Diario",
     impact: "Impacto",
     contact: "Contacto",
-    startProject: "Iniciar Proyecto"
+    startProject: "Explorar Solución"
   },
   hero: {
-    badge: "Agencia Sport Tech",
+    badge: "AI Sports Intelligence Company",
     title1: "Diseñamos",
     title2: "El Futuro",
     title3: "Del Deporte.",
-    description: "Fusionamos diseño de alto rendimiento, análisis de datos y desarrollo de vanguardia para la industria deportiva.",
+    description: "Desarrollamos inteligencia artificial y sistemas de datos que transforman el rendimiento deportivo y la toma de decisiones.",
     viewWork: "Ver Nuestro Trabajo",
     getInTouch: "Contáctanos",
     scroll: "Deslizar"

@@ -5,14 +5,14 @@ export const en = {
     journal: "Journal",
     impact: "Impact",
     contact: "Contact",
-    startProject: "Start Project"
+    startProject: "Explore Solution"
   },
   hero: {
-    badge: "Sport Tech Agency",
+    badge: "AI Sports Intelligence Company",
     title1: "We Design",
     title2: "The Future",
     title3: "Of Sports.",
-    description: "We fuse high-performance design, data analytics, and cutting-edge development for the sports industry.",
+    description: "We develop artificial intelligence and data systems that transform athletic performance and decision-making.",
     viewWork: "View Our Work",
     getInTouch: "Get In Touch",
     scroll: "Scroll"

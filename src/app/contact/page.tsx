@@ -128,7 +128,7 @@ export default function Contact() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-brandOrange/5 blur-[100px] pointer-events-none"></div>
 
               <h2 className="font-display text-2xl font-black uppercase mb-8 tracking-wide relative z-10">
-                {isEs ? "Iniciar Proyecto" : "Start Project"}
+                {isEs ? "Explorar Solución" : "Explore Solution"}
               </h2>
 
               <AnimatePresence mode="wait">

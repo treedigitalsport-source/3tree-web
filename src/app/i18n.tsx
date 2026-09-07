@@ -1,16 +1,16 @@
-﻿"use client";
+"use client";
 
 import React, { createContext, useContext, useState } from 'react';
 
 const dict = {
   en: {
     nav: ["Services", "Ecosystem", "Journal", "News", "Impact", "About"],
-    cta: "Start Project",
-    tagline: "Sports Intelligence Company",
+    cta: "Explore Solution",
+    tagline: "AI Sports Intelligence Company",
     heroLine1: "We Design",
     heroLine2: "The Future",
     heroLine3: "Of Sports.",
-    heroDesc: "We fuse high-performance design, data analytics, and our Sport Intelligence Operating System for elite sports organizations.",
+    heroDesc: "We develop artificial intelligence and data systems that transform athletic performance and decision-making.",
     biomechanics: "Markerless Biomechanics",
     scouting: "Analytics & Sports Big Data",
     whoDaresWins: "Who Dares Wins",
@@ -51,7 +51,7 @@ const dict = {
     ourJournal: "Our Journal",
     theEdge: ["The", "Edge"],
     exploreJournal: "Explore Journal",
-    startProject: "Start A Project",
+    startProject: "Explore Solution",
     letsBuild: "Let's Build",
     theFuture: "The Future.",
     contactDesc: "Have an idea for a sports platform, data system, or new technology? Tell us about your project.",
@@ -127,9 +127,9 @@ const dict = {
     // About Us translations
     about: {
       title: "WHO WE ARE",
-      subtitle: "3TREE DIGITAL SPORT IA · SPORTS INTELLIGENCE COMPANY",
+      subtitle: "3TREE DIGITAL SPORT IA · AI SPORTS INTELLIGENCE COMPANY",
       tagline: "Sport Tech Revolution · Technology, AI, Data and Automation for Sports.",
-      heroText1: "Headquartered in Lutz, Florida, with a global vision, 3Tree Digital Sport IA is a Sports Intelligence company focused on transforming the way technology, data, and Artificial Intelligence are applied to sports. We design and develop intelligent systems, mobile applications, AI agents, automation systems, data solutions, drone-based technologies, sports branding, and digital experiences for the sports ecosystem.",
+      heroText1: "Headquartered in Lutz, Florida, with a global vision, 3Tree Digital Sport IA is an AI Sports Intelligence company focused on transforming the way technology, data, and Artificial Intelligence are applied to sports. We design and develop intelligent systems, mobile applications, AI agents, automation systems, data solutions, drone-based technologies, sports branding, and digital experiences for the sports ecosystem.",
       heroText2: "Our objective is simple: Convert technology and data into practical intelligence for sports.",
       heroText3: "We were not born in traditional corporate boardrooms. Our vision was forged through more than 26 years of hands-on experience in sports and high-performance training, where we witnessed a recurring reality: thousands of athletes work tirelessly to develop their skills, yet access to technology, structured data, and professional-grade tools remains unequal. That reality led us to a fundamental question: What if technology, Artificial Intelligence, and data could become accessible tools for every level of sports? That question became the foundation of 3Tree Digital Sport IA.",
       uvpTitle: "OUR PHILOSOPHY",
@@ -157,7 +157,7 @@ const dict = {
       ],
       closingBanner: {
         company: "3TREE DIGITAL SPORT IA",
-        badge: "SPORTS INTELLIGENCE COMPANY",
+        badge: "AI SPORTS INTELLIGENCE COMPANY",
         tags: "SPORT TECH · AI · DATA · SPORTS OS · AUTOMATION",
         moto: "Sport Tech Revolution",
         sub: "Technology designed to understand, connect, and transform sports."
@@ -169,7 +169,7 @@ const dict = {
       preTitle: "The Future of Sports",
       title1: "The Impact",
       title2: "Of AI",
-      desc: "Artificial Intelligence is no longer science fiction, it's the new competitive advantage. We are a Sports Intelligence Company driven by Computer Vision, Big Data, and LLMs that eradicates human bias from scouting.",
+      desc: "Artificial Intelligence is no longer science fiction, it's the new competitive advantage. We are an AI Sports Intelligence Company driven by Computer Vision, Big Data, and LLMs that eradicates human bias from scouting.",
       scroll: "Scroll",
       pillarsTitle1: "The 3",
       pillarsTitle2: "Pillars",
@@ -206,12 +206,12 @@ const dict = {
   },
   es: {
     nav: ["Servicios", "Ecosistema", "Diario", "Noticiero", "Impacto", "Nosotros"],
-    cta: "Iniciar Proyecto",
-    tagline: "Sports Intelligence Company",
+    cta: "Explorar Solución",
+    tagline: "AI Sports Intelligence Company",
     heroLine1: "Diseñamos",
     heroLine2: "El Futuro",
     heroLine3: "Del Deporte.",
-    heroDesc: "Fusionamos diseño de alto rendimiento, análisis de datos y nuestro Sistema Operativo de Inteligencia Deportiva para organizaciones de élite.",
+    heroDesc: "Desarrollamos inteligencia artificial y sistemas de datos que transforman el rendimiento deportivo y la toma de decisiones.",
     biomechanics: "Biomecánica Markerless",
     scouting: "Analítica y Big Data Deportivo",
     whoDaresWins: "Quien se atreve, gana",
@@ -252,7 +252,7 @@ const dict = {
     ourJournal: "Nuestro Diario",
     theEdge: ["La", "Vanguardia"],
     exploreJournal: "Explorar Diario",
-    startProject: "Iniciar Proyecto",
+    startProject: "Explorar Solución",
     letsBuild: "Construyamos",
     theFuture: "El Futuro.",
     contactDesc: "¿Tienes una idea para una plataforma deportiva, sistema de datos o nueva tecnología? Cuéntanos sobre tu proyecto.",
@@ -328,9 +328,9 @@ const dict = {
     // About Us translations
     about: {
       title: "QUIÉNES SOMOS",
-      subtitle: "3TREE DIGITAL SPORT IA · SPORTS INTELLIGENCE COMPANY",
+      subtitle: "3TREE DIGITAL SPORT IA · AI SPORTS INTELLIGENCE COMPANY",
       tagline: "Sport Tech Revolution · Tecnología, Inteligencia Artificial, Datos y Automatización para el Deporte.",
-      heroText1: "Con sede en Lutz, Florida, y una visión global, 3Tree Digital Sport IA es una compañía de Sports Intelligence enfocada en transformar la manera en que la tecnología, los datos y la Inteligencia Artificial se aplican al deporte. Diseñamos y desarrollamos sistemas inteligentes, aplicaciones móviles, agentes de IA, sistemas de automatización, soluciones de datos, tecnologías basadas en drones, branding deportivo y experiencias digitales para el ecosistema deportivo.",
+      heroText1: "Con sede en Lutz, Florida, y una visión global, 3Tree Digital Sport IA es una compañía de AI Sports Intelligence enfocada en transformar la manera en que la tecnología, los datos y la Inteligencia Artificial se aplican al deporte. Diseñamos y desarrollamos sistemas inteligentes, aplicaciones móviles, agentes de IA, sistemas de automatización, soluciones de datos, tecnologías basadas en drones, branding deportivo y experiencias digitales para el ecosistema deportivo.",
       heroText2: "Nuestro objetivo es simple: Convertir la tecnología y los datos en inteligencia práctica para el deporte.",
       heroText3: "No nacimos en salas de juntas corporativas tradicionales. Nuestra visión se forjó a través de más de 26 años de experiencia vinculada al deporte y al entrenamiento de alto rendimiento, donde presenciamos una realidad recurrente: miles de atletas trabajan incansablemente para desarrollar sus habilidades, pero el acceso a la tecnología, a los datos estructurados y a herramientas de nivel profesional sigue siendo desigual. Esa realidad nos llevó a una pregunta fundamental: ¿Qué pasaría si la tecnología, la Inteligencia Artificial y los datos pudieran convertirse en herramientas accesibles para todos los niveles del deporte? Esa pregunta se convirtió en la base de 3Tree Digital Sport IA.",
       uvpTitle: "NUESTRA FILOSOFÍA",
@@ -358,7 +358,7 @@ const dict = {
       ],
       closingBanner: {
         company: "3TREE DIGITAL SPORT IA",
-        badge: "SPORTS INTELLIGENCE COMPANY",
+        badge: "AI SPORTS INTELLIGENCE COMPANY",
         tags: "SPORT TECH · IA · DATOS · SPORTS OS · AUTOMATIZACIÓN",
         moto: "Revolución Sport Tech",
         sub: "Tecnología creada para entender, conectar y transformar los deportes."
@@ -370,7 +370,7 @@ const dict = {
       preTitle: "El Futuro del Deporte",
       title1: "El Impacto",
       title2: "De La IA",
-      desc: "La Inteligencia Artificial ya no es ciencia ficción, es la nueva ventaja competitiva. Somos una Sports Intelligence Company impulsada por Visión Computacional, Big Data y Modelos de Lenguaje (LLMs) que erradica el sesgo humano del scouting.",
+      desc: "La Inteligencia Artificial ya no es ciencia ficción, es la nueva ventaja competitiva. Somos una AI Sports Intelligence Company impulsada por Visión Computacional, Big Data y Modelos de Lenguaje (LLMs) que erradica el sesgo humano del scouting.",
       scroll: "Bajar",
       pillarsTitle1: "Los 3",
       pillarsTitle2: "Pilares",

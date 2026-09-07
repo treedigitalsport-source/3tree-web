@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -23,7 +23,7 @@ export function Footer() {
               3Tree Digital <span className="text-brandOrange">Sport IA</span>
             </div>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
-              {isEs ? "Sports Intelligence Company · Florida, USA" : "Sports Intelligence Company · Florida, USA"}
+              {isEs ? "AI Sports Intelligence Company · Florida, USA" : "AI Sports Intelligence Company · Florida, USA"}
             </p>
           </div>
 
