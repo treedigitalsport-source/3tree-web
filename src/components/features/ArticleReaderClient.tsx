@@ -97,13 +97,17 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
         }
       }
 
-      // H1 Header
+      // H1 Header (If present in body, render subtly or skip to prevent duplicating hero)
       if (line.startsWith('# ')) {
-        elements.push(
-          <h1 key={`h1-${i}`} className="text-3xl md:text-5xl font-display font-black text-white mt-12 mb-8 leading-tight tracking-tight">
-            {parseInline(line.replace('# ', ''))}
-          </h1>
-        );
+        const h1Text = line.replace('# ', '').trim();
+        // If it's a different subtitle or lead title, render as styled lead header
+        if (h1Text.toLowerCase() !== articleTitle.toLowerCase()) {
+          elements.push(
+            <h2 key={`h1-${i}`} className="text-2xl md:text-3xl font-display font-black text-white mt-8 mb-6 leading-tight tracking-tight">
+              {parseInline(h1Text)}
+            </h2>
+          );
+        }
         i++;
         continue;
       }
@@ -209,43 +213,52 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
         </button>
       </nav>
 
-      {/* Hero Image Section */}
-      <div className="relative w-full h-[60vh] md:h-[70vh]">
-        <Image
-          src={article.image}
-          alt={articleTitle}
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/50 to-transparent"></div>
-        
-        <div className="absolute bottom-0 left-0 w-full px-6 md:px-12 pb-16 z-10">
-          <div className="max-w-4xl mx-auto">
-            <div
-              className="flex items-center gap-4 mb-6 flex-wrap"
-            >
-              <span className="px-4 py-2 rounded-full bg-brandOrange text-white font-mono text-[10px] font-bold uppercase tracking-widest shadow-[0_0_15px_#f26522]">
-                {articleCategory}
-              </span>
-              <div className="flex items-center gap-2 text-white/80 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-widest border border-white/10">
-                <Clock className="w-3 h-3" />
-                {articleTime}
-              </div>
-              {article.author && (
-                <div className="flex items-center gap-2 text-white bg-[#0054a6] px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-widest border border-white/10 shadow-lg">
-                  <span>{isEs ? "Por " : "By "}{article.author}</span>
-                  {(article.authorRoleEs || article.authorRoleEn) && (
-                    <span className="text-white/70 font-normal hidden sm:inline">
-                      — {isEs ? article.authorRoleEs : article.authorRoleEn}
-                    </span>
-                  )}
-                </div>
-              )}
+      {/* Editorial Hero Banner & Header */}
+      <section className="relative z-10 w-full pt-28 md:pt-36 pb-12 px-6 md:px-12 border-b border-white/10 bg-gradient-to-b from-[#050d21] via-[#020617] to-[#020617]">
+        {/* Glow backdrop */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-brandOrange/10 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
+          {/* Category, Read Time & Author Badges */}
+          <div className="flex items-center justify-center gap-3 mb-6 flex-wrap">
+            <span className="px-4 py-1.5 rounded-full bg-brandOrange text-white font-mono text-[10px] font-black uppercase tracking-widest shadow-[0_0_20px_rgba(242,101,34,0.4)]">
+              {articleCategory}
+            </span>
+            <div className="flex items-center gap-1.5 text-white/80 bg-white/5 backdrop-blur-md px-3.5 py-1.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-white/10">
+              <Clock className="w-3 h-3 text-brandOrange" />
+              {articleTime}
             </div>
+            {article.author && (
+              <div className="flex items-center gap-2 text-white bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-white/15">
+                <span className="text-brandOrange font-black">{isEs ? "Por " : "By "}{article.author}</span>
+                {(article.authorRoleEs || article.authorRoleEn) && (
+                  <span className="text-white/60 font-normal hidden sm:inline border-l border-white/20 pl-2">
+                    {isEs ? article.authorRoleEs : article.authorRoleEn}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Article Main Headline */}
+          <h1 className="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight text-white leading-[1.08] max-w-4xl mb-10">
+            {articleTitle}
+          </h1>
+
+          {/* Centered Premium Infographic Showcase Frame */}
+          <div className="relative w-full max-w-2xl sm:max-w-3xl aspect-square sm:aspect-square rounded-3xl overflow-hidden border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.8)] bg-black/60 group">
+            <Image
+              src={article.image}
+              alt={articleTitle}
+              fill
+              className="object-contain object-center transition-transform duration-700 group-hover:scale-[1.02]"
+              priority
+            />
+            {/* Subtle gloss overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Article Content Layout (2-Column) */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 pb-32 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-start">

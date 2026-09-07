@@ -258,15 +258,15 @@ export default function JournalHub() {
                     transition={{ delay: index * 0.1 }}
                     className="group relative bg-[#060c1c]/90 border border-white/10 hover:border-[#0054A6] rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-1"
                   >
-                    {/* Featured Image Frame */}
-                    <div className="relative w-full aspect-[16/9] overflow-hidden">
+                    {/* Featured Image Frame (Framed to show the full infographic clearly) */}
+                    <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-[#020617]">
                       <Image
-                        src={article.image || "/article_automation_1785623940437.jpg"}
+                        src={article.image || "/images/articles/el_partido_invisible_1788755675644.jpg"}
                         alt={isEs ? article.titleEs : article.titleEn}
                         fill
-                        className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                        className="object-cover object-center transition-all duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#060c1c] via-[#060c1c]/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#060c1c] via-transparent to-black/30 pointer-events-none" />
 
                       {/* Top Badges */}
                       <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
