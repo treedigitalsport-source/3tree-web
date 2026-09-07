@@ -354,7 +354,7 @@ export default function MainContent() {
         {/* Capa 1: Video Hero Background — Scouts Béisbol en el Terreno (2.5MB) */}
         <video
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-90 pointer-events-none"
-          src="/videos/scouts_beisbol_hero.mp4"
+          src="/videos/scouts_beisbol_hero_clean_v2.mp4"
           autoPlay
           loop
           muted
