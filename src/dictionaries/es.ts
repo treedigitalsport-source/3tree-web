@@ -3,7 +3,7 @@ export const es = {
     services: "Soluciones",
     projects: "Tecnología",
     journal: "Diario",
-    impact: "Intelligence",
+    impact: "Inteligencia",
     contact: "Contacto",
     startProject: "Explorar Solución"
   },
@@ -88,7 +88,7 @@ export const es = {
     ]
   },
   impact: {
-    badge: "Intelligence",
+    badge: "Inteligencia Deportiva",
     title: "En Números",
     stats: [
       { value: "150+", label: "Proyectos Entregados" },

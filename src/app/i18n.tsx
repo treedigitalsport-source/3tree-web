@@ -205,7 +205,7 @@ const dict = {
     }
   },
   es: {
-    nav: ["Soluciones", "Tecnología", "Diario", "Noticiero", "Intelligence", "Nosotros"],
+    nav: ["Soluciones", "Tecnología", "Diario", "Noticiero", "Inteligencia", "Nosotros"],
     cta: "Explorar Solución",
     tagline: "AI Sports Intelligence Company",
     heroLine1: "Diseñamos",
@@ -368,8 +368,8 @@ const dict = {
     // Impact translations
     impact: {
       preTitle: "El Futuro del Deporte",
-      title1: "Sports",
-      title2: "Intelligence",
+      title1: "Inteligencia",
+      title2: "Deportiva IA",
       desc: "La Inteligencia Artificial ya no es ciencia ficción, es la nueva ventaja competitiva. Somos una AI Sports Intelligence Company impulsada por Visión Computacional, Big Data y Modelos de Lenguaje (LLMs) que erradica el sesgo humano del scouting.",
       scroll: "Bajar",
       pillarsTitle1: "Los 3",
