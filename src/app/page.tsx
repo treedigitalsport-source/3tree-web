@@ -473,7 +473,7 @@ export default function MainContent() {
           }}
         >
           <span className="text-[10px] uppercase tracking-[0.4em] font-mono font-bold text-brandOrange group-hover:text-white transition-colors">
-            SCROLL
+            {isEs ? "DESLIZAR" : "SCROLL"}
           </span>
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
             <ChevronDown className="w-5 h-5 text-brandOrange mt-1" />
@@ -600,7 +600,7 @@ export default function MainContent() {
                     </h4>
                     {isHighlighted && (
                       <span className="shrink-0 font-mono text-[8px] font-bold uppercase tracking-widest text-brandOrange bg-brandOrange/20 border border-brandOrange/40 px-2 py-1 rounded-full">
-                        NEW
+                        {isEs ? "NUEVO" : "NEW"}
                       </span>
                     )}
                   </div>
