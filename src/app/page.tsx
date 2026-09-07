@@ -364,8 +364,12 @@ export default function MainContent() {
           disableRemotePlayback
         />
 
-        {/* Capa 2: Overlay suave — solo lo suficiente para legibilidad del texto */}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/50 via-[#020617]/20 to-[#020617]/70 pointer-events-none" />
+        {/* Capa 2: Cortina difuminada suave cinematográfica */}
+        {/* Filtro de desenfoque suave tipo velo de seda */}
+        <div className="absolute inset-0 z-[1] backdrop-blur-[1.5px] bg-[#020617]/35 pointer-events-none" />
+        {/* Cortina difuminada direccional (suave transición horizontal y vertical) */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#020617]/80 via-[#020617]/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/60 via-transparent to-[#020617]/80 pointer-events-none" />
 
         {/* Hero Content Container - Perfectamente Equilibrado con despeje del header */}
         <div className="w-full max-w-7xl mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-36 md:pt-48 lg:pt-52 pb-16">
