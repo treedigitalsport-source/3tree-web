@@ -349,11 +349,11 @@ export default function MainContent() {
       </motion.header>
 
       {/* ─── HERO SECTION (ABSOLUTE FULLSCREEN IMMERSIVE VIDEO) ─── */}
-      <section className="relative min-h-screen w-full flex items-center overflow-hidden">
+      <section className="relative min-h-screen w-full flex items-center overflow-hidden bg-[#020617]">
 
-        {/* Capa 1: Video Hero Background — Scouts Béisbol en el Terreno (2.5MB) */}
+        {/* Capa 1: Video Hero Background — Scouts Béisbol en el Terreno (High Quality 1080p Master) */}
         <video
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-90 pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover object-[75%_center] lg:object-[80%_center] z-0 opacity-85 pointer-events-none"
           src="/videos/scouts_beisbol_hero.mp4"
           autoPlay
           loop
@@ -364,12 +364,17 @@ export default function MainContent() {
           disableRemotePlayback
         />
 
-        {/* Capa 2: Overlay suave — solo lo suficiente para legibilidad del texto */}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/50 via-[#020617]/20 to-[#020617]/70 pointer-events-none" />
+        {/* Capa 2: Overlays cinematográficos para legibilidad de clase mundial */}
+        {/* Gradiente horizontal para zona de texto izquierda */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#020617] via-[#020617]/85 via-45% to-transparent pointer-events-none" />
+        {/* Gradiente vertical para suavizar header y footer */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/80 via-transparent to-[#020617] pointer-events-none" />
+        {/* Ambient glow sutil */}
+        <div className="absolute top-1/3 left-10 w-96 h-96 bg-brandOrange/10 rounded-full blur-[140px] pointer-events-none z-[1]" />
 
         {/* Hero Content Container - Perfectamente Equilibrado con despeje del header */}
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-36 md:pt-48 lg:pt-52 pb-16">
-          <div className="max-w-4xl">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-40 md:pt-48 lg:pt-52 pb-20">
+          <div className="max-w-3xl">
             
             {/* Tag Line */}
             <motion.div
@@ -428,7 +433,7 @@ export default function MainContent() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 1 }}
-              className="mt-8 text-white/50 text-sm md:text-base font-light leading-[1.7] max-w-lg tracking-wide"
+              className="mt-8 text-slate-200 text-sm md:text-base font-normal leading-[1.7] max-w-lg tracking-wide drop-shadow-md"
             >
               {t.heroDesc}
             </motion.p>
