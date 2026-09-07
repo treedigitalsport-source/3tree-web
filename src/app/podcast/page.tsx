@@ -11,14 +11,14 @@ import CustomCursor from "@/components/CustomCursor";
 const staticEpisodesEs = [
   { id: "1", title: "El Futuro del Análisis en Béisbol", date: "01 Ago, 2026", duration: "45 min" },
   { id: "2", title: "IA en Transmisiones Deportivas", date: "25 Jul, 2026", duration: "52 min" },
-  { id: "3", title: "Biomecánica para Atletas de ÉÉLITE", date: "18 Jul, 2026", duration: "38 min" },
+  { id: "3", title: "Biomecánica para Atletas de Élite", date: "18 Jul, 2026", duration: "38 min" },
   { id: "4", title: "Redefiniendo el Compromiso del Fan", date: "10 Jul, 2026", duration: "41 min" }
 ];
 
 const staticEpisodesEn = [
   { id: "1", title: "The Future of Baseball Analytics", date: "Aug 01, 2026", duration: "45 min" },
   { id: "2", title: "AI in Sports Broadcasting", date: "Jul 25, 2026", duration: "52 min" },
-  { id: "3", title: "Biomechanics for EÉLITE Athletes", date: "Jul 18, 2026", duration: "38 min" },
+  { id: "3", title: "Biomechanics for Elite Athletes", date: "Jul 18, 2026", duration: "38 min" },
   { id: "4", title: "Redefining Fan Engagement", date: "Jul 10, 2026", duration: "41 min" }
 ];
 
@@ -36,7 +36,7 @@ const staticNewsEs = [
   {
     id: "2",
     category: "NFL / FÚTBOL AMERICANO",
-    title: "Equipos de la NFL adoptan tracking óÓptico en tiempo real para análisis de aceleración de corredores",
+    title: "Equipos de la NFL adoptan tracking óptico en tiempo real para análisis de aceleración de corredores",
     desc: "El sistema de cámaras computarizadas analiza el impacto y la aceleración muscular de los corredores para optimizar el rendimiento.",
     date: "Ayer",
     time: "Hace 1 día",
@@ -94,7 +94,7 @@ export default function PodcastPage() {
     },
     {
       id: "2",
-      title: isEs ? "Episodio 02: Tracking ÓÓptico y Cinemática en la NFL" : "Episode 02: Optical Tracking & Kinematics in the NFL",
+      title: isEs ? "Episodio 02: Tracking Óptico y Cinemática en la NFL" : "Episode 02: Optical Tracking & Kinematics in the NFL",
       guest: "Sports Intelligence Lab",
       duration: "38:45",
       videoUrl: "/Corredor_de_fútbol_americano_en_202608051848.mp4",
