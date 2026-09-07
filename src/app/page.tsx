@@ -351,9 +351,9 @@ export default function MainContent() {
       {/* ─── HERO SECTION (ABSOLUTE FULLSCREEN IMMERSIVE VIDEO) ─── */}
       <section className="relative min-h-screen w-full flex items-center overflow-hidden">
 
-        {/* Capa 1: Video Hero Background — Scouts Béisbol en el Terreno (Bajado ligeramente para encuadre óptimo) */}
+        {/* Capa 1: Video Hero Background — Scouts Béisbol en el Terreno (Nitidez 100% Cristalina, Brillo y Contraste Cinematográfico) */}
         <video
-          className="absolute inset-0 w-full h-full object-cover object-[center_32%] translate-y-6 md:translate-y-10 scale-[1.04] z-0 opacity-90 pointer-events-none transition-transform duration-700"
+          className="absolute inset-0 w-full h-full object-cover object-[center_32%] translate-y-6 md:translate-y-10 scale-[1.04] z-0 opacity-100 filter brightness-[1.04] contrast-[1.04] saturate-[1.06] pointer-events-none transition-transform duration-700"
           src="/videos/scouts_beisbol_hero_clean_v2.mp4"
           autoPlay
           loop
@@ -364,12 +364,13 @@ export default function MainContent() {
           disableRemotePlayback
         />
 
-        {/* Capa 2: Cortina difuminada suave cinematográfica */}
-        {/* Filtro de desenfoque suave tipo velo de seda */}
-        <div className="absolute inset-0 z-[1] backdrop-blur-[1.5px] bg-[#020617]/35 pointer-events-none" />
-        {/* Cortina difuminada direccional (suave transición horizontal y vertical) */}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#020617]/80 via-[#020617]/40 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/60 via-transparent to-[#020617]/80 pointer-events-none" />
+        {/* Capa 2: Iluminación y Viñeta Cinematográfica Suave (Sin desenfoques que nublen el video) */}
+        {/* Sombra lateral suave para lectura perfecta del texto sin tapar el scout ni la interfaz holográfica */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-[#020617]/85 via-[#020617]/30 via-45% to-transparent pointer-events-none" />
+        {/* Transición suave hacia la siguiente sección */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#020617] via-[#020617]/20 via-15% to-transparent pointer-events-none" />
+        {/* Despeje sutil superior bajo la barra de navegación */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#020617]/50 via-transparent via-15% to-transparent pointer-events-none" />
 
         {/* Hero Content Container - Perfectamente Equilibrado con despeje del header */}
         <div className="w-full max-w-7xl mx-auto px-6 md:px-10 relative z-10 flex flex-col justify-center h-full pt-36 md:pt-48 lg:pt-52 pb-16">
