@@ -199,6 +199,11 @@ export default function JournalHub() {
                             <span className="font-mono text-xs uppercase tracking-wider text-brandOrange font-black">
                               {article.author || "Neil Alvarado"}
                             </span>
+                            {(article.authorRoleEs || article.authorRoleEn) && (
+                              <span className="block text-[9px] font-mono text-white/40 max-w-[180px] sm:max-w-xs truncate">
+                                {isEs ? article.authorRoleEs : article.authorRoleEn}
+                              </span>
+                            )}
                           </div>
                         </div>
 
@@ -301,6 +306,11 @@ export default function JournalHub() {
                             <span className="font-mono text-xs uppercase tracking-wider text-white font-black">
                               {article.author || "Ali Zapata"}
                             </span>
+                            {(article.authorRoleEs || article.authorRoleEn) && (
+                              <span className="block text-[9px] font-mono text-white/40 max-w-[180px] sm:max-w-xs truncate">
+                                {isEs ? article.authorRoleEs : article.authorRoleEn}
+                              </span>
+                            )}
                           </div>
                         </div>
 

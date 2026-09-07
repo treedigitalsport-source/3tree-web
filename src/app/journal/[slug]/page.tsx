@@ -1,4 +1,4 @@
-﻿import { aiArticles, neilArticles } from "@/lib/articlesData";
+import { aiArticles, neilArticles } from "@/lib/articlesData";
 import Link from "next/link";
 import CustomCursor from "@/components/CustomCursor";
 import ArticleReaderClient from "@/components/features/ArticleReaderClient";
@@ -12,8 +12,12 @@ export function generateStaticParams() {
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  // Find article in either array
-  const article = [...aiArticles, ...neilArticles].find((a) => a.slug === resolvedParams.slug);
+  // Find article in either array by slug, id, or legacy alias
+  const article = [...aiArticles, ...neilArticles].find((a) => 
+    a.slug === resolvedParams.slug || 
+    String(a.id) === resolvedParams.slug ||
+    (resolvedParams.slug === "revolucion-ia-big-data" && a.slug === "el-partido-invisible-big-data-ia")
+  );
 
   if (!article) {
     return (

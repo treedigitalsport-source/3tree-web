@@ -14,6 +14,8 @@ type Article = {
   timeEs?: string;
   timeEn?: string;
   author?: string;
+  authorRoleEs?: string;
+  authorRoleEn?: string;
   execSummaryEn?: string;
   execSummaryEs?: string;
   insightsEn?: string[];
@@ -32,25 +34,153 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
   const { lang, toggleLang } = useLang();
   const isEs = lang === "es";
 
-  // Very basic markdown parser for the article content
+  // Rich markdown parser for article content
   const renderContent = (content: string) => {
-    return content.split('\n').map((line, index) => {
+    const lines = content.split('\n');
+    const elements: React.ReactNode[] = [];
+    let i = 0;
+
+    const parseInline = (text: string) => {
+      // Split on bold (**text**) and italic (*text*)
+      const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+      return parts.map((part, idx) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          return <strong key={idx} className="font-black text-white">{part.slice(2, -2)}</strong>;
+        }
+        if (part.startsWith('*') && part.endsWith('*')) {
+          return <em key={idx} className="italic text-brandOrange/90">{part.slice(1, -1)}</em>;
+        }
+        return part;
+      });
+    };
+
+    while (i < lines.length) {
+      const line = lines[i];
+
+      // Table parsing
+      if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+        const tableLines: string[] = [];
+        while (i < lines.length && lines[i].trim().startsWith('|') && lines[i].trim().endsWith('|')) {
+          tableLines.push(lines[i].trim());
+          i++;
+        }
+        if (tableLines.length >= 2) {
+          const headerCells = tableLines[0].split('|').filter(Boolean).map(c => c.trim());
+          const rows = tableLines.slice(2).map(r => r.split('|').filter(Boolean).map(c => c.trim()));
+          elements.push(
+            <div key={`table-${i}`} className="my-8 overflow-x-auto rounded-2xl border border-white/15 bg-white/[0.02] backdrop-blur-md shadow-2xl">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-white/15 bg-brandOrange/10">
+                    {headerCells.map((h, hIdx) => (
+                      <th key={hIdx} className="py-3.5 px-6 font-mono text-xs font-black uppercase tracking-widest text-brandOrange">
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10 font-sans text-sm">
+                  {rows.map((row, rIdx) => (
+                    <tr key={rIdx} className="hover:bg-white/[0.03] transition-colors">
+                      {row.map((cell, cIdx) => (
+                        <td key={cIdx} className={`py-3.5 px-6 leading-relaxed ${cIdx === 0 ? 'text-white/60' : 'text-white font-medium'}`}>
+                          {parseInline(cell)}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+          continue;
+        }
+      }
+
+      // H1 Header
       if (line.startsWith('# ')) {
-        return <h1 key={index} className="text-3xl md:text-5xl font-display font-black text-white mt-12 mb-8 leading-tight">{line.replace('# ', '')}</h1>;
+        elements.push(
+          <h1 key={`h1-${i}`} className="text-3xl md:text-5xl font-display font-black text-white mt-12 mb-8 leading-tight tracking-tight">
+            {parseInline(line.replace('# ', ''))}
+          </h1>
+        );
+        i++;
+        continue;
       }
+
+      // H2 Header
       if (line.startsWith('## ')) {
-        return <h2 key={index} className="text-xl md:text-2xl font-display font-bold text-white mt-10 mb-4">{line.replace('## ', '')}</h2>;
+        elements.push(
+          <h2 key={`h2-${i}`} className="text-2xl md:text-3xl font-display font-black text-white mt-12 mb-6 pb-3 border-b border-white/10 flex items-center gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-brandOrange shrink-0"></span>
+            {parseInline(line.replace('## ', ''))}
+          </h2>
+        );
+        i++;
+        continue;
       }
+
+      // H3 Header
+      if (line.startsWith('### ')) {
+        elements.push(
+          <h3 key={`h3-${i}`} className="text-lg md:text-xl font-display font-bold text-brandOrange mt-8 mb-4">
+            {parseInline(line.replace('### ', ''))}
+          </h3>
+        );
+        i++;
+        continue;
+      }
+
+      // Blockquote
       if (line.startsWith('> ')) {
-        return (
-          <blockquote key={index} className="border-l-4 border-brandOrange pl-6 my-8 text-white/80 italic text-lg md:text-xl font-serif">
-            {line.replace('> ', '')}
+        elements.push(
+          <blockquote key={`quote-${i}`} className="border-l-4 border-brandOrange bg-brandOrange/[0.05] p-6 rounded-r-2xl my-8 text-white/90 italic text-lg md:text-xl font-serif leading-relaxed shadow-lg">
+            {parseInline(line.replace('> ', ''))}
           </blockquote>
         );
+        i++;
+        continue;
       }
-      if (line.trim() === '') return <div key={index} className="h-4" />;
-      return <p key={index} className="text-white/80 text-base md:text-xl leading-relaxed mb-6 font-serif tracking-wide">{line}</p>;
-    });
+
+      // Horizontal Rule
+      if (line.trim() === '---') {
+        elements.push(
+          <hr key={`hr-${i}`} className="my-10 border-t border-white/10" />
+        );
+        i++;
+        continue;
+      }
+
+      // Bullet List
+      if (line.trim().startsWith('- ') || line.trim().startsWith('* ')) {
+        const bulletText = line.trim().replace(/^[-*]\s+/, '');
+        elements.push(
+          <div key={`li-${i}`} className="flex items-start gap-3 my-3 text-white/80 text-base md:text-lg leading-relaxed font-sans pl-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-brandOrange mt-2.5 shrink-0" />
+            <span>{parseInline(bulletText)}</span>
+          </div>
+        );
+        i++;
+        continue;
+      }
+
+      // Empty line
+      if (line.trim() === '') {
+        elements.push(<div key={`blank-${i}`} className="h-4" />);
+        i++;
+        continue;
+      }
+
+      // Regular Paragraph
+      elements.push(
+        <p key={`p-${i}`} className="text-white/80 text-base md:text-lg leading-relaxed mb-6 font-sans tracking-wide">
+          {parseInline(line)}
+        </p>
+      );
+      i++;
+    }
+
+    return elements;
   };
 
   const articleTitle = isEs ? (article.titleEs || article.titleEn) : (article.titleEn || article.titleEs);
@@ -103,8 +233,13 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
                 {articleTime}
               </div>
               {article.author && (
-                <div className="flex items-center gap-2 text-white bg-[#0054a6] px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-widest border border-white/10">
-                  {isEs ? "Por " : "By "}{article.author}
+                <div className="flex items-center gap-2 text-white bg-[#0054a6] px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-widest border border-white/10 shadow-lg">
+                  <span>{isEs ? "Por " : "By "}{article.author}</span>
+                  {(article.authorRoleEs || article.authorRoleEn) && (
+                    <span className="text-white/70 font-normal hidden sm:inline">
+                      — {isEs ? article.authorRoleEs : article.authorRoleEn}
+                    </span>
+                  )}
                 </div>
               )}
             </div>
