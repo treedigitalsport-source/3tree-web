@@ -18,6 +18,16 @@ export default function AgentChat() {
   const [isHistoryLoaded, setIsHistoryLoaded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  type SentimentType = 'POSITIVE_NEUTRAL' | 'HIGH_INTENT' | 'TECHNICAL' | 'FRUSTRATED';
+  const [sentiment, setSentiment] = useState<SentimentType>('POSITIVE_NEUTRAL');
+
+  const detectClientSentiment = (text: string): SentimentType => {
+    if (/no funciona|error|falla|pesimo|pésimo|basura|estafa|lento|tarda|molesto|queja|incompetente|horrible/i.test(text)) return 'FRUSTRATED';
+    if (/comprar|precio|costo|cuanto|cuánto|cotizar|cotizacion|cotización|contratar|demo|probar|empezar|interesa|adquirir|planes|plan/i.test(text)) return 'HIGH_INTENT';
+    if (/algoritmo|biomecanica|biomecánica|pose|marcador|markov|monte carlo|vector|red neuronal|latencia|fps|api|sdk|arquitectura|sabermetria|sabermetría/i.test(text)) return 'TECHNICAL';
+    return 'POSITIVE_NEUTRAL';
+  };
+
   const welcomeText = isEs 
     ? "¡Hola! 👋 Soy Iris · Especialista de atención en 3Tree Digital. ¿En qué te puedo colaborar hoy?"
     : "Hello! 👋 I'm Iris, client care specialist at 3Tree Digital. How can I help you today?";
@@ -44,17 +54,24 @@ export default function AgentChat() {
     if (!queryText.trim() || isSending) return;
 
     const userMsg = queryText.trim();
+    const detectedMood = detectClientSentiment(userMsg);
+    setSentiment(detectedMood);
+
     const newHistory = [...chatHistory, { role: "user", text: userMsg }];
     setChatHistory(newHistory);
     setMessage("");
     setIsSending(true);
 
     try {
-      // Fire-and-forget lead capture
+      // Fire-and-forget lead capture with sentiment
       fetch("/api/webhooks/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMsg }),
+        body: JSON.stringify({ 
+          message: userMsg,
+          sentiment: detectedMood,
+          intent: detectedMood === 'HIGH_INTENT' ? 'PURCHASE_DEMO' : (detectedMood === 'TECHNICAL' ? 'TECHNICAL_INQUIRY' : 'GENERAL')
+        }),
       }).catch(() => {});
 
       // Groq format
@@ -74,6 +91,9 @@ export default function AgentChat() {
         const data = await res.json();
         if (data && data.response && typeof data.response === "string" && data.response.trim().length > 0) {
           reply = data.response;
+        }
+        if (data && data.sentiment) {
+          setSentiment(data.sentiment);
         }
       } catch (parseErr) {
         console.warn("JSON parse fallback", parseErr);
@@ -251,6 +271,35 @@ export default function AgentChat() {
               >
                 <X className="w-4 h-4" />
               </button>
+            </div>
+
+            {/* Sentiment & Operational Mode Bar */}
+            <div className="px-6 py-1.5 bg-black/60 border-b border-white/5 flex items-center justify-between text-[10px] font-mono">
+              <span className="text-white/40">Status:</span>
+              {sentiment === 'HIGH_INTENT' && (
+                <span className="flex items-center gap-1.5 text-brandOrange font-semibold animate-fadeIn">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brandOrange animate-pulse" />
+                  {isEs ? "🎯 Calificación Demo B2B" : "🎯 VIP Demo Qualification"}
+                </span>
+              )}
+              {sentiment === 'TECHNICAL' && (
+                <span className="flex items-center gap-1.5 text-cyan-400 font-semibold animate-fadeIn">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  {isEs ? "⚡ Análisis Cinemático & Datos" : "⚡ Kinematics & Sports Data"}
+                </span>
+              )}
+              {sentiment === 'FRUSTRATED' && (
+                <span className="flex items-center gap-1.5 text-amber-400 font-semibold animate-fadeIn">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+                  {isEs ? "🛡️ Atención Ejecutiva Directa" : "🛡️ Priority Executive Care"}
+                </span>
+              )}
+              {sentiment === 'POSITIVE_NEUTRAL' && (
+                <span className="flex items-center gap-1.5 text-emerald-400 font-semibold animate-fadeIn">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  {isEs ? "🟢 IA Conectada · 3Tree" : "🟢 AI Connected · 3Tree"}
+                </span>
+              )}
             </div>
 
             {/* Chat Messages Body */}

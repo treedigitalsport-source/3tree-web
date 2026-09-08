@@ -23,7 +23,8 @@ export async function POST(request: Request) {
         fs.mkdirSync(reportsDir, { recursive: true });
       }
       const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-      const reportContent = `# Chat Report - ${timestamp}\n\n` + body.fullHistory.map((msg: ChatMessage) => `**${msg.role}**: ${msg.text}`).join('\n\n');
+      const detectedSentiment = body.sentiment || "POSITIVE_NEUTRAL";
+      const reportContent = `# Chat Report - ${timestamp}\n**Sentiment:** ${detectedSentiment}\n**Intent:** ${body.intent || 'INQUIRY'}\n\n` + body.fullHistory.map((msg: ChatMessage) => `**${msg.role}**: ${msg.text}`).join('\n\n');
       fs.writeFileSync(path.join(/*turbopackIgnore: true*/ reportsDir, `chat-report-${timestamp}.md`), reportContent);
     }
 
@@ -38,8 +39,11 @@ export async function POST(request: Request) {
       name: body.name || "Anonymous",
       email: body.email || "no-email@test.com",
       message: body.message || "",
+      sentiment: body.sentiment || "POSITIVE_NEUTRAL",
+      intent: body.intent || "INQUIRY",
       status: "pending",
-      ip: request.headers.get("x-forwarded-for") || "127.0.0.1"
+      ip: request.headers.get("x-forwarded-for") || "127.0.0.1",
+      createdAt: new Date().toISOString()
     };
 
     leads.push(newLead);

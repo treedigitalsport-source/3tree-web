@@ -29,18 +29,30 @@ export async function POST(req: Request) {
 - Contact: contacto@3treedigital.com / treedigitalsport@gmail.com
 `;
 
+    // Detector de sentimiento e intención de alta precisión
+    const isFrustrated = /no funciona|error|falla|pesimo|pésimo|basura|estafa|lento|tarda|molesto|queja|incompetente|horrible/i.test(lastUserMsg);
+    const isHighIntent = /comprar|precio|costo|cuanto|cuánto|cotizar|cotizacion|cotización|contratar|demo|probar|empezar|interesa|adquirir|planes|plan/i.test(lastUserMsg);
+    const isTechnical = /algoritmo|biomecanica|biomecánica|pose|marcador|markov|monte carlo|vector|red neuronal|latencia|fps|api|sdk|arquitectura|sabermetria|sabermetría/i.test(lastUserMsg);
+    
+    let detectedSentiment = isFrustrated ? 'FRUSTRATED' : (isHighIntent ? 'HIGH_INTENT' : (isTechnical ? 'TECHNICAL' : 'POSITIVE_NEUTRAL'));
+
     const systemPrompt = {
       role: 'system',
-      content: `You are Iris, the Elite AI Analyst & Concierge of 3Tree Digital Sport IA in Lutz, Florida. Your primary objective is to qualify B2B prospects (academies, scouts, professional teams) and capture their contact data to schedule technical demonstrations of our Intelligent Systems.
+      content: `You are Iris, the Elite AI Analyst & Concierge of 3Tree Digital Sport IA in Lutz, Florida. 
+Your primary objective is to engage B2B prospects (academies, scouts, professional clubs, leagues), provide deep technical expertise, and qualify leads for high-performance demos.
 
-CRITICAL CONVERSATIONAL RULES:
-1. AUTHORITY & PROFESSIONALISM: Speak in a professional, authoritative, direct, and elite technological tone. No emojis, no robotic fluff. You represent high-performance sports technology.
-2. ULTRA-CONCISE & BITE-SIZED: Keep all responses brief and high-impact (maximum 2 to 3 short sentences). Get straight to the point.
-3. FORMATTING: Never output tables or long lists. Use clean, punchy text.
-4. CORE FOCUS: If asked what 3Tree does, say: 'We design and develop intelligent systems for the sports ecosystem, including Kinebase Pro (markerless biomechanics), Sports Data OS, and autonomous AI agents.'
-5. NO RE-INTRODUCTIONS: Do not say 'Hi, I am Iris' in your replies.
-6. LEAD CAPTURE (MANDATORY): If they want pricing, a demo, or show buying intent, ask them directly for their Name, Email, and Sports Organization.
-7. LANGUAGE: Auto-detect language and reply in fluent Spanish or English matching the user.
+REAL-TIME SENTIMENT & EMOTIONAL INTELLIGENCE RULES:
+1. SENTIMENT ADAPTATION (CRITICAL):
+   - IF USER IS FRUSTRATED/CRITICAL: Respond with absolute empathy, zero defensive attitude, reassurance, and offer immediate direct support via contacto@3treedigital.com or priority CEO review.
+   - IF USER HAS HIGH BUYING INTENT / ASKS FOR PRICING/DEMO: Match their excitement, confirm capabilities with authority, and request Name, Email, and Sports Organization to dispatch the executive dossier.
+   - IF USER IS TECHNICAL/ANALYTIC: Use rigorous sports data engineering language (computer vision, kinematic chains, 24-state Markov chains, sub-second latency).
+   - IF USER IS NEUTRAL/GREETING: Be ultra-professional, direct, and welcoming.
+
+CONVERSATIONAL RULES:
+2. AUTHORITY & PROFESSIONALISM: Speak in a direct, elite technological tone. No emojis, no robotic fluff. You represent high-performance sports AI.
+3. ULTRA-CONCISE: Keep responses between 2 and 3 high-impact sentences.
+4. LEAD CAPTURE: Always capture Name, Email, and Organization when intent is high.
+5. LANGUAGE: Auto-detect language and reply in fluent Spanish or English matching the user.
 
 Knowledge Base:
 ${knowledgeBase}`
@@ -53,7 +65,7 @@ ${knowledgeBase}`
         const chatCompletion = await groq.chat.completions.create({
           messages: [systemPrompt, ...messages],
           model: 'llama-3.3-70b-versatile',
-          temperature: 0.6,
+          temperature: 0.5,
           max_tokens: 800,
         });
         responseText = chatCompletion.choices[0]?.message?.content || '';
@@ -63,19 +75,23 @@ ${knowledgeBase}`
           const fallbackCompletion = await groq.chat.completions.create({
             messages: [systemPrompt, ...messages],
             model: 'llama-3.3-70b-specdec',
-            temperature: 0.6,
+            temperature: 0.5,
             max_tokens: 800,
           });
           responseText = fallbackCompletion.choices[0]?.message?.content || '';
         } catch (secError) {
-          console.warn('Fallo llamada Groq, ejecutando motor semantico Iris...', secError);
+          console.warn('Fallo llamada Groq, ejecutando motor semantico Iris con analisis de sentimiento...', secError);
         }
       }
     }
 
-    // Si Groq no devolvió texto o falló la clave/modelo, usar motor de respuesta semántica de Iris
+    // Motor de respaldo semántico calibrado por sentimiento
     if (!responseText || responseText.trim() === '') {
-      if (/diamax/i.test(lastUserMsg)) {
+      if (isFrustrated) {
+        responseText = isEs
+          ? "Lamento mucho cualquier inconveniente. En 3Tree Digital Sport IA tu experiencia es prioridad absoluta. Puedes escribirnos directamente a contacto@3treedigital.com o dejarnos tu correo para que nuestro equipo técnico te asista de inmediato."
+          : "We sincerely apologize for any inconvenience. At 3Tree Digital Sport IA, your experience is our top priority. You can reach out directly to contacto@3treedigital.com or leave your email so our technical team can assist you immediately.";
+      } else if (/diamax/i.test(lastUserMsg)) {
         responseText = isEs
           ? "DIAMAX Pro es nuestra suite táctica de dugout para béisbol profesional, con simulación de 24 estados de Markov, algoritmos Monte Carlo, heatmaps de zona de strike y analítica sabermétrica en tiempo real."
           : "DIAMAX Pro is our tactical dugout suite for professional baseball, featuring 24-state Markov simulations, Monte Carlo algorithms, strike zone heatmaps, and real-time sabermetric analytics.";
@@ -83,10 +99,10 @@ ${knowledgeBase}`
         responseText = isEs 
           ? "Kinebase Pro es nuestra plataforma de biomecánica 3D sin marcadores que extrae vectores cinemáticos y rotación articular directamente de video estándar. Para agendar una demo técnica personalizada, por favor indícanos tu nombre, correo y organización deportiva."
           : "Kinebase Pro is our markerless 3D biomechanics platform that extracts kinematic vectors and joint rotation directly from video. To schedule a technical demo, please provide your name, email, and sports organization.";
-      } else if (/precio|costo|cuanto|cuánto|cotizacion|cotización|tarifa|comprar|plan|planes/i.test(lastUserMsg)) {
+      } else if (isHighIntent) {
         responseText = isEs
-          ? "Ofrecemos licenciamiento modular adaptado a academias, equipos profesionales y ligas. Para enviarte una propuesta formal, por favor compártenos tu nombre, correo corporativo y club u organización."
-          : "We provide modular licensing tailored for academies, professional teams, and leagues. To receive a formal proposal, please share your name, corporate email, and organization.";
+          ? "¡Excelente decisión! Ofrecemos licenciamiento modular adaptado a academias, equipos profesionales y ligas. Para enviarte una propuesta formal y coordinar la demostración, compártenos tu nombre, correo corporativo y organización."
+          : "Excellent choice! We offer modular licensing tailored for academies, professional teams, and leagues. To send a formal proposal and schedule a demo, please share your name, corporate email, and organization.";
       } else if (/contacto|email|correo|telefono|teléfono|ubicacion|ubicación|sede|donde|dónde/i.test(lastUserMsg)) {
         responseText = isEs
           ? "Nuestra sede oficial está ubicada en 5709 Kingfish Drive, Lutz, Florida, USA. Puedes dejarnos tus datos aquí o escribirnos a contacto@3treedigital.com."
@@ -100,12 +116,14 @@ ${knowledgeBase}`
 
     return NextResponse.json({
       response: responseText,
+      sentiment: detectedSentiment,
       status: 'ok'
     });
   } catch (error: unknown) {
     console.error('Error general en Iris Groq API:', error);
     return NextResponse.json({
       response: "En 3Tree Digital Sport IA estamos a tu disposición. Para coordinar una demostración técnica de nuestros sistemas, por favor indícanos tu nombre, correo y organización.",
+      sentiment: 'POSITIVE_NEUTRAL',
       status: 'recovered'
     });
   }
