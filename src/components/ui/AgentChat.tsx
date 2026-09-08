@@ -79,28 +79,34 @@ export default function AgentChat() {
         console.warn("JSON parse fallback", parseErr);
       }
 
-      // Cliente-side fallback semántico infalible
+      // Cliente-side fallback semántico infalible con detección dinámica de idioma
       if (!reply) {
-        if (/kinebase|biomecanica|video|movimiento|vision|camara/i.test(userMsg)) {
-          reply = isEs
-            ? "Kinebase Pro es nuestra plataforma de biomecánica sin marcadores que extrae vectores cinemáticos y ángulos articulares directamente de video estándar. Para coordinar una demo técnica, indícanos tu nombre, correo y organización."
+        const isMsgSpanish = isEs || /[áéíóúñ¿¡]/i.test(userMsg) || /hola|buenas|que|cómo|como|cuanto|precio|donde|quién|quien|saludos|gracias|favor|equipo|beisbol|béisbol|partido|jugador|dia|tarde|noche/i.test(userMsg);
+
+        if (/diamax/i.test(userMsg)) {
+          reply = isMsgSpanish
+            ? "DIAMAX Pro es nuestra suite táctica de dugout para béisbol profesional, con simulación de 24 estados de Markov, algoritmos Monte Carlo, heatmaps de zona de strike y analítica sabermétrica en tiempo real."
+            : "DIAMAX Pro is our tactical dugout suite for professional baseball, featuring 24-state Markov simulations, Monte Carlo algorithms, strike zone heatmaps, and real-time sabermetric analytics.";
+        } else if (/kinebase|biomecanica|biomecánica|video|movimiento|vision|visión|camara|cámara/i.test(userMsg)) {
+          reply = isMsgSpanish
+            ? "Kinebase Pro es nuestra plataforma de biomecánica 3D sin marcadores que extrae vectores cinemáticos y ángulos articulares directamente de video estándar. Para coordinar una demo técnica, indícanos tu nombre, correo y organización."
             : "Kinebase Pro is our markerless biomechanics system that extracts kinematic vectors and joint angles from standard video. To schedule a technical demo, please provide your name, email, and sports organization.";
-        } else if (/precio|costo|cuanto|cotizacion|tarifa|comprar|plan/i.test(userMsg)) {
-          reply = isEs
+        } else if (/precio|costo|cuanto|cuánto|cotizacion|cotización|tarifa|comprar|plan|planes/i.test(userMsg)) {
+          reply = isMsgSpanish
             ? "Ofrecemos licenciamiento modular adaptado a academias, equipos y ligas. Para enviarte una propuesta formal, por favor compártenos tu nombre, correo corporativo y organización."
             : "We provide modular licensing tailored for academies, teams, and leagues. To receive a formal proposal, please share your name, corporate email, and sports organization.";
-        } else if (/contacto|email|telefono|ubicacion|sede|donde/i.test(userMsg)) {
-          reply = isEs
+        } else if (/contacto|email|correo|telefono|teléfono|ubicacion|ubicación|sede|donde|dónde/i.test(userMsg)) {
+          reply = isMsgSpanish
             ? "Nuestra sede oficial está ubicada en 5709 Kingfish Drive, Lutz, Florida, USA. Puedes dejarnos tus datos aquí o escribirnos directamente a contacto@3treedigital.com."
             : "Our headquarters are located at 5709 Kingfish Drive, Lutz, Florida, USA. You can leave your contact details here or write to contacto@3treedigital.com.";
         } else if (/@|\.com|\.net|\.org|[0-9]{7,}/.test(userMsg)) {
-          reply = isEs
+          reply = isMsgSpanish
             ? "¡Excelente! Hemos registrado tus datos de contacto con éxito. Un especialista de 3Tree Digital Sport IA se comunicará contigo a la brevedad."
             : "Excellent! We have successfully registered your contact details. A 3Tree Digital Sport IA specialist will reach out to you shortly.";
         } else {
-          reply = isEs
-            ? "En 3Tree Digital Sport IA diseñamos sistemas de inteligencia deportiva, visión computacional con Kinebase Pro y plataformas tácticas. ¿En qué solución específica está interesada tu organización?"
-            : "At 3Tree Digital Sport IA, we design sports intelligence systems, computer vision with Kinebase Pro, and tactical platforms. Which solution is your organization interested in?";
+          reply = isMsgSpanish
+            ? "En 3Tree Digital Sport IA desarrollamos tecnología y modelos de inteligencia artificial de alto rendimiento para el deporte profesional. ¿Te interesa Kinebase Pro (biomecánica), DIAMAX Pro (táctica deportiva) o nuestros sistemas de Sports OS?"
+            : "At 3Tree Digital Sport IA, we engineer elite sports technology and AI systems for professional athletics. Are you interested in Kinebase Pro (biomechanics), DIAMAX Pro (tactical baseball), or our Sports OS platforms?";
         }
       }
 
@@ -110,9 +116,10 @@ export default function AgentChat() {
       ]);
     } catch (error) {
       console.warn("AgentChat caught error, executing client fallback", error);
-      const fallbackReply = isEs
-        ? "En 3Tree Digital Sport IA estamos a tu disposición. ¿Te gustaría agendar una demostración de Kinebase Pro o conocer nuestros sistemas deportivos?"
-        : "At 3Tree Digital Sport IA, we are at your service. Would you like to schedule a Kinebase Pro demo or learn more about our sports systems?";
+      const isMsgSpanish = isEs || /[áéíóúñ¿¡]/i.test(queryText) || /hola|buenas|que|cómo|como/i.test(queryText);
+      const fallbackReply = isMsgSpanish
+        ? "En 3Tree Digital Sport IA estamos a tu disposición. ¿Te gustaría agendar una demostración técnica o conocer más sobre Kinebase Pro y DIAMAX Pro?"
+        : "At 3Tree Digital Sport IA, we are at your service. Would you like to schedule a technical demo or learn more about Kinebase Pro and DIAMAX Pro?";
       setChatHistory((prev) => [
         ...prev, 
         { role: "agent", text: fallbackReply }
