@@ -125,12 +125,12 @@ export default function AgentChat() {
             : "Excellent! We have successfully registered your contact details. A 3Tree Digital Sport IA specialist will reach out to you shortly.";
         } else if (/como estas|cómo estás|como te va|cómo te va|que tal|qué tal|buenas noches|buenos dias|buenos días|buenas tardes|hola|saludos/i.test(userMsg)) {
           reply = isMsgSpanish
-            ? "¡Buenas! Estoy muy bien, operativa y lista para asistirte. ¿En qué área de inteligencia deportiva o análisis biomecánico te puedo colaborar hoy?"
-            : "Hello! I am doing great, fully online and ready to assist. How can I help your sports organization with 3Tree AI systems today?";
+            ? "¡Hola! Estoy muy bien, operativa y lista para asistirte. ¿En qué te puedo colaborar hoy?"
+            : "Hello! I am doing great, fully online and ready to assist. How can I help you today?";
         } else {
           reply = isMsgSpanish
-            ? "En 3Tree Digital Sport IA desarrollamos tecnología y modelos de inteligencia artificial de alto rendimiento para el deporte profesional. ¿Te interesa Kinebase Pro (biomecánica), DIAMAX Pro (táctica deportiva) o nuestros sistemas de Sports OS?"
-            : "At 3Tree Digital Sport IA, we engineer elite sports technology and AI systems for professional athletics. Are you interested in Kinebase Pro (biomechanics), DIAMAX Pro (tactical baseball), or our Sports OS platforms?";
+            ? "En 3Tree Digital Sport IA desarrollamos sistemas de inteligencia deportiva y tecnología de alto rendimiento. ¿En qué te puedo colaborar hoy?"
+            : "At 3Tree Digital Sport IA, we develop sports intelligence systems and high-performance technology. How can I help you today?";
         }
       }
 
@@ -142,8 +142,8 @@ export default function AgentChat() {
       console.warn("AgentChat caught error, executing client fallback", error);
       const isMsgSpanish = isEs || /[áéíóúñ¿¡]/i.test(queryText) || /hola|buenas|que|cómo|como/i.test(queryText);
       const fallbackReply = isMsgSpanish
-        ? "En 3Tree Digital Sport IA estamos a tu disposición. ¿Te gustaría agendar una demostración técnica o conocer más sobre Kinebase Pro y DIAMAX Pro?"
-        : "At 3Tree Digital Sport IA, we are at your service. Would you like to schedule a technical demo or learn more about Kinebase Pro and DIAMAX Pro?";
+        ? "En 3Tree Digital Sport IA estamos a tu disposición. ¿En qué te puedo colaborar hoy?"
+        : "At 3Tree Digital Sport IA, we are at your service. How can I help you today?";
       setChatHistory((prev) => [
         ...prev, 
         { role: "agent", text: fallbackReply }
