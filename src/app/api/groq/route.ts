@@ -1,23 +1,9 @@
 import { NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
 
-// Initialize the Groq client. It will automatically use the GROQ_API_KEY environment variable.
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY || '',
-});
-
 export async function POST(req: Request) {
   try {
-    // Verificar que la clave API esté configurada
-    if (!process.env.GROQ_API_KEY) {
-      return NextResponse.json(
-        { error: 'GROQ_API_KEY no está configurada en el servidor.' },
-        { status: 500 }
-      );
-    }
-
     const body = await req.json();
-    // Expecting an array of messages: { role: 'user' | 'assistant', content: string }
     const { messages } = body;
 
     if (!messages || !Array.isArray(messages)) {
@@ -27,27 +13,20 @@ export async function POST(req: Request) {
       );
     }
 
+    const lastUserMsg = messages[messages.length - 1]?.content || '';
+    const isEs = /[áéíóúñ¿¡]/i.test(lastUserMsg) || !/[a-z]/i.test(lastUserMsg) || /hola|buenas|precio|demo|servicios|que hacen|quienes son|beisbol/i.test(lastUserMsg);
+
+    const apiKey = process.env.GROQ_API_KEY || '';
+
     const knowledgeBase = `
 # 3Tree Digital Sport IA - Official Knowledge Base
-
-**1. Who We Are**
-3Tree Digital Sport IA is a Sports Intelligence company headquartered in Lutz, Florida, with a global vision. We develop the Sport Intelligence Operating System (Sports OS), markerless biomechanics technology (Kinebase Pro), sports data solutions, intelligent automation, drone-related sports tracking, and digital experiences.
-
-**2. Our Philosophy & Origins**
-We were forged through more than 26 years of high-performance training and athletic field experience. Our objective is simple: Turn technology and data into practical intelligence for sports, democratizing access for athletes, coaches, academies, clubs, and leagues.
-
-**3. Key Solutions & Ecosystem**
-- **Sport Intelligence Operating System (Sports OS)**: Proprietary architecture centralizing athletic data, computer vision, and predictive analytics.
-- **Kinebase Pro**: Markerless Biomechanics intelligent AI system using computer vision to extract kinematic vectors, angles, and velocity directly from standard video without physical markers.
-- **Intelligent Sports Interfaces**: Tactical control panels and real-time field analysis for coaching staff and scouts.
-- **Intelligent Automation**: Streamlined pipelines for video processing and data extraction.
-- **Cinematic Drone Services**: High-speed aerial sports tracking.
-
-**4. Contact & Inquiries**
-- Official Email: contacto@3treedigital.com / treedigitalsport@gmail.com
-- Domain: 3treedigital.com
-- Location: Lutz, Florida, USA
-- Demos & Projects: Clients and sports organizations can request custom projects or schedule a demo directly through our contact form.
+**Location:** Lutz, Florida, USA
+**Leadership:** High performance athletic & AI sports technology.
+**Products:**
+- Kinebase Pro: Markerless 3D Biomechanics & Computer Vision for pitching and hitting kinematics.
+- Sport Intelligence Operating System (Sports OS): Centralized data, scouting, and real-time game analytics.
+- DIAMAX Pro: Dugout tactical in-game decision engine, official scorekeeping, and 24-state Markov Monte Carlo simulation.
+- Contact: contacto@3treedigital.com / treedigitalsport@gmail.com
 `;
 
     const systemPrompt = {
@@ -60,43 +39,70 @@ CRITICAL CONVERSATIONAL RULES:
 3. FORMATTING: Never output tables or long lists. Use clean, punchy text.
 4. CORE FOCUS: If asked what 3Tree does, say: 'We design and develop intelligent systems for the sports ecosystem, including Kinebase Pro (markerless biomechanics), Sports Data OS, and autonomous AI agents.'
 5. NO RE-INTRODUCTIONS: Do not say 'Hi, I am Iris' in your replies.
-6. LEAD CAPTURE (MANDATORY): NEVER ask the user to email us. If they want pricing, a demo, or show buying intent, YOU must ask them directly for their Name, Email, and Sports Organization right here in the chat.
-7. LANGUAGE MIRRORING: Auto-detect the user's language and reply flawlessly in English or Spanish.
+6. LEAD CAPTURE (MANDATORY): If they want pricing, a demo, or show buying intent, ask them directly for their Name, Email, and Sports Organization.
+7. LANGUAGE: Auto-detect language and reply in fluent Spanish or English matching the user.
 
 Knowledge Base:
 ${knowledgeBase}`
     };
 
-    // Llamar al motor de IA en Groq
-    let responseText = 'Sin respuesta';
-    try {
-      const chatCompletion = await groq.chat.completions.create({
-        messages: [systemPrompt, ...messages],
-        model: 'llama-3.3-70b-versatile',
-        temperature: 0.7,
-        max_tokens: 1024,
-      });
-      responseText = chatCompletion.choices[0]?.message?.content || 'Sin respuesta';
-    } catch (primaryError) {
-      console.warn('Fallo modelo primario, intentando con modelo secundario...', primaryError);
-      const fallbackCompletion = await groq.chat.completions.create({
-        messages: [systemPrompt, ...messages],
-        model: 'llama-3.1-8b-instant',
-        temperature: 0.7,
-        max_tokens: 1024,
-      });
-      responseText = fallbackCompletion.choices[0]?.message?.content || 'Sin respuesta';
+    let responseText = '';
+    if (apiKey) {
+      const groq = new Groq({ apiKey });
+      try {
+        const chatCompletion = await groq.chat.completions.create({
+          messages: [systemPrompt, ...messages],
+          model: 'llama-3.3-70b-versatile',
+          temperature: 0.6,
+          max_tokens: 800,
+        });
+        responseText = chatCompletion.choices[0]?.message?.content || '';
+      } catch (primaryError) {
+        console.warn('Fallo modelo primario 70b, probando instantáneo 8b...', primaryError);
+        try {
+          const fallbackCompletion = await groq.chat.completions.create({
+            messages: [systemPrompt, ...messages],
+            model: 'llama-3.1-8b-instant',
+            temperature: 0.6,
+            max_tokens: 800,
+          });
+          responseText = fallbackCompletion.choices[0]?.message?.content || '';
+        } catch (secError) {
+          console.warn('Fallo API Groq, ejecutando fallback heurístico de Iris...', secError);
+        }
+      }
+    }
+
+    if (!responseText) {
+        if (/kinebase|biomecanica|video|movimiento|vision/i.test(lastUserMsg)) {
+          responseText = isEs 
+            ? "Kinebase Pro es nuestra plataforma de biomecánica sin marcadores que extrae vectores cinemáticos y rotación articular directamente de video estándar. Para agendar una demo técnica personalizada, por favor indícanos tu nombre, correo y organización deportiva."
+            : "Kinebase Pro is our markerless biomechanics system that extracts kinematic vectors and joint rotation directly from video. To schedule a technical demo, please provide your name, email, and sports organization.";
+        } else if (/precio|costo|cuanto|cotizacion|tarifa|comprar/i.test(lastUserMsg)) {
+          responseText = isEs
+            ? "Ofrecemos licenciamiento modular adaptado a academias, equipos profesionales y ligas. Para enviarte una propuesta formal, por favor compártenos tu nombre, correo corporativo y club u organización."
+            : "We provide modular licensing tailored for academies, professional teams, and leagues. To receive a formal proposal, please share your name, corporate email, and organization.";
+        } else if (/contacto|email|telefono|ubicacion|sede/i.test(lastUserMsg)) {
+          responseText = isEs
+            ? "Nuestra sede oficial está ubicada en 5709 Kingfish Drive, Lutz, Florida, USA. Puedes dejarnos tus datos aquí o escribirnos a contacto@3treedigital.com."
+            : "Our headquarters are located at 5709 Kingfish Drive, Lutz, Florida, USA. You can leave your contact details here or write to contacto@3treedigital.com.";
+        } else {
+          responseText = isEs
+            ? "En 3Tree Digital Sport IA desarrollamos sistemas de inteligencia deportiva, análisis biomecánico con Kinebase Pro y plataformas tácticas. ¿En qué solución específica está interesada tu organización?"
+            : "At 3Tree Digital Sport IA, we engineer sports intelligence systems, markerless biomechanics with Kinebase Pro, and tactical platforms. Which solution is your organization interested in?";
+        }
     }
 
     return NextResponse.json({
       response: responseText,
+      status: 'ok'
     });
   } catch (error: unknown) {
-    console.error('Error en la API de Groq:', error);
-    return NextResponse.json(
-      { error: (error as Error).message || 'Error procesando la solicitud a Groq.' },
-      { status: 500 }
-    );
+    console.error('Error general en Iris Groq API:', error);
+    return NextResponse.json({
+      response: "En 3Tree Digital Sport IA estamos a tu disposición. Para coordinar una demostración técnica de nuestros sistemas, por favor indícanos tu nombre, correo y organización.",
+      status: 'recovered'
+    });
   }
 }
 
