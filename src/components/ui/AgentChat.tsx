@@ -123,6 +123,10 @@ export default function AgentChat() {
           reply = isMsgSpanish
             ? "¡Excelente! Hemos registrado tus datos de contacto con éxito. Un especialista de 3Tree Digital Sport IA se comunicará contigo a la brevedad."
             : "Excellent! We have successfully registered your contact details. A 3Tree Digital Sport IA specialist will reach out to you shortly.";
+        } else if (/como estas|cómo estás|como te va|cómo te va|que tal|qué tal|buenas noches|buenos dias|buenos días|buenas tardes|hola|saludos/i.test(userMsg)) {
+          reply = isMsgSpanish
+            ? "¡Buenas! Estoy muy bien, operativa y lista para asistirte. ¿En qué área de inteligencia deportiva o análisis biomecánico te puedo colaborar hoy?"
+            : "Hello! I am doing great, fully online and ready to assist. How can I help your sports organization with 3Tree AI systems today?";
         } else {
           reply = isMsgSpanish
             ? "En 3Tree Digital Sport IA desarrollamos tecnología y modelos de inteligencia artificial de alto rendimiento para el deporte profesional. ¿Te interesa Kinebase Pro (biomecánica), DIAMAX Pro (táctica deportiva) o nuestros sistemas de Sports OS?"

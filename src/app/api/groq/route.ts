@@ -46,7 +46,7 @@ REAL-TIME SENTIMENT & EMOTIONAL INTELLIGENCE RULES:
    - IF USER IS FRUSTRATED/CRITICAL: Respond with absolute empathy, zero defensive attitude, reassurance, and offer immediate direct support via contacto@3treedigital.com or priority CEO review.
    - IF USER HAS HIGH BUYING INTENT / ASKS FOR PRICING/DEMO: Match their excitement, confirm capabilities with authority, and request Name, Email, and Sports Organization to dispatch the executive dossier.
    - IF USER IS TECHNICAL/ANALYTIC: Use rigorous sports data engineering language (computer vision, kinematic chains, 24-state Markov chains, sub-second latency).
-   - IF USER IS NEUTRAL/GREETING: Be ultra-professional, direct, and welcoming.
+   - IF USER IS GREETING OR CASUAL (e.g. "como estas", "buenas noches", "hola"): Respond warmly, naturally and professionally in Spanish, confirming you are online and asking how you can support their sports organization.
 
 CONVERSATIONAL RULES:
 2. AUTHORITY & PROFESSIONALISM: Speak in a direct, elite technological tone. No emojis, no robotic fluff. You represent high-performance sports AI.
@@ -64,9 +64,9 @@ ${knowledgeBase}`
       try {
         const chatCompletion = await groq.chat.completions.create({
           messages: [systemPrompt, ...messages],
-          model: 'llama-3.3-70b-versatile',
+          model: 'qwen/qwen3.8-27b',
           temperature: 0.5,
-          max_tokens: 800,
+          max_tokens: 350,
         });
         responseText = chatCompletion.choices[0]?.message?.content || '';
       } catch (primaryError) {
@@ -74,15 +74,20 @@ ${knowledgeBase}`
         try {
           const fallbackCompletion = await groq.chat.completions.create({
             messages: [systemPrompt, ...messages],
-            model: 'llama-3.3-70b-specdec',
+            model: 'openai/gpt-oss-120b',
             temperature: 0.5,
-            max_tokens: 800,
+            max_tokens: 350,
           });
           responseText = fallbackCompletion.choices[0]?.message?.content || '';
         } catch (secError) {
           console.warn('Fallo llamada Groq, ejecutando motor semantico Iris con analisis de sentimiento...', secError);
         }
       }
+    }
+
+    // Limpiar etiquetas de razonamiento si las hubiera
+    if (responseText) {
+      responseText = responseText.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
     }
 
     // Motor de respaldo semántico calibrado por sentimiento
@@ -107,6 +112,10 @@ ${knowledgeBase}`
         responseText = isEs
           ? "Nuestra sede oficial está ubicada en 5709 Kingfish Drive, Lutz, Florida, USA. Puedes dejarnos tus datos aquí o escribirnos a contacto@3treedigital.com."
           : "Our headquarters are located at 5709 Kingfish Drive, Lutz, Florida, USA. You can leave your contact details here or write to contacto@3treedigital.com.";
+      } else if (/como estas|cómo estás|como te va|cómo te va|que tal|qué tal|buenas noches|buenos dias|buenos días|buenas tardes|hola|saludos/i.test(lastUserMsg)) {
+        responseText = isEs
+          ? "¡Buenas! Estoy muy bien, operativa y lista para asistirte. ¿En qué área de inteligencia deportiva o análisis biomecánico te puedo colaborar hoy?"
+          : "Hello! I am doing great, fully online and ready to assist. How can I help your sports organization with 3Tree AI systems today?";
       } else {
         responseText = isEs
           ? "En 3Tree Digital Sport IA desarrollamos tecnología y modelos de inteligencia artificial de alto rendimiento para el deporte profesional. ¿Te interesa Kinebase Pro (biomecánica), DIAMAX Pro (táctica y béisbol) o nuestros sistemas de Sports OS?"
