@@ -58,39 +58,40 @@ ${knowledgeBase}`
         });
         responseText = chatCompletion.choices[0]?.message?.content || '';
       } catch (primaryError) {
-        console.warn('Fallo modelo primario 70b, probando instantáneo 8b...', primaryError);
+        console.warn('Fallo modelo primario Groq, probando modelo secundario...', primaryError);
         try {
           const fallbackCompletion = await groq.chat.completions.create({
             messages: [systemPrompt, ...messages],
-            model: 'llama-3.1-8b-instant',
+            model: 'llama-3.3-70b-specdec',
             temperature: 0.6,
             max_tokens: 800,
           });
           responseText = fallbackCompletion.choices[0]?.message?.content || '';
         } catch (secError) {
-          console.warn('Fallo API Groq, ejecutando fallback heurístico de Iris...', secError);
+          console.warn('Fallo llamada Groq, ejecutando motor semantico Iris...', secError);
         }
       }
     }
 
-    if (!responseText) {
-        if (/kinebase|biomecanica|video|movimiento|vision/i.test(lastUserMsg)) {
-          responseText = isEs 
-            ? "Kinebase Pro es nuestra plataforma de biomecánica sin marcadores que extrae vectores cinemáticos y rotación articular directamente de video estándar. Para agendar una demo técnica personalizada, por favor indícanos tu nombre, correo y organización deportiva."
-            : "Kinebase Pro is our markerless biomechanics system that extracts kinematic vectors and joint rotation directly from video. To schedule a technical demo, please provide your name, email, and sports organization.";
-        } else if (/precio|costo|cuanto|cotizacion|tarifa|comprar/i.test(lastUserMsg)) {
-          responseText = isEs
-            ? "Ofrecemos licenciamiento modular adaptado a academias, equipos profesionales y ligas. Para enviarte una propuesta formal, por favor compártenos tu nombre, correo corporativo y club u organización."
-            : "We provide modular licensing tailored for academies, professional teams, and leagues. To receive a formal proposal, please share your name, corporate email, and organization.";
-        } else if (/contacto|email|telefono|ubicacion|sede/i.test(lastUserMsg)) {
-          responseText = isEs
-            ? "Nuestra sede oficial está ubicada en 5709 Kingfish Drive, Lutz, Florida, USA. Puedes dejarnos tus datos aquí o escribirnos a contacto@3treedigital.com."
-            : "Our headquarters are located at 5709 Kingfish Drive, Lutz, Florida, USA. You can leave your contact details here or write to contacto@3treedigital.com.";
-        } else {
-          responseText = isEs
-            ? "En 3Tree Digital Sport IA desarrollamos sistemas de inteligencia deportiva, análisis biomecánico con Kinebase Pro y plataformas tácticas. ¿En qué solución específica está interesada tu organización?"
-            : "At 3Tree Digital Sport IA, we engineer sports intelligence systems, markerless biomechanics with Kinebase Pro, and tactical platforms. Which solution is your organization interested in?";
-        }
+    // Si Groq no devolvió texto o falló la clave/modelo, usar motor de respuesta semántica de Iris
+    if (!responseText || responseText.trim() === '') {
+      if (/kinebase|biomecanica|video|movimiento|vision/i.test(lastUserMsg)) {
+        responseText = isEs 
+          ? "Kinebase Pro es nuestra plataforma de biomecánica sin marcadores que extrae vectores cinemáticos y rotación articular directamente de video estándar. Para agendar una demo técnica personalizada, por favor indícanos tu nombre, correo y organización deportiva."
+          : "Kinebase Pro is our markerless biomechanics system that extracts kinematic vectors and joint rotation directly from video. To schedule a technical demo, please provide your name, email, and sports organization.";
+      } else if (/precio|costo|cuanto|cotizacion|tarifa|comprar/i.test(lastUserMsg)) {
+        responseText = isEs
+          ? "Ofrecemos licenciamiento modular adaptado a academias, equipos profesionales y ligas. Para enviarte una propuesta formal, por favor compártenos tu nombre, correo corporativo y club u organización."
+          : "We provide modular licensing tailored for academies, professional teams, and leagues. To receive a formal proposal, please share your name, corporate email, and organization.";
+      } else if (/contacto|email|telefono|ubicacion|sede/i.test(lastUserMsg)) {
+        responseText = isEs
+          ? "Nuestra sede oficial está ubicada en 5709 Kingfish Drive, Lutz, Florida, USA. Puedes dejarnos tus datos aquí o escribirnos a contacto@3treedigital.com."
+          : "Our headquarters are located at 5709 Kingfish Drive, Lutz, Florida, USA. You can leave your contact details here or write to contacto@3treedigital.com.";
+      } else {
+        responseText = isEs
+          ? "En 3Tree Digital Sport IA desarrollamos sistemas de inteligencia deportiva, análisis biomecánico con Kinebase Pro y plataformas tácticas como DIAMAX. ¿En qué solución específica está interesada tu organización?"
+          : "At 3Tree Digital Sport IA, we engineer sports intelligence systems, markerless biomechanics with Kinebase Pro, and tactical platforms like DIAMAX. Which solution is your organization interested in?";
+      }
     }
 
     return NextResponse.json({
