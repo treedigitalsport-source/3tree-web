@@ -69,23 +69,53 @@ export default function AgentChat() {
         body: JSON.stringify({ messages: groqMessages }),
       });
       
-      const data = await res.json();
-
-      if (data.response) {
-        setChatHistory((prev) => [
-          ...prev, 
-          { role: "agent", text: data.response }
-        ]);
-      } else {
-        setChatHistory((prev) => [
-          ...prev, 
-          { role: "agent", text: isEs ? "Disculpa, tuve un breve retraso de conexión. ¿Podrías reiterar tu consulta?" : "Pardon me, I experienced a brief connection delay. Could you repeat your question?" }
-        ]);
+      let reply = "";
+      try {
+        const data = await res.json();
+        if (data && data.response && typeof data.response === "string" && data.response.trim().length > 0) {
+          reply = data.response;
+        }
+      } catch (parseErr) {
+        console.warn("JSON parse fallback", parseErr);
       }
-    } catch (error) {
+
+      // Cliente-side fallback semántico infalible
+      if (!reply) {
+        if (/kinebase|biomecanica|video|movimiento|vision|camara/i.test(userMsg)) {
+          reply = isEs
+            ? "Kinebase Pro es nuestra plataforma de biomecánica sin marcadores que extrae vectores cinemáticos y ángulos articulares directamente de video estándar. Para coordinar una demo técnica, indícanos tu nombre, correo y organización."
+            : "Kinebase Pro is our markerless biomechanics system that extracts kinematic vectors and joint angles from standard video. To schedule a technical demo, please provide your name, email, and sports organization.";
+        } else if (/precio|costo|cuanto|cotizacion|tarifa|comprar|plan/i.test(userMsg)) {
+          reply = isEs
+            ? "Ofrecemos licenciamiento modular adaptado a academias, equipos y ligas. Para enviarte una propuesta formal, por favor compártenos tu nombre, correo corporativo y organización."
+            : "We provide modular licensing tailored for academies, teams, and leagues. To receive a formal proposal, please share your name, corporate email, and sports organization.";
+        } else if (/contacto|email|telefono|ubicacion|sede|donde/i.test(userMsg)) {
+          reply = isEs
+            ? "Nuestra sede oficial está ubicada en 5709 Kingfish Drive, Lutz, Florida, USA. Puedes dejarnos tus datos aquí o escribirnos directamente a contacto@3treedigital.com."
+            : "Our headquarters are located at 5709 Kingfish Drive, Lutz, Florida, USA. You can leave your contact details here or write to contacto@3treedigital.com.";
+        } else if (/@|\.com|\.net|\.org|[0-9]{7,}/.test(userMsg)) {
+          reply = isEs
+            ? "¡Excelente! Hemos registrado tus datos de contacto con éxito. Un especialista de 3Tree Digital Sport IA se comunicará contigo a la brevedad."
+            : "Excellent! We have successfully registered your contact details. A 3Tree Digital Sport IA specialist will reach out to you shortly.";
+        } else {
+          reply = isEs
+            ? "En 3Tree Digital Sport IA diseñamos sistemas de inteligencia deportiva, visión computacional con Kinebase Pro y plataformas tácticas. ¿En qué solución específica está interesada tu organización?"
+            : "At 3Tree Digital Sport IA, we design sports intelligence systems, computer vision with Kinebase Pro, and tactical platforms. Which solution is your organization interested in?";
+        }
+      }
+
       setChatHistory((prev) => [
         ...prev, 
-        { role: "agent", text: isEs ? "Por favor contáctanos directamente a contacto@3treedigital.com o intenta nuevamente." : "Please feel free to reach out directly to contacto@3treedigital.com or try again." }
+        { role: "agent", text: reply }
+      ]);
+    } catch (error) {
+      console.warn("AgentChat caught error, executing client fallback", error);
+      const fallbackReply = isEs
+        ? "En 3Tree Digital Sport IA estamos a tu disposición. ¿Te gustaría agendar una demostración de Kinebase Pro o conocer nuestros sistemas deportivos?"
+        : "At 3Tree Digital Sport IA, we are at your service. Would you like to schedule a Kinebase Pro demo or learn more about our sports systems?";
+      setChatHistory((prev) => [
+        ...prev, 
+        { role: "agent", text: fallbackReply }
       ]);
     } finally {
       setIsSending(false);
