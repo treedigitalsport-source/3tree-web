@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -145,6 +149,12 @@ ${knowledgeBase}`
       response: responseText,
       sentiment: detectedSentiment,
       status: 'ok'
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
     });
   } catch (error: unknown) {
     console.error('Error general en Iris Groq API:', error);
@@ -152,6 +162,10 @@ ${knowledgeBase}`
       response: "En 3Tree Digital Sport IA estamos a tu disposición. Para coordinar una demostración técnica de nuestros sistemas, por favor indícanos tu nombre, correo y organización.",
       sentiment: 'POSITIVE_NEUTRAL',
       status: 'recovered'
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0'
+      }
     });
   }
 }

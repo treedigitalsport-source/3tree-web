@@ -142,9 +142,13 @@ export default function AgentChat() {
           content: msg.text
         }));
 
-      const res = await fetch("/api/groq", {
+      const res = await fetch(`/api/groq?t=${Date.now()}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache"
+        },
+        cache: "no-store",
         body: JSON.stringify({ messages: groqMessages }),
       });
       
