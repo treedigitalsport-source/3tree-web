@@ -45,10 +45,12 @@ export default function AgentChat() {
     }
   }, [chatHistory, isSending, isOpen]);
 
-  // Set initial welcome text and reset on language change
+  // Set initial welcome text only when history is empty
   useEffect(() => {
-    setChatHistory([{ role: "agent", text: welcomeText }]);
-  }, [isEs]);
+    if (chatHistory.length === 0) {
+      setChatHistory([{ role: "agent", text: welcomeText }]);
+    }
+  }, [welcomeText, chatHistory.length]);
 
   const sendQuery = async (queryText: string) => {
     if (!queryText.trim() || isSending) return;
@@ -74,11 +76,13 @@ export default function AgentChat() {
         }),
       }).catch(() => {});
 
-      // Groq format
-      const groqMessages = newHistory.map(msg => ({
-        role: msg.role === "agent" ? "assistant" : "user",
-        content: msg.text
-      }));
+      // Groq format: omit the initial canned greeting so the prompt starts with the first user message
+      const groqMessages = newHistory
+        .filter((msg, idx) => idx > 0 || msg.role === "user")
+        .map(msg => ({
+          role: msg.role === "agent" ? "assistant" : "user",
+          content: msg.text
+        }));
 
       const res = await fetch("/api/groq", {
         method: "POST",

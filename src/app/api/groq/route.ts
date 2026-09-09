@@ -14,9 +14,7 @@ export async function POST(req: Request) {
     }
 
     const lastUserMsg = messages[messages.length - 1]?.content || '';
-    const isEs = /[áéíóúñ¿¡]/i.test(lastUserMsg) || !/[a-z]/i.test(lastUserMsg) || /hola|buenas|precio|demo|servicios|que hacen|quienes son|beisbol/i.test(lastUserMsg);
-
-    const apiKey = process.env.GROQ_API_KEY || '';
+    const apiKey = process.env.GROQ_API_KEY;
 
     const knowledgeBase = `
 # 3Tree Digital Sport IA - Official Knowledge Base
@@ -29,7 +27,8 @@ export async function POST(req: Request) {
 - Contact: contacto@3treedigital.com / treedigitalsport@gmail.com
 `;
 
-    // Detector de sentimiento e intención de alta precisión
+    // Detector de idioma y sentimiento
+    const isEs = /[áéíóúñ¿¡]/i.test(lastUserMsg) || !/[a-z]/i.test(lastUserMsg) || /hola|buenas|precio|demo|servicios|que hacen|quienes son|beisbol|béisbol|contacto|como estas|cómo estás/i.test(lastUserMsg);
     const isFrustrated = /no funciona|error|falla|pesimo|pésimo|basura|estafa|lento|tarda|molesto|queja|incompetente|horrible/i.test(lastUserMsg);
     const isHighIntent = /comprar|precio|costo|cuanto|cuánto|cotizar|cotizacion|cotización|contratar|demo|probar|empezar|interesa|adquirir|planes|plan/i.test(lastUserMsg);
     const isTechnical = /algoritmo|biomecanica|biomecánica|pose|marcador|markov|monte carlo|vector|red neuronal|latencia|fps|api|sdk|arquitectura|sabermetria|sabermetría/i.test(lastUserMsg);
@@ -64,23 +63,34 @@ ${knowledgeBase}`
       try {
         const chatCompletion = await groq.chat.completions.create({
           messages: [systemPrompt, ...messages],
-          model: 'openai/gpt-oss-120b',
+          model: 'qwen/qwen3.8-27b',
           temperature: 0.5,
           max_tokens: 350,
         });
         responseText = chatCompletion.choices[0]?.message?.content || '';
       } catch (primaryError) {
-        console.warn('Fallo modelo primario Groq (gpt-oss-120b), probando compound...', primaryError);
+        console.warn('Fallo modelo primario Groq (qwen3.8-27b), probando gpt-oss-120b...', primaryError);
         try {
           const fallbackCompletion = await groq.chat.completions.create({
             messages: [systemPrompt, ...messages],
-            model: 'groq/compound',
+            model: 'openai/gpt-oss-120b',
             temperature: 0.5,
-            max_tokens: 350,
+            max_tokens: 600,
           });
           responseText = fallbackCompletion.choices[0]?.message?.content || '';
         } catch (secError) {
-          console.warn('Fallo llamada Groq, ejecutando motor semantico Iris con analisis de sentimiento...', secError);
+          console.warn('Fallo gpt-oss-120b, probando compound...', secError);
+          try {
+            const thirdCompletion = await groq.chat.completions.create({
+              messages: [systemPrompt, ...messages],
+              model: 'groq/compound',
+              temperature: 0.5,
+              max_tokens: 400,
+            });
+            responseText = thirdCompletion.choices[0]?.message?.content || '';
+          } catch (thirdError) {
+            console.warn('Fallo llamada Groq, ejecutando motor semantico Iris...', thirdError);
+          }
         }
       }
     }
