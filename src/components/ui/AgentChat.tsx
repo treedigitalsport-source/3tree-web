@@ -175,11 +175,6 @@ export default function AgentChat() {
     setIsOpen(false);
   };
 
-  // Strictly only render Iris AI on the main home page (/)
-  if (pathname !== "/") {
-    return null;
-  }
-
   return (
     <>
       {/* Floating Button with Pulse Halo */}

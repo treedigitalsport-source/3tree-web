@@ -64,17 +64,17 @@ ${knowledgeBase}`
       try {
         const chatCompletion = await groq.chat.completions.create({
           messages: [systemPrompt, ...messages],
-          model: 'qwen/qwen3.8-27b',
+          model: 'openai/gpt-oss-120b',
           temperature: 0.5,
           max_tokens: 350,
         });
         responseText = chatCompletion.choices[0]?.message?.content || '';
       } catch (primaryError) {
-        console.warn('Fallo modelo primario Groq, probando modelo secundario...', primaryError);
+        console.warn('Fallo modelo primario Groq (gpt-oss-120b), probando compound...', primaryError);
         try {
           const fallbackCompletion = await groq.chat.completions.create({
             messages: [systemPrompt, ...messages],
-            model: 'openai/gpt-oss-120b',
+            model: 'groq/compound',
             temperature: 0.5,
             max_tokens: 350,
           });
