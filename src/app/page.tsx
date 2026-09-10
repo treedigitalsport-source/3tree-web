@@ -787,28 +787,30 @@ export default function MainContent() {
                     </div>
                   </div>
 
-                  <div className="p-6 md:p-8">
-                    <h3 className="font-display font-black text-2xl md:text-3xl uppercase tracking-tight text-white leading-tight mb-4 group-hover:text-brandOrange transition-colors">
-                      {isEs ? article.titleEs : article.titleEn}
-                    </h3>
-                    <p className="font-sans text-xs sm:text-sm text-white/70 leading-relaxed font-light mb-6">
-                      {isEs ? article.descEs : article.descEn}
-                    </p>
+                  <div className="p-6 md:p-7 flex flex-col justify-between flex-1">
+                    <div>
+                      <h3 className="font-display font-black text-lg sm:text-xl uppercase tracking-tight text-white leading-snug mb-3 group-hover:text-brandOrange transition-colors line-clamp-2 min-h-[3.2rem] flex items-center">
+                        {isEs ? article.titleEs : article.titleEn}
+                      </h3>
+                      <p className="font-sans text-xs sm:text-sm text-white/70 leading-relaxed font-light line-clamp-3 min-h-[3.8rem]">
+                        {isEs ? article.descEs : article.descEn}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="px-6 md:px-8 pb-6 pt-4 border-t border-white/10 flex justify-between items-center">
-                  <div>
+                <div className="px-6 md:px-7 pb-6 pt-4 border-t border-white/10 flex justify-between items-center bg-[#060c1c]">
+                  <div className="min-w-0 pr-2">
                     <span className="block text-[8px] font-mono uppercase tracking-widest text-white/50">
                       {isEs ? "Escrito por" : "Written by"}
                     </span>
-                    <span className="font-mono text-xs uppercase tracking-wider text-brandOrange font-black">
+                    <span className="font-mono text-xs uppercase tracking-wider text-brandOrange font-black truncate block">
                       {article.author}
                     </span>
                   </div>
                   <Link
                     href={`/journal/${article.slug}`}
-                    className="hoverable inline-flex items-center gap-2 bg-brandOrange/10 hover:bg-brandOrange text-brandOrange hover:text-white px-5 py-2.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-brandOrange/30 hover:border-brandOrange transition-all duration-300"
+                    className="hoverable shrink-0 inline-flex items-center gap-2 bg-brandOrange/10 hover:bg-brandOrange text-brandOrange hover:text-white px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-brandOrange/30 hover:border-brandOrange transition-all duration-300"
                   >
                     <span>{isEs ? "Leer Artículo" : "Read Article"}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />

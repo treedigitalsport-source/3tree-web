@@ -176,32 +176,32 @@ export default function JournalHub() {
                     </div>
 
                     {/* Article Content */}
-                    <div className="p-6 md:p-8 flex flex-col justify-between">
+                    <div className="p-6 md:p-7 flex flex-col justify-between flex-1">
                       <div>
-                        <h3 className="font-display font-black text-2xl md:text-3xl uppercase tracking-tight text-white leading-tight mb-4 group-hover:text-brandOrange transition-colors">
+                        <h3 className="font-display font-black text-lg sm:text-xl uppercase tracking-tight text-white leading-snug mb-3 group-hover:text-brandOrange transition-colors line-clamp-2 min-h-[3.2rem] flex items-center">
                           {isEs ? article.titleEs : article.titleEn}
                         </h3>
 
-                        <p className="font-sans text-xs sm:text-sm text-white/70 leading-relaxed font-light mb-6">
+                        <p className="font-sans text-xs sm:text-sm text-white/70 leading-relaxed font-light mb-4 line-clamp-3 min-h-[3.8rem]">
                           {isEs ? article.descEs : article.descEn}
                         </p>
                       </div>
 
                       {/* Card Footer CTA */}
                       <div className="pt-4 border-t border-white/10 flex justify-between items-center">
-                        <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-brandOrange/20 border border-brandOrange/40 flex items-center justify-center text-brandOrange">
+                        <div className="flex items-center gap-2 min-w-0 pr-2">
+                          <div className="w-7 h-7 rounded-full bg-brandOrange/20 border border-brandOrange/40 flex items-center justify-center text-brandOrange shrink-0">
                             <User className="w-3.5 h-3.5" />
                           </div>
-                          <div>
+                          <div className="min-w-0">
                             <span className="block text-[8px] font-mono uppercase tracking-widest text-white/50">
                               {isEs ? "Escrito por" : "Written by"}
                             </span>
-                            <span className="font-mono text-xs uppercase tracking-wider text-brandOrange font-black">
+                            <span className="font-mono text-xs uppercase tracking-wider text-brandOrange font-black truncate block">
                               {article.author || "Neil Alvarado"}
                             </span>
                             {(article.authorRoleEs || article.authorRoleEn) && (
-                              <span className="block text-[9px] font-mono text-white/40 max-w-[180px] sm:max-w-xs truncate">
+                              <span className="block text-[9px] font-mono text-white/40 truncate max-w-[160px]">
                                 {isEs ? article.authorRoleEs : article.authorRoleEn}
                               </span>
                             )}
@@ -210,7 +210,7 @@ export default function JournalHub() {
 
                         <Link
                           href={`/journal/${article.slug || article.id}`}
-                          className="hoverable inline-flex items-center gap-2 bg-white/5 hover:bg-brandOrange text-white hover:text-white px-5 py-2.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-white/15 hover:border-brandOrange transition-all duration-300 group/btn shadow-md"
+                          className="hoverable shrink-0 inline-flex items-center gap-2 bg-white/5 hover:bg-brandOrange text-white hover:text-white px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-white/15 hover:border-brandOrange transition-all duration-300 group/btn shadow-md"
                         >
                           <span>{isEs ? "Leer Artículo" : "Read Article"}</span>
                           <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
@@ -257,7 +257,7 @@ export default function JournalHub() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="group relative bg-[#060c1c]/90 border border-white/10 hover:border-[#0054A6] rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-1"
+                    className="group relative bg-[#060c1c]/90 border border-white/10 hover:border-[#0054A6] rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between"
                   >
                     {/* Dedicated Top Badges Header (Outside of the artwork to prevent any overlay or cut) */}
                     <div className="px-6 pt-5 pb-3 flex justify-between items-center bg-[#060c1c] border-b border-white/5">
@@ -284,32 +284,32 @@ export default function JournalHub() {
                     </div>
 
                     {/* Article Content */}
-                    <div className="p-6 md:p-8 flex flex-col justify-between">
+                    <div className="p-6 md:p-7 flex flex-col justify-between flex-1">
                       <div>
-                        <h3 className="font-display font-black text-2xl md:text-3xl uppercase tracking-tight text-white leading-tight mb-4 group-hover:text-[#388bfd] transition-colors">
+                        <h3 className="font-display font-black text-lg sm:text-xl uppercase tracking-tight text-white leading-snug mb-3 group-hover:text-[#388bfd] transition-colors line-clamp-2 min-h-[3.2rem] flex items-center">
                           {isEs ? article.titleEs : article.titleEn}
                         </h3>
 
-                        <p className="font-sans text-xs sm:text-sm text-white/70 leading-relaxed font-light mb-6">
+                        <p className="font-sans text-xs sm:text-sm text-white/70 leading-relaxed font-light mb-4 line-clamp-3 min-h-[3.8rem]">
                           {isEs ? article.descEs : article.descEn}
                         </p>
                       </div>
 
                       {/* Card Footer CTA */}
                       <div className="pt-4 border-t border-white/10 flex justify-between items-center">
-                        <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-white/10 border border-white/30 flex items-center justify-center text-white">
+                        <div className="flex items-center gap-2 min-w-0 pr-2">
+                          <div className="w-7 h-7 rounded-full bg-white/10 border border-white/30 flex items-center justify-center text-white shrink-0">
                             <User className="w-3.5 h-3.5 text-white" />
                           </div>
-                          <div>
+                          <div className="min-w-0">
                             <span className="block text-[8px] font-mono uppercase tracking-widest text-white/50">
                               {isEs ? "Escrito por" : "Written by"}
                             </span>
-                            <span className="font-mono text-xs uppercase tracking-wider text-white font-black">
+                            <span className="font-mono text-xs uppercase tracking-wider text-white font-black truncate block">
                               {article.author || "Ali Zapata"}
                             </span>
                             {(article.authorRoleEs || article.authorRoleEn) && (
-                              <span className="block text-[9px] font-mono text-white/40 max-w-[180px] sm:max-w-xs truncate">
+                              <span className="block text-[9px] font-mono text-white/40 truncate max-w-[160px]">
                                 {isEs ? article.authorRoleEs : article.authorRoleEn}
                               </span>
                             )}
@@ -318,7 +318,7 @@ export default function JournalHub() {
 
                         <Link
                           href={`/journal/${article.slug || article.id}`}
-                          className="hoverable inline-flex items-center gap-2 bg-white/5 hover:bg-[#0054A6] text-white hover:text-white px-5 py-2.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-white/15 hover:border-[#0054A6] transition-all duration-300 group/btn shadow-md"
+                          className="hoverable shrink-0 inline-flex items-center gap-2 bg-white/5 hover:bg-[#0054A6] text-white hover:text-white px-4 py-2 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-white/15 hover:border-[#0054A6] transition-all duration-300 group/btn shadow-md"
                         >
                           <span>{isEs ? "Leer Artículo" : "Read Article"}</span>
                           <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />

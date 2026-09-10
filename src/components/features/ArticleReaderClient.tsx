@@ -241,7 +241,7 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
           </div>
 
           {/* Article Main Headline */}
-          <h1 className="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight text-white leading-[1.08] max-w-4xl mb-10">
+          <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase tracking-tight text-white leading-[1.12] max-w-4xl mb-10 break-words px-2">
             {articleTitle}
           </h1>
 
