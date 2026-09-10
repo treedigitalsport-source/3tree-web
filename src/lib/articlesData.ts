@@ -140,9 +140,9 @@ La pregunta ya no es si el Big Data cambiará el deporte. La pregunta es si esta
 
 *By Ali Zapata — 26 years as Strength & Conditioning Coach and Sport Tech Specialist*
 
-> In 2026, a strength & conditioning coach can detect an athlete's injury risk before the athlete even feels it. Data no longer merely accompanies the decision: it anticipates it.
+> In 2026, a strength & conditioning coach can detect injury risk before the athlete even feels it. Data no longer merely accompanies the decision: it anticipates it.
 
-For decades, sports decisions were driven by intuition, experience, and gut feeling. Today, data has entered the locker room. But after three decades working alongside athletes, I know with certainty that the vital question is not how much data we possess, but whether we know how to turn it into superior decisions.
+For decades, sports were governed by intuition, empirical experience, and gut feeling. Today, data has entered the locker room. But after nearly three decades working alongside elite athletes, one truth is clear: the crucial question is not how much data we gather, but whether we know how to convert it into superior decisions.
 
 ---
 
@@ -221,10 +221,156 @@ Sports Big Data is not a passing trend: it will enable unprecedented training pe
 > The sport of the future will not pit humanity against technology. It will place technology at the service of human expertise.
 
 The question is no longer whether Big Data will transform sports. The real question is whether we are ready to harness it with intelligence, purpose, and responsibility.`
+  },
+  {
+    id: 2,
+    slug: "china-apuesta-1-trillon-deporte-ia-2030",
+    author: "Ali Zapata & Consejo Editorial",
+    authorRoleEs: "26 años en Alto Rendimiento · Sports Intelligence & IA",
+    authorRoleEn: "26 years in High Performance · Sports Intelligence & AI",
+    image: "/images/articles/china_1_trillion_sports_ai_2030.jpg",
+    titleEs: "China apuesta $1 billón de dólares: IA, infraestructura y el Proyecto 633 para dominar el deporte antes de 2030",
+    titleEn: "China Bets $1 Trillion: AI, Mass Infrastructure, and Project 633 to Lead Global Sports by 2030",
+    categoryEs: "Sport Intelligence & IA",
+    categoryEn: "Sport Intelligence & AI",
+    timeEs: "9 min de lectura",
+    timeEn: "9 min read",
+    descEs: "El nuevo Plan Quinquenal de China combina infraestructura masiva, participación ciudadana e Inteligencia Artificial como los tres pilares para construir la mayor potencia deportiva y de datos del planeta.",
+    descEn: "China's new Five-Year Plan fuses massive infrastructure, citizen participation, and Artificial Intelligence as the three pillars to build the planet's largest sports and data powerhouse.",
+    execSummaryEs: "China no busca únicamente ganar medallas olímpicas: está ejecutando un plan de Estado de $1 billón para construir un ecosistema deportivo hiperdigitalizado, donde la inteligencia artificial, el Big Data y el esquema competitivo 'Proyecto 633' transforman el rendimiento de élite y la salud pública en una industria de datos escalable.",
+    execSummaryEn: "China is not merely chasing Olympic medals: it is executing a $1 trillion state plan to build a hyper-digitized sports ecosystem, where artificial intelligence, Big Data, and the 'Project 633' competitive framework convert elite performance and public health into a scalable national data industry.",
+    insightsEs: [
+      "Los tres pilares estratégicos: Infraestructura masiva (4 m² por persona), Participación masiva (40% de población activa) e Inteligencia Artificial (entrenamiento inteligente y deportes virtuales).",
+      "El 'Proyecto 633': 6 disciplinas consolidadas de dominio histórico, 3 modalidades individuales clave (atletismo, natación y acuáticos) y 3 deportes de equipo prioritarios (fútbol, baloncesto y voleibol).",
+      "Deporte como industria de datos: La integración de IA y Big Data convierte cada sesión de entrenamiento en telemetría accionable y crea 100 destinos deportivos de alta calidad al aire libre.",
+      "Geopolítica Sport Tech: La continuidad de planes de Estado a 5 años plantea una ventaja estructural frente a los ciclos electorales y presupuestos fragmentados de Occidente."
+    ],
+    insightsEn: [
+      "Three strategic pillars: Mass infrastructure (4 m² per capita), Mass participation (40% active population), and Artificial Intelligence (smart training & virtual sports).",
+      "The 'Project 633' Roadmap: 6 historically dominant sports, 3 foundational individual disciplines (athletics, swimming, aquatic sports), and 3 target team sports (soccer, basketball, volleyball).",
+      "Sports as a National Data Industry: AI and Big Data turn every training session into actionable telemetry while developing 100 high-quality outdoor sports destinations.",
+      "Sport Tech Geopolitics: 5-year state continuity poses a structural competitive advantage over fragmented Western private and electoral cycles."
+    ],
+    contentEs: `# China apuesta $1 billón de dólares: IA, infraestructura y el Proyecto 633 para dominar el deporte antes de 2030
+
+*Por Ali Zapata & Consejo Editorial de 3Tree Digital*
+
+> La transformación del deporte moderno no se mide solo en podios: se define por la capacidad de articular infraestructura, datos masivos y algoritmos de inteligencia artificial a escala nacional.
+
+El nuevo Plan Quinquenal anunciado por el gobierno chino marca uno de los hitos más ambiciosos en la historia de la industria deportiva global: una inversión proyectada en **$1 billón de dólares (1 Trillion USD)** destinada a consolidar al país como la máxima potencia deportiva antes de 2030. 
+
+A diferencia de los modelos tradicionales de financiamiento deportivo, esta estrategia no se limita al atletismo de alto rendimiento: integra salud pública, urbanismo inteligente y una profunda digitalización respaldada por Inteligencia Artificial y Big Data.
+
+---
+
+## La Triada Estratégica: Infraestructura, Masa e Inteligencia Artificial
+
+El plan se fundamenta en tres pilares interconectados que actúan como un embudo de desarrollo atlético integral:
+
+1. **Infraestructura Deportiva Inteligente:** Garantizar una meta de **4 m² de instalaciones deportivas por habitante** y construir más de **5.000 microinstalaciones deportivas** (microparks y canchas multiuso comunitarias).
+2. **Participación Masiva:** Alcanzar el **40% de la población activa realizando ejercicio físico regular**, generando una base poblacional saludable y un semillero de captación de talentos sin precedentes.
+3. **Inteligencia Artificial y Big Data:** Digitalizar la preparación física mediante sistemas de entrenamiento inteligente, modalidades deportivas virtuales y análisis biomecánico automatizado.
+
+---
+
+## El "Proyecto 633": La Hoja de Ruta del Alto Rendimiento
+
+En paralelo al fomento masivo, el plan estructura el deporte de élite bajo lo que se conoce formalmente como el **Proyecto 633**, un esquema táctico que organiza las prioridades competitivas de la nación en tres niveles críticos:
+
+### Estructura Táctica del Proyecto 633
+
+| Nivel | Enfoque Estratégico | Disciplinas Incluidas | Objetivo Operativo |
+| :--- | :--- | :--- | :--- |
+| **6 Disciplinas Dominantes** | Consolidación de hegemonía | Tenis de mesa, Bádminton, Gimnasia, Levantamiento de pesas, Clavados, Tiro | Mantener supremacía olímpica y optimizar telemetría de entrenamiento. |
+| **3 Modalidades Fundamentales** | Desarrollo y expansión de base | Atletismo, Natación y Deportes Acuáticos | Aplicar visión computacional y modelos biomecánicos para reducir brechas de marcas mundiales. |
+| **3 Deportes de Equipo Clave** | Transformación estructural prioritaria | Baloncesto, Voleibol y Fútbol | Revertir debilidades históricas mediante analítica sabermétrica y captación masiva de talento. |
+
+Este último escalón es el más revelador: reconoce con pragmatismo una debilidad histórica estructural en deportes colectivos y la transforma en un **objetivo de Estado financiado con recursos masivos**.
+
+---
+
+## Dónde entra la Tecnología: La Creación de una Industria de Datos
+
+El dato más relevante para el ecosistema Sport Tech aparece en la integración tecnológica: China implementará **Inteligencia Artificial y Big Data** para desarrollar servicios inteligentes de acondicionamiento físico y modalidades deportivas virtuales.
+
+No se trata únicamente de construir canchas de cemento, sino de digitalizar la experiencia de cientos de millones de personas:
+- **Entrenamiento Personalizado Algorítmico:** Detección temprana de sobrecargas y curvas de adaptación fisiológica.
+- **Deportes Virtuales y Simulación Inmersiva:** Democratización del acceso al alto rendimiento en centros urbanos de alta densidad.
+- **100 Destinos Deportivos al Aire Libre de Alta Calidad:** Creación de rutas y parques conectados con sensores y telemetría de monitoreo ambiental y físico.
+
+El mensaje de fondo es inequívoco: **China no busca únicamente ganar medallas; busca construir una industria deportiva integral de datos, servicios y experiencias replicable a escala nacional.**
+
+---
+
+## Continuidad Estratégica vs. Fragmentación Occidental
+
+Estos objetivos no parten de cero. Según Gao Zhidan, director de la Administración General del Deporte de China, la práctica deportiva ganó adherencia sostenida durante el 14.º Plan Quinquenal, mientras los atletas chinos alcanzaron en los últimos Juegos Olímpicos celebrados en el extranjero su mejor desempeño histórico.
+
+El nuevo plan, entonces, no es una apuesta improvisada: es la aceleración de una tendencia construida con paciencia de Estado. 
+
+La pregunta que queda abierta para las potencias deportivas occidentales —donde la inversión deportiva depende frecuentemente de ciclos electorales cortos y presupuestos privados fragmentados— es si podrán competir con una estrategia que se planifica a cinco años, se financia a escala de billones y se ejecuta con la precisión de la inteligencia artificial.`,
+    contentEn: `# China Bets $1 Trillion: AI, Mass Infrastructure, and Project 633 to Lead Global Sports by 2030
+
+*By Ali Zapata & 3Tree Digital Editorial Board*
+
+> The transformation of modern sports is no longer measured solely in podium finishes: it is defined by the ability to orchestrate infrastructure, massive data, and artificial intelligence algorithms at a national scale.
+
+The new Five-Year Plan announced by the Chinese sports administration marks one of the most ambitious milestones in global sports history: a projected **$1 Trillion USD** commitment designed to solidify the nation as the undisputed global sports powerhouse before 2030.
+
+Unlike conventional sports funding models, this blueprint extends far beyond elite Olympic training: it bridges public health, smart urbanism, and deep digitalization powered by Artificial Intelligence and Big Data.
+
+---
+
+## The Strategic Triad: Infrastructure, Mass Participation, and AI
+
+The national roadmap is built upon three interconnected pillars that form a comprehensive athletic pipeline:
+
+1. **Intelligent Sports Infrastructure:** Mandating **4 m² of sports facilities per capita** and building over **5,000 community sports micro-facilities** (microparks and multi-use courts).
+2. **Mass Participation:** Driving **40% of the active population into regular physical exercise**, establishing a healthier talent pool and an unprecedented scouting pipeline.
+3. **Artificial Intelligence & Big Data:** Digitalizing athletic preparation through smart training platforms, virtual sports environments, and automated kinematic tracking.
+
+---
+
+## "Project 633": The Elite High-Performance Roadmap
+
+Parallel to mass participation, the blueprint structures elite competition under **Project 633**, a framework prioritizing national sports development across three strategic tiers:
+
+### Tactical Architecture of Project 633
+
+| Tier | Strategic Focus | Included Disciplines | Operational Objective |
+| :--- | :--- | :--- | :--- |
+| **6 Dominant Disciplines** | Hegemony consolidation | Table tennis, Badminton, Gymnastics, Weightlifting, Diving, Shooting | Maintain Olympic supremacy and refine training telemetry. |
+| **3 Foundational Sports** | Fundamental baseline expansion | Track & Field, Swimming, Aquatic Sports | Deploy computer vision and biomechanical modeling to close world-record gaps. |
+| **3 Key Team Sports** | Priority structural overhaul | Basketball, Volleyball, Soccer (Football) | Overcome historical underperformance using sabermetric modeling and AI-driven scouting. |
+
+This final tier is the most telling: it pragmatically identifies a structural weakness in global team sports and turns it into a state-funded national priority.
+
+---
+
+## Where Technology Enters: Building a Sports Data Industry
+
+The most critical development for the Sport Tech ecosystem is the direct integration of **Artificial Intelligence and Big Data** to develop smart fitness services and virtual sports modalities.
+
+This goes far beyond building concrete stadiums; it is about digitalizing the physical journey of hundreds of millions of citizens:
+- **Algorithmic Personalized Training:** Early overload detection and physiological adaptation curves.
+- **Virtual Sports & Simulation:** Democratizing high-performance athletic experiences in high-density metropolitan hubs.
+- **100 High-Quality Outdoor Sports Destinations:** Developing outdoor sports hubs equipped with environmental and biometric telemetry.
+
+The underlying signal is crystal clear: **China is not merely chasing medals; it is building a nationwide sports data, service, and experience industry.**
+
+---
+
+## State Continuity vs. Western Fragmentation
+
+These goals do not begin in a vacuum. According to Gao Zhidan, director of the General Administration of Sport of China, active participation expanded significantly over the 14th Five-Year Plan, while Chinese athletes achieved their greatest overseas Olympic performance to date.
+
+The new blueprint is the acceleration of a decade-long vision executed with state patience.
+
+The open question for Western sports institutions — where investment often depends on short political election cycles and fragmented private capital — is whether they can compete against a strategy planned over five-year horizons, backed by $1 trillion, and accelerated by artificial intelligence.`
   }
 ];
 
-export const neilArticles = [
+export const neilArticles: Article[] = [
   {
     id: 101,
     slug: "baseball-analytics-revolution",
@@ -330,4 +476,3 @@ La transformación digital del deporte ha redefinido lo que significa entender e
 The digital transformation of sports has redefined what it means to understand the game. What once took weeks of manual charting is now processed in real time to influence tactical decisions in every inning.`
   }
 ];
-
