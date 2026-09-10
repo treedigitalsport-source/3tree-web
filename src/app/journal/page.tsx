@@ -223,7 +223,7 @@ export default function JournalHub() {
             </div>
           )}
 
-          {/* ═════════ WINDOW 2: SPORT INTELLIGENCE & IA ═════════ */}
+          {/* ═════════ WINDOW 2: COLUMNA DEL FUNDADOR (ALI ZAPATA) ═════════ */}
           {filteredAi.length > 0 && (
             <div className="flex flex-col gap-6">
               
@@ -231,14 +231,14 @@ export default function JournalHub() {
               <div className="flex items-center justify-between pb-4 border-b border-[#0054A6]/50">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-xl bg-[#0054A6]/20 border border-[#0054A6]/50 flex items-center justify-center text-[#0054A6]">
-                    <Brain className="w-4 h-4 text-[#388bfd]" />
+                    <Sparkles className="w-4 h-4 text-[#388bfd]" />
                   </div>
                   <div>
                     <h2 className="font-display font-black text-lg md:text-xl uppercase tracking-wider text-white">
-                      {isEs ? "Sport Intelligence & IA" : "Sport Intelligence & AI"}
+                      {isEs ? "Columna del Fundador" : "Founder's Column"}
                     </h2>
                     <span className="font-mono text-[10px] text-[#388bfd] uppercase tracking-widest">
-                      Sports OS · Deep Research
+                      Ali Zapata · Sport Intelligence & IA
                     </span>
                   </div>
                 </div>
