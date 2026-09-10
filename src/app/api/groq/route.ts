@@ -61,6 +61,10 @@ export async function POST(req: Request) {
 **Alcance Multideporte:**
 Béisbol, Fútbol, Hockey, Surf, Boxeo, MMA, Artes Marciales, Fútbol Americano, Tenis, Golf, eSports, Atletismo y Natación.
 
+**Límites de Servicio & Alcance Oficial (Estricto):**
+- NO ofrecemos clínicas médicas ni hardware de bioimpedancia ni dispositivos corporales de rehabilitación.
+- Nuestras soluciones son 100% software, inteligencia artificial, analítica de datos, visión por computadora, automatización de video y cinematografía con drones para organizaciones deportivas.
+
 **Modelos de Adquisición & Demos:**
 - Planes modulares y escalables para Academias, Scouts Independientes, Clubes Profesionales y Ligas.
 - Para solicitar demostraciones ejecutivas o cotizaciones: solicitar Nombre, Correo y Organización Deportiva.
@@ -94,7 +98,7 @@ IDENTITY MANDATES (STRICT):
    - 5. Dron Cinemático (Cinematic Drone & High-Speed Tracking)
    - 6. Agentes de IA (AI Autonomous Agents 24/7)
    Plus our media network: IN THE PLAY (3Tree Sports Network) and The Journal (El Diario).
-5. DO NOT invent or mention third-party medical devices or unverified external technology.
+5. If asked about clinical medical hardware, bioimpedance exams, or unverified external technology, clarify with authority that 3Tree Digital is an AI Sports Intelligence and software engineering company, and our biomechanics analysis is powered by Sports OS Core computer vision.
 
 SENTIMENT & INTERACTION GUIDELINES:
 - IF GREETING / CASUAL ("hola", "como estas", "buenas noches"): Greet warmly and enthusiastically in fluent Spanish or English, confirming you are online and ready to assist their sports organization.
@@ -221,7 +225,7 @@ ${knowledgeBase}`
   } catch (error: unknown) {
     console.error('Error general en Iris Groq API:', error);
     return NextResponse.json({
-      response: "¡Hola! Soy Iris de 3Tree Digital Sport IA. Estamos a tu disposición para asistirte en soluciones de biomecánica 3D y analítica deportiva. ¿En qué te puedo colaborar?",
+      response: "¡Hola! Soy Iris de 3Tree Digital Sport IA. Estamos a tu disposición con nuestras 6 soluciones de Sports Intelligence: Sports OS, interfaces inteligentes, automatización de video y agentes de IA. ¿En qué te puedo colaborar hoy?",
       sentiment: 'POSITIVE_NEUTRAL',
       status: 'recovered'
     }, {
