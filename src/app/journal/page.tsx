@@ -163,14 +163,14 @@ export default function JournalHub() {
                       </div>
                     </div>
 
-                    {/* Featured Image Frame */}
-                    <div className="relative w-full aspect-[16/10] overflow-hidden bg-black/90 p-3 flex items-center justify-center">
+                    {/* Featured Image Frame: 100% Full Uncropped Square Infographic Norm */}
+                    <div className="relative w-full aspect-square overflow-hidden bg-black/95 p-3 flex items-center justify-center">
                       <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-inner">
                         <Image
                           src={article.image || "/images/articles/baseball_biomechanics_1785628048219.jpg"}
                           alt={isEs ? article.titleEs : article.titleEn}
                           fill
-                          className="object-cover object-center grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                          className="object-contain object-top transition-all duration-700 group-hover:scale-[1.01]"
                         />
                       </div>
                     </div>
