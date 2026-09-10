@@ -29,41 +29,50 @@ export async function POST(req: Request) {
     const apiKey = getActiveKey();
 
     const knowledgeBase = `
-# 3Tree Digital Sport IA - Official Knowledge Base
-**Location:** Lutz, Florida, USA
-**Leadership:** High performance athletic & AI sports technology.
-**Products:**
-- Kinebase Pro: Markerless 3D Biomechanics & Computer Vision for pitching and hitting kinematics.
-- Sport Intelligence Operating System (Sports OS): Centralized data, scouting, and real-time game analytics.
-- DIAMAX Pro: Dugout tactical in-game decision engine, official scorekeeping, and 24-state Markov Monte Carlo simulation.
-- Contact: contacto@3treedigital.com / treedigitalsport@gmail.com
+# 3Tree Digital Sport IA - Base de Conocimiento Oficial
+**Ubicación:** 5709 Kingfish Drive, Lutz, Florida 33558, USA
+**Liderazgo:** Lic. Alí Zapata Mendoza y equipo de ingeniería de datos deportivos.
+**Misión:** Impulsar el alto rendimiento atlético mediante Inteligencia Artificial, Visión por Computadora y Analítica Sabermétrica.
+
+**Productos Principales:**
+1. **Kinebase Pro**: Plataforma de Biomecánica 3D Sin Marcadores (Markerless Computer Vision). Analiza la cinemática articular de lanzadores y bateadores, separación cadera-hombro, arm slot, velocidad angular y eficiencia mecánica a partir de video convencional.
+2. **DIAMAX Pro**: Suite Táctica de Dugout para Béisbol Profesional. Incluye simulación estocástica de 24 estados de Markov, algoritmos Monte Carlo, heatmaps de zona de strike, spray charts, sabermetría avanzada (wOBA, OPS, OBP, SLG) y generación reglamentaria de Tarjetas Oficiales Duales de Alineación.
+3. **Sports OS (Sport Intelligence Operating System)**: Data lake centralizado, dossiers de scouting, análisis de rivales y telemetría de juego en tiempo real para academias, ligas y clubes profesionales.
+
+**Modelos de Licenciamiento & Demos:**
+- Planes modulares para Academias, Scouts Independientes, Clubes Profesionales y Ligas.
+- Para solicitar demos ejecutivas o cotizaciones: solicitar Nombre, Correo y Organización Deportiva.
+
+**Canal de Contacto Oficial:**
+- Correo: contacto@3treedigital.com / treedigitalsport@gmail.com
 `;
 
     // Detector de idioma y sentimiento
-    const isEs = /[áéíóúñ¿¡]/i.test(lastUserMsg) || !/[a-z]/i.test(lastUserMsg) || /hola|buenas|precio|demo|servicios|que hacen|quienes son|beisbol|béisbol|contacto|como estas|cómo estás/i.test(lastUserMsg);
-    const isFrustrated = /no funciona|error|falla|pesimo|pésimo|basura|estafa|lento|tarda|molesto|queja|incompetente|horrible/i.test(lastUserMsg);
-    const isHighIntent = /comprar|precio|costo|cuanto|cuánto|cotizar|cotizacion|cotización|contratar|demo|probar|empezar|interesa|adquirir|planes|plan/i.test(lastUserMsg);
-    const isTechnical = /algoritmo|biomecanica|biomecánica|pose|marcador|markov|monte carlo|vector|red neuronal|latencia|fps|api|sdk|arquitectura|sabermetria|sabermetría/i.test(lastUserMsg);
+    const isEs = /[áéíóúñ¿¡]/i.test(lastUserMsg) || !/[a-z]/i.test(lastUserMsg) || /hola|buenas|precio|demo|servicios|que hacen|quiénes son|quienes son|béisbol|beisbol|contacto|cómo estás|como estas|qué tal|que tal/i.test(lastUserMsg);
+    const isFrustrated = /no funciona|error|falla|pésimo|pesimo|basura|estafa|lento|tarda|molesto|queja|incompetente|horrible/i.test(lastUserMsg);
+    const isHighIntent = /comprar|precio|costo|cuánto|cuanto|cotizar|cotización|cotizacion|contratar|demo|probar|empezar|interesa|adquirir|planes|plan/i.test(lastUserMsg);
+    const isTechnical = /algoritmo|biomecánica|biomecanica|pose|marcador|markov|monte carlo|vector|red neuronal|latencia|fps|api|sdk|arquitectura|sabermetría|sabermetria/i.test(lastUserMsg);
     
     let detectedSentiment = isFrustrated ? 'FRUSTRATED' : (isHighIntent ? 'HIGH_INTENT' : (isTechnical ? 'TECHNICAL' : 'POSITIVE_NEUTRAL'));
 
     const systemPrompt = {
       role: 'system',
-      content: `You are Iris, the Elite AI Analyst & Concierge of 3Tree Digital Sport IA in Lutz, Florida. 
-Your primary objective is to engage B2B prospects (academies, scouts, professional clubs, leagues), provide deep technical expertise, and qualify leads for high-performance demos.
+      content: `You are Iris, the elite AI Analyst and Concierge of 3Tree Digital Sport IA based in Lutz, Florida, USA.
 
-REAL-TIME SENTIMENT & EMOTIONAL INTELLIGENCE RULES:
-1. SENTIMENT ADAPTATION (CRITICAL):
-   - IF USER IS FRUSTRATED/CRITICAL: Respond with absolute empathy, zero defensive attitude, reassurance, and offer immediate direct support via contacto@3treedigital.com or priority CEO review.
-   - IF USER HAS HIGH BUYING INTENT / ASKS FOR PRICING/DEMO: Match their excitement, confirm capabilities with authority, and request Name, Email, and Sports Organization to dispatch the executive dossier.
-   - IF USER IS TECHNICAL/ANALYTIC: Use rigorous sports data engineering language (computer vision, kinematic chains, 24-state Markov chains, sub-second latency).
-   - IF USER IS GREETING OR CASUAL (e.g. "como estas", "buenas noches", "hola"): Respond warmly, naturally and professionally in Spanish, confirming you are online and asking how you can support their sports organization.
+IDENTITY MANDATES (STRICT):
+1. You are IRIS, and ONLY Iris.
+2. NEVER identify yourself as ChatGPT, OpenAI, Alibaba, Qwen, or any third party.
+3. You speak on behalf of 3Tree Digital Sport IA with authority, precision, and executive professionalism.
+
+SENTIMENT & INTERACTION GUIDELINES:
+- IF GREETING / CASUAL ("hola", "como estas", "buenas noches"): Greet warmly and enthusiastically in fluent Spanish or English, confirming you are online and ready to assist their athletic organization.
+- IF FRUSTRATED: Respond with maximum empathy, zero defensive attitude, and offer immediate direct attention via contacto@3treedigital.com.
+- IF HIGH INTENT / ASKING FOR PRICING OR DEMO: Highlight our modular solutions (Kinebase Pro, DIAMAX Pro, Sports OS) and ask for their Name, Email, and Sports Organization to arrange an executive demo.
+- IF TECHNICAL: Use precise sports data engineering terminology (markerless 3D kinematics, 24-state Markov chains, sub-second latency, sabermetric modeling).
 
 CONVERSATIONAL RULES:
-2. AUTHORITY & PROFESSIONALISM: Speak in a direct, elite technological tone. No emojis, no robotic fluff. You represent high-performance sports AI.
-3. ULTRA-CONCISE: Keep responses between 2 and 3 high-impact sentences.
-4. LEAD CAPTURE: Always capture Name, Email, and Organization when intent is high.
-5. LANGUAGE: Auto-detect language and reply in fluent Spanish or English matching the user.
+- Keep answers concise, high-impact, direct, and professional (2 to 4 sentences).
+- Match the user's language automatically (Spanish or English).
 
 Knowledge Base:
 ${knowledgeBase}`
@@ -72,47 +81,51 @@ ${knowledgeBase}`
     let responseText = '';
     if (apiKey) {
       const groq = new Groq({ apiKey });
+      
+      // Modelo Primario: openai/gpt-oss-120b (Alta fidelidad, ultra-rápido)
       try {
-        const chatCompletion = await groq.chat.completions.create({
+        const primaryCompletion = await groq.chat.completions.create({
           messages: [systemPrompt, ...messages],
-          model: 'qwen/qwen3.8-27b',
+          model: 'openai/gpt-oss-120b',
           temperature: 0.5,
-          max_tokens: 350,
+          max_tokens: 450,
         });
-        responseText = chatCompletion.choices[0]?.message?.content || '';
+        responseText = primaryCompletion.choices[0]?.message?.content || '';
       } catch (primaryError) {
-        console.warn('Fallo modelo primario Groq (qwen3.8-27b), probando gpt-oss-120b...', primaryError);
+        console.warn('Fallo openai/gpt-oss-120b, probando qwen3.8-27b...', primaryError);
+        // Fallback 1: qwen/qwen3.8-27b
         try {
           const fallbackCompletion = await groq.chat.completions.create({
             messages: [systemPrompt, ...messages],
-            model: 'openai/gpt-oss-120b',
+            model: 'qwen/qwen3.8-27b',
             temperature: 0.5,
-            max_tokens: 600,
+            max_tokens: 500,
           });
           responseText = fallbackCompletion.choices[0]?.message?.content || '';
         } catch (secError) {
-          console.warn('Fallo gpt-oss-120b, probando compound...', secError);
+          console.warn('Fallo qwen3.8-27b, probando openai/gpt-oss-20b...', secError);
+          // Fallback 2: openai/gpt-oss-20b
           try {
             const thirdCompletion = await groq.chat.completions.create({
               messages: [systemPrompt, ...messages],
-              model: 'groq/compound',
+              model: 'openai/gpt-oss-20b',
               temperature: 0.5,
               max_tokens: 400,
             });
             responseText = thirdCompletion.choices[0]?.message?.content || '';
           } catch (thirdError) {
-            console.warn('Fallo llamada Groq, ejecutando motor semantico Iris...', thirdError);
+            console.warn('Fallo llamada Groq, ejecutando motor semántico Iris...', thirdError);
           }
         }
       }
     }
 
-    // Limpiar etiquetas de razonamiento si las hubiera
+    // Limpiar etiquetas de razonamiento si las hubiera (<think>...</think>)
     if (responseText) {
       responseText = responseText.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
     }
 
-    // Motor de respaldo semántico calibrado por sentimiento
+    // Motor de respaldo semántico calibrado por sentimiento e intención
     if (!responseText || responseText.trim() === '') {
       if (isFrustrated) {
         responseText = isEs
@@ -120,7 +133,7 @@ ${knowledgeBase}`
           : "We sincerely apologize for any inconvenience. At 3Tree Digital Sport IA, your experience is our top priority. You can reach out directly to contacto@3treedigital.com or leave your email so our technical team can assist you immediately.";
       } else if (/diamax/i.test(lastUserMsg)) {
         responseText = isEs
-          ? "DIAMAX Pro es nuestra suite táctica de dugout para béisbol profesional, con simulación de 24 estados de Markov, algoritmos Monte Carlo, heatmaps de zona de strike y analítica sabermétrica en tiempo real."
+          ? "DIAMAX Pro es nuestra suite táctica de dugout para béisbol profesional, equipada con simulación de 24 estados de Markov, algoritmos Monte Carlo, heatmaps de zona de strike y analítica sabermétrica en tiempo real."
           : "DIAMAX Pro is our tactical dugout suite for professional baseball, featuring 24-state Markov simulations, Monte Carlo algorithms, strike zone heatmaps, and real-time sabermetric analytics.";
       } else if (/kinebase|biomecanica|biomecánica|video|movimiento|vision|visión/i.test(lastUserMsg)) {
         responseText = isEs 
@@ -136,12 +149,12 @@ ${knowledgeBase}`
           : "Our headquarters are located at 5709 Kingfish Drive, Lutz, Florida, USA. You can leave your contact details here or write to contacto@3treedigital.com.";
       } else if (/como estas|cómo estás|como te va|cómo te va|que tal|qué tal|buenas noches|buenos dias|buenos días|buenas tardes|hola|saludos/i.test(lastUserMsg)) {
         responseText = isEs
-          ? "¡Hola! Estoy muy bien, operativa y lista para asistirte. ¿En qué te puedo colaborar hoy?"
-          : "Hello! I am doing great, fully online and ready to assist. How can I help you today?";
+          ? "¡Hola! 👋 Soy Iris, Especialista de IA en 3Tree Digital Sport. Estoy completamente operativa y lista para asistirte. ¿En qué te puedo colaborar hoy?"
+          : "Hello! 👋 I'm Iris, AI Specialist at 3Tree Digital Sport. I am online and ready to assist you. How can I help your sports organization today?";
       } else {
         responseText = isEs
-          ? "En 3Tree Digital Sport IA desarrollamos sistemas de inteligencia deportiva y tecnología de alto rendimiento. ¿En qué te puedo colaborar hoy?"
-          : "At 3Tree Digital Sport IA, we develop sports intelligence systems and high-performance technology. How can I help you today?";
+          ? "En 3Tree Digital Sport IA desarrollamos tecnología de alto rendimiento, biomecánica 3D y analítica táctica para el deporte profesional. ¿En qué te puedo colaborar hoy?"
+          : "At 3Tree Digital Sport IA, we develop high-performance technology, 3D biomechanics, and tactical analytics for professional sports. How can I help you today?";
       }
     }
 
@@ -159,7 +172,7 @@ ${knowledgeBase}`
   } catch (error: unknown) {
     console.error('Error general en Iris Groq API:', error);
     return NextResponse.json({
-      response: "En 3Tree Digital Sport IA estamos a tu disposición. Para coordinar una demostración técnica de nuestros sistemas, por favor indícanos tu nombre, correo y organización.",
+      response: "¡Hola! Soy Iris de 3Tree Digital Sport IA. Estamos a tu disposición para asistirte en soluciones de biomecánica 3D y analítica deportiva. ¿En qué te puedo colaborar?",
       sentiment: 'POSITIVE_NEUTRAL',
       status: 'recovered'
     }, {
