@@ -755,8 +755,8 @@ export default function MainContent() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-            {aiArticles.slice(0, 2).map((article, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {aiArticles.map((article, idx) => (
               <motion.div
                 key={article.id}
                 initial={{ opacity: 0, y: 30 }}

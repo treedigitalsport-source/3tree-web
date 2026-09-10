@@ -19,11 +19,11 @@ export default function JournalHub() {
   const categories = [
     { id: "all", labelEs: "Todos los Artículos", labelEn: "All Articles" },
     { id: "founder", labelEs: "Columna del Fundador", labelEn: "Founder's Column" },
-    { id: "ai", labelEs: "Sport Intelligence & IA", labelEn: "Sport Intelligence & AI" },
+    { id: "analyst", labelEs: "Perspectiva del Analista", labelEn: "Analyst's Perspective" },
   ];
 
-  const filteredNeil = activeFilter === "ai" ? [] : neilArticles;
-  const filteredAi = activeFilter === "founder" ? [] : aiArticles;
+  const filteredNeil = activeFilter === "founder" ? [] : neilArticles;
+  const filteredAi = activeFilter === "analyst" ? [] : aiArticles;
 
   return (
     <main className="min-h-screen bg-[#020617] text-white selection:bg-brandOrange selection:text-white relative overflow-x-hidden font-sans">
