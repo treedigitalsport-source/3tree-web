@@ -7,6 +7,28 @@ import { useLang } from "@/app/i18n";
 
 type SentimentType = 'POSITIVE_NEUTRAL' | 'HIGH_INTENT' | 'TECHNICAL' | 'FRUSTRATED';
 
+interface SpeechRecognitionEvent {
+  results: {
+    [index: number]: {
+      [index: number]: {
+        transcript: string;
+      };
+    };
+  };
+}
+
+interface SpeechRecognitionInstance {
+  lang: string;
+  interimResults: boolean;
+  continuous: boolean;
+  onstart: (() => void) | null;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+}
+
 export default function AgentChat() {
   const { lang } = useLang();
   const isEs = lang === "es";
@@ -22,7 +44,7 @@ export default function AgentChat() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
 
   const detectClientSentiment = (text: string): SentimentType => {
     if (/no funciona|error|falla|pesimo|pésimo|basura|estafa|lento|tarda|molesto|queja|incompetente|horrible/i.test(text)) return 'FRUSTRATED';
@@ -56,8 +78,12 @@ export default function AgentChat() {
   // Reconocimiento de voz por micrófono
   const toggleListening = () => {
     if (typeof window === "undefined") return;
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) {
+    const windowWithSpeech = window as unknown as {
+      SpeechRecognition?: new () => SpeechRecognitionInstance;
+      webkitSpeechRecognition?: new () => SpeechRecognitionInstance;
+    };
+    const SpeechRecognitionConstructor = windowWithSpeech.SpeechRecognition || windowWithSpeech.webkitSpeechRecognition;
+    if (!SpeechRecognitionConstructor) {
       alert(isEs ? "Tu navegador no soporta reconocimiento de voz nativo." : "Voice recognition not supported in this browser.");
       return;
     }
@@ -69,14 +95,14 @@ export default function AgentChat() {
     }
 
     try {
-      const recognition = new SpeechRecognition();
+      const recognition = new SpeechRecognitionConstructor();
       recognition.lang = isEs ? "es-ES" : "en-US";
       recognition.interimResults = false;
       recognition.continuous = false;
 
       recognition.onstart = () => setIsListening(true);
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
+        const transcript = event.results[0]?.[0]?.transcript;
         if (transcript) {
           setMessage(transcript);
           sendQuery(transcript);

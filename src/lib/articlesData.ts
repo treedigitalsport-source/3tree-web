@@ -1,4 +1,27 @@
-export const aiArticles = [
+export interface Article {
+  id: number;
+  slug: string;
+  author: string;
+  authorRoleEs: string;
+  authorRoleEn: string;
+  image: string;
+  titleEs: string;
+  titleEn: string;
+  categoryEs: string;
+  categoryEn: string;
+  timeEs: string;
+  timeEn: string;
+  descEs: string;
+  descEn: string;
+  execSummaryEs: string;
+  execSummaryEn: string;
+  insightsEs: string[];
+  insightsEn: string[];
+  contentEs: string;
+  contentEn: string;
+}
+
+export const aiArticles: Article[] = [
   {
     id: 1,
     slug: "el-partido-invisible-big-data-ia",

@@ -2,20 +2,40 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import os from "os";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
 
-interface ChatMessage {
-  role: string;
-  text: string;
-}
+const ChatMessageSchema = z.object({
+  role: z.string(),
+  text: z.string(),
+});
+
+const WebhookLeadSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email().optional().or(z.literal("")),
+  message: z.string().optional(),
+  sentiment: z.enum(['POSITIVE_NEUTRAL', 'HIGH_INTENT', 'TECHNICAL', 'FRUSTRATED']).optional(),
+  intent: z.string().optional(),
+  fullHistory: z.array(ChatMessageSchema).optional(),
+});
 
 // Fallback to tmp directory for production serverless compatibility
 const DB_PATH = process.env.LEADS_DB_PATH || path.join(/*turbopackIgnore: true*/ os.tmpdir(), "leads_db.json");
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const rawBody = await request.json();
+    const parseResult = WebhookLeadSchema.safeParse(rawBody);
+
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: "Payload inválido", details: parseResult.error.format() },
+        { status: 400 }
+      );
+    }
+
+    const body = parseResult.data;
     
     if (body.fullHistory && Array.isArray(body.fullHistory)) {
       const reportsDir = process.env.REPORTS_DIR || path.join(/*turbopackIgnore: true*/ os.tmpdir(), "reports");
@@ -24,7 +44,7 @@ export async function POST(request: Request) {
       }
       const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
       const detectedSentiment = body.sentiment || "POSITIVE_NEUTRAL";
-      const reportContent = `# Chat Report - ${timestamp}\n**Sentiment:** ${detectedSentiment}\n**Intent:** ${body.intent || 'INQUIRY'}\n\n` + body.fullHistory.map((msg: ChatMessage) => `**${msg.role}**: ${msg.text}`).join('\n\n');
+      const reportContent = `# Chat Report - ${timestamp}\n**Sentiment:** ${detectedSentiment}\n**Intent:** ${body.intent || 'INQUIRY'}\n\n` + body.fullHistory.map((msg) => `**${msg.role}**: ${msg.text}`).join('\n\n');
       fs.writeFileSync(path.join(/*turbopackIgnore: true*/ reportsDir, `chat-report-${timestamp}.md`), reportContent);
     }
 

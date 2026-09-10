@@ -1,22 +1,33 @@
 import { NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
+import { z } from 'zod';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const fetchCache = 'force-no-store';
 
+const GroqMessageSchema = z.object({
+  role: z.enum(['user', 'assistant', 'system']),
+  content: z.string().min(1).max(5000),
+});
+
+const GroqRequestSchema = z.object({
+  messages: z.array(GroqMessageSchema).min(1),
+});
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { messages } = body;
+    const rawBody = await req.json();
+    const parseResult = GroqRequestSchema.safeParse(rawBody);
 
-    if (!messages || !Array.isArray(messages)) {
+    if (!parseResult.success) {
       return NextResponse.json(
-        { error: 'El historial de mensajes es requerido.' },
+        { error: 'Datos de mensaje inválidos', details: parseResult.error.format() },
         { status: 400 }
       );
     }
 
+    const { messages } = parseResult.data;
     const lastUserMsg = messages[messages.length - 1]?.content || '';
     
     // Resolución ultra-robusta de API Key para Vercel y entornos locales
@@ -68,7 +79,7 @@ Béisbol, Fútbol, Hockey, Surf, Boxeo, MMA, Artes Marciales, Fútbol Americano,
     let detectedSentiment = isFrustrated ? 'FRUSTRATED' : (isHighIntent ? 'HIGH_INTENT' : (isTechnical ? 'TECHNICAL' : 'POSITIVE_NEUTRAL'));
 
     const systemPrompt = {
-      role: 'system',
+      role: 'system' as const,
       content: `You are Iris, the elite AI Analyst and Concierge of 3Tree Digital Sport IA, based in Lutz, Florida, USA.
 
 IDENTITY MANDATES (STRICT):
@@ -100,6 +111,14 @@ Knowledge Base:
 ${knowledgeBase}`
     };
 
+    const fullMessages = [
+      systemPrompt,
+      ...messages.map((m) => ({
+        role: m.role as 'user' | 'assistant' | 'system',
+        content: m.content,
+      })),
+    ];
+
     let responseText = '';
     if (apiKey) {
       const groq = new Groq({ apiKey });
@@ -107,7 +126,7 @@ ${knowledgeBase}`
       // Modelo Primario: openai/gpt-oss-120b (Alta fidelidad, ultra-rápido)
       try {
         const primaryCompletion = await groq.chat.completions.create({
-          messages: [systemPrompt, ...messages],
+          messages: fullMessages,
           model: 'openai/gpt-oss-120b',
           temperature: 0.5,
           max_tokens: 450,
@@ -118,7 +137,7 @@ ${knowledgeBase}`
         // Fallback 1: qwen/qwen3.8-27b
         try {
           const fallbackCompletion = await groq.chat.completions.create({
-            messages: [systemPrompt, ...messages],
+            messages: fullMessages,
             model: 'qwen/qwen3.8-27b',
             temperature: 0.5,
             max_tokens: 500,
@@ -129,7 +148,7 @@ ${knowledgeBase}`
           // Fallback 2: openai/gpt-oss-20b
           try {
             const thirdCompletion = await groq.chat.completions.create({
-              messages: [systemPrompt, ...messages],
+              messages: fullMessages,
               model: 'openai/gpt-oss-20b',
               temperature: 0.5,
               max_tokens: 400,

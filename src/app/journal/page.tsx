@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Clock, ArrowUpRight, BookOpen, Sparkles, User, Brain, Shield, ChevronRight } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
-import { aiArticles, neilArticles } from "@/lib/articlesData";
+import { aiArticles, neilArticles, Article } from "@/lib/articlesData";
 import { useState } from "react";
 import { useLang } from "@/app/i18n";
 import { Footer } from "@/components/ui/Footer";
@@ -142,7 +142,7 @@ export default function JournalHub() {
 
               {/* Neil Articles Stack */}
               <div className="space-y-6">
-                {filteredNeil.map((article: any, index: number) => (
+                {filteredNeil.map((article: Article, index: number) => (
                   <motion.div
                     key={article.id}
                     initial={{ opacity: 0, y: 20 }}
@@ -250,7 +250,7 @@ export default function JournalHub() {
 
               {/* AI Articles Stack */}
               <div className="space-y-6">
-                {filteredAi.map((article: any, index: number) => (
+                {filteredAi.map((article: Article, index: number) => (
                   <motion.div
                     key={article.id}
                     initial={{ opacity: 0, y: 20 }}
