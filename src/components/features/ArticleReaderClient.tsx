@@ -246,13 +246,13 @@ export default function ArticleReaderClient({ article }: { article: Article }) {
           </h1>
 
           {/* Centered Premium Infographic Showcase Frame */}
-          <div className="relative w-full max-w-2xl sm:max-w-3xl aspect-square rounded-3xl overflow-hidden border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.8)] bg-black flex items-center justify-center p-2 group">
+          <div className="relative w-full max-w-2xl sm:max-w-3xl aspect-square rounded-3xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.8)] bg-black/90 flex items-center justify-center p-3 sm:p-5 group">
             <div className="relative w-full h-full rounded-2xl overflow-hidden">
               <Image
                 src={article.image}
                 alt={articleTitle}
                 fill
-                className="object-contain object-center transition-transform duration-700 group-hover:scale-[1.01]"
+                className="object-contain object-top transition-transform duration-700 group-hover:scale-[1.01]"
                 priority
               />
             </div>

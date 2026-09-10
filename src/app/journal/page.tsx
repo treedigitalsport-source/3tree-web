@@ -278,7 +278,7 @@ export default function JournalHub() {
                           src={article.image || "/images/articles/el_partido_invisible_1788755675644.jpg"}
                           alt={isEs ? article.titleEs : article.titleEn}
                           fill
-                          className="object-contain object-center transition-all duration-700 group-hover:scale-[1.02]"
+                          className="object-contain object-top transition-all duration-700 group-hover:scale-[1.01]"
                         />
                       </div>
                     </div>

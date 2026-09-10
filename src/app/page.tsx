@@ -776,13 +776,13 @@ export default function MainContent() {
                     </div>
                   </div>
 
-                  <div className="relative w-full aspect-[16/10] overflow-hidden bg-black/95 p-3 flex items-center justify-center">
+                  <div className="relative w-full aspect-square overflow-hidden bg-black/95 p-3 flex items-center justify-center">
                     <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-inner">
                       <Image
                         src={article.image}
                         alt={isEs ? article.titleEs : article.titleEn}
                         fill
-                        className="object-cover object-center transition-all duration-700 group-hover:scale-105"
+                        className="object-contain object-top transition-all duration-700 group-hover:scale-[1.01]"
                       />
                     </div>
                   </div>
