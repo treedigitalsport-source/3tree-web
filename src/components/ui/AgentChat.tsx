@@ -167,20 +167,28 @@ export default function AgentChat() {
 
       // Motor de contingencia semántica enriquecido
       if (!reply) {
-        const isMsgSpanish = isEs || /[áéíóúñ¿¡]/i.test(userMsg) || /hola|buenas|que|cómo|como|cuanto|precio|donde|quién|quien|saludos|gracias|favor|equipo|beisbol|béisbol|partido|jugador|dia|tarde|noche/i.test(userMsg);
+        const isMsgSpanish = isEs || /[áéíóúñ¿¡]/i.test(userMsg) || /hola|buenas|que|cómo|como|cuanto|precio|donde|quién|quien|saludos|gracias|favor|equipo|beisbol|béisbol|partido|jugador|dia|tarde|noche|soluciones|servicios/i.test(userMsg);
 
-        if (/diamax/i.test(userMsg)) {
+        if (/sports os|nucleo|núcleo|sistema operativo|operating system/i.test(userMsg)) {
           reply = isMsgSpanish
-            ? "DIAMAX Pro es nuestra suite táctica de dugout para béisbol profesional, equipada con simulación de 24 estados de Markov, algoritmos Monte Carlo, heatmaps de zona de strike y analítica sabermétrica en tiempo real."
-            : "DIAMAX Pro is our tactical dugout suite for professional baseball, featuring 24-state Markov simulations, Monte Carlo algorithms, strike zone heatmaps, and real-time sabermetric analytics.";
-        } else if (/kinebase|biomecanica|biomecánica|video|movimiento|vision|visión|camara|cámara/i.test(userMsg)) {
+            ? "Núcleo Sports OS es nuestra arquitectura propietaria de sistema operativo diseñada para centralizar datos de rendimiento, modelos de visión computacional, telemetría y analítica predictiva para clubes, ligas y academias de élite."
+            : "Sports OS Core is our proprietary sports operating system architecture designed to centralize performance data, computer vision models, telemetry, and predictive analytics for elite clubs, leagues, and academies.";
+        } else if (/dron|drone|cinematic|aerea|aérea/i.test(userMsg)) {
           reply = isMsgSpanish
-            ? "Kinebase Pro es nuestra plataforma de biomecánica 3D sin marcadores que extrae vectores cinemáticos y rotación articular directamente de video estándar. Para coordinar una demo técnica, indícanos tu nombre, correo y organización deportiva."
-            : "Kinebase Pro is our markerless 3D biomechanics platform that extracts kinematic vectors and joint rotation directly from video. To schedule a technical demo, please provide your name, email, and sports organization.";
+            ? "Nuestra solución de Dron Cinemático ofrece grabación aérea de alta velocidad y seguimiento cinemático con drones para análisis de rendimiento atlético y producción audiovisual de alto impacto."
+            : "Our Cinematic Drone solution provides high-speed aerial tracking and videography for athletic performance analysis and high-impact sports marketing.";
+        } else if (/agente|agent|asistente|automatizacion|automatización|scouting|video/i.test(userMsg)) {
+          reply = isMsgSpanish
+            ? "Desarrollamos Agentes de IA autónomos 24/7 y pipelines de automatización de video que editan, estabilizan y procesan material de scouting deportivo eliminando el sesgo y error humano."
+            : "We develop 24/7 autonomous AI Agents and custom video automation pipelines that edit, stabilize, and process sports scouting footage, eliminating human error and bias.";
+        } else if (/solucion|solución|servicio|servicios|que hacen|que ofrecen|qué ofrecen/i.test(userMsg)) {
+          reply = isMsgSpanish
+            ? "En 3Tree Digital ofrecemos 6 soluciones principales: 1) Núcleo Sports OS, 2) Interfaces Deportivas Inteligentes, 3) Automatización de Scouting & Video, 4) Implementación de IA, 5) Dron Cinemático y 6) Agentes de IA Autónomos 24/7. ¿Sobre cuál te gustaría conocer más?"
+            : "At 3Tree Digital we provide 6 core solutions: 1) Sports OS Core, 2) Intelligent Sports Interfaces, 3) Scouting & Video Automation, 4) AI Implementation, 5) Cinematic Drone, and 6) 24/7 Autonomous AI Agents. Which one would you like to explore?";
         } else if (/precio|costo|cuanto|cuánto|cotizacion|cotización|tarifa|comprar|plan|planes/i.test(userMsg)) {
           reply = isMsgSpanish
-            ? "Ofrecemos licenciamiento modular adaptado a academias, equipos profesionales y ligas. Para enviarte una propuesta formal y coordinar una demostración personalizada, por favor compártenos tu nombre, correo corporativo y organización."
-            : "We provide modular licensing tailored for academies, professional teams, and leagues. To receive a formal proposal and schedule a demo, please share your name, corporate email, and sports organization.";
+            ? "Ofrecemos licenciamiento modular adaptado a academias, clubes profesionales y ligas. Para enviarte una propuesta formal y coordinar una demostración personalizada, por favor compártenos tu nombre, correo corporativo y organización deportiva."
+            : "We provide modular licensing tailored for academies, professional clubs, and leagues. To receive a formal proposal and schedule a demo, please share your name, corporate email, and sports organization.";
         } else if (/contacto|email|correo|telefono|teléfono|ubicacion|ubicación|sede|donde|dónde|address|location/i.test(userMsg)) {
           reply = isMsgSpanish
             ? "Nuestra sede oficial está ubicada en 5709 Kingfish Drive, Lutz, Florida, USA. Puedes dejarnos tus datos aquí o escribirnos directamente a contacto@3treedigital.com."
@@ -195,8 +203,8 @@ export default function AgentChat() {
             : "Hello! I am doing great, fully online and ready to assist. How can I help you today regarding our sports intelligence technology?";
         } else {
           reply = isMsgSpanish
-            ? "En 3Tree Digital Sport IA desarrollamos sistemas de inteligencia deportiva, visión por computadora y analítica de alto rendimiento. ¿Deseas información sobre Kinebase Pro, DIAMAX Pro o coordinar una demo técnica?"
-            : "At 3Tree Digital Sport IA, we develop sports intelligence, computer vision, and high-performance analytics. Would you like details on Kinebase Pro, DIAMAX Pro, or scheduling a technical demo?";
+            ? "En 3Tree Digital Sport IA desarrollamos tecnología de Sports Intelligence: Núcleo Sports OS, interfaces inteligentes, automatización de video y agentes de IA. ¿En qué te podemos colaborar hoy?"
+            : "At 3Tree Digital Sport IA, we develop Sports Intelligence technology: Sports OS Core, intelligent interfaces, video automation, and AI agents. How can I assist you today?";
         }
       }
 
@@ -212,8 +220,8 @@ export default function AgentChat() {
       console.warn("AgentChat caught error, executing client fallback", error);
       const isMsgSpanish = isEs || /[áéíóúñ¿¡]/i.test(queryText) || /hola|buenas|que|cómo|como/i.test(queryText);
       const fallbackReply = isMsgSpanish
-        ? "En 3Tree Digital Sport IA estamos a tu disposición. ¿En qué te podemos colaborar hoy con nuestras soluciones de biomecánica y analítica táctica?"
-        : "At 3Tree Digital Sport IA, we are at your service. How can we assist you today with our biomechanics and tactical analytics solutions?";
+        ? "En 3Tree Digital Sport IA estamos a tu disposición. Desarrollamos Sports OS, automatización de video y agentes de IA para el deporte. ¿En qué te podemos colaborar hoy?"
+        : "At 3Tree Digital Sport IA, we are at your service. We develop Sports OS, video automation, and AI agents for sports. How can we assist you today?";
       setChatHistory((prev) => [
         ...prev, 
         { role: "agent", text: fallbackReply }
