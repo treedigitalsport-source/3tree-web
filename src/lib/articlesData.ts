@@ -28,7 +28,7 @@ export const aiArticles: Article[] = [
     author: "Ali Zapata",
     authorRoleEs: "26 años como preparador físico y especialista en Sport Tech",
     authorRoleEn: "26 years as Strength & Conditioning Coach and Sport Tech Specialist",
-    image: "/images/articles/el_partido_invisible_1788755675644.jpg",
+    image: "/images/articles/el_partido_invisible_1024.jpg",
     titleEs: "El partido invisible: cómo el Big Data y la IA están cambiando el deporte",
     titleEn: "The Invisible Game: How Big Data and AI Are Changing Sports",
     categoryEs: "Columna del Fundador",
