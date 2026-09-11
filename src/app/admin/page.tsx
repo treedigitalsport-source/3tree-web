@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { createPodcastEpisode, createPodcastNews } from "@/app/actions/podcast";
 import { createJournalArticle } from "@/app/actions/journal";
-import { UploadCloud, CheckCircle2, Loader2, ArrowLeft, PenTool, Mic, Newspaper, Share2 } from "lucide-react";
+import { UploadCloud, CheckCircle2, Loader2, ArrowLeft, PenTool, Mic, Newspaper } from "lucide-react";
 import Link from "next/link";
-import SocialPublisherAdmin from "@/components/features/SocialPublisherAdmin";
 
 export default function AdminPage() {
   const [loading, setLoading] = useState(false);
@@ -20,7 +19,7 @@ export default function AdminPage() {
   const [newsSuccess, setNewsSuccess] = useState(false);
   const [newsError, setNewsError] = useState("");
   
-  const [activeTab, setActiveTab] = useState<"podcast" | "journal" | "news" | "social">("social");
+  const [activeTab, setActiveTab] = useState<"podcast" | "journal" | "news">("podcast");
 
   async function handlePodcastSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -77,37 +76,26 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white p-6 md:p-12 lg:p-16 font-sans">
-      <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white mb-8">
+    <div className="min-h-screen bg-[#020617] text-white p-8 md:p-20 font-sans">
+      <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white mb-12">
         <ArrowLeft className="w-4 h-4" /> Volver a la web
       </Link>
 
-      <div className={activeTab === "social" ? "max-w-6xl mx-auto" : "max-w-3xl mx-auto"}>
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Panel Administrativo</h1>
-            <p className="text-white/50">Control de contenidos, podcast y distribución de redes sociales.</p>
-          </div>
-        </div>
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-4xl font-display font-bold mb-2">Panel Administrativo</h1>
+        <p className="text-white/50 mb-8">Sube contenido directamente a tu base de datos de Firebase.</p>
 
-        <div className="flex gap-2 sm:gap-4 mb-8 flex-wrap">
-          <button onClick={() => setActiveTab("social")} className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-full font-bold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer shadow-md ${activeTab === "social" ? "bg-brandOrange text-white shadow-[0_0_20px_rgba(242,101,34,0.4)]" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
-            <Share2 className="w-4 h-4" /> Redes & Calendario (Clara AG-017)
-          </button>
-          <button onClick={() => setActiveTab("podcast")} className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-full font-bold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer ${activeTab === "podcast" ? "bg-brandOrange text-white shadow-[0_0_20px_rgba(242,101,34,0.4)]" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
+        <div className="flex gap-4 mb-8">
+          <button onClick={() => setActiveTab("podcast")} className={`px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 transition-colors ${activeTab === "podcast" ? "bg-brandOrange text-white" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
             <Mic className="w-4 h-4" /> Podcast
           </button>
-          <button onClick={() => setActiveTab("journal")} className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-full font-bold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer ${activeTab === "journal" ? "bg-brandOrange text-white shadow-[0_0_20px_rgba(242,101,34,0.4)]" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
+          <button onClick={() => setActiveTab("journal")} className={`px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 transition-colors ${activeTab === "journal" ? "bg-brandOrange text-white" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
             <PenTool className="w-4 h-4" /> Journal (Neil)
           </button>
-          <button onClick={() => setActiveTab("news")} className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-full font-bold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer ${activeTab === "news" ? "bg-brandOrange text-white shadow-[0_0_20px_rgba(242,101,34,0.4)]" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
+          <button onClick={() => setActiveTab("news")} className={`px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 transition-colors ${activeTab === "news" ? "bg-brandOrange text-white" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
             <Newspaper className="w-4 h-4" /> Podcast Noticias
           </button>
         </div>
-
-        {activeTab === "social" && (
-          <SocialPublisherAdmin />
-        )}
 
         {activeTab === "podcast" && (
           <form onSubmit={handlePodcastSubmit} className="bg-white/5 border border-white/10 rounded-[2rem] p-8 md:p-12 space-y-8 backdrop-blur-xl">
