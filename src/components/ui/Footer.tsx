@@ -28,8 +28,8 @@ export function Footer() {
           </div>
 
           <div className="flex flex-col items-start md:items-end gap-3">
-            {/* Enlaces Legales */}
-            <div className="flex flex-wrap gap-4 md:gap-6 font-mono text-[10px] font-bold uppercase tracking-widest text-white/50">
+            {/* Enlaces Legales & Admin Access */}
+            <div className="flex flex-wrap gap-4 md:gap-6 font-mono text-[10px] font-bold uppercase tracking-widest text-white/50 items-center">
               <Link href="/terms" className="hover:text-brandOrange transition-colors hoverable">
                 {isEs ? "Términos de Servicio" : "Terms of Service"}
               </Link>
@@ -38,6 +38,10 @@ export function Footer() {
               </Link>
               <Link href="/cookies" className="hover:text-brandOrange transition-colors hoverable">
                 {isEs ? "Cookies" : "Cookies"}
+              </Link>
+              <Link href="/admin" className="hoverable px-3 py-1 rounded-full bg-white/5 hover:bg-brandOrange hover:text-white border border-white/10 hover:border-brandOrange text-white/70 transition-all flex items-center gap-1.5 shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-brandOrange animate-pulse"></span>
+                <span>{isEs ? "Panel Clara AG-017" : "Clara AG-017 Hub"}</span>
               </Link>
             </div>
           </div>
