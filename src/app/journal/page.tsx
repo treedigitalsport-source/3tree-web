@@ -45,14 +45,7 @@ export default function JournalHub() {
           </div>
         </Link>
 
-        <div className="flex items-center gap-3 sm:gap-4">
-          <Link
-            href="/admin"
-            className="font-mono text-[10px] font-bold px-3 py-1.5 rounded-full border border-brandOrange/40 bg-brandOrange/10 hover:bg-brandOrange text-brandOrange hover:text-white transition-all cursor-pointer uppercase tracking-wider flex items-center gap-1.5 shadow-sm"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-brandOrange animate-pulse"></span>
-            <span>{isEs ? "Panel Clara" : "Clara Hub"}</span>
-          </Link>
+        <div className="flex items-center gap-4">
           <button
             onClick={toggleLang}
             className="font-mono text-xs font-extrabold px-3 py-1.5 rounded-full border border-white/20 bg-white/5 hover:border-brandOrange hover:text-brandOrange transition-all cursor-pointer uppercase tracking-wider text-white"
