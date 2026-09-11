@@ -8,7 +8,7 @@ import Image from "next/image";
 import { ArrowUpRight, LayoutTemplate, Cpu, Fingerprint, Globe, Activity, Brain, Video, Bot, Menu, X, ChevronDown, BookOpen, Clock, Sparkles } from "lucide-react";
 import { Footer } from "@/components/ui/Footer";
 import CustomCursor from "@/components/CustomCursor";
-import { aiArticles } from "@/lib/articlesData";
+import { aiArticles, neilArticles } from "@/lib/articlesData";
 
 
 /* ══════════════════════════════════════════════════════════════════════════ */
@@ -750,19 +750,19 @@ export default function MainContent() {
               href="/journal"
               className="hoverable inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/20 bg-white/5 hover:border-brandOrange hover:bg-brandOrange/10 transition-all font-mono text-xs font-bold uppercase tracking-wider text-white"
             >
-              <span>{isEs ? "Ver Todos los Artículos" : "View All Articles"}</span>
+              <span>{isEs ? "Ver Todos los Artículos (5)" : "View All Articles (5)"}</span>
               <ArrowUpRight className="w-4 h-4 text-brandOrange" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {aiArticles.map((article, idx) => (
+            {[...aiArticles, ...neilArticles].map((article, idx) => (
               <motion.div
                 key={article.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
                 className="group relative bg-[#060c1c]/90 border border-white/10 hover:border-brandOrange/50 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between"
               >
                 <div>
