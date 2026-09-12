@@ -29,6 +29,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       (decodedSlug === "revolucion-ia-big-data" && aSlug === "el-partido-invisible-big-data-ia") ||
       (decodedSlug.includes("china") && aSlug.includes("china")) ||
       (decodedSlug.includes("diamante") && aSlug.includes("diamante")) ||
+      (decodedSlug.includes("epidemia") && aSlug.includes("epidemia")) ||
+      (decodedSlug.includes("ucl") && aSlug.includes("ucl")) ||
       (decodedSlug.includes("matriz") && aSlug.includes("matriz")) ||
       (decodedSlug.includes("viaje") && aSlug.includes("viaje"))
     );

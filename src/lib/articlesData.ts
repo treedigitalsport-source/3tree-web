@@ -1,5 +1,5 @@
 // 3Tree Digital Sport IA - Editorial Journal Master Data
-export const JOURNAL_VERSION = "2026.09.12-v2";
+export const JOURNAL_VERSION = "2026.09.12-v3";
 
 export interface Article {
   id: number;
@@ -536,6 +536,178 @@ The most successful sports model unites three irreplaceable pillars:
 $$\\text{Diamond Excellence} = \\text{Scout & Coach Wisdom} + \\text{Precision Telemetry} + \\text{Supervised Tactical AI}$$
 
 Technology did not arrive to diminish baseball's timeless soul: it arrived to empower athletes and coaches to break their own boundaries and elevate the game to unprecedented heights.`
+  },
+  {
+    id: 4,
+    slug: "la-epidemia-oculta-del-codo-mlb-ucl-cinematica-3d",
+    author: "Ali Zapata",
+    authorRoleEs: "Fundador de 3Tree Digital · 26 años como preparador físico y especialista en Sport Tech",
+    authorRoleEn: "Founder of 3Tree Digital · 26 years as Strength & Conditioning Coach and Sport Tech Specialist",
+    image: "/images/articles/mlb_ucl_kinematics_1024.jpg",
+    titleEs: "La epidemia oculta del codo: por qué el 34% de los lanzadores de MLB se rompen y cómo la cinemática 3D markerless lo anticipa",
+    titleEn: "The Hidden Elbow Epidemic: Why 34% of MLB Pitchers Break Down and How Markerless 3D Kinematics Anticipates It",
+    categoryEs: "Columna del Fundador",
+    categoryEn: "Founder's Column",
+    timeEs: "11 min de lectura",
+    timeEn: "11 min read",
+    descEs: "La búsqueda obsesiva de las 100 MPH ha disparado las cirugías Tommy John al 34% en MLB. La rotura del UCL no es un accidente súbito: es el desenlace de una fuga en la cadena cinética que la visión computacional 3D puede diagnosticar antes del primer síntoma.",
+    descEn: "The relentless pursuit of 100 MPH fastballs has pushed Tommy John surgeries to 34% across MLB. UCL tears are not sudden freak accidents: they are the mechanical breakdown of the kinetic chain that markerless 3D computer vision detects before the first symptom.",
+    execSummaryEs: "En 2026, más de un tercio de los lanzadores en las Grandes Ligas han pasado por el quirófano para reconstruir su ligamento colateral cubital (UCL). La velocidad pura (96+ MPH) genera torques en valgo superiores a los 100 Nm, excediendo la resistencia fisiológica del ligamento. La cinemática 3D sin marcadores y el modelado de gemelos digitales permiten detectar micro-asimetrías en la separación cadera-hombro y el arrastre del codo antes del fallo estructural.",
+    execSummaryEn: "In 2026, over a third of Major League Baseball pitchers have undergone Tommy John surgery to reconstruct their ulnar collateral ligament (UCL). Throwing 96+ MPH produces valgus torques exceeding 100 Nm, surpassing the physiological tolerance of human tissue. Markerless 3D kinematics and digital twin modeling reveal hip-to-trunk sequencing lag and elbow drag long before catastrophic structural failure occurs.",
+    insightsEs: [
+      "La falacia de la velocidad aislada: Lanzar a 98 MPH no lesiona si la energía fluye por la pelvis; lesiona cuando el brazo compensa una desconexión en la cadena cinética.",
+      "El límite fisiológico: El ligamento UCL soporta aproximadamente 32-34 Nm por sí solo; los músculos flexores-pronadores absorben el resto. Al fatigarse, el valgo torque de 100+ Nm destruye el ligamento.",
+      "La visión computacional 3D sin marcadores: Monitoreo a 240+ FPS capaz de medir la rotación pélvica, el ángulo de abducción escapular y el retardo del antebrazo sin cables ni sensores invasivos.",
+      "El Gemelo Digital en KineBase Pro: Mapeo de 33 puntos articulares para predecir la curva de fatiga y establecer 'Safe Pitching Windows' personalizadas para cada lanzador."
+    ],
+    insightsEn: [
+      "The isolated velocity fallacy: Throwing 98 MPH is not inherently destructive if force transfers through the pelvis; it breaks the arm when mechanical disconnection forces the elbow to overcompensate.",
+      "The physiological ceiling: The cadaveric UCL tolerates approximately 32-34 Nm on its own; flexor-pronator muscles absorb the surplus. When fatigue sets in, 100+ Nm valgus forces tear the tissue.",
+      "Markerless 3D computer vision: 240+ FPS tracking extracting pelvic rotational velocity, scapular abduction, and forearm lag without invasive sensors or wearables.",
+      "Digital Twins in KineBase Pro: 33-point joint telemetry mapping fatigue curves and establishing personalized 'Safe Pitching Windows' for every pitcher."
+    ],
+    contentEs: `# La epidemia oculta del codo: por qué el 34% de los lanzadores de MLB se rompen y cómo la cinemática 3D markerless lo anticipa
+
+*Por Ali Zapata — 26 años como preparador físico y especialista en Sport Tech*
+
+> La rotura del ligamento colateral cubital (UCL) no es un rayo en cielo sereno: es el colapso final de una cadena de micro-compensaciones mecánicas que la vista humana no puede detectar a 100 millas por hora.
+
+En la temporada 2026 de las Grandes Ligas de Béisbol (MLB), una cifra alarmante sigue dominando los despachos médicos: más del **34% de los lanzadores activos en rosters oficiales han sido sometidos al menos a una cirugía Tommy John (reconstrucción de UCL)**, y la tasa de segundas intervenciones quirúrgicas en jóvenes menores de 25 años ha crecido un 48% en la última década.
+
+El diagnóstico de la vieja escuela atribuía este fenómeno simplemente al "exceso de lanzamientos" (*pitch count*). Sin embargo, la ciencia del movimiento humano y la visión computacional avanzada nos demuestran una realidad mucho más compleja: **el conteo de pitcheos es una métrica incompleta; lo que destruye el ligamento es la acumulación de torque en valgo derivado de fugas en la cadena cinética.**
+
+---
+
+## La Física del Límite Biológico: El Torque en Valgo
+
+Durante la fase de máxima rotación externa del hombro (*Max External Rotation - MER*) y la aceleración del brazo, el codo del lanzador experimenta una de las tensiones angulares más extremas de cualquier deporte:
+
+- **Velocidad Angular del Brazo:** Supera los **7,000 a 8,000 grados por segundo**.
+- **Torque en Valgo:** Alcanza entre **85 y 120 Newton-metros (Nm)**.
+
+Estudios biomecánicos cadavéricos han demostrado repetidamente que el ligamento colateral cubital humano, aislado en laboratorio, tiene una resistencia tensional máxima de aproximadamente **32 a 34 Nm**. 
+
+### ¿Por qué no se rompen todos los brazos en el primer lanzamiento?
+
+Porque el sistema músculo-tendinoso (el grupo flexor-pronador del antebrazo y la estabilidad escapular) actúa como un escudo dinámico activo que absorbe más del 65% de esa carga destructiva.
+
+| Variable Mecánica | Estado Óptimo (Sin Estrés Excesivo) | Estado de Riesgo Crítico (Fallo Inminente) |
+| :--- | :--- | :--- |
+| **Separación Cadera-Tronco** | 45° a 60° en Foot Strike | < 30° (Bloqueo) o > 70° (Hiper-rotación) |
+| **Torque en Valgo en Codo** | 60 - 75 Nm | > 95 - 110 Nm |
+| **Ángulo de Flexión de Codo en MER** | 90° - 105° | < 80° (Brazo extendido prematuro) |
+| **Puntaje de Eficiencia KineBase** | > 88% | < 72% (Fuga de energía compensatoria) |
+
+Cuando el lanzador entra en fatiga neuromuscular —o cuando su mecánica pélvica tiene apenas 15 milisegundos de desfase— los músculos estabilizadores pierden su sincronía de activación. En ese milisegundo exacto, **los 100 Nm de torsión caen íntegros sobre un ligamento de 34 Nm de resistencia**. El daño microscópico comienza.
+
+---
+
+## La Cadena Cinética: De los Pies a la Yema de los Dedos
+
+En el lanzamiento de béisbol, la energía no se crea en el brazo: se genera contra el suelo, se transmite a través de la pelvis, se transfiere por el tronco rotatorio, se estabiliza en la escápula y se proyecta como una onda de látigo hacia el codo y la pelota.
+
+$$\\text{Velocidad en Home} = \\text{Fuerza de Reacción de Suelo} \\times \\text{Eficiencia de Transferencia Pélvico-Torácica}$$
+
+Cuando un lanzador busca ganar 3 MPH adicionales mediante esfuerzo voluntario del tren superior (en lugar de optimizar la transferencia del suelo), se produce el fenómeno biomecánico conocido como **"El Arrastre del Codo" (Elbow Drag)**:
+
+1. El tronco gira hacia el plato antes de que la pelvis haya completado su rotación de anclaje.
+2. El codo queda retrasado por detrás de la línea coronal de los hombros.
+3. El brazo debe acelerar sin el respaldo de la masa corporal, duplicando la palanca de tensión sobre la cara medial del codo.
+
+---
+
+## La Revolución de la Cinemática 3D Markerless (Sin Marcadores)
+
+Durante décadas, evaluar la biomecánica de un lanzador requería laboratorios cerrados, trajes de lycra con 40 marcadores reflectantes pegados a la piel y semanas de procesamiento de datos. Ningún atleta compite naturalmente con sensores adheridos a sus articulaciones.
+
+Hoy, sistemas inteligentes de visión computacional como **KineBase Pro** procesan video de alta resolución a 240+ FPS en tiempo real directamente en el montículo:
+
+- **33 Puntos Anatómicos 3D:** Mapeo de vectores articulares tridimensionales sin interferir en la rutina del atleta.
+- **Detección de Micro-Retrasos:** Identificación de caídas del 2.5% en la velocidad angular de la pelvis entre el lanzamiento 15 y el lanzamiento 65.
+- **Semáforo de Carga Tisular:** Alerta en el dugout antes de que el lanzador informe dolor o pérdida de control.
+
+---
+
+## De la Reacción al Scouting Predictivo
+
+El futuro de las organizaciones deportivas no radica en pagar cirugías Tommy John de 18 meses de recuperación ni en perder contratos millonarios por lesiones evitables. 
+
+Radica en **construir el Gemelo Digital Biomecánico del lanzador desde sus años formativos en academias**.
+
+Un pitcher que lanza a 95 MPH con un 92% de eficiencia de transferencia cinética puede tener una carrera de 15 años sin pasar por el quirófano. Un prospecto que lanza a 95 MPH con un 65% de eficiencia y 110 Nm de torque es una bomba de tiempo con fecha de caducidad de 18 meses.
+
+> La tecnología no llegó para quitarle la velocidad al béisbol: llegó para enseñarnos a lanzar más duro protegiendo la integridad del atleta para siempre.`,
+    contentEn: `# The Hidden Elbow Epidemic: Why 34% of MLB Pitchers Break Down and How Markerless 3D Kinematics Anticipates It
+
+*By Ali Zapata — 26 years as Strength & Conditioning Coach and Sport Tech Specialist*
+
+> An ulnar collateral ligament (UCL) tear is never a sudden lightning strike in a clear sky: it is the catastrophic endpoint of accumulated mechanical micro-compensations invisible to the naked human eye at 100 miles per hour.
+
+In the 2026 Major League Baseball season, a sobering statistic continues to dominate medical front offices: over **34% of active MLB pitchers on 40-man rosters have undergone at least one Tommy John surgery (UCL reconstruction)**, while revision surgeries among pitchers under 25 have surged by 48% over the last decade.
+
+Traditional dugout wisdom historically blamed raw pitch volume (*pitch count*). Modern sports science and high-speed computer vision reveal a far more sophisticated reality: **pitch count is an incomplete metric; what tears the ligament is accumulated valgus torque produced by kinetic chain breakdowns.**
+
+---
+
+## The Biological Threshold: Valgus Torque Physics
+
+During maximum external rotation (MER) and arm acceleration, the pitcher's medial elbow experiences some of the most violent angular loads in all of sports:
+
+- **Arm Angular Velocity:** Exceeds **7,000 to 8,000 degrees per second**.
+- **Valgus Torque:** Reaches between **85 and 120 Newton-meters (Nm)**.
+
+Cadaveric biomechanical research has repeatedly proven that an isolated human UCL can withstand approximately **32 to 34 Nm** of tensile load before catastrophic tearing.
+
+### Why doesn't every arm rupture on the first pitch?
+
+Because the dynamic musculo-tendinous envelope (the flexor-pronator muscle group and periscapular stabilizers) acts as an active shield absorbing over 65% of the stress.
+
+| Biomechanical Metric | Optimal Range (Sustainable Load) | Critical Risk Threshold (Imminent Breakdown) |
+| :--- | :--- | :--- |
+| **Hip-to-Trunk Separation** | 45° to 60° at Foot Strike | < 30° (Blocking) or > 70° (Hyper-rotation) |
+| **Elbow Valgus Torque** | 60 - 75 Nm | > 95 - 110 Nm |
+| **Elbow Flexion Angle at MER** | 90° - 105° | < 80° (Premature arm extension) |
+| **KineBase Efficiency Score** | > 88% | < 72% (Compensatory energy leak) |
+
+When neuromuscular fatigue creeps in — or when pelvic rotation lags by as little as 15 milliseconds — the active muscular shield desynchronizes. In that precise millisecond, **the full 100 Nm of torsional shock crashes directly onto a 34 Nm ligament**. Microscopic tissue degradation accelerates.
+
+---
+
+## The Kinetic Chain: Ground Reaction to Ball Release
+
+In pitching biomechanics, energy is never generated solely in the arm: it begins against the mound, channels through pelvic rotation, transfers across the torso, stabilizes at the scapula, and whips into the elbow and ball release.
+
+$$\\text{Pitch Velocity} = \\text{Ground Reaction Force} \\times \\text{Pelvic-Torso Transfer Efficiency}$$
+
+When a pitcher tries to manufacture extra velocity through upper body brute force rather than ground force sequencing, a dangerous fault known as **Elbow Drag** occurs:
+
+1. The torso uncoils toward home plate before the pelvis achieves firm front-leg landing.
+2. The elbow lags behind the shoulder's coronal plane.
+3. The arm must whip forward without torso mass backing it up, doubling the mechanical lever strain across the medial elbow.
+
+---
+
+## The Markerless 3D Kinematics Paradigm
+
+For decades, capturing pitcher kinematics required laboratory environments, motion-capture suits with 40 reflective markers glued to the body, and weeks of data post-processing. No pitcher throws with natural freedom under those artificial constraints.
+
+Today, advanced computer vision engines like **KineBase Pro** evaluate 240+ FPS high-definition video in real time directly on the mound:
+
+- **33 3D Joint Landmarks:** Mapping precise rotational angles without sensors or intrusive wearables.
+- **Micro-Lag Detection:** Catching a 2.5% decline in pelvic angular acceleration between pitch 15 and pitch 65.
+- **Tissue Strain Heatmap:** Alerting pitching coaches and athletic trainers in the dugout before the pitcher ever reports pain or control degradation.
+
+---
+
+## From Emergency Surgeries to Predictive Scouting
+
+The future of elite sports organizations does not lie in funding 18-month Tommy John rehabs or squandering multimillion-dollar contracts on preventable tears.
+
+It lies in **building an Athlete's Biomechanical Digital Twin from their developmental academy days**.
+
+A pitcher throwing 95 MPH with 92% kinetic transfer efficiency can enjoy a durable 15-year career without seeing an operating room. A prospect throwing 95 MPH with 65% efficiency and 110 Nm valgus torque is a ticking time bomb with an 18-month expiration date.
+
+> Technology did not arrive to slow baseball down: it arrived to teach us how to throw with electric velocity while protecting the athlete's career forever.`
   }
 ];
 
