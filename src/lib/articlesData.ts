@@ -1,3 +1,6 @@
+// 3Tree Digital Sport IA - Editorial Journal Master Data
+export const JOURNAL_VERSION = "2026.09.12-v2";
+
 export interface Article {
   id: number;
   slug: string;
