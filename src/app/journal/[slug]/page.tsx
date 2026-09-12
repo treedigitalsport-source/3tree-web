@@ -5,19 +5,34 @@ import ArticleReaderClient from "@/components/features/ArticleReaderClient";
 
 export function generateStaticParams() {
   const allArticles = [...aiArticles, ...neilArticles];
-  return allArticles.map((article) => ({
-    slug: article.slug,
-  }));
+  return [
+    ...allArticles.map((article) => ({ slug: article.slug })),
+    ...allArticles.map((article) => ({ slug: String(article.id) })),
+  ];
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  // Find article in either array by slug, id, or legacy alias
-  const article = [...aiArticles, ...neilArticles].find((a) => 
-    a.slug === resolvedParams.slug || 
-    String(a.id) === resolvedParams.slug ||
-    (resolvedParams.slug === "revolucion-ia-big-data" && a.slug === "el-partido-invisible-big-data-ia")
-  );
+  const rawSlug = resolvedParams?.slug || "";
+  const decodedSlug = decodeURIComponent(rawSlug).toLowerCase().trim();
+
+  // Robust finder matching slug, decoded slug, ID, or legacy aliases
+  const allArticles = [...aiArticles, ...neilArticles];
+  const article = allArticles.find((a) => {
+    const aSlug = a.slug.toLowerCase().trim();
+    const aId = String(a.id);
+    return (
+      aSlug === rawSlug.toLowerCase().trim() ||
+      aSlug === decodedSlug ||
+      aId === rawSlug ||
+      aId === decodedSlug ||
+      (decodedSlug === "revolucion-ia-big-data" && aSlug === "el-partido-invisible-big-data-ia") ||
+      (decodedSlug.includes("china") && aSlug.includes("china")) ||
+      (decodedSlug.includes("diamante") && aSlug.includes("diamante")) ||
+      (decodedSlug.includes("matriz") && aSlug.includes("matriz")) ||
+      (decodedSlug.includes("viaje") && aSlug.includes("viaje"))
+    );
+  });
 
   if (!article) {
     return (
