@@ -153,8 +153,8 @@ export default function JournalHub() {
           </span>
         </div>
 
-        {/* Responsive Balanced Grid (Zero Blank Holes) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Responsive Balanced Grid (Pixel-Perfect Uniform Dimensions & Framing) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
           {(activeFilter === "founder"
             ? aiArticles
             : activeFilter === "analyst"
@@ -170,15 +170,15 @@ export default function JournalHub() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.08 }}
-                className={`group relative bg-[#060c1c]/90 border rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between ${
+                className={`group relative bg-[#060c1c]/90 border rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between h-full ${
                   isFounder
                     ? "border-white/10 hover:border-[#388bfd]/60"
                     : "border-white/10 hover:border-brandOrange/60"
                 }`}
               >
-                <div>
-                  {/* Dedicated Top Badges Header */}
-                  <div className="px-6 pt-5 pb-3 flex justify-between items-center bg-[#060c1c] border-b border-white/5">
+                <div className="flex flex-col flex-1">
+                  {/* Dedicated Top Badges Header (Strict Uniform Height) */}
+                  <div className="px-6 py-3.5 flex justify-between items-center bg-[#060c1c] border-b border-white/5 h-12">
                     <span
                       className={`px-3 py-1 rounded-full font-mono text-[10px] font-black uppercase tracking-wider shadow-md text-white ${
                         isFounder ? "bg-[#0054A6]" : "bg-brandOrange"
@@ -195,38 +195,38 @@ export default function JournalHub() {
                     </div>
                   </div>
 
-                  {/* Featured Image Frame: 100% Full Uncropped Square Infographic */}
-                  <div className="relative w-full aspect-square overflow-hidden bg-black/95 p-3 flex items-center justify-center">
-                    <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-inner">
+                  {/* Featured Image Frame: 100% Strict 1:1 Aspect-Square Uniform Frame */}
+                  <div className="relative w-full aspect-square overflow-hidden bg-black/95 p-3 flex items-center justify-center shrink-0">
+                    <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-inner bg-black">
                       <Image
                         src={article.image || "/images/articles/el_partido_invisible_1788755675644.jpg"}
                         alt={isEs ? article.titleEs : article.titleEn}
                         fill
-                        className="object-contain object-top transition-all duration-700 group-hover:scale-[1.01]"
+                        className="object-contain object-center transition-all duration-700 group-hover:scale-[1.01]"
                       />
                     </div>
                   </div>
 
-                  {/* Article Content */}
-                  <div className="p-6 md:p-7 flex flex-col justify-between flex-1">
+                  {/* Article Content with Normalized Heights */}
+                  <div className="p-6 flex flex-col justify-between flex-1">
                     <div>
                       <h3
-                        className={`font-display font-black text-lg sm:text-xl uppercase tracking-tight text-white leading-snug mb-3 transition-colors line-clamp-2 min-h-[3.2rem] flex items-center ${
+                        className={`font-display font-black text-lg uppercase tracking-tight text-white leading-snug mb-3 transition-colors line-clamp-2 min-h-[3.5rem] flex items-center ${
                           isFounder ? "group-hover:text-[#388bfd]" : "group-hover:text-brandOrange"
                         }`}
                       >
                         {isEs ? article.titleEs : article.titleEn}
                       </h3>
 
-                      <p className="font-sans text-xs sm:text-sm text-white/70 leading-relaxed font-light mb-4 line-clamp-3 min-h-[3.8rem]">
+                      <p className="font-sans text-xs sm:text-sm text-white/70 leading-relaxed font-light mb-4 line-clamp-3 min-h-[4rem]">
                         {isEs ? article.descEs : article.descEn}
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Card Footer CTA */}
-                <div className="px-6 pb-6 pt-4 border-t border-white/10 flex justify-between items-center bg-[#060c1c]">
+                {/* Card Footer CTA (Strict Uniform Height) */}
+                <div className="px-6 py-4 border-t border-white/10 flex justify-between items-center bg-[#060c1c] h-18 mt-auto">
                   <div className="flex items-center gap-2 min-w-0 pr-2">
                     <div
                       className={`w-7 h-7 rounded-full border flex items-center justify-center shrink-0 ${
