@@ -1093,7 +1093,7 @@ Nuestros modelos de visión computacional analizan el video de los rivales cuadr
 
 La tecnología y la Inteligencia Artificial no eliminan el coraje, la disciplina ni el corazón que definen al boxeador. Lo que hacen es elevar el deporte a su máxima expresión de precisión, longevidad y excelencia atlética.
 
-> En 3Tree Digital Sport IA y a través de nuestra división de combate **Entre 4 Cuerdas**, estamos democratizando la ciencia biomecánica para que cada gimnasio, entrenador y boxeador cuente con las herramientas de la élite mundial.`,
+> En 3Tree Digital Sport IA, estamos democratizando la ciencia biomecánica para que cada gimnasio, entrenador y boxeador cuente con las herramientas de la élite mundial.`,
     contentEn: `# Revolution in the Squared Circle: How AI and 3D Computer Vision Are Transforming Professional Boxing
 
 *By Ali Zapata — Founder of 3Tree Digital Sport IA*
@@ -1170,6 +1170,6 @@ Our deep vision models process opponent video footage frame by frame, isolating 
 
 Technology and Artificial Intelligence never supplant the courage, discipline, and heart that define a champion. They empower fighters and corners with unprecedented precision, strategic clarity, and physical longevity.
 
-> At 3Tree Digital Sport IA and our dedicated combat media hub **Entre 4 Cuerdas**, we are democratizing sports science so every coach, gym, and fighter can access world-championship intelligence.`
+> At 3Tree Digital Sport IA, we are democratizing sports science so every coach, gym, and fighter can access world-championship intelligence.`
   }
 ];
