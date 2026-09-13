@@ -3,18 +3,21 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Clock, ArrowUpRight, BookOpen, Sparkles, User, Brain, Shield, ChevronRight } from "lucide-react";
+import { ArrowLeft, Clock, ArrowUpRight, BookOpen, Sparkles, User, Brain, Shield, ChevronRight, ChevronLeft } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import { aiArticles, neilArticles, Article } from "@/lib/articlesData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLang } from "@/app/i18n";
 import { Footer } from "@/components/ui/Footer";
+
+const ITEMS_PER_PAGE = 6;
 
 export default function JournalHub() {
   const { lang, toggleLang } = useLang();
   const isEs = lang === "es";
 
   const [activeFilter, setActiveFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const categories = [
     { id: "all", labelEs: "Todos los Artículos", labelEn: "All Articles" },
@@ -22,8 +25,32 @@ export default function JournalHub() {
     { id: "analyst", labelEs: "Perspectiva del Analista", labelEn: "Analyst's Perspective" },
   ];
 
-  const filteredNeil = activeFilter === "founder" ? [] : neilArticles;
-  const filteredAi = activeFilter === "analyst" ? [] : aiArticles;
+  const handleFilterChange = (filterId: string) => {
+    setActiveFilter(filterId);
+    setCurrentPage(1);
+  };
+
+  const allArticlesList = (
+    activeFilter === "founder"
+      ? aiArticles
+      : activeFilter === "analyst"
+      ? neilArticles
+      : [...aiArticles, ...neilArticles]
+  );
+
+  const totalPages = Math.max(1, Math.ceil(allArticlesList.length / ITEMS_PER_PAGE));
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const visibleArticles = allArticlesList.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    if (typeof window !== "undefined") {
+      const gridElem = document.getElementById("journal-grid");
+      if (gridElem) {
+        gridElem.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <main className="min-h-screen bg-[#020617] text-white selection:bg-brandOrange selection:text-white relative overflow-x-hidden font-sans">
@@ -96,8 +123,8 @@ export default function JournalHub() {
               {categories.map((cat) => (
                 <button
                   key={cat.id}
-                  onClick={() => setActiveFilter(cat.id)}
-                  className={`px-3.5 py-1.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                  onClick={() => handleFilterChange(cat.id)}
+                  className={`px-3.5 py-1.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                     activeFilter === cat.id
                       ? "bg-brandOrange text-white shadow-[0_0_20px_rgba(242,101,34,0.4)]"
                       : "bg-white/5 text-white/60 hover:text-white hover:bg-white/10 border border-white/10"
@@ -112,7 +139,7 @@ export default function JournalHub() {
       </header>
 
       {/* ─── UNIFIED RESPONSIVE EDITORIAL GRID ─── */}
-      <section className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-16">
+      <section id="journal-grid" className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-16">
         {/* Section Title & Article Counter */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-white/10 mb-10 gap-4">
           <div className="flex items-center gap-3">
@@ -143,33 +170,30 @@ export default function JournalHub() {
             </div>
           </div>
 
-          <span className="px-3 py-1.5 rounded-full bg-brandOrange/10 border border-brandOrange/30 font-mono text-xs font-bold text-brandOrange">
-            {(activeFilter === "founder"
-              ? aiArticles.length
-              : activeFilter === "analyst"
-              ? neilArticles.length
-              : aiArticles.length + neilArticles.length)}{" "}
-            {isEs ? "Artículos Publicados" : "Published Articles"}
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="px-3 py-1.5 rounded-full bg-brandOrange/10 border border-brandOrange/30 font-mono text-xs font-bold text-brandOrange">
+              {allArticlesList.length}{" "}
+              {isEs ? "Artículos Publicados" : "Published Articles"}
+            </span>
+            {totalPages > 1 && (
+              <span className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 font-mono text-xs font-bold text-white/70">
+                {isEs ? `Página ${currentPage} de ${totalPages}` : `Page ${currentPage} of ${totalPages}`}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Responsive Balanced Grid (Pixel-Perfect Uniform Dimensions & Framing) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
-          {(activeFilter === "founder"
-            ? aiArticles
-            : activeFilter === "analyst"
-            ? neilArticles
-            : [...aiArticles, ...neilArticles]
-          ).map((article: Article, index: number) => {
+          {visibleArticles.map((article: Article, index: number) => {
             const isFounder = article.author?.includes("Ali") || article.categoryEs?.includes("Fundador");
 
             return (
               <motion.div
                 key={article.id}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.06 }}
                 className={`group relative bg-[#060c1c]/90 border rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between h-full ${
                   isFounder
                     ? "border-white/10 hover:border-[#388bfd]/60"
@@ -272,6 +296,64 @@ export default function JournalHub() {
             );
           })}
         </div>
+
+        {/* ─── INTERACTIVE PAGINATION CONTROLS ─── */}
+        {totalPages > 1 && (
+          <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="font-mono text-xs text-white/60">
+              {isEs
+                ? `Mostrando ${startIndex + 1} - ${Math.min(startIndex + ITEMS_PER_PAGE, allArticlesList.length)} de ${allArticlesList.length} artículos`
+                : `Showing ${startIndex + 1} - ${Math.min(startIndex + ITEMS_PER_PAGE, allArticlesList.length)} of ${allArticlesList.length} articles`}
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Previous Button */}
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`flex items-center gap-1 px-4 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider border transition-all cursor-pointer ${
+                  currentPage === 1
+                    ? "opacity-30 cursor-not-allowed border-white/10 text-white/40"
+                    : "bg-white/5 hover:bg-brandOrange hover:border-brandOrange text-white border-white/15"
+                }`}
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span>{isEs ? "Anterior" : "Prev"}</span>
+              </button>
+
+              {/* Page Number Buttons */}
+              <div className="flex items-center gap-1.5">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                  <button
+                    key={pageNum}
+                    onClick={() => handlePageChange(pageNum)}
+                    className={`w-10 h-10 rounded-full font-mono text-xs font-black transition-all duration-300 cursor-pointer flex items-center justify-center border ${
+                      currentPage === pageNum
+                        ? "bg-brandOrange border-brandOrange text-white shadow-[0_0_20px_rgba(242,101,34,0.5)] scale-105"
+                        : "bg-white/5 hover:bg-white/10 border-white/10 text-white/70 hover:text-white"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                ))}
+              </div>
+
+              {/* Next Button */}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`flex items-center gap-1 px-4 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider border transition-all cursor-pointer ${
+                  currentPage === totalPages
+                    ? "opacity-30 cursor-not-allowed border-white/10 text-white/40"
+                    : "bg-brandOrange/20 hover:bg-brandOrange hover:border-brandOrange text-white border-brandOrange/40"
+                }`}
+              >
+                <span>{isEs ? "Siguiente" : "Next"}</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* ─── FOOTER CORPORATIVO UNIFICADO ─── */}
