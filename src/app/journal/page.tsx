@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import { useLang } from "@/app/i18n";
 import { Footer } from "@/components/ui/Footer";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 9;
 
 export default function JournalHub() {
   const { lang, toggleLang } = useLang();

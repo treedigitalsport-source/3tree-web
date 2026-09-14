@@ -880,113 +880,6 @@ The human and financial toll of ACL injuries has no place in 21st-century elite 
 With markerless 3D kinematics and live biomechanical telemetry, elite academies and clubs can shield their players, extend their careers, and protect their multi-million dollar talent with structural certainty.
 
 > Technology does not play the match: it provides coaching staffs with the exact lens to safeguard their athletes' futures before irreversible damage occurs.`
-  }
-];
-
-export const neilArticles: Article[] = [
-  {
-    id: 101,
-    slug: "baseball-analytics-revolution",
-    author: "Neil Alvarado",
-    authorRoleEs: "Analista Principal de Béisbol y Sabermetría",
-    authorRoleEn: "Lead Baseball & Sabermetrics Analyst",
-    image: "/images/articles/baseball_biomechanics_1024.jpg",
-    titleEs: "La Matriz del Béisbol: Sabermetría Avanzada",
-    titleEn: "The Matrix of Baseball: Advanced Sabermetrics",
-    categoryEs: "Perspectiva del Analista",
-    categoryEn: "Analyst's Perspective",
-    timeEs: "12 min de lectura",
-    timeEn: "12 min read",
-    descEs: "Un análisis profundo de cómo el Spin Rate, el Ángulo de Salida y la Velocidad de Salida han reescrito las reglas fundamentales del pitcheo y bateo.",
-    descEn: "A deep dive into how Spin Rate, Launch Angle, and Exit Velocity have completely rewritten the fundamental rules of pitching and hitting.",
-    execSummaryEs: "La analítica avanzada no es una moda, es la base del béisbol moderno.",
-    execSummaryEn: "Advanced analytics isn't a trend, it's the foundation of modern baseball.",
-    insightsEs: [
-      "El diseño de pitcheos en laboratorios biomecánicos ha sustituido el desarrollo empírico.",
-      "El ángulo de salida óptimo entre 10 y 30 grados ha maximizado la producción de cuadrangulares."
-    ],
-    insightsEn: [
-      "Pitch design in biomechanics labs has replaced empirical development.",
-      "Optimal launch angles between 10 and 30 degrees have maximized league-wide home run production."
-    ],
-    contentEs: `# La Matriz del Béisbol: Sabermetría Avanzada
-
-*Por Neil Alvarado, Analista Principal de Béisbol*
-
-> El béisbol ya no es un juego de instintos aislados; es una ciencia de vectores, cinemática y probabilidades computadas en milisegundos.
-
-Durante más de un siglo, el talento en el béisbol se medía con la vista y el cronómetro tradicional. Hoy, la sabermetría y las cámaras de alta velocidad han abierto una dimensión invisible para el ojo humano.
-
----
-
-## La Revolución de los Datos de Rastreo
-
-Con tecnologías como Hawkeye y TrackMan, cada lanzamiento y cada batazo se descomponen en variables exactas:
-- **Velocidad de Salida (Exit Velocity)**
-- **Ángulo de Lanzamiento (Launch Angle)**
-- **Tasa de Rotación (Spin Rate)**
-- **Eje de Giro (Spin Axis)**
-
-Estas métricas no solo describen lo que ocurrió: permiten rediseñar la mecánica del atleta para alcanzar su potencial máximo.`,
-    contentEn: `# The Matrix of Baseball: Advanced Sabermetrics
-
-*By Neil Alvarado, Lead Baseball Analyst*
-
-> Baseball is no longer a game of isolated instincts; it is a science of vectors, kinematics, and millisecond probabilities.
-
-For more than a century, baseball talent was judged by the naked eye and a stopwatch. Today, sabermetrics and high-speed computer vision have unlocked a dimension once invisible.
-
----
-
-## The Tracking Data Revolution
-
-With Hawkeye and TrackMan optical tracking, every pitch and batted ball is deconstructed into precise telemetry:
-- **Exit Velocity**
-- **Launch Angle**
-- **Spin Rate**
-- **Spin Axis**
-
-These metrics do not merely recount what happened: they allow coaches to redesign biomechanics for maximum performance.`
-  },
-  {
-    id: 102,
-    slug: "the-analyst-journey",
-    author: "Neil Alvarado",
-    authorRoleEs: "Analista Principal de Béisbol",
-    authorRoleEn: "Lead Baseball Analyst",
-    image: "/images/articles/baseball_analyst_scout_1024.jpg",
-    titleEs: "El Viaje del Analista: De las gradas a la jugada",
-    titleEn: "The Analyst's Journey: From the Bleachers to the Play",
-    categoryEs: "Perspectiva del Analista",
-    categoryEn: "Analyst's Perspective",
-    timeEs: "10 min de lectura",
-    timeEn: "10 min read",
-    descEs: "Un relato personal sobre la evolución del rol del analista en el béisbol: de observar partidos con libreta, a coordinar modelos predictivos.",
-    descEn: "A personal account of the evolution of the analyst's role in baseball: from watching games with a notebook, to orchestrating predictive models.",
-    execSummaryEs: "El verdadero rol del analista moderno no es acumular estadísticas, sino ser el puente entre los modelos matemáticos y las decisiones del cuerpo técnico.",
-    execSummaryEn: "The real role of the modern analyst is not accumulating statistics, but acting as the decisive bridge between mathematical models and tactical decisions.",
-    insightsEs: [
-      "La libreta manual evolucionó hacia dashboards interactivos en tiempo real.",
-      "El valor no está en el algoritmo aislado, sino en la capacidad de comunicarlo al staff."
-    ],
-    insightsEn: [
-      "Manual scorecards evolved into interactive real-time telemetry dashboards.",
-      "The value lies not in isolated algorithms, but in clear communication to the field staff."
-    ],
-    contentEs: `# El Viaje del Analista: De las gradas a la jugada
-
-*Por Neil Alvarado*
-
-> El analista contemporáneo no vive en una torre de marfil; trabaja codo a codo en el dugout y en el terreno de juego.
-
-La transformación digital del deporte ha redefinido lo que significa entender el juego. Lo que antes requería semanas de recopilación manual, hoy se procesa en tiempo real para influir en las decisiones estratégicas de cada entrada.`,
-    contentEn: `# The Analyst's Journey: From the Bleachers to the Play
-
-*By Neil Alvarado*
-
-> The contemporary analyst does not live in an ivory tower; they work shoulder-to-shoulder in the dugout and on the field.
-
-The digital transformation of sports has redefined what it means to understand the game. What once took weeks of manual charting is now processed in real time to influence tactical decisions in every inning.`
   },
   {
     id: 103,
@@ -1346,4 +1239,111 @@ Athletic greatness is not built by breaking the body down in every session; it i
 
 > At **3Tree Digital Sport IA**, we empower athletes, coaches, and academies to transform raw telemetry into intelligent decisions. Train smart. Prevent injuries. Perform at your best.`
   }
+];
+
+export const neilArticles: Article[] = [
+  {
+    id: 101,
+    slug: "baseball-analytics-revolution",
+    author: "Neil Alvarado",
+    authorRoleEs: "Analista Principal de Béisbol y Sabermetría",
+    authorRoleEn: "Lead Baseball & Sabermetrics Analyst",
+    image: "/images/articles/baseball_biomechanics_1024.jpg",
+    titleEs: "La Matriz del Béisbol: Sabermetría Avanzada",
+    titleEn: "The Matrix of Baseball: Advanced Sabermetrics",
+    categoryEs: "Perspectiva del Analista",
+    categoryEn: "Analyst's Perspective",
+    timeEs: "12 min de lectura",
+    timeEn: "12 min read",
+    descEs: "Un análisis profundo de cómo el Spin Rate, el Ángulo de Salida y la Velocidad de Salida han reescrito las reglas fundamentales del pitcheo y bateo.",
+    descEn: "A deep dive into how Spin Rate, Launch Angle, and Exit Velocity have completely rewritten the fundamental rules of pitching and hitting.",
+    execSummaryEs: "La analítica avanzada no es una moda, es la base del béisbol moderno.",
+    execSummaryEn: "Advanced analytics isn't a trend, it's the foundation of modern baseball.",
+    insightsEs: [
+      "El diseño de pitcheos en laboratorios biomecánicos ha sustituido el desarrollo empírico.",
+      "El ángulo de salida óptimo entre 10 y 30 grados ha maximizado la producción de cuadrangulares."
+    ],
+    insightsEn: [
+      "Pitch design in biomechanics labs has replaced empirical development.",
+      "Optimal launch angles between 10 and 30 degrees have maximized league-wide home run production."
+    ],
+    contentEs: `# La Matriz del Béisbol: Sabermetría Avanzada
+
+*Por Neil Alvarado, Analista Principal de Béisbol*
+
+> El béisbol ya no es un juego de instintos aislados; es una ciencia de vectores, cinemática y probabilidades computadas en milisegundos.
+
+Durante más de un siglo, el talento en el béisbol se medía con la vista y el cronómetro tradicional. Hoy, la sabermetría y las cámaras de alta velocidad han abierto una dimensión invisible para el ojo humano.
+
+---
+
+## La Revolución de los Datos de Rastreo
+
+Con tecnologías como Hawkeye y TrackMan, cada lanzamiento y cada batazo se descomponen en variables exactas:
+- **Velocidad de Salida (Exit Velocity)**
+- **Ángulo de Lanzamiento (Launch Angle)**
+- **Tasa de Rotación (Spin Rate)**
+- **Eje de Giro (Spin Axis)**
+
+Estas métricas no solo describen lo que ocurrió: permiten rediseñar la mecánica del atleta para alcanzar su potencial máximo.`,
+    contentEn: `# The Matrix of Baseball: Advanced Sabermetrics
+
+*By Neil Alvarado, Lead Baseball Analyst*
+
+> Baseball is no longer a game of isolated instincts; it is a science of vectors, kinematics, and millisecond probabilities.
+
+For more than a century, baseball talent was judged by the naked eye and a stopwatch. Today, sabermetrics and high-speed computer vision have unlocked a dimension once invisible.
+
+---
+
+## The Tracking Data Revolution
+
+With Hawkeye and TrackMan optical tracking, every pitch and batted ball is deconstructed into precise telemetry:
+- **Exit Velocity**
+- **Launch Angle**
+- **Spin Rate**
+- **Spin Axis**
+
+These metrics do not merely recount what happened: they allow coaches to redesign biomechanics for maximum performance.`
+  },
+  {
+    id: 102,
+    slug: "the-analyst-journey",
+    author: "Neil Alvarado",
+    authorRoleEs: "Analista Principal de Béisbol",
+    authorRoleEn: "Lead Baseball Analyst",
+    image: "/images/articles/baseball_analyst_scout_1024.jpg",
+    titleEs: "El Viaje del Analista: De las gradas a la jugada",
+    titleEn: "The Analyst's Journey: From the Bleachers to the Play",
+    categoryEs: "Perspectiva del Analista",
+    categoryEn: "Analyst's Perspective",
+    timeEs: "10 min de lectura",
+    timeEn: "10 min read",
+    descEs: "Un relato personal sobre la evolución del rol del analista en el béisbol: de observar partidos con libreta, a coordinar modelos predictivos.",
+    descEn: "A personal account of the evolution of the analyst's role in baseball: from watching games with a notebook, to orchestrating predictive models.",
+    execSummaryEs: "El verdadero rol del analista moderno no es acumular estadísticas, sino ser el puente entre los modelos matemáticos y las decisiones del cuerpo técnico.",
+    execSummaryEn: "The real role of the modern analyst is not accumulating statistics, but acting as the decisive bridge between mathematical models and tactical decisions.",
+    insightsEs: [
+      "La libreta manual evolucionó hacia dashboards interactivos en tiempo real.",
+      "El valor no está en el algoritmo aislado, sino en la capacidad de comunicarlo al staff."
+    ],
+    insightsEn: [
+      "Manual scorecards evolved into interactive real-time telemetry dashboards.",
+      "The value lies not in isolated algorithms, but in clear communication to the field staff."
+    ],
+    contentEs: `# El Viaje del Analista: De las gradas a la jugada
+
+*Por Neil Alvarado*
+
+> El analista contemporáneo no vive en una torre de marfil; trabaja codo a codo en el dugout y en el terreno de juego.
+
+La transformación digital del deporte ha redefinido lo que significa entender el juego. Lo que antes requería semanas de recopilación manual, hoy se procesa en tiempo real para influir en las decisiones estratégicas de cada entrada.`,
+    contentEn: `# The Analyst's Journey: From the Bleachers to the Play
+
+*By Neil Alvarado*
+
+> The contemporary analyst does not live in an ivory tower; they work shoulder-to-shoulder in the dugout and on the field.
+
+The digital transformation of sports has redefined what it means to understand the game. What once took weeks of manual charting is now processed in real time to influence tactical decisions in every inning.`
+  },
 ];
