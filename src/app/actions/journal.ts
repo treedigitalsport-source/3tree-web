@@ -4,8 +4,15 @@ import { db, storage } from "@/lib/firebase-admin";
 
 export async function createJournalArticle(formData: FormData) {
   try {
+    // 🛡️ CAPA DE SEGURIDAD MILITAR: Autorización de Administrador
+    const adminKey = formData.get("adminKey") as string;
+    const expectedKey = process.env.ADMIN_SECRET_KEY || "3tree2026mil";
+    if (!adminKey || adminKey !== expectedKey) {
+      return { success: false, error: "Acceso denegado: Clave de administrador inválida." };
+    }
+
     const title = formData.get("title") as string;
-    const author = formData.get("author") as string; // ej. Neil Alvarado
+    const author = formData.get("author") as string;
     const content = formData.get("content") as string;
     const category = formData.get("category") as string;
     const file = formData.get("imageFile") as File | null;
@@ -17,6 +24,11 @@ export async function createJournalArticle(formData: FormData) {
     let imageUrl = "/hero-football.jpg";
 
     if (file && file.size > 0) {
+      // 🛡️ VALIDACIÓN DE ARCHIVO: Solo imágenes seguras de máx 10MB
+      const allowedImageTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+      if (!allowedImageTypes.includes(file.type) || file.size > 10 * 1024 * 1024) {
+        return { success: false, error: "Archivo no permitido. Solo se admiten imágenes JPG, PNG o WEBP menores a 10MB." };
+      }
       const bucket = storage.bucket();
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);

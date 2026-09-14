@@ -1,12 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createPodcastEpisode, createPodcastNews } from "@/app/actions/podcast";
 import { createJournalArticle } from "@/app/actions/journal";
-import { UploadCloud, CheckCircle2, Loader2, ArrowLeft, PenTool, Mic, Newspaper } from "lucide-react";
+import { UploadCloud, CheckCircle2, Loader2, ArrowLeft, PenTool, Mic, Newspaper, ShieldAlert, Lock, LogOut } from "lucide-react";
 import Link from "next/link";
 
 export default function AdminPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [adminKey, setAdminKey] = useState("");
+  const [keyInput, setKeyInput] = useState("");
+  const [authError, setAuthError] = useState("");
+
+  useEffect(() => {
+    const savedKey = sessionStorage.getItem("3tree_admin_auth_key");
+    if (savedKey) {
+      setAdminKey(savedKey);
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  function handleUnlock(e: React.FormEvent) {
+    e.preventDefault();
+    if (!keyInput.trim()) {
+      setAuthError("Ingrese la Clave Maestra de Seguridad.");
+      return;
+    }
+    // Guardar en sesión y autenticar
+    sessionStorage.setItem("3tree_admin_auth_key", keyInput.trim());
+    setAdminKey(keyInput.trim());
+    setIsAuthenticated(true);
+    setAuthError("");
+  }
+
+  function handleLogout() {
+    sessionStorage.removeItem("3tree_admin_auth_key");
+    setIsAuthenticated(false);
+    setAdminKey("");
+    setKeyInput("");
+  }
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -28,6 +60,7 @@ export default function AdminPage() {
     setError("");
 
     const formData = new FormData(e.currentTarget);
+    formData.set("adminKey", adminKey);
     const result = await createPodcastEpisode(formData);
 
     if (result.success) {
@@ -46,6 +79,7 @@ export default function AdminPage() {
     setJournalError("");
 
     const formData = new FormData(e.currentTarget);
+    formData.set("adminKey", adminKey);
     const result = await createJournalArticle(formData);
 
     if (result.success) {
@@ -64,6 +98,7 @@ export default function AdminPage() {
     setNewsError("");
 
     const formData = new FormData(e.currentTarget);
+    formData.set("adminKey", adminKey);
     const result = await createPodcastNews(formData);
 
     if (result.success) {
@@ -75,11 +110,64 @@ export default function AdminPage() {
     setNewsLoading(false);
   }
 
+  
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#030712] text-white p-6 flex flex-col items-center justify-center font-sans relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(10,132,255,0.15)_0%,transparent_50%)] pointer-events-none" />
+        <Link href="/" className="absolute top-8 left-8 inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors">
+          <ArrowLeft className="w-4 h-4" /> Volver a la web
+        </Link>
+        <div className="w-full max-w-md bg-[rgba(18,24,38,0.72)] backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl relative z-10 text-center">
+          <div className="w-16 h-16 rounded-2xl bg-brandOrange/10 border border-brandOrange/30 text-brandOrange flex items-center justify-center mx-auto mb-6 shadow-[0_0_25px_rgba(242,101,34,0.25)]">
+            <Lock className="w-8 h-8" />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight mb-2">3Tree Defense Vault</h1>
+          <p className="text-white/50 text-xs tracking-wider uppercase mb-6 font-mono">Control de Acceso Militar · 3Tree Digital Sport IA</p>
+          
+          <form onSubmit={handleUnlock} className="space-y-4 text-left">
+            <div>
+              <label className="block text-xs font-semibold text-white/70 mb-2">Clave Maestra de Seguridad</label>
+              <input
+                type="password"
+                value={keyInput}
+                onChange={(e) => setKeyInput(e.target.value)}
+                placeholder="Ingrese clave de administrador"
+                className="w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#0A84FF] focus:ring-2 focus:ring-[#0A84FF]/20 transition-all font-mono"
+                autoFocus
+              />
+            </div>
+            {authError && (
+              <p className="text-xs text-[#FF453A] font-semibold">{authError}</p>
+            )}
+            <button
+              type="submit"
+              className="w-full bg-[#0A84FF] hover:bg-[#0A84FF]/90 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-[0_4px_14px_rgba(10,132,255,0.35)] active:scale-[0.98]"
+            >
+              Desbloquear Terminal
+            </button>
+          </form>
+          <p className="mt-6 text-[11px] text-white/30 font-mono">
+            IP y sesión auditadas criptográficamente. Intrusión no autorizada será reportada.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#020617] text-white p-8 md:p-20 font-sans">
-      <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white mb-12">
-        <ArrowLeft className="w-4 h-4" /> Volver a la web
-      </Link>
+      <div className="flex justify-between items-center mb-12">
+        <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors">
+          <ArrowLeft className="w-4 h-4" /> Volver a la web
+        </Link>
+        <button
+          onClick={handleLogout}
+          className="inline-flex items-center gap-2 text-xs text-white/40 hover:text-[#FF453A] px-3 py-1.5 rounded-lg border border-white/10 hover:border-[#FF453A]/30 transition-all"
+        >
+          <LogOut className="w-3.5 h-3.5" /> Cerrar Sesión Segura
+        </button>
+      </div>
 
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-display font-bold mb-2">Panel Administrativo</h1>

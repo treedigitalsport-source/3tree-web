@@ -15,8 +15,39 @@ const GroqRequestSchema = z.object({
   messages: z.array(GroqMessageSchema).min(1),
 });
 
+// 🛡️ RATE LIMITER MIL-SPEC POR IP (Máximo 15 peticiones por minuto por IP)
+const ipRateLimitMap = new Map<string, number[]>();
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const windowMs = 60 * 1000;
+  const maxRequests = 15;
+  const timestamps = ipRateLimitMap.get(ip) || [];
+  const validTimestamps = timestamps.filter(t => now - t < windowMs);
+  if (validTimestamps.length >= maxRequests) {
+    return false;
+  }
+  validTimestamps.push(now);
+  ipRateLimitMap.set(ip, validTimestamps);
+  if (ipRateLimitMap.size > 1000) {
+    for (const [k, v] of ipRateLimitMap.entries()) {
+      if (v.every(t => now - t > windowMs)) ipRateLimitMap.delete(k);
+    }
+  }
+  return true;
+}
+
 export async function POST(req: Request) {
   try {
+    // 🛡️ CAPA 1: Rate Limiting por IP en Vercel
+    const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'anonymous';
+    if (!checkRateLimit(clientIp)) {
+      return NextResponse.json(
+        { error: 'Límite de consultas excedido. Por favor espere un momento antes de volver a preguntar a Iris.' },
+        { status: 429 }
+      );
+    }
+
     const rawBody = await req.json();
     const parseResult = GroqRequestSchema.safeParse(rawBody);
 
@@ -30,14 +61,15 @@ export async function POST(req: Request) {
     const { messages } = parseResult.data;
     const lastUserMsg = messages[messages.length - 1]?.content || '';
     
-    // Resolución ultra-robusta de API Key para Vercel y entornos locales
-    const getActiveKey = () => {
-      if (process.env.GROQ_API_KEY) return process.env.GROQ_API_KEY;
-      const prefix = ['g', 's', 'k'].join('');
-      const secret = '2Gq53AT0G1Z96GsSTzFHWGdyb3FYqDAhqcxEAXASEBiMW9sz449a';
-      return `${prefix}_${secret}`;
-    };
-    const apiKey = getActiveKey();
+    // 🛡️ CAPA 2: Resolución segura de API Key desde el entorno de Vercel (Cero secretos en código)
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      console.error('[SECURITY ALERT] GROQ_API_KEY no está configurada en las variables de entorno.');
+      return NextResponse.json(
+        { error: 'Servicio de IA temporalmente no disponible por configuración de seguridad.' },
+        { status: 503 }
+      );
+    }
 
     const knowledgeBase = `
 # 3Tree Digital Sport IA - Base de Conocimiento Oficial

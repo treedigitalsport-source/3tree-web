@@ -4,6 +4,13 @@ import { db, storage } from "@/lib/firebase-admin";
 
 export async function createPodcastEpisode(formData: FormData) {
   try {
+    // 🛡️ CAPA DE SEGURIDAD MILITAR: Autorización de Administrador
+    const adminKey = formData.get("adminKey") as string;
+    const expectedKey = process.env.ADMIN_SECRET_KEY || "3tree2026mil";
+    if (!adminKey || adminKey !== expectedKey) {
+      return { success: false, error: "Acceso denegado: Clave de administrador inválida." };
+    }
+
     const title = formData.get("title") as string;
     const date = formData.get("date") as string;
     const duration = formData.get("duration") as string;
@@ -12,6 +19,12 @@ export async function createPodcastEpisode(formData: FormData) {
 
     if (!title || !date || !file) {
       return { success: false, error: "Missing required fields" };
+    }
+
+    // 🛡️ VALIDACIÓN DE ARCHIVO MULTIMEDIA: Máx 150MB y formatos de audio/video permitidos
+    const allowedMediaTypes = ["audio/mpeg", "audio/mp3", "audio/wav", "audio/aac", "video/mp4", "video/webm"];
+    if (!allowedMediaTypes.includes(file.type) || file.size > 150 * 1024 * 1024) {
+      return { success: false, error: "Archivo multimedia no permitido o excede el límite de 150MB." };
     }
 
     const bucket = storage.bucket();
@@ -79,6 +92,13 @@ export async function getPodcastEpisodes() {
 
 export async function createPodcastNews(formData: FormData) {
   try {
+    // 🛡️ CAPA DE SEGURIDAD MILITAR: Autorización de Administrador
+    const adminKey = formData.get("adminKey") as string;
+    const expectedKey = process.env.ADMIN_SECRET_KEY || "3tree2026mil";
+    if (!adminKey || adminKey !== expectedKey) {
+      return { success: false, error: "Acceso denegado: Clave de administrador inválida." };
+    }
+
     if (!db || !storage) return { success: false, error: "Database not connected" };
     const title = formData.get("title") as string;
     const category = formData.get("category") as string;
@@ -92,6 +112,11 @@ export async function createPodcastNews(formData: FormData) {
     let videoUrl = "";
 
     if (videoFile && videoFile.size > 0) {
+      // 🛡️ VALIDACIÓN DE VIDEO: Máx 150MB y formatos permitidos
+      const allowedVideoTypes = ["video/mp4", "video/webm", "video/quicktime"];
+      if (!allowedVideoTypes.includes(videoFile.type) || videoFile.size > 150 * 1024 * 1024) {
+        return { success: false, error: "Archivo de video no permitido o excede el límite de 150MB." };
+      }
       const bucket = storage.bucket();
       const arrayBuffer = await videoFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);

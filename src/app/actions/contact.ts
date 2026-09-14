@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/firebase-admin";
 import { Resend } from "resend";
+import { headers } from "next/headers";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
@@ -53,14 +54,15 @@ export async function submitContactForm(formData: FormData) {
     const service = sanitizeInput(serviceRaw || "No especificado");
     const message = sanitizeInput(messageRaw);
 
-    // CAPA 3: RATE LIMITING (Máx 3 envíos por 5 min)
-    const ip = "client-ip"; // Fallback seguro
+    // CAPA 3: RATE LIMITING REAL POR IP EN VERCEL (Máx 5 envíos por 5 min)
+    const headerList = await headers();
+    const ip = headerList.get("x-forwarded-for")?.split(",")[0]?.trim() || headerList.get("x-real-ip") || "unknown-client";
     const now = Date.now();
     const timestamps = submissionRateMap.get(ip) || [];
     const validTimestamps = timestamps.filter(t => now - t < 5 * 60 * 1000);
     
-    if (validTimestamps.length >= 3) {
-      return { success: false, error: "Demasiadas solicitudes. Por favor intente más tarde." };
+    if (validTimestamps.length >= 5) {
+      return { success: false, error: "Demasiadas solicitudes desde su conexión. Por favor intente más tarde." };
     }
     validTimestamps.push(now);
     submissionRateMap.set(ip, validTimestamps);
@@ -114,14 +116,15 @@ export async function submitQuickLead(emailRaw: string) {
     const email = sanitizeInput(emailRaw);
     if (!email) return { success: false, error: "Email requerido" };
 
-    // RATE LIMITING
-    const ip = "client-ip-lead";
+    // RATE LIMITING REAL POR IP EN VERCEL
+    const headerList = await headers();
+    const ip = headerList.get("x-forwarded-for")?.split(",")[0]?.trim() || headerList.get("x-real-ip") || "unknown-client-lead";
     const now = Date.now();
     const timestamps = submissionRateMap.get(ip) || [];
     const validTimestamps = timestamps.filter(t => now - t < 5 * 60 * 1000);
     
-    if (validTimestamps.length >= 3) {
-      return { success: false, error: "Demasiadas solicitudes. Por favor intente más tarde." };
+    if (validTimestamps.length >= 5) {
+      return { success: false, error: "Demasiadas solicitudes desde su conexión. Por favor intente más tarde." };
     }
     validTimestamps.push(now);
     submissionRateMap.set(ip, validTimestamps);

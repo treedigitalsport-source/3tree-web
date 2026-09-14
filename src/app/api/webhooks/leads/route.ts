@@ -23,8 +23,39 @@ const WebhookLeadSchema = z.object({
 // Fallback to tmp directory for production serverless compatibility
 const DB_PATH = process.env.LEADS_DB_PATH || path.join(/*turbopackIgnore: true*/ os.tmpdir(), "leads_db.json");
 
+interface LeadRecord {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  sentiment: string;
+  intent: string;
+  status: string;
+  ip: string;
+  createdAt: string;
+}
+
+// 🛡️ RATE LIMITER MIL-SPEC POR IP (Máximo 10 peticiones por minuto)
+const webhookRateLimitMap = new Map<string, number[]>();
+
+function checkWebhookRate(ip: string): boolean {
+  const now = Date.now();
+  const windowMs = 60 * 1000;
+  const timestamps = webhookRateLimitMap.get(ip) || [];
+  const validTimestamps = timestamps.filter(t => now - t < windowMs);
+  if (validTimestamps.length >= 10) return false;
+  validTimestamps.push(now);
+  webhookRateLimitMap.set(ip, validTimestamps);
+  return true;
+}
+
 export async function POST(request: Request) {
   try {
+    const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "anonymous";
+    if (!checkWebhookRate(clientIp)) {
+      return NextResponse.json({ error: "Demasiadas peticiones. Intente más tarde." }, { status: 429 });
+    }
+
     const rawBody = await request.json();
     const parseResult = WebhookLeadSchema.safeParse(rawBody);
 
@@ -49,12 +80,16 @@ export async function POST(request: Request) {
     }
 
     // Read current leads
-    let leads = [];
+    let leads: LeadRecord[] = [];
     if (fs.existsSync(DB_PATH)) {
-      leads = JSON.parse(fs.readFileSync(DB_PATH, "utf-8"));
+      try {
+        leads = JSON.parse(fs.readFileSync(DB_PATH, "utf-8")) as LeadRecord[];
+      } catch {
+        leads = [];
+      }
     }
 
-    const newLead = {
+    const newLead: LeadRecord = {
       id: `lead-${Date.now()}`,
       name: body.name || "Anonymous",
       email: body.email || "no-email@test.com",
