@@ -11,7 +11,14 @@
 | :---: | :--- | :--- | :--- | :--- |
 | **AG-001** | **Ali** | **CEO & Founder** | Dirección Ejecutiva, interfaz con el Fundador, estrategia y alineación global. | `01_Ejecutivos/AG-001_Ali_CEO.md` |
 | **AG-002** | **Sara** | **Chief Operating Officer (COO)** | Gerente Operativa y Orquestadora Principal. Emite y despacha tickets de trabajo (`PRJ-001`). | `01_Ejecutivos/AG-002_Sara_COO.md` |
-| **AG-014** | **Emma** | **Project Manager (PM)** | Directora de Proyectos y Sprints. Monitorea entregables y actúa como Proxy entre Vaults. | `01_Ejecutivos/AG-014_Emma_PM.md` |
+
+---
+
+## 📋 DP-02: GESTIÓN DE PROYECTOS & OPERACIONES
+
+| Código | Agente | Rol Oficial | Descripción y Función | Skill File |
+| :---: | :--- | :--- | :--- | :--- |
+| **AG-014** | **Emma** | **Lead Project Manager (PM)** | Manager formal de DP-02. Monitorea entregables y actúa como enlace táctico con COO Sara. | `01_Ejecutivos/AG-014_Emma_PM.md` |
 
 ---
 
@@ -27,51 +34,51 @@
 
 ---
 
-## 🏢 DIRECTORIO COMPLETO DE LAS 10 OFICINAS / DEPARTAMENTOS Y 31 AGENTES
+## 🏢 DIRECTORIO COMPLETO DE LOS 10 DEPARTAMENTOS Y 31 AGENTES
 
-### 🏃 Oficina 03: I+D & Ciencias del Deporte
-- **Kine (`AG-021`)** — *Sports Science Lead*: Modelado biomecánico y prevención de lesiones.
-- **Aria (`AG-022`)** — *Performance Analyst*: Telemetría, métricas de carga y rendimiento.
+### 🏃 Oficina 03 / DP-07: I+D & Ciencias del Deporte
+- **Kine (`AG-021`)** — *Sports Science Lead*: Modelado biomecánico y prevención de lesiones (Zapata Engine™).
+- **Aria (`AG-022`)** — *Performance Analyst*: Telemetría, métricas de carga (ACWR) y rendimiento.
 
-### ⚖️ Oficina 04: Finanzas & Legal
+### ⚖️ Oficina 04 / DP-06: Finanzas & Legal
 - **Lex (`AG-019`)** — *Chief Legal Counsel*: Cumplimiento legal, HIPAA/SOC2 y propiedad intelectual.
 - **Leo (`AG-020`)** — *Chief Financial Officer (CFO)*: Modelos financieros, P&L y facturación Stripe.
 
-### 💻 Oficina 05: Tecnología & IA
-- **Jony (`AG-004`)** — *Lead Frontend Engineer*: Next.js 14/16 App Router, React 19, Tailwind CSS.
-- **Cyrus (`AG-005`)** — *Backend & Database Lead*: Prisma ORM, PostgreSQL/SQLite, Zod validation.
+### 💻 Oficina 05 / DP-03: Tecnología & Arquitectura de Software
+- **Jony (`AG-004`)** — *Lead Frontend Architect*: Next.js 14/16 App Router, React 19, Tailwind CSS.
+- **Cyrus (`AG-005`)** — *Lead Backend Architect*: Prisma ORM, PostgreSQL/SQLite, Turso LibSQL, Zod.
 - **Orion (`AG-006`)** — *DevOps & Cloud Architect*: Despliegues Vercel, Docker y GitHub CI/CD.
 - **Forge (`AG-007`)** — *MCP Systems Architect*: Model Context Protocol (MCP) e integración de herramientas.
-- **Ava (`AG-008`)** — *QA & Automation Lead*: Pruebas Vitest/Playwright. Regla Cero Errores.
-- **Neo (`AG-009`)** — *Prompt & LLM Engineer*: Enrutamiento de LLMs, LiteLLM y guardrails.
+- **Ava (`AG-008`)** — *QA & Automation Lead*: Pruebas Vitest/Playwright. Regla Cero Errores (329 tests).
+- **Neo (`AG-009`)** — *Prompt & LLM Engineer*: Enrutamiento de LLMs, Groq LPU, LiteLLM y guardrails.
 
-### 🛡️ Oficina 06: Ciberseguridad
-- **Aegis (`AG-023`)** — *CISO*: Arquitectura Zero-Trust y políticas IAM.
+### 🛡️ Oficina 06 / DP-08: Ciberseguridad & Pentesting
+- **Aegis (`AG-023`)** — *CISO*: Arquitectura Zero-Trust, cerradura digital y políticas IAM.
 - **Vanguard (`AG-024`)** — *Penetration Tester*: Hacking ético y escaneo de vulnerabilidades.
 
-### 🎨 Oficina 07: Diseño & Creatividad
-- **Sebastián (`AG-003`)** — *Director Creativo*: Cabeza de departamento. Guardián estético Awwwards.
-- **Camila (`AG-010`)** — *Especialista en Branding*: Identidad de marca y guías de estilo.
-- **Lucas (`AG-011`)** — *Especialista UI/UX*: Patrones de interfaz y conversión.
-- **Valentina (`AG-012`)** — *Diseñadora Gráfica*: Piezas gráficas y producción visual.
-- **Mateo (`AG-013`)** — *Editor de Video & FX*: Edición dinámica, cortes cinemáticos y efectos.
+### 🎨 Oficina 07 / DP-04: Diseño, Identidad Visual & Multimedia
+- **Sebastián (`AG-003`)** — *Director Creativo (CCO)*: Cabeza de departamento. Guardián estético Awwwards.
+- **Camila (`AG-010`)** — *Especialista en Branding*: Identidad de marca, tipografía y guías de estilo.
+- **Lucas (`AG-011`)** — *Senior UI/UX Web Designer*: Patrones de interfaz, componentes y conversión.
+- **Valentina (`AG-012`)** — *Diseñadora Gráfica & 3D*: Piezas gráficas, modelos 3D y producción visual.
+- **Mateo (`AG-013`)** — *Editor de Video & Motion Graphics*: Edición dinámica, cortes cinemáticos y efectos.
 
-### 📢 Oficina 08: Marketing & Crecimiento (Growth)
-- **NOVA (`AG-015`)** — *Chief Marketing Officer (CMO)*: Marketing deportivo y embudos.
+### 📢 Oficina 08 / DP-05: Marketing, Contenido & Medios
+- **NOVA (`AG-015`)** — *Chief Marketing Officer (CMO)*: Marketing deportivo, embudos y crecimiento.
 - **Atlas (`AG-016`)** — *Growth & SEO Lead*: Posicionamiento SEO y analítica de adquisición.
 - **Clara (`AG-017`)** — *Community Manager*: Redes sociales y comunicación con la comunidad.
-- **Maya (`AG-018`)** — *Copywriter Lead*: Redacción publicitaria y campañas.
-- **Journalist (`AG-030`)** — *Periodista Deportivo*: Artículos para El Diario y noticias.
-- **Iris (`AG-031`)** — *Recepcionista Web*: Chat en vivo y atención a clientes.
+- **Maya (`AG-018`)** — *Copywriter Lead*: Redacción publicitaria, storytelling y campañas.
 
-### 🔎 Oficina 09: Inteligencia de Mercado
-- **Oracle (`AG-026`)** — *Scraping & Competitive Recon*: Extracción de datos e inteligencia de mercado.
-- **Scout / Félix (`AG-027`)** — *Ghost Recon*: Monitoreo de competidores y tendencias deportivas.
-- **Raven (`AG-029`)** — *Visual Intel & Curation*: Curaduría visual y referencias de diseño.
+### 🔎 Oficina 09 / DP-09: Inteligencia de Mercado & Scraping
+- **Oracle (`AG-026`)** — *Scraping & Data Extraction*: Extracción automatizada de datos deportivos (cron 02:00 AM).
+- **Scout (`AG-027`)** — *Market Research & Intelligence*: Monitoreo de competidores y tendencias (cron 05:00 AM).
+- **Raven (`AG-029`)** — *Visual Intel & Curation*: Curaduría visual y referencias de diseño (cron 06:00 PM).
+- **Journalist (`AG-030`)** — *Periodista Deportivo & Redactor*: Redacción en *The Journal* a partir de feeds de inteligencia.
 
-### 🤝 Oficina 10: Ventas & Cuentas
-- **Hermes (`AG-025`)** — *Head of Sales*: Adquisición B2B y propuestas comerciales.
-- **Titan (`AG-028`)** — *Key Account Manager*: Gestión de cuentas clave y fidelización B2B.
+### 🤝 Oficina 10 / DP-10: Ventas B2B, Cuentas & Client Care
+- **Iris (`AG-031`)** — *Executive AI Concierge & Inbound*: Recepción web 24/7 y cualificación de prospectos en tiempo real.
+- **Hermes (`AG-025`)** — *Head of Sales*: Adquisición B2B, propuestas comerciales y cierre de contratos.
+- **Titan (`AG-028`)** — *Key Account Manager*: Gestión de cuentas clave, retención y fidelización B2B.
 
 ---
 
