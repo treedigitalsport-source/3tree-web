@@ -55,11 +55,11 @@ export default function KinebaseProPage() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-none border border-white/10 bg-white/[0.02] text-brandOrange text-[10px] font-mono tracking-[0.2em] uppercase mb-8 relative z-10">
-                <Activity className="w-3 h-3" /> {isEs ? "TECNOLOGÍA DE RENDIMIENTO" : "PERFORMANCE TECH"}
+                <Activity className="w-3 h-3" /> {isEs ? "TECNOLOGÍA DE RENDIMIENTO · ZAPATA ENGINE™" : "PERFORMANCE TECH · ZAPATA ENGINE™"}
               </span>
               <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tight relative z-10 break-words">
                 KINEBASE <br/> 
-                <span className="text-transparent" style={{ WebkitTextStroke: '2px #f26522' }}>PRO</span>
+                <span className="text-transparent" style={{ WebkitTextStroke: '2px #00f2ff' }}>IS</span>
               </h1>
             </motion.div>
           </div>
@@ -67,12 +67,12 @@ export default function KinebaseProPage() {
           <div className="lg:col-span-4 p-8 md:p-12 flex flex-col justify-end bg-white/[0.02]">
             <p className="font-mono text-sm md:text-base leading-[1.8] text-white/60 mb-10">
               {isEs 
-                ? "La plataforma definitiva de análisis biomecánico 3D en tiempo real para atletas de élite y equipos profesionales."
-                : "The ultimate real-time 3D biomechanical analysis platform for elite athletes and professional sports organizations."}
+                ? "Intelligent Sport System. Kinesiología de alta precisión, gemelos digitales en 3 planos y telemetría en tiempo real (500 Hz)."
+                : "Intelligent Sport System. High-precision kinesiology, 3-plane digital twins, and real-time 500 Hz telemetry."}
             </p>
             <div className="flex gap-4 flex-wrap">
-              <span className="px-4 py-2 border border-white/10 rounded-none text-[10px] font-mono uppercase tracking-widest text-brandOrange">Computer Vision</span>
-              <span className="px-4 py-2 border border-white/10 rounded-none text-[10px] font-mono uppercase tracking-widest">240 fps</span>
+              <span className="px-4 py-2 border border-white/10 rounded-none text-[10px] font-mono uppercase tracking-widest text-brandOrange">El Método Zapata (11 Pasos)</span>
+              <span className="px-4 py-2 border border-white/10 rounded-none text-[10px] font-mono uppercase tracking-widest">AZ-500Hz Core</span>
             </div>
           </div>
         </div>
@@ -81,32 +81,35 @@ export default function KinebaseProPage() {
       {/* Feature Split Showcase */}
       <section className="relative z-10 w-full border-b border-white/10 bg-[#020617]">
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* Image Side */}
+          {/* Video / Visual Side */}
           <div className="relative border-b lg:border-b-0 lg:border-r border-white/10 h-[40vh] lg:h-[70vh] overflow-hidden group">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
-              src="/images/articles/baseball_biomechanics_1785628048219.jpg" 
-              alt="Kinebase Pro" 
-              className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1.5s] ease-out" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-80"></div>
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-105"
+            >
+              <source src="/videos/kinebase_is_hero_pitcher.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-80 pointer-events-none"></div>
           </div>
           
           {/* Info Side */}
           <div className="p-8 md:p-14 lg:p-18 flex flex-col justify-center bg-[#020617]">
-            <span className="text-brandOrange text-[10px] font-mono font-bold tracking-[0.3em] uppercase mb-6 block">
-              {isEs ? "// SISTEMA PROPIETARIO" : "// PROPRIETARY SYSTEM"}
+            <span className="text-cyan-400 text-[10px] font-mono font-bold tracking-[0.3em] uppercase mb-6 block">
+              {isEs ? "// MÉTODO ZAPATA & KINESIOLOGÍA" : "// ZAPATA METHOD & KINESIOLOGY"}
             </span>
             <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-black uppercase mb-6 leading-tight tracking-tight">
-              {isEs ? "Análisis Cinemático" : "Markerless"}{" "}
+              {isEs ? "Análisis Cinemático" : "Kinematic Analysis"}{" "}
               <span className="text-brandOrange">
-                {isEs ? "Sin Marcadores" : "Kinematic Analysis"}
+                {isEs ? "en 3 Planos" : "Across 3 Planes"}
               </span>
             </h2>
             <p className="text-white/60 leading-[1.8] font-mono text-xs sm:text-sm mb-10 max-w-xl">
               {isEs
-                ? "Utilizando visión por computadora avanzada y redes neuronales optimizadas, Kinebase Pro reconstruye y analiza el movimiento esquelético en 3D directo desde transmisiones de video a 240 fps, sin requerir marcadores físicos ni trajes especiales."
-                : "Leveraging state-of-the-art computer vision and optimized neural networks, Kinebase Pro reconstructs and analyzes skeletal movement in 3D directly from 240 fps video feeds, with no physical markers or specialized suits required."}
+                ? "Análisis en los planos Sagital, Frontal y Transversal para evaluar pares de fuerza, cadena cinemática y prevención de tensión lesiva en el ligamento colateral ulnar (UCL)."
+                : "Analysis across Sagittal, Frontal, and Transversal planes evaluating force couples, kinematic sequence, and UCL injury risk prevention."}
             </p>
             
             <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-8">
