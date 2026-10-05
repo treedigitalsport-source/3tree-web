@@ -27,15 +27,17 @@ function verifyWebhookSignature(rawBody: string, signatureHeader: string | null)
     : signatureHeader.trim();
 
   try {
-    const computedHmacHex = createHmac("sha256", secret)
-      .update(rawBody)
-      .digest("hex");
+    const computed1 = createHmac("sha256", secret).update(rawBody).digest("hex");
+    const computed2 = createHmac("sha256", secret).update(rawBody.trim()).digest("hex");
 
     const sigBuffer = Buffer.from(cleanSignature, "hex");
-    const hmacBuffer = Buffer.from(computedHmacHex, "hex");
+    const buf1 = Buffer.from(computed1, "hex");
+    const buf2 = Buffer.from(computed2, "hex");
 
-    if (sigBuffer.length !== hmacBuffer.length) return false;
-    return timingSafeEqual(sigBuffer, hmacBuffer);
+    if (sigBuffer.length === buf1.length && timingSafeEqual(sigBuffer, buf1)) return true;
+    if (sigBuffer.length === buf2.length && timingSafeEqual(sigBuffer, buf2)) return true;
+
+    return false;
   } catch {
     return false;
   }
