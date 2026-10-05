@@ -2,12 +2,22 @@
 
 import { db, storage } from "@/lib/firebase-admin";
 
+import { timingSafeEqual } from "crypto";
+
+function isAuthorizedAdmin(key: string | null | undefined): boolean {
+  const expectedKey = process.env.ADMIN_SECRET_KEY;
+  if (!expectedKey || !key) return false;
+  const a = Buffer.from(key);
+  const b = Buffer.from(expectedKey);
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
+}
+
 export async function createJournalArticle(formData: FormData) {
   try {
     // 🛡️ CAPA DE SEGURIDAD MILITAR: Autorización de Administrador
     const adminKey = formData.get("adminKey") as string;
-    const expectedKey = process.env.ADMIN_SECRET_KEY || "3tree2026mil";
-    if (!adminKey || adminKey !== expectedKey) {
+    if (!isAuthorizedAdmin(adminKey)) {
       return { success: false, error: "Acceso denegado: Clave de administrador inválida." };
     }
 

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { randomUUID } from "crypto";
+import { randomUUID, createHmac, timingSafeEqual } from "crypto";
 import { EventBus } from "../../../../lib/runtime/event-bus/index";
 import { MCPBridge } from "../../../../lib/runtime/mcp/index";
 import type { CanonicalEventEnvelope, LeadQualifiedPayload } from "../../../../lib/runtime/event-bus/index";
@@ -12,6 +12,30 @@ import {
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
+
+// 🛡️ AUTENTICACIÓN HMAC-SHA256 (GAP-INFRA-10)
+function verifyWebhookSignature(rawBody: string, signatureHeader: string | null): boolean {
+  const secret = process.env.ADMIN_SECRET_KEY;
+  if (!secret || !signatureHeader) return false;
+
+  const cleanSignature = signatureHeader.startsWith("sha256=")
+    ? signatureHeader.slice(7)
+    : signatureHeader;
+
+  try {
+    const computedHmacHex = createHmac("sha256", secret)
+      .update(rawBody)
+      .digest("hex");
+
+    const sigBuffer = Buffer.from(cleanSignature, "hex");
+    const hmacBuffer = Buffer.from(computedHmacHex, "hex");
+
+    if (sigBuffer.length !== hmacBuffer.length) return false;
+    return timingSafeEqual(sigBuffer, hmacBuffer);
+  } catch {
+    return false;
+  }
+}
 
 // 🛡️ RATE LIMITER MIL-SPEC POR IP (Máximo 10 peticiones por minuto)
 const webhookRateLimitMap = new Map<string, number[]>();
@@ -69,8 +93,31 @@ export async function POST(request: Request) {
       );
     }
 
-    // 🛡️ CAPA 2: Validación de Entrada Polimórfica (Zod v4)
-    const rawBody = await request.json();
+    // 🛡️ CAPA 2: Autenticación de Firma HMAC-SHA256 (GAP-INFRA-10)
+    const rawBodyText = await request.text();
+    const signatureHeader =
+      request.headers.get("x-signature") ||
+      request.headers.get("x-hub-signature-256") ||
+      request.headers.get("x-3tree-signature");
+
+    if (!verifyWebhookSignature(rawBodyText, signatureHeader)) {
+      return NextResponse.json(
+        { error: "Acceso no autorizado: Firma HMAC inválida o ausente.", status: 401 },
+        { status: 401 }
+      );
+    }
+
+    // 🛡️ CAPA 3: Validación de Entrada Polimórfica (Zod v4)
+    let rawBody: unknown;
+    try {
+      rawBody = JSON.parse(rawBodyText);
+    } catch {
+      return NextResponse.json(
+        { error: "Payload no es JSON válido", status: 400 },
+        { status: 400 }
+      );
+    }
+
     const parseResult = LeadIngestionSchema.safeParse(rawBody);
 
     if (!parseResult.success) {
