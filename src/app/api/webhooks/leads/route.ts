@@ -15,12 +15,12 @@ export const fetchCache = "force-no-store";
 
 // 🛡️ AUTENTICACIÓN HMAC-SHA256 (GAP-INFRA-10)
 function verifyWebhookSignature(rawBody: string, signatureHeader: string | null): boolean {
-  const secret = process.env.ADMIN_SECRET_KEY;
+  const secret = process.env.ADMIN_SECRET_KEY?.trim();
   if (!secret || !signatureHeader) return false;
 
   const cleanSignature = signatureHeader.startsWith("sha256=")
-    ? signatureHeader.slice(7)
-    : signatureHeader;
+    ? signatureHeader.slice(7).trim()
+    : signatureHeader.trim();
 
   try {
     const computedHmacHex = createHmac("sha256", secret)
