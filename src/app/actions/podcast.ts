@@ -1,24 +1,25 @@
 "use server";
 
 import { db, storage } from "@/lib/firebase-admin";
+import { cookies } from "next/headers";
+import { ADMIN_SESSION_COOKIE, verifyAdminSessionToken } from "@/lib/auth-admin";
+import { QueryDocumentSnapshot } from "@google-cloud/firestore";
 
-import { timingSafeEqual } from "crypto";
-
-function isAuthorizedAdmin(key: string | null | undefined): boolean {
-  const expectedKey = process.env.ADMIN_SECRET_KEY;
-  if (!expectedKey || !key) return false;
-  const a = Buffer.from(key);
-  const b = Buffer.from(expectedKey);
-  if (a.length !== b.length) return false;
-  return timingSafeEqual(a, b);
+async function isAuthorizedAdminAction(): Promise<boolean> {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
+    return await verifyAdminSessionToken(token);
+  } catch {
+    return false;
+  }
 }
 
 export async function createPodcastEpisode(formData: FormData) {
   try {
-    // 🛡️ CAPA DE SEGURIDAD MILITAR: Autorización de Administrador
-    const adminKey = formData.get("adminKey") as string;
-    if (!isAuthorizedAdmin(adminKey)) {
-      return { success: false, error: "Acceso denegado: Clave de administrador inválida." };
+    // 🛡️ CAPA DE SEGURIDAD ESTRICTA: Autorización exclusiva por sesión httpOnly
+    if (!(await isAuthorizedAdminAction())) {
+      return { success: false, error: "Acceso denegado: Sesión de administrador no autorizada." };
     }
 
     const title = formData.get("title") as string;
@@ -83,8 +84,6 @@ export async function createPodcastEpisode(formData: FormData) {
   }
 }
 
-import { QueryDocumentSnapshot } from "@google-cloud/firestore";
-
 export async function getPodcastEpisodes() {
   try {
     if (!db) return { success: false, episodes: [] };
@@ -102,10 +101,9 @@ export async function getPodcastEpisodes() {
 
 export async function createPodcastNews(formData: FormData) {
   try {
-    // 🛡️ CAPA DE SEGURIDAD MILITAR: Autorización de Administrador
-    const adminKey = formData.get("adminKey") as string;
-    if (!isAuthorizedAdmin(adminKey)) {
-      return { success: false, error: "Acceso denegado: Clave de administrador inválida." };
+    // 🛡️ CAPA DE SEGURIDAD ESTRICTA: Autorización exclusiva por sesión httpOnly
+    if (!(await isAuthorizedAdminAction())) {
+      return { success: false, error: "Acceso denegado: Sesión de administrador no autorizada." };
     }
 
     if (!db || !storage) return { success: false, error: "Database not connected" };
@@ -147,11 +145,10 @@ export async function createPodcastNews(formData: FormData) {
       videoUrl,
       createdAt: new Date().toISOString(),
     });
-
     return { success: true, id: docRef.id };
   } catch (error) {
     console.error("Error creating podcast news:", error);
-    return { success: false, error: "Failed to create podcast news" };
+    return { success: false, error: "Failed to create news" };
   }
 }
 
@@ -165,7 +162,7 @@ export async function getPodcastNews() {
     }));
     return { success: true, news };
   } catch (error) {
-    console.error("Error fetching podcast news:", error);
+    console.error("Error fetching news:", error);
     return { success: false, news: [] };
   }
 }

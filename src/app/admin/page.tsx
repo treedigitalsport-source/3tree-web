@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { loginAdminAction, logoutAdminAction } from "@/app/actions/admin-auth";
 import { createPodcastEpisode, createPodcastNews } from "@/app/actions/podcast";
 import { createJournalArticle } from "@/app/actions/journal";
 import { UploadCloud, CheckCircle2, Loader2, ArrowLeft, PenTool, Mic, Newspaper, ShieldAlert, Lock, LogOut } from "lucide-react";
@@ -8,35 +9,31 @@ import Link from "next/link";
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [adminKey, setAdminKey] = useState("");
   const [keyInput, setKeyInput] = useState("");
   const [authError, setAuthError] = useState("");
 
-  useEffect(() => {
-    const savedKey = sessionStorage.getItem("3tree_admin_auth_key");
-    if (savedKey) {
-      setAdminKey(savedKey);
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  function handleUnlock(e: React.FormEvent) {
+  async function handleUnlock(e: React.FormEvent) {
     e.preventDefault();
     if (!keyInput.trim()) {
       setAuthError("Ingrese la Clave Maestra de Seguridad.");
       return;
     }
-    // Guardar en sesión y autenticar
-    sessionStorage.setItem("3tree_admin_auth_key", keyInput.trim());
-    setAdminKey(keyInput.trim());
-    setIsAuthenticated(true);
-    setAuthError("");
+    const formData = new FormData();
+    formData.set("adminKey", keyInput.trim());
+    const res = await loginAdminAction(formData);
+
+    if (res.success) {
+      setIsAuthenticated(true);
+      setKeyInput(""); // Limpiar la contraseña ingresada de la memoria del cliente
+      setAuthError("");
+    } else {
+      setAuthError(res.error || "Clave de administrador inválida.");
+    }
   }
 
-  function handleLogout() {
-    sessionStorage.removeItem("3tree_admin_auth_key");
+  async function handleLogout() {
+    await logoutAdminAction();
     setIsAuthenticated(false);
-    setAdminKey("");
     setKeyInput("");
   }
   const [loading, setLoading] = useState(false);
@@ -60,7 +57,6 @@ export default function AdminPage() {
     setError("");
 
     const formData = new FormData(e.currentTarget);
-    formData.set("adminKey", adminKey);
     const result = await createPodcastEpisode(formData);
 
     if (result.success) {
@@ -79,7 +75,6 @@ export default function AdminPage() {
     setJournalError("");
 
     const formData = new FormData(e.currentTarget);
-    formData.set("adminKey", adminKey);
     const result = await createJournalArticle(formData);
 
     if (result.success) {
@@ -98,7 +93,6 @@ export default function AdminPage() {
     setNewsError("");
 
     const formData = new FormData(e.currentTarget);
-    formData.set("adminKey", adminKey);
     const result = await createPodcastNews(formData);
 
     if (result.success) {

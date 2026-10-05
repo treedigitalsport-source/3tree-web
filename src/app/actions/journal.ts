@@ -1,24 +1,25 @@
 "use server";
 
 import { db, storage } from "@/lib/firebase-admin";
+import { cookies } from "next/headers";
+import { ADMIN_SESSION_COOKIE, verifyAdminSessionToken } from "@/lib/auth-admin";
+import { QueryDocumentSnapshot } from "@google-cloud/firestore";
 
-import { timingSafeEqual } from "crypto";
-
-function isAuthorizedAdmin(key: string | null | undefined): boolean {
-  const expectedKey = process.env.ADMIN_SECRET_KEY;
-  if (!expectedKey || !key) return false;
-  const a = Buffer.from(key);
-  const b = Buffer.from(expectedKey);
-  if (a.length !== b.length) return false;
-  return timingSafeEqual(a, b);
+async function isAuthorizedAdminAction(): Promise<boolean> {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
+    return await verifyAdminSessionToken(token);
+  } catch {
+    return false;
+  }
 }
 
 export async function createJournalArticle(formData: FormData) {
   try {
-    // 🛡️ CAPA DE SEGURIDAD MILITAR: Autorización de Administrador
-    const adminKey = formData.get("adminKey") as string;
-    if (!isAuthorizedAdmin(adminKey)) {
-      return { success: false, error: "Acceso denegado: Clave de administrador inválida." };
+    // 🛡️ CAPA DE SEGURIDAD ESTRICTA: Autorización exclusiva por sesión httpOnly
+    if (!(await isAuthorizedAdminAction())) {
+      return { success: false, error: "Acceso denegado: Sesión de administrador no autorizada." };
     }
 
     const title = formData.get("title") as string;
@@ -69,8 +70,6 @@ export async function createJournalArticle(formData: FormData) {
     return { success: false, error: "Error al publicar el artículo" };
   }
 }
-
-import { QueryDocumentSnapshot } from "@google-cloud/firestore";
 
 export async function getJournalArticles() {
   try {
