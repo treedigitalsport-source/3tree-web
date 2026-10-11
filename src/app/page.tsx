@@ -715,12 +715,12 @@ export default function MainContent() {
                     <div>
                       <p className="font-mono text-[10px] text-brandOrange tracking-[0.3em] uppercase mb-2">02 — {t.scouting}</p>
                       <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-black uppercase text-white leading-[0.9] mb-2">
-                         {isEs ? "Centro de Analítica de Datos" : "Data Analytics Hub"}
+                         Sports Intelligence Database · SIDB™
                        </h3>
                     </div>
-                    <button disabled aria-label={isEs ? "Próximamente disponible" : "Coming soon"} className="px-6 py-3 border border-white/10 flex items-center justify-center rounded-sm hover:bg-white/10 transition-all cursor-not-allowed disabled:opacity-50">
-                       <span className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-white/30">{isEs ? "Próximamente" : "COMING SOON"}</span>
-                    </button>
+                    <Link href="/contact" aria-label={isEs ? "Solicitar Base de Datos SIDB" : "Request SIDB Database"} className="w-14 h-14 border border-white/10 flex items-center justify-center rounded-full hover:bg-brandOrange hover:border-brandOrange hover:text-[#020617] transition-all hoverable hover:rotate-45 shrink-0">
+                       <ArrowUpRight className="w-5 h-5" />
+                    </Link>
                  </div>
               </div>
             </motion.div>

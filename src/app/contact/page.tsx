@@ -80,8 +80,8 @@ export default function Contact() {
           </h1>
           <p className="text-white/50 text-lg leading-relaxed mb-12 max-w-md font-medium">
             {isEs 
-              ? "¿Listo para actualizar la infraestructura digital de tu organización? Escríbenos. Desarrollamos Sports OS, analítica avanzada y plataformas para el deporte de élite."
-              : "Ready to upgrade your organization's digital infrastructure? Drop us a line. We build Sports OS architectures, advanced analytics, and platforms for elite sports."}
+              ? "¿Listo para actualizar la infraestructura digital de tu organización? Escríbenos. Desarrollamos Sports Intelligence Database · SIDB™, analítica avanzada y plataformas para el deporte de élite."
+              : "Ready to upgrade your organization's digital infrastructure? Drop us a line. We build Sports Intelligence Database · SIDB™ architectures, advanced analytics, and platforms for elite sports."}
           </p>
 
           <div className="space-y-6">
@@ -191,7 +191,7 @@ export default function Contact() {
                       </label>
                       <select name="service" required defaultValue="" className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-brandOrange focus:bg-brandOrange/5 transition-colors appearance-none">
                         <option value="" disabled>{isEs ? "Selecciona un servicio..." : "Select a service..."}</option>
-                        <option value="Sport Intelligence OS & AI">{isEs ? "Sport Intelligence OS & IA" : "Sport Intelligence OS & AI"}</option>
+                        <option value="Sports Intelligence Database · SIDB™ & AI">{isEs ? "Sports Intelligence Database · SIDB™ & IA" : "Sports Intelligence Database · SIDB™ & AI"}</option>
                         <option value="Branding & Design">{isEs ? "Branding y Diseño UI/UX" : "Branding & UI/UX Design"}</option>
                         <option value="Consulting">{isEs ? "Consultoría Tecnológica" : "Tech Consulting"}</option>
                         <option value="Other">{isEs ? "Otro / General" : "Other / General"}</option>

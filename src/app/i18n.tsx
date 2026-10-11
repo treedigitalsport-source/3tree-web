@@ -12,12 +12,12 @@ const dict = {
     heroLine3: "Of Sports.",
     heroDesc: "We develop artificial intelligence and data systems that transform athletic performance and decision-making.",
     biomechanics: "Markerless Biomechanics",
-    scouting: "Analytics & Sports Big Data",
+    scouting: "Database Architecture & Sports Big Data",
     whoDaresWins: "Who Dares Wins",
     viewWork: "View Our Work",
     getInTouch: "Get In Touch",
     scroll: "Scroll",
-    marquee1: ["UI/UX Architecture", "Sport Analytics", "Brand Identity", "Sports OS Core", "Data Visualization", "Intelligent Interfaces", "AI Integration", "Performance Tech"],
+    marquee1: ["UI/UX Architecture", "Sport Analytics", "Brand Identity", "Sports Intelligence Database · SIDB™", "Data Visualization", "Intelligent Interfaces", "AI Integration", "Performance Tech"],
     stats: [
       { value: "26", label: "Years Field Experience" },
       { value: "100%", label: "Data-Driven Focus" },
@@ -27,7 +27,7 @@ const dict = {
     whatWeDo: "Solutions",
     ourExpertise: ["Our", "Solutions"],
     services: [
-      { title: "Sports OS Core", desc: "Proprietary operating system architecture designed to centralize performance data, computer vision models, and predictive analytics for elite clubs and academies." },
+      { title: "Sports Intelligence Database · SIDB™", desc: "Custom cloud database architecture designed to create, centralize, and manage athlete profiles, performance metrics, computer vision models, and predictive AI analytics for clubs, academies, and sports businesses." },
       { title: "Intelligent Sports Interfaces", desc: "High-precision digital environments and tactical control panels built for coaches, scouts, and athletes in real time." },
       { title: "Automation", desc: "Streamline your workflows with custom automation pipelines, saving time and eliminating human error in sports scouting." },
       { title: "AI Implementation", desc: "Integration of predictive LLMs and computer vision into your ecosystem. We deploy artificial intelligence that actually works." },
@@ -145,7 +145,7 @@ const dict = {
       pillarsTitle: "STRATEGIC PILLARS",
       pillars: [
         { title: "Markerless 3D Biomechanics", desc: "High-precision 3D kinematic reconstruction at 240 fps directly from standard video with Kinebase Pro. Zero suits, zero physical sensors. Precise joint angles, torque, and injury prevention." },
-        { title: "Sports OS Core & Data Engine", desc: "Proprietary sports intelligence architecture centralizing performance metrics, telemetry, and scouting databases for professional clubs and elite academies." },
+        { title: "Sports Intelligence Database · SIDB™", desc: "Proprietary sports intelligence database architecture centralizing performance metrics, telemetry, and scouting databases for professional clubs, academies, and sports organizations." },
         { title: "Predictive Scouting & LLM Models", desc: "Eliminating human bias with computer vision and language models that convert subjective observations into structured talent profiles and performance trajectories." },
         { title: "AI Agents & Autonomous Pipelines", desc: "Customized AI assistants and automated video pipelines that process footage, distribute tactical insights, and run workflows 24/7." }
       ],
@@ -158,7 +158,7 @@ const dict = {
       closingBanner: {
         company: "3TREE DIGITAL SPORT IA",
         badge: "AI SPORTS INTELLIGENCE COMPANY",
-        tags: "SPORT TECH · AI · DATA · SPORTS OS · AUTOMATION",
+        tags: "SPORT TECH · AI · DATA · SIDB™ · AUTOMATION",
         moto: "Sport Tech Revolution",
         sub: "Technology designed to understand, connect, and transform sports."
       }
@@ -213,12 +213,12 @@ const dict = {
     heroLine3: "Del Deporte.",
     heroDesc: "Desarrollamos inteligencia artificial y sistemas de datos que transforman el rendimiento deportivo y la toma de decisiones.",
     biomechanics: "Biomecánica Markerless",
-    scouting: "Analítica y Big Data Deportivo",
+    scouting: "Arquitectura de Bases de Datos & Big Data",
     whoDaresWins: "Quien se atreve, gana",
     viewWork: "Ver Nuestro Trabajo",
     getInTouch: "Contáctanos",
     scroll: "Bajar",
-    marquee1: ["Arquitectura UI/UX", "Análisis Deportivo", "Identidad de Marca", "Núcleo Sports OS", "Visualización de Datos", "Interfaces Inteligentes", "Integración IA", "Tecnología de Rendimiento"],
+    marquee1: ["Arquitectura UI/UX", "Análisis Deportivo", "Identidad de Marca", "Sports Intelligence Database · SIDB™", "Visualización de Datos", "Interfaces Inteligentes", "Integración IA", "Tecnología de Rendimiento"],
     stats: [
       { value: "26", label: "Años de Experiencia en Campo" },
       { value: "100%", label: "Enfoque Basado en Datos" },
@@ -228,7 +228,7 @@ const dict = {
     whatWeDo: "Soluciones",
     ourExpertise: ["Nuestras", "Soluciones"],
     services: [
-      { title: "Núcleo Sports OS", desc: "Arquitectura propietaria de sistema operativo diseñada para centralizar datos de rendimiento, modelos de visión computacional y analítica predictiva para clubes y academias de élite." },
+      { title: "Sports Intelligence Database · SIDB™", desc: "Creación y arquitectura propietaria de bases de datos en la nube diseñada para centralizar perfiles de atletas, métricas de rendimiento, visión computacional y analítica predictiva para clubes, academias y empresas deportivas." },
       { title: "Interfaces Deportivas Inteligentes", desc: "Entornos digitales de alta precisión y paneles tácticos en tiempo real construidos para entrenadores, scouts y atletas." },
       { title: "Automatización", desc: "Optimiza tus flujos de trabajo con pipelines automáticos personalizados, ahorrando tiempo y eliminando el error humano en el scouting." },
       { title: "Implementación de IA", desc: "Integración de LLMs predictivos y visión por computadora en tu ecosistema. Desplegamos inteligencia artificial que realmente funciona." },
@@ -346,7 +346,7 @@ const dict = {
       pillarsTitle: "PILARES ESTRATÉGICOS",
       pillars: [
         { title: "Biomecánica 3D Sin Marcadores", desc: "Reconstrucción cinemática 3D a 240 fps con Kinebase Pro directamente desde video estándar sin requerir trajes ni sensores físicos. Análisis preciso de ángulos articulares, torques y prevención de lesiones." },
-        { title: "Sports OS Core & Data Engine", desc: "Arquitectura propietaria de inteligencia deportiva que centraliza métricas de rendimiento, telemetría y bases de datos analíticas para clubes, academias y organizaciones profesionales." },
+        { title: "Sports Intelligence Database · SIDB™", desc: "Arquitectura propietaria de bases de datos e inteligencia deportiva que centraliza métricas de rendimiento, telemetría y bases de datos analíticas para clubes, academias y organizaciones profesionales." },
         { title: "Scouting Predictivo & Modelos LLM", desc: "Eliminación del sesgo humano mediante modelos de lenguaje y visión computacional que transforman notas subjetivas en perfiles de talento estructurados y curvas de rendimiento." },
         { title: "Agentes de IA & Automatización", desc: "Asistentes de IA personalizados y pipelines de video automatizados que procesan datos, distribuyen material táctico y optimizan flujos de trabajo 24/7 sin intervención manual." }
       ],
@@ -359,7 +359,7 @@ const dict = {
       closingBanner: {
         company: "3TREE DIGITAL SPORT IA",
         badge: "AI SPORTS INTELLIGENCE COMPANY",
-        tags: "SPORT TECH · IA · DATOS · SPORTS OS · AUTOMATIZACIÓN",
+        tags: "SPORT TECH · IA · DATOS · SIDB™ · AUTOMATIZACIÓN",
         moto: "Revolución Sport Tech",
         sub: "Tecnología creada para entender, conectar y transformar los deportes."
       }

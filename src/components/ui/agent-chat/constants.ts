@@ -30,10 +30,10 @@ export const CANONICAL_DEPARTMENTS: DepartmentGroup[] = [
   },
   {
     id: 'DP-03',
-    name: 'Ingeniería de Software & Sports OS',
+    name: 'Ingeniería de Software & SIDB™',
     code: 'ENGINEERING',
     agents: [
-      { agentId: 'AG-009', name: 'Vulcano', departmentId: 'DP-03', departmentName: 'Ingeniería de Software', role: 'Core Systems Architect', tagline: 'Infraestructura Sports OS y runtime', avatarIcon: 'Server' },
+      { agentId: 'AG-009', name: 'Vulcano', departmentId: 'DP-03', departmentName: 'Ingeniería de Software', role: 'Core Systems Architect', tagline: 'Infraestructura SIDB™ y bases de datos en la nube', avatarIcon: 'Server' },
       { agentId: 'AG-010', name: 'Ada', departmentId: 'DP-03', departmentName: 'Ingeniería de Software', role: 'API & Gateway Lead', tagline: 'Integraciones de alta velocidad y microservicios', avatarIcon: 'Code' },
       { agentId: 'AG-011', name: 'Turing', departmentId: 'DP-03', departmentName: 'Ingeniería de Software', role: 'Algorithm Engineer', tagline: 'Optimización de modelos y bajo nivel', avatarIcon: 'Terminal' },
       { agentId: 'AG-012', name: 'Linus', departmentId: 'DP-03', departmentName: 'Ingeniería de Software', role: 'DevOps & Reliability', tagline: 'CI/CD, observabilidad y resiliencia', avatarIcon: 'Layers' },
@@ -123,10 +123,15 @@ export function detectClientSentiment(text: string): SentimentType {
 export function getLocalFallbackReply(userMsg: string, isEs: boolean, agentName: string = 'Iris'): string {
   const isMsgSpanish = isEs || /[áéíóúñ¿¡]/i.test(userMsg) || /hola|buenas|que|cómo|como|cuanto|precio|donde|quién|quien|saludos|gracias|favor|equipo|beisbol|béisbol|partido|jugador|dia|tarde|noche|soluciones|servicios/i.test(userMsg);
 
-  if (/sports os|nucleo|núcleo|sistema operativo|operating system/i.test(userMsg)) {
+  if (/kinebase|zapata engine|plano|score|smartball|ucl|tommy john/i.test(userMsg)) {
     return isMsgSpanish
-      ? "Núcleo Sports OS es nuestra arquitectura propietaria de sistema operativo diseñada para centralizar datos de rendimiento, modelos de visión computacional, telemetría y analítica predictiva para clubes, ligas y academias de élite."
-      : "Sports OS Core is our proprietary sports operating system architecture designed to centralize performance data, computer vision models, telemetry, and predictive analytics for elite clubs, leagues, and academies.";
+      ? "KINEBASE IS integra nuestro motor propietario Zapata Engine™ para análisis cinemático 3D sin marcadores en 3 planos anatómicos (sagital, frontal y transversal), calculando el ZapataScore™ (0-100), previniendo sobrecarga en el codo (UCL) y sincronizándose con la pelota SmartBall 500Hz para telemetría balística y efecto Magnus en tiempo real."
+      : "KINEBASE IS features our proprietary Zapata Engine™ for markerless 3D kinematic analysis across 3 anatomical planes (sagittal, frontal, transverse), computing the ZapataScore™ (0-100), preventing elbow UCL overload, and syncing with the 500Hz SmartBall for real-time aero-kinematics and Magnus effect modeling.";
+  }
+  if (/sidb|base de datos|bases de datos|database|nucleo|núcleo|datos/i.test(userMsg)) {
+    return isMsgSpanish
+      ? "Sports Intelligence Database · SIDB™ es nuestra arquitectura propietaria de creación de bases de datos en la nube, diseñada para centralizar perfiles de atletas, datos de rendimiento, modelos de visión computacional, telemetría y analítica predictiva para clubes, ligas, academias y empresas deportivas."
+      : "Sports Intelligence Database · SIDB™ is our proprietary cloud database architecture designed to create, centralize, and manage athlete profiles, performance data, computer vision models, telemetry, and predictive analytics for clubs, leagues, academies, and sports enterprises.";
   }
   if (/dron|drone|cinematic|aerea|aérea/i.test(userMsg)) {
     return isMsgSpanish
@@ -140,13 +145,18 @@ export function getLocalFallbackReply(userMsg: string, isEs: boolean, agentName:
   }
   if (/solucion|solución|servicio|servicios|solution|solutions|service|services|what do you offer|que hacen|que ofrecen|qué ofrecen/i.test(userMsg)) {
     return isMsgSpanish
-      ? "En 3Tree Digital ofrecemos 6 soluciones principales: 1) Núcleo Sports OS, 2) Interfaces Deportivas Inteligentes, 3) Automatización de Scouting & Video, 4) Implementación de IA, 5) Dron Cinemático y 6) Agentes de IA Autónomos 24/7. ¿Sobre cuál te gustaría conocer más?"
-      : "At 3Tree Digital we provide 6 core solutions: 1) Sports OS Core, 2) Intelligent Sports Interfaces, 3) Scouting & Video Automation, 4) AI Implementation, 5) Cinematic Drone, and 6) 24/7 Autonomous AI Agents. Which one would you like to explore?";
+      ? "En 3Tree Digital ofrecemos 6 soluciones principales: 1) Sports Intelligence Database · SIDB™, 2) Interfaces Deportivas Inteligentes (KINEBASE IS, DIAMAX PRO), 3) Automatización de Scouting & Video, 4) Implementación de IA, 5) Dron Cinemático y 6) Agentes de IA Autónomos 24/7. ¿Sobre cuál te gustaría conocer más?"
+      : "At 3Tree Digital we provide 6 core solutions: 1) Sports Intelligence Database · SIDB™, 2) Intelligent Sports Interfaces (KINEBASE IS, DIAMAX PRO), 3) Scouting & Video Automation, 4) AI Implementation, 5) Cinematic Drone, and 6) 24/7 Autonomous AI Agents. Which one would you like to explore?";
   }
   if (/precio|costo|cuanto|cuánto|cotizacion|cotización|tarifa|comprar|plan|planes/i.test(userMsg)) {
     return isMsgSpanish
-      ? "Ofrecemos licenciamiento modular adaptado a academias, clubes profesionales y ligas. Para enviarte una propuesta formal y coordinar una demostración personalizada, por favor compártenos tu nombre, correo corporativo y organización deportiva."
-      : "We provide modular licensing tailored for academies, professional clubs, and leagues. To receive a formal proposal and schedule a demo, please share your name, corporate email, and sports organization.";
+      ? "Ofrecemos licenciamiento modular adaptado a academias, clubes profesionales y ligas con 4 planes de KINEBASE IS: 1) Plan Familiar ($22.99/mes), 2) Plan Scout ($149/mes), 3) Plan Academia Élite ($349/mes - Recomendado) y 4) Plan Enterprise ($899/mes). Para enviarte una propuesta formal y coordinar una demostración personalizada, por favor compártenos tu nombre, correo corporativo y organización deportiva."
+      : "We provide modular licensing tailored for academies, professional clubs, and leagues across 4 KINEBASE IS plans: 1) Family Plan ($22.99/mo), 2) Scout Plan ($149/mo), 3) Elite Academy Plan ($349/mo - Recommended), and 4) Enterprise Plan ($899/mo). To receive a formal proposal and schedule a demo, please share your name, corporate email, and sports organization.";
+  }
+  if (/demo|probar|en vivo|live/i.test(userMsg)) {
+    return isMsgSpanish
+      ? "Puedes presenciar la demo interactiva en vivo con telemetría HUD de pitcheo 1080p directamente desde nuestra página de inicio en 'VER DEMO EN VIVO' o acceder a cualquiera de nuestros 4 perfiles de prueba de un clic."
+      : "You can experience our live interactive 1080p pitching demo with HUD telemetry directly from our homepage via 'LIVE DEMO' or access any of our 4 instant 1-click test profiles.";
   }
   if (/contacto|email|correo|telefono|teléfono|ubicacion|ubicación|sede|donde|dónde|address|location/i.test(userMsg)) {
     return isMsgSpanish
@@ -160,11 +170,11 @@ export function getLocalFallbackReply(userMsg: string, isEs: boolean, agentName:
   }
   if (/como estas|cómo estás|como te va|cómo te va|que tal|qué tal|buenas noches|buenos dias|buenos días|buenas tardes|buenas|hola|saludos/i.test(userMsg)) {
     return isMsgSpanish
-      ? `¡Hola! Soy ${agentName}. Estoy completamente operativa y lista para asistirte en tecnología deportiva y biomecánica.`
-      : `Hello! I'm ${agentName}. I am fully online and ready to assist you in sports intelligence and biomechanics technology.`;
+      ? `¡Hola! Me encuentro excelente y a tu completa disposición. Soy ${agentName}, Asesora Ejecutiva en 3Tree Digital Sport IA Corp. ¿En qué te puedo colaborar hoy?`
+      : `Hello! I am doing great and ready to assist you. I'm ${agentName}, Executive AI Advisor at 3Tree Digital Sport IA Corp. How may I help you today?`;
   }
 
   return isMsgSpanish
-    ? `En 3Tree Digital Sport IA desarrollamos tecnología de Sports Intelligence: Núcleo Sports OS, interfaces inteligentes, biomecánica y agentes de IA. ¿En qué te puede asistir ${agentName}?`
-    : `At 3Tree Digital Sport IA, we develop Sports Intelligence technology: Sports OS Core, smart interfaces, biomechanics, and AI agents. How may ${agentName} assist you today?`;
+    ? `En 3Tree Digital Sport IA desarrollamos tecnología de Sports Intelligence: Sports Intelligence Database · SIDB™, interfaces inteligentes, análisis cinemático 3D y agentes de IA. ¿En qué te puedo colaborar?`
+    : `At 3Tree Digital Sport IA, we develop Sports Intelligence solutions: Sports Intelligence Database · SIDB™, intelligent interfaces, 3D kinematic analysis, and autonomous AI agents. How may I assist you today?`;
 }
