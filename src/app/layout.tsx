@@ -4,6 +4,7 @@ import "./globals.css";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import { LangProvider } from "./i18n";
 import AgentChat from "@/components/ui/AgentChat";
+import CookieBanner from "@/components/ui/CookieBanner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -70,6 +71,7 @@ export default function RootLayout({
             {children}
           </div>
           <AgentChat />
+          <CookieBanner />
         </LangProvider>
       </body>
     </html>
