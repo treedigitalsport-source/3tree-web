@@ -497,8 +497,7 @@ export default function MainContent() {
           ))}
         </Marquee>
       </div>
-
-      {/* ─── SOCIAL PROOF METRICS (50K+ / 94% / 99.9%) ─── */}
+      {/* ─── SCIENTIFIC AUTHORITY METRICS (UAV 360° / MARKERLESS / SUB-CENTIMÉTRICA) ─── */}
       <section className="relative z-20 w-full bg-[#020617] py-12 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex justify-center">
           <motion.div 
@@ -508,19 +507,61 @@ export default function MainContent() {
             transition={{ duration: 0.8 }}
             className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 bg-gradient-to-br from-white/[0.04] to-white/[0.01] backdrop-blur-2xl border border-white/15 p-6 sm:p-8 md:p-10 rounded-[2.5rem] shadow-[0_10px_40px_rgba(0,0,0,0.5)] hover:border-brandOrange/30 transition-all duration-500"
           >
-            <div className="flex flex-col gap-2 group cursor-default min-w-0">
-              <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">50K+</span>
-              <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Horas de Video Procesadas" : "Video Hours Processed"}</span>
-            </div>
-            <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
-              <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">94%</span>
-              <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Reducción en Tiempo de Análisis" : "Reduction in Analysis Time"}</span>
-            </div>
-            <div className="flex flex-col gap-2 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
-              <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">
-                99.9<span className="text-2xl sm:text-3xl md:text-4xl text-white/80 ml-1">%</span>
+            {/* 1. Métrica 1 (Aérea/Drones) */}
+            <div className="flex flex-col gap-2.5 group cursor-default min-w-0">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">
+                  UAV 360°
+                </span>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-brandOrange/30 bg-brandOrange/10 text-brandOrange">
+                  4K·60FPS
+                </span>
+              </div>
+              <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">
+                {isEs ? "PERSPECTIVA TÁCTICA AÉREA" : "AERIAL TACTICAL PERSPECTIVE"}
               </span>
-              <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">{isEs ? "Certeza Algorítmica Absoluta" : "Absolute Algorithmic Certainty"}</span>
+              <p className="text-xs text-white/60 leading-relaxed font-sans">
+                {isEs 
+                  ? "Telemetría dinámica con drones de alta resolución. Eliminación de puntos ciegos en terreno abierto." 
+                  : "Dynamic telemetry with high-resolution drones. Elimination of blind spots on open field."}
+              </p>
+            </div>
+
+            {/* 2. Métrica 2 (Atleta/Markerless) */}
+            <div className="flex flex-col gap-2.5 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">
+                  100%
+                </span>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-brandOrange/30 bg-brandOrange/10 text-brandOrange">
+                  MARKERLESS
+                </span>
+              </div>
+              <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">
+                {isEs ? "CERO SENSORES · CERO FRICCIÓN" : "ZERO SENSORS · ZERO FRICTION"}
+              </span>
+              <p className="text-xs text-white/60 leading-relaxed font-sans">
+                {isEs 
+                  ? "Cinemática articular pura sin arneses, chalecos ni marcadores adheridos al atleta en competición." 
+                  : "Pure joint kinematics without harnesses, vests, or markers attached to the athlete in competition."}
+              </p>
+            </div>
+
+            {/* 3. Métrica 3 (Precisión Científica) */}
+            <div className="flex flex-col gap-2.5 sm:border-l border-white/10 sm:pl-6 md:pl-8 group cursor-default min-w-0">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-display tracking-tight group-hover:text-brandOrange transition-colors">
+                  &lt; 1.2 cm
+                </span>
+              </div>
+              <span className="text-[10px] md:text-[11px] font-mono text-brandOrange uppercase tracking-[0.15em] font-bold leading-tight">
+                {isEs ? "PRECISIÓN SUB-CENTIMÉTRICA" : "SUB-CENTIMETER ACCURACY"}
+              </span>
+              <p className="text-xs text-white/60 leading-relaxed font-sans">
+                {isEs 
+                  ? "Reconstrucción ósea y estimación espacial validada bajo estándares de biomecánica computacional." 
+                  : "Bone reconstruction and spatial estimation validated under computational biomechanics standards."}
+              </p>
             </div>
           </motion.div>
         </div>
