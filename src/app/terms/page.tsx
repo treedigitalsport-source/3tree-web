@@ -61,7 +61,7 @@ export default function TermsPage() {
             transition={{ delay: 0.1 }}
             className="text-sm font-mono tracking-widest text-brandOrange font-bold uppercase"
           >
-            {isEs ? "ÚLTIMA ACTUALIZACIÓN: AGOSTO 2026 · 3TREEDIGITAL.COM" : "LAST UPDATED: AUGUST 2026 · 3TREEDIGITAL.COM"}
+            {isEs ? "ÚLTIMA ACTUALIZACIÓN: AGOSTO 2026 · 3TREEDIGITALSPORT.COM" : "LAST UPDATED: AUGUST 2026 · 3TREEDIGITALSPORT.COM"}
           </motion.p>
         </div>
 
@@ -135,14 +135,6 @@ export default function TermsPage() {
               <li className="flex items-start gap-2">
                 <span className="text-brandOrange mt-1">•</span>
                 {isEs ? "Tecnología y servicios relacionados con drones para aplicaciones deportivas." : "Drone-related technology and services for sports applications."}
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-brandOrange mt-1">•</span>
-                {isEs ? "Soluciones de branding e identidad deportiva." : "Branding and sports identity solutions."}
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-brandOrange mt-1">•</span>
-                {isEs ? "Diseño y desarrollo web de vanguardia." : "Web design and development."}
               </li>
               <li className="flex items-start gap-2 md:col-span-2">
                 <span className="text-brandOrange mt-1">•</span>
@@ -294,7 +286,7 @@ export default function TermsPage() {
             {isEs 
               ? "© 2026 3Tree Digital Sport IA. Todos los derechos reservados · " 
               : "© 2026 3Tree Digital Sport IA. All rights reserved · "}
-            <a href="https://3treedigital.com" target="_blank" rel="noopener noreferrer" className="text-brandOrange hover:underline font-medium">3treedigital.com</a>
+            <a href="https://3treedigitalsport.com" target="_blank" rel="noopener noreferrer" className="text-brandOrange hover:underline font-medium">3treedigitalsport.com</a>
           </p>
         </div>
 
