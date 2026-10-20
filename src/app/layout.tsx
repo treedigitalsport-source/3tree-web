@@ -22,7 +22,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://3treedigital.com"),
+  metadataBase: new URL("https://3treedigitalsport.com"),
   title: "3Tree Digital Sport IA | Sports AI & Biomechanics Engineering",
   description: "Diseñamos el futuro del deporte. Fusionamos inteligencia artificial, biomecánica sin marcadores (Markerless Biomechanics), analítica de datos y desarrollo de vanguardia.",
   keywords: ["Sports AI", "Markerless Biomechanics", "Kinebase Pro", "Sports Analytics", "3Tree Digital Sport IA", "Tecnología Deportiva", "IA Deportes"],
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "3Tree Digital Sport IA | Sports AI & Biomechanics Engineering",
     description: "Diseñamos el futuro del deporte con IA, biomecánica y desarrollo de élite.",
-    url: "https://3treedigital.com",
+    url: "https://3treedigitalsport.com",
     siteName: "3Tree Digital Sport IA",
     locale: "es_LA",
     type: "website",
